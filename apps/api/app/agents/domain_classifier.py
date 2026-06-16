@@ -97,20 +97,20 @@ class DomainClassifier:
                         reason="Câu chào hỏi hoặc xã giao."
                     )
 
-        # 2. Years outside 1945-1975
+        # 2. Future or invalid years check (e.g. >= 2026)
         all_years = [int(y) for y in re.findall(r"\b(\d{4})\b", q)]
         if all_years:
-            has_in_scope_year = any(1945 <= y <= 1975 for y in all_years)
-            if not has_in_scope_year:
-                logger.info("domain_classified_rules", is_in_scope=False, reason="out_of_scope_year")
+            has_future_year = any(y >= 2026 for y in all_years)
+            if has_future_year:
+                logger.info("domain_classified_rules", is_in_scope=False, reason="future_year")
                 return DomainResult(
                     decision=DomainDecision.OUT_OF_SCOPE,
                     confidence=1.0,
                     source="rule",
-                    reason="Chứa mốc năm ngoài giai đoạn 1945-1975."
+                    reason="Chứa mốc năm ở tương lai."
                 )
 
-        # 3. Years inside 1945-1975
+        # 3. Years inside 1945-1975 (Fast-path IN_SCOPE)
         years = re.findall(r"\b(19[4-7]\d)\b", q)
         has_valid_year = False
         for y_str in years:
@@ -119,8 +119,13 @@ class DomainClassifier:
                 has_valid_year = True
                 break
 
-        # 4. In-scope keywords
-        for kw in self.IN_SCOPE_KEYWORDS:
+        # 4. In-scope keywords (expanded to cover ancient/feudal history)
+        expanded_keywords = self.IN_SCOPE_KEYWORDS + [
+            "đại việt", "đại cồ việt", "nhà đinh", "nhà lý", "nhà trần", "nhà lê", "nhà nguyễn", 
+            "vua", "hoàng đế", "triều đại", "đinh bộ lĩnh", "lý thái tổ", "trần hưng đạo", 
+            "lê lợi", "quang trung", "nguyễn huệ", "gia long", "minh mạng", "tự đức"
+        ]
+        for kw in expanded_keywords:
             if kw in q:
                 logger.info("domain_classified_rules", is_in_scope=True, reason="in_scope_keyword")
                 return DomainResult(
