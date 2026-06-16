@@ -122,8 +122,18 @@ async def test_orchestrator_answer_stream_generator() -> None:
     
     # Iterate answer_stream
     events = []
-    async for event in orchestrator.answer_stream("Test query", db=db_mock, mode="factual"):
-        events.append(event)
+    from unittest.mock import patch
+    from app.agents.domain_classifier import DomainResult, DomainDecision
+    mock_rules_res = DomainResult(
+        decision=DomainDecision.IN_SCOPE,
+        confidence=1.0,
+        source="rule",
+        reason="test"
+    )
+    with patch("app.core.credentials.CredentialValidator.ensure_llm_available", new_callable=AsyncMock):
+        with patch("app.agents.domain_classifier._classifier.classify_rules", return_value=mock_rules_res):
+            async for event in orchestrator.answer_stream("Test query", db=db_mock, mode="factual"):
+                events.append(event)
         
     # Check that it yields correct stage sequence
     stages = [ev["stage"] for ev in events if ev["type"] == "stage"]

@@ -321,9 +321,24 @@ class AgentOrchestrator:
             )
 
         # Domain Guardrail check (Fast-path reject)
-        from app.agents.domain_classifier import classify_domain
-        domain_res = await classify_domain(query)
-        if not domain_res.is_in_scope:
+        from app.agents.domain_classifier import _classifier, DomainDecision
+        from app.core.credentials import CredentialValidator
+        from app.core.exceptions import ServiceUnavailableError
+
+        validator = CredentialValidator()
+        llm_checked = False
+
+        domain_res = _classifier.classify_rules(query)
+        if domain_res is None:
+            # Ambiguous: Need LLM domain classification, verify key first
+            await validator.ensure_llm_available()
+            llm_checked = True
+            domain_res = await _classifier.classify_llm(query)
+
+        if domain_res.decision == DomainDecision.UNKNOWN:
+            raise ServiceUnavailableError("LLM (Domain Classifier)")
+
+        if domain_res.decision == DomainDecision.OUT_OF_SCOPE:
             from app.services.agent.workflows.out_of_scope import OutOfScopeWorkflow
             workflow = OutOfScopeWorkflow()
             wf_res = await workflow.execute(query)
@@ -368,6 +383,9 @@ class AgentOrchestrator:
 
         # Early routing for greetings and out of scope queries
         if intent in ("greeting", "out_of_scope"):
+            if not llm_checked:
+                await validator.ensure_llm_available()
+                llm_checked = True
             try:
                 from app.services.llm.client import get_llm_client
                 llm = get_llm_client()
@@ -422,6 +440,11 @@ class AgentOrchestrator:
                 "intent": result.intent,
             })
             return result
+
+        # RAG pipeline requires LLM verification
+        if not llm_checked:
+            await validator.ensure_llm_available()
+            llm_checked = True
 
         # Agent graph pipeline (primary)
         initial_state = _build_initial_state(
@@ -529,9 +552,30 @@ class AgentOrchestrator:
             return
 
         # Domain Guardrail check (Fast-path reject)
-        from app.agents.domain_classifier import classify_domain
-        domain_res = await classify_domain(query)
-        if not domain_res.is_in_scope:
+        from app.agents.domain_classifier import _classifier, DomainDecision
+        from app.core.credentials import CredentialValidator
+
+        validator = CredentialValidator()
+        llm_checked = False
+
+        domain_res = _classifier.classify_rules(query)
+        if domain_res is None:
+            # Ambiguous: Need LLM domain classification, verify key first
+            try:
+                await validator.ensure_llm_available()
+                llm_checked = True
+            except Exception as exc:
+                yield {"type": "error", "error": str(exc)}
+                yield {"type": "done"}
+                return
+            domain_res = await _classifier.classify_llm(query)
+
+        if domain_res.decision == DomainDecision.UNKNOWN:
+            yield {"type": "error", "error": "Service unavailable: LLM (Domain Classifier)"}
+            yield {"type": "done"}
+            return
+
+        if domain_res.decision == DomainDecision.OUT_OF_SCOPE:
             yield {"type": "stage", "stage": "classifying"}
             yield {"type": "stage", "stage": "generating"}
             yield {
@@ -586,6 +630,14 @@ class AgentOrchestrator:
 
         # Early routing for greetings and out of scope queries
         if intent in ("greeting", "out_of_scope"):
+            if not llm_checked:
+                try:
+                    await validator.ensure_llm_available()
+                    llm_checked = True
+                except Exception as exc:
+                    yield {"type": "error", "error": str(exc)}
+                    yield {"type": "done"}
+                    return
             yield {"type": "stage", "stage": "generating"}
             yield {
                 "type": "trace_step",
@@ -655,6 +707,16 @@ class AgentOrchestrator:
             yield {"type": "trace", "trace": trace_dict}
             yield {"type": "done"}
             return
+
+        # RAG pipeline requires LLM verification
+        if not llm_checked:
+            try:
+                await validator.ensure_llm_available()
+                llm_checked = True
+            except Exception as exc:
+                yield {"type": "error", "error": str(exc)}
+                yield {"type": "done"}
+                return
 
         initial_state = _build_initial_state(
             query, session_id, filters, execution_mode

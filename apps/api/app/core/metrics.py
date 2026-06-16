@@ -342,3 +342,25 @@ def observe_retrieval_quality(reranker_type: str, quality_score: float) -> None:
         quality_score: Quality score between 0 and 1
     """
     RETRIEVAL_QUALITY.labels(reranker_type=reranker_type).observe(quality_score)
+
+
+# ─── Domain Guardrail metrics ───────────────────────────────────────────────
+
+DOMAIN_RULE_TOTAL = Counter(
+    "historiai_domain_rule_total",
+    "Total queries classified by domain rules",
+    registry=_get_registry(),
+)
+
+DOMAIN_LLM_TOTAL = Counter(
+    "historiai_domain_llm_total",
+    "Total queries classified by domain LLM",
+    registry=_get_registry(),
+)
+
+DOMAIN_FALLBACK_TOTAL = Counter(
+    "historiai_domain_fallback_total",
+    "Total queries classified by domain fallback",
+    registry=_get_registry(),
+)
+

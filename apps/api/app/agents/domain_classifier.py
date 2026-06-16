@@ -200,8 +200,22 @@ Trả về định dạng JSON duy nhất:
         """Classify query combining rules and LLM validation."""
         res = self.classify_rules(query)
         if res is not None:
+            try:
+                from app.core.metrics import DOMAIN_RULE_TOTAL
+                DOMAIN_RULE_TOTAL.inc()
+            except Exception:
+                pass
             return res
-        return await self.classify_llm(query)
+        res = await self.classify_llm(query)
+        try:
+            from app.core.metrics import DOMAIN_LLM_TOTAL, DOMAIN_FALLBACK_TOTAL
+            if res.source == "fallback":
+                DOMAIN_FALLBACK_TOTAL.inc()
+            else:
+                DOMAIN_LLM_TOTAL.inc()
+        except Exception:
+            pass
+        return res
 
 
 _classifier = DomainClassifier()
