@@ -1,0 +1,51 @@
+# Observability stack: Grafana + Prometheus
+# Usage: docker compose -f docker-compose.yml -f infrastructure/docker-compose.observability.yml up -d
+#
+# Ports:
+#   Prometheus :9090 (mapped to host :9090)
+#   Grafana   :3000 (mapped to host :13000)
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    container_name: historiai-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infrastructure/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.enable-lifecycle"
+    restart: unless-stopped
+    networks:
+      - historiai-network
+
+  grafana:
+    image: grafana/grafana:11.2.0
+    container_name: historiai-grafana
+    ports:
+      - "13000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=historiai
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_FEATURE_TOGGLES_ENABLE=publicDashboards
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./infrastructure/grafana/provisioning:/etc/grafana/provisioning:ro
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+    networks:
+      - historiai-network
+
+volumes:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  historiai-network:
+    name: historiai-network
+    external: true

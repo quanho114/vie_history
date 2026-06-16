@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-05-30T07:36:32Z",
+  "target_api": "http://localhost:12701",
+  "average_ttfb_seconds": 0.091,
+  "average_total_latency_seconds": 0.6773,
+  "status": "✅ OPTIMIZED",
+  "details": [
+    {
+      "query": "Diễn biến chính của Cách mạng tháng Tám 1945 là gì?",
+      "success": true,
+      "ttfb_seconds": 0.2136,
+      "total_latency_seconds": 0.8505,
+      "char_count": 287,
+      "chunks_count": 88,
+      "speed_chars_per_sec": 337.46
+    },
+    {
+      "query": "Ý nghĩa lịch sử của chiến dịch Điện Biên Phủ năm 1954 là gì?",
+      "success": true,
+      "ttfb_seconds": 0.0206,
+      "total_latency_seconds": 0.544,
+      "char_count": 251,
+      "chunks_count": 65,
+      "speed_chars_per_sec": 461.41
+    },
+    {
+      "query": "Những điều khoản chính của Hiệp định Paris 1973 là gì?",
+      "success": true,
+      "ttfb_seconds": 0.0389,
+      "total_latency_seconds": 0.6375,
+      "char_count": 261,
+      "chunks_count": 71,
+      "speed_chars_per_sec": 409.38
+    }
+  ]
+}

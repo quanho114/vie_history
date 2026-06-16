@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-05-30T07:33:42.006821+00:00",
+  "threshold": 0.75,
+  "max_questions": 3,
+  "actual_questions": 3,
+  "elapsed_seconds": 5.47,
+  "ragas_available": false,
+  "metrics": {
+    "faithfulness": 0.9167,
+    "answer_relevancy": 0.9,
+    "context_recall": 0.8001,
+    "context_precision": 0.8933
+  },
+  "passed": true,
+  "per_sample": [
+    {
+      "question": "Diễn biến chính của Cách mạng tháng Tám 1945 là gì?",
+      "answer_length": 287,
+      "context_count": 5,
+      "ground_truth_length": 283
+    },
+    {
+      "question": "Ý nghĩa lịch sử của chiến dịch Điện Biên Phủ năm 1954 là gì?",
+      "answer_length": 251,
+      "context_count": 5,
+      "ground_truth_length": 251
+    },
+    {
+      "question": "Những điều khoản chính của Hiệp định Paris 1973 là gì?",
+      "answer_length": 261,
+      "context_count": 5,
+      "ground_truth_length": 330
+    }
+  ]
+}

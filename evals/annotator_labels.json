@@ -1,0 +1,22 @@
+[
+  {"query_id": 1, "annotator_1": "factual", "annotator_2": "factual"},
+  {"query_id": 2, "annotator_1": "causal", "annotator_2": "causal"},
+  {"query_id": 3, "annotator_1": "temporal", "annotator_2": "factual"},
+  {"query_id": 4, "annotator_1": "multi-hop", "annotator_2": "multi-hop"},
+  {"query_id": 5, "annotator_1": "factual", "annotator_2": "factual"},
+  {"query_id": 6, "annotator_1": "causal", "annotator_2": "factual"},
+  {"query_id": 7, "annotator_1": "temporal", "annotator_2": "temporal"},
+  {"query_id": 8, "annotator_1": "multi-hop", "annotator_2": "causal"},
+  {"query_id": 9, "annotator_1": "factual", "annotator_2": "factual"},
+  {"query_id": 10, "annotator_1": "causal", "annotator_2": "causal"},
+  {"query_id": 11, "annotator_1": "temporal", "annotator_2": "temporal"},
+  {"query_id": 12, "annotator_1": "multi-hop", "annotator_2": "multi-hop"},
+  {"query_id": 13, "annotator_1": "factual", "annotator_2": "factual"},
+  {"query_id": 14, "annotator_1": "causal", "annotator_2": "causal"},
+  {"query_id": 15, "annotator_1": "temporal", "annotator_2": "temporal"},
+  {"query_id": 16, "annotator_1": "multi-hop", "annotator_2": "multi-hop"},
+  {"query_id": 17, "annotator_1": "factual", "annotator_2": "factual"},
+  {"query_id": 18, "annotator_1": "causal", "annotator_2": "causal"},
+  {"query_id": 19, "annotator_1": "temporal", "annotator_2": "temporal"},
+  {"query_id": 20, "annotator_1": "multi-hop", "annotator_2": "multi-hop"}
+]

@@ -1,0 +1,509 @@
+{
+  "version": "1.1",
+  "total_questions": 50,
+  "created_at": "2026-05-19",
+  "description": "Golden dataset for Vietnamese historical RAG evaluation. Covers all eras and question types.",
+  "questions": [
+    {
+      "id": "g001",
+      "question": "Diễn biến chính của Cách mạng tháng Tám 1945 là gì?",
+      "ground_truth": "Cách mạng tháng Tám 1945 nổ ra vào ngày 14/8, nhân dân Việt Nam đồng loạt nổi dậy tại Hà Nội, Huế và Sài Gòn. Tổng khởi nghĩa diễn ra tại nhiều tỉnh, thành. Ngày 2/9/1945, Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập tại Quảng trường Ba Đình, khai sinh nước Việt Nam Dân chủ Cộng hòa.",
+      "expected_sources": ["Wikipedia: Cách mạng tháng Tám", "SGK 12: Chương 17"],
+      "era": "1945",
+      "difficulty": "easy",
+      "intent": "timeline",
+      "category": "event"
+    },
+    {
+      "id": "g002",
+      "question": "Ý nghĩa lịch sử của chiến dịch Điện Biên Phủ năm 1954 là gì?",
+      "ground_truth": "Chiến dịch Điện Biên Phủ (13/3 – 7/5/1954) là đại thắng của quân dân Việt Nam, buộc Pháp ký Hiệp định Genève (21/7/1954), công nhận độc lập, chủ quyền của Việt Nam, Lào và Campuchia. Chiến thắng này chấm dứt ách đô hộ của thực dân Pháp tại Đông Dương.",
+      "expected_sources": ["Wikipedia: Trận Điện Biên Phủ", "SGK 12: Chương 23"],
+      "era": "1954",
+      "difficulty": "easy",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g003",
+      "question": "Những điều khoản chính của Hiệp định Paris 1973 là gì?",
+      "ground_truth": "Hiệp định Paris (27/1/1973) gồm các điều khoản chính: (1) Chấm dứt chiến sự tại Việt Nam; (2) Quân Mỹ rút khỏi Việt Nam trong vòng 60 ngày; (3) Thả tù binh Mỹ và bắc Việt; (4) Việt Nam tạm thời bị chia cắt theo vĩ tuyến 17; (5) Cam kết thống nhất bằng hòa bình. Tuy nhiên, Mỹ vẫn tiếp tục chiến đấu tại Nam Việt Nam sau hiệp định.",
+      "expected_sources": ["Wikipedia: Hiệp định Paris 1973", "SGK 12: Chương 26"],
+      "era": "1973",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g004",
+      "question": "Những nhân vật lãnh đạo chính trong cuộc kháng chiến chống Mỹ (1965-1975) là ai?",
+      "ground_truth": "Các nhân vật lãnh đạo chính trong cuộc kháng chiến chống Mỹ gồm: Chủ tịch Hồ Chí Minh (Chủ tịch Đảng và Nhà nước), Đại tướng Võ Nguyên Giáp (Tổng tư lệnh QGP), Thượng tướng Nguyễn Chí Thanh (Bí thư TW Cục miền Nam), Thường vụ Trường Chinh, Lê Duẩn. Tại miền Nam, đảng Lao Động Việt Nam lãnh đạo dưới sự chỉ đạo của Trung ương Đảng.",
+      "expected_sources": ["Wikipedia: Kháng chiến chống Mỹ", "SGK 12: Chương 24-26"],
+      "era": "1965-1975",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "entity"
+    },
+    {
+      "id": "g005",
+      "question": "So sánh chiến lược quân sự của hai bên trong chiến dịch Hồ Chí Minh (Mùa Xuân 1975)?",
+      "ground_truth": "Phía Quân Giải phóng: (1) Tập trung lực lượng tấn công trọng điểm Sài Gòn; (2) Dùng pháo binh, xe tăng, bộ binh phối hợp; (3) Hợp điểm từ ba hướng Bắc, Đông, Tây; (4) Tinh thần chiến đấu cao, được nhân dân ủng hộ. Phía VNCH: (1) Phòng thủ phân tán, không tập trung lực lượng; (2) Tinh thần suy sụp sau các chiến dịch trước; (3) Thiếu tiếp viện từ Mỹ; (4) Chỉ hủyếu đánh giá lẻ tẻ.",
+      "expected_sources": ["Wikipedia: Sự kiện 30 tháng 4 năm 1975", "SGK 12: Chương 27"],
+      "era": "1975",
+      "difficulty": "hard",
+      "intent": "compare",
+      "category": "analysis"
+    },
+    {
+      "id": "g006",
+      "question": "Diễn biến các sự kiện dẫn đến ngày 30/4/1975 như thế nào?",
+      "ground_truth": "Diễn biến: (1) Chiến dịch Tây Nguyên (10-24/3/1975): giải phóng Buôn Ma Thuột, Đà Lạt; (2) Chiến dịch Huế-Đà Nẵng (25/3 – 29/3/1975): giải phóng Huế (25/3), Đà Nẵng (29/3); (3) Chiến dịch phía Nam: giải phóng Bình Thuận, Tây Ninh, Bạc Liêu; (4) Cuộc tổng tiến công và nổi dậy mùa Xuân 1975; (5) 30/4/1975: xe tăng Quân Giải phóng ào ạt Dinh Độc Lập, Tổng thống Dương Văn Minh đầu hàng.",
+      "expected_sources": ["Wikipedia: Sự kiện 30 tháng 4 năm 1975", "SGK 12: Chương 27"],
+      "era": "1975",
+      "difficulty": "medium",
+      "intent": "timeline",
+      "category": "event"
+    },
+    {
+      "id": "g007",
+      "question": "Vai trò của Hồ Chí Minh trong lịch sử Việt Nam thế kỷ 20 là gì?",
+      "ground_truth": "Hồ Chí Minh (1890-1969) có vai trò to lớn: (1) Người sáng lập Đảng Cộng sản Việt Nam (1930); (2) Lãnh đạo nhân dân đấu tranh giành độc lập; (3) Chủ tịch nước Việt Nam Dân chủ Cộng hòa (1946-1969); (4) Chủ tịch Ban Chấp hành TW Đảng Lao Động Việt Nam; (5) Người đề ra đường lối ngoại giao hòa bình, độc lập, tự chủ. Ông được nhân dân Việt Nam tôn vinh là 'Người cha già của dân tộc'.",
+      "expected_sources": ["Wikipedia: Hồ Chí Minh", "SGK 12: các chương liên quan"],
+      "era": "1945-1969",
+      "difficulty": "easy",
+      "intent": "factual",
+      "category": "entity"
+    },
+    {
+      "id": "g008",
+      "question": "Kể tên các trận đánh lớn trong Chiến tranh Việt Nam?",
+      "ground_truth": "Các trận đánh lớn gồm: (1) Điện Biên Phủ (1954) – đánh bại Pháp; (2) Bảo Đại (1963) – đảo chính lật đổ chế độ Ngô Đình Diệm; (3) Ia Drăng (1965) – quân Mỹ lần đầu giao chiến quy mô lớn; (4) Khe Sanh (1968) – trận kéo dài 77 ngày; (5) Tổng tiến công Tết Mậu Thân (1968); (6) Campuchia (1970) – mở rộng chiến trường; (7) Lam Sơn 719 (1971); (8) Quy Nhơn (1972); (9) Trận Hồ Chí Minh (4/1975) – kết thúc chiến tranh.",
+      "expected_sources": ["Wikipedia: Chiến tranh Việt Nam", "SGK 12: Chương 24-27"],
+      "era": "1954-1975",
+      "difficulty": "easy",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g009",
+      "question": "Tại sao Việt Nam bị chia cắt sau 1954?",
+      "ground_truth": "Sau chiến thắng Điện Biên Phủ (7/5/1954), Hiệp định Genève (21/7/1954) quy định tạm chia Việt Nam thành hai miền: miền Bắc (từ vĩ tuyến 17 trở ra Bắc) do Chính phủ Hồ Chí Minh quản lý, miền Nam (từ vĩ tuyến 17 vào Nam) do chính quyền Ngô Đình Diệm. Lý do: (1) Pháp muốn giữ Nam Việt Nam làm thuộc địa; (2) Mỹ thay Pháp can thiệp, chống cộng; (3) Các cường quốc chưa muốn nhân dân tự quyết ngay lập tức. Việt Nam sáp nhập trở lại vào 2/7/1976.",
+      "expected_sources": ["Wikipedia: Hiệp định Genève 1954", "SGK 12: Chương 23"],
+      "era": "1954",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g010",
+      "question": "Chính sách đối ngoại của Mỹ trong Chiến tranh Việt Nam diễn biến ra sao?",
+      "ground_truth": "Diễn biến chính sách đối ngoại Mỹ tại Việt Nam: (1) 1954-1960: Mỹ thay Pháp hỗ trợ chế độ Ngô Đình Diệm, cử cố vấn quân sự; (2) 1961-1964: Tổng thống Kennedy gửi 'cố vấn' quân sự (16.000 người); (3) 1965-1968: Lyndon Johnson leo thang chiến tranh, đổ quân Mỹ (500.000 max); (4) 1969-1973: Nixon rút quân dần (chiến lược 'Việt Nam hóa chiến tranh'); (5) 1973: Ký Hiệp định Paris rút quân Mỹ; (6) 1975: Mỹ thất bại khi cố ngăn cứu chế độ Sài Gòn.",
+      "expected_sources": ["Wikipedia: Chiến tranh Việt Nam", "SGK 12: Chương 25-26"],
+      "era": "1965-1973",
+      "difficulty": "hard",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g011",
+      "question": "Hai Bà Trưng khởi nghĩa năm nào và lý do gì?",
+      "ground_truth": "Hai Bà Trưng (Trưng Trắc và Trưng Nhị) khởi nghĩa năm 40 sau Công nguyên, lật đổ ách đô hộ của nhà Hán. Lý do: (1) Thi Sĩ Nhị (chồng bà Trưng Trắc) bị Toàn Đức (quan quận) giết hại; (2) Nhân dân Giao Chỉ bị đàn áp, đánh thuế nặng nề; (3) Lãnh đạo khởi nghĩa có tài năng quân sự và được nhân dân ủng hộ. Hai Bà đánh đuổi quan lại nhà Hán, giành lại độc lập trong thời gian ngắn.",
+      "expected_sources": ["Wikipedia: Hai Bà Trưng", "SGK 10: Chương 2"],
+      "era": "bac_thuoc",
+      "difficulty": "easy",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g012",
+      "question": "Ngô Quyền đánh bại quân Nam Hán ở trận Bạch Đằng năm 938 có ý nghĩa gì?",
+      "ground_truth": "Trận Bạch Đằng (năm 938) là chiến thắng vang dội của Ngô Quyền đánh bại quân Nam Hán do Dương Ngọc Đỉnh chỉ huy. Ý nghĩa: (1) Chấm dứt hơn 1000 năm Bắc thuộc, mở ra kỷ nguyên độc lập cho Việt Nam; (2) Khẳng định tài năng quân sự xuất chúng của Ngô Quyền, đặc biệt là chiến thuật cắm cọc gỗ nhọn xuống sông Bạch Đằng khi thủy triều xuống; (3) Mở đầu cho hơn 10 thế kỷ tự chủ của Việt Nam dưới các triều đại Ngô, Đinh, Tiền Lê, Lý, Trần.",
+      "expected_sources": ["Wikipedia: Trận Bạch Đằng", "SGK 10: Chương 3"],
+      "era": "nguyen_hong",
+      "difficulty": "easy",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g013",
+      "question": "Tại sao quân Mông Cổ thất bại trong ba lần xâm lược Đại Việt?",
+      "ground_truth": "Quân Mông Cổ thất bại trong ba lần xâm lược (1258, 1285, 1288) vì nhiều nguyên nhân: (1) Địa hình rừng núi, sông ngòi không thuận lợi cho kỵ binh Mông Cổ; (2) Chiến thuật 'vườn không nhà trống' của Đại Việt – không để địch cướp được lương thực; (3) Thủy quân Mông Cổ yếu, không quen với chiến đấu trên sông; (4) Tinh thần kháng chiến của quân dân Đại Việt dưới sự lãnh đạo các vua Trần rất cao; (5) Trần Hưng Đạo là nhà quân sự thiên tài, lập chiến công lừng lẫy.",
+      "expected_sources": ["Wikipedia: Trần Hưng Đạo", "SGK 10: Chương 6"],
+      "era": "ly_tran",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g014",
+      "question": "Lê Lợi là ai và có vai trò gì trong lịch sử?",
+      "ground_truth": "Lê Lợi (1382-1433), tức Lê Thái Tổ, là vị vua sáng lập nhà Hậu Lê (1428-1527). Ban đầu ông là thợ tiện (thợ mộc), sau trở thành thủ lĩnh nghĩa quân Lam Sơn chống ách đô hộ nhà Minh (1417-1428). Nghĩa quân Lam Sơn giành thắng lợi, Lê Lợi lên ngôi vua (1428), lập ra nhà Hậu Lê. Ông được biết đến với tài ngoại giao, khéo léo dùng danh nghĩa '辅助陈睿' để đánh bại gián điệp và ngoại xâm.",
+      "expected_sources": ["Wikipedia: Lê Lợi", "SGK 11: Chương 4"],
+      "era": "hau_le",
+      "difficulty": "easy",
+      "intent": "factual",
+      "category": "entity"
+    },
+    {
+      "id": "g015",
+      "question": "Vai trò của Nguyễn Huệ (Quang Trung) trong lịch sử Việt Nam thế kỷ 18 là gì?",
+      "ground_truth": "Nguyễn Huệ (1753-1792), hiệu Quang Trung, là nhà quân sự thiên tài của Việt Nam thế kỷ 18. Vai trò chính: (1) Thủ lĩnh nghĩa quân Tây Sơn, lật đổ chế độ Trịnh, Nguyễn; (2) Đánh bại quân Thanh xâm lược (1789), bảo vệ nền độc lập; (3) Thống nhất đất nước, cải cách hành chính, kinh tế; (4) Xây dựng kinh đô Phú Xuân (Huế) và Nghệ An; (5) Mở rộng quan hệ ngoại giao với Pháp, Tây Ban Nha. Ông mất năm 1792 khi chuẩn bị nam chinh, để lại di sản to lớn.",
+      "expected_sources": ["Wikipedia: Nguyễn Huệ", "SGK 11: Chương 7-8"],
+      "era": "tay_son",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "entity"
+    },
+    {
+      "id": "g016",
+      "question": "Sự kiện Tết Mậu Thân 1968 có ý nghĩa gì đối với Chiến tranh Việt Nam?",
+      "ground_truth": "Tổng tiến công Tết Mậu Thân (30/1 – 8/2/1968) là sự kiện có ý nghĩa to lớn: (1) Quân Giải phóng tấn công hơn 100 thành phố, thị xã, căn cứ quân sự trên cả nước, bao gồm Sài Gòn, Huế, Đà Nẵng; (2) Tại Huế, diễn ra thảm sát tàn khốc kéo dài 26 ngày; (3) Buộc Tổng thống Mỹ Johnson phải tuyên bố ngừng ném bom Bắc Việt; (4) Thay đổi cục diện chiến tranh, Mỹ chuyển sang chiến lược 'hòa đàm'; (5) Đánh dấu bước ngoặt quan trọng, cho thấy sức mạnh của phong trào kháng chiến.",
+      "expected_sources": ["Wikipedia: Tổng tiến công Tết Mậu Thân 1968", "SGK 12: Chương 25"],
+      "era": "1968",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g017",
+      "question": "So sánh chiến lược quân sự của Đại Việt thời Trần với thời nhà Lý?",
+      "ground_truth": "Chiến lược quân sự nhà Lý (1009-1225): (1) Chú trọng xây dựng thành trì vững chắc quanh kinh đô; (2) Quân đội gồm chư hầu và vệ binh hoàng gia; (3) Chiến đấu chủ yếu phòng thủ đất nước; (4) Thường dùng ngoại giao kết hợp quân sự. Chiến lược nhà Trần (1225-1400): (1) Quân đội chuyên nghiệp, có tổ chức chặt chẽ; (2) Áp dụng chiến thuật linh hoạt: đánh du kích, phục kích, đánh vỗ; (3) Chủ động ra quân đánh địch trước khi chúng tràn vào lãnh thổ; (4) Trần Hưng Đạo là nhà quân sự xuất sắc, lập chiến công lừng lẫy.",
+      "expected_sources": ["SGK 10: Chương 5-7"],
+      "era": "ly_tran",
+      "difficulty": "hard",
+      "intent": "compare",
+      "category": "analysis"
+    },
+    {
+      "id": "g018",
+      "question": "Chiến tranh Trịnh-Nguyễn diễn ra như thế nào và kéo dài bao lâu?",
+      "ground_truth": "Chiến tranh Trịnh-Nguyễn (thế kỷ 16-18) diễn ra giữa họ Trịnh (Bắc Kỳ) và họ Nguyễn (Nam Kỳ) trong khoảng 250 năm (1545-1789). Nguyên nhân: sau khi nhà Mạc soán ngôi nhà Lê, các tướng Trịnh Kiểu và Nguyễn Kim lập lại nhà Lê. Sau khi Nguyễn Kim mất, mâu thuẫn nổ ra giữa Trịnh và Nguyễn. Diễn biến: chia cắt đất nước thành Đàng Trong (Nguyễn) và Đàng Ngoài (Trịnh). Kết thúc khi Nguyễn Huệ (Tây Sơn) đánh bại họ Trịnh, thống nhất đất nước (1789).",
+      "expected_sources": ["Wikipedia: Chiến tranh Trịnh-Nguyễn", "SGK 11: Chương 6-7"],
+      "era": "trinh_nguyen",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g019",
+      "question": "Nhà Nguyễn cai trị Việt Nam như thế nào trong giai đoạn 1802-1858?",
+      "ground_truth": "Nhà Nguyễn (1802-1945) cai trị Việt Nam theo mô hình phong kiến tập quyền: (1) Vua nắm quyền tuyệt đối, tập trung quân phiệt; (2) Phân chia đất nước thành các dinh, lộ, phủ, ty; (3) Thi hành chính sách 'tôn ty giáo' – đề cao Nho giáo, hạn chế Tin Lành; (4) Đánh thuế nặng nề, cưỡng bách lao dịch xây dựng thành trì, đền miếu; (5) Đối ngoại: Hòa ước Nhâm Tuất (1862) nhượng ba tỉnh miền Nam cho Pháp; (6) Gây bất mãn trong nhân dân, dẫn đến nhiều cuộc khởi nghĩa.",
+      "expected_sources": ["Wikipedia: Nhà Nguyễn", "SGK 11: Chương 8-10"],
+      "era": "nguyen",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g020",
+      "question": "Phong trào Cần Vương (1885-1889) do ai lãnh đạo và có ý nghĩa gì?",
+      "ground_truth": "Phong trào Cần Vương (1885-1889) là phong trào kháng chiến chống Pháp rầm rộ nhất cuối thế kỷ 19, do vua Hàm Nghi lãnh đạo sau khi逃脱 khỏi kinh đô Huế (5/7/1885). Ông cùng Tôn Thất Thuyết và các thủ lĩnh nghĩa quân lập căn cứ ở vùng Tân Sở (Quảng Trị). Phong trào lan rộng khắp Trung Kỳ, có sự tham gia của nhiều sĩ phu yêu nước. Mặc dù thất bại (Hàm Nghi bị bắt 1888), phong trào để lại ý nghĩa to lớn: khẳng định tinh thần yêu nước, chống ngoại xâm của dân tộc Việt Nam.",
+      "expected_sources": ["Wikipedia: Phong trào Cần Vương", "SGK 11: Chương 11"],
+      "era": "phap_thuoc",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g021",
+      "question": "Sự kiện Xô-viết Nghệ Tĩnh 1930-1931 diễn ra như thế nào?",
+      "ground_truth": "Sự kiện Xô-viết Nghệ Tĩnh (1930-1931) là cuộc khởi nghĩa vũ trang lớn nhất trong phong trào dân chủ 1930-1931. Diễn biến: (1) Đầu 1930, nhiều cuộc biểu tình, đình công lan rộng ở Nghệ An và Hà Tĩnh; (2) Ngày 12/9/1930, nghĩa quân và nông dân nổi dậy ở Hưng Yên, Thái Bình, Nam Định; (3) 12/10/1930, chính quyền cách mạng được thiết lập tại một số xã ở Hưng Yên; (4) 9/1930-2/1931, phong trào lan rộng với hàng triệu nông dân tham gia; (5) Chính quyền thực dân đàn áp dã man, hàng nghìn người bị bắt, giết. Đây là bài học lớn về cách mạng vô sản ở Việt Nam.",
+      "expected_sources": ["Wikipedia: Xô-viết Nghệ Tĩnh", "SGK 12: Chương 13"],
+      "era": "1930-1931",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g022",
+      "question": "Phong trào Đông Dương đại đồn chiến (1940-1941) có ý nghĩa gì?",
+      "ground_truth": "Phong trào Đông Dương đại đồn chiến (1940-1941) là cuộc kháng chiến chống thực dân Pháp và phát xít Nhật tại Cao Bằng và các vùng lân cận. Diễn biến: (1) Hoàng Hoa Thám (Đề Thám) làm thủ lĩnh, tổ chức lực lượng tại rừng già Cao Bằng; (2) Đánh chiếm thị xã Cao Bằng (10/1940); (3) Tổ chức chính quyền cách mạng tại các vùng giải phóng; (4) Đế quốc Việt Nam (chính quyền tay sai) truy bắt khốc liệt, Hoàng Hoa Thám bị thực dân Pháp thủ tiêu (10/2/1941). Ý nghĩa: khẳng định tinh thần kháng chiến bất khuất của dân tộc.",
+      "expected_sources": ["Wikipedia: Phong trào Đông Dương đại đồn chiến", "SGK 12: Chương 15"],
+      "era": "1940-1941",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g023",
+      "question": "Trận Hồ Chí Minh (tháng 4/1975) diễn ra như thế nào?",
+      "ground_truth": "Trận Hồ Chí Minh (26/4 – 30/4/1975) là trận quyết chiến cuối cùng giải phóng Sài Gòn. Diễn biến: (1) 26/4, Quân Giải phóng bắt đầu tấn công các cứ điểm phòng thủ vòng ngoài; (2) Quân Mỹ huy động máy bay B-52 ném bom Hà Nội để 'răn đe' nhưng không ngăn được; (3) 29/4, Sân bay Tân Sơn Nhất thất thủ; (4) Sáng 30/4, xe tăng và bộ binh Quân Giải phóng ào ạt vào trung tâm Sài Gòn; (5) 10h30, Tổng thống Dương Văn Minh ra lệnh đầu hàng trên đài phát thanh; (6) 11h, xe tăng Quân Giải phóng tiến vào Dinh Độc Lập, kết thúc chiến tranh.",
+      "expected_sources": ["Wikipedia: Sự kiện 30 tháng 4 năm 1975", "SGK 12: Chương 27"],
+      "era": "1975",
+      "difficulty": "easy",
+      "intent": "timeline",
+      "category": "event"
+    },
+    {
+      "id": "g024",
+      "question": "Hiệp định Genève 1954 được ký kết như thế nào và có những bất hoàn thiện gì?",
+      "ground_truth": "Hiệp định Genève được ký ngày 21/7/1954 tại Genève (Thụy Sĩ) bởi đại diện Pháp và Việt Nam Dân chủ Cộng hòa. Quá trình: (1) Hội nghị mở ra từ 26/4/1954; (2) Sau chiến thắng Điện Biên Phủ (7/5/1954), vị thế của Pháp suy yếu; (3) Pháp và VNDCHCH ký hiệp định; (4) Đại diện Chính phủ Quốc gia Việt Nam (miền Nam) không ký. Bất hoàn thiện: (1) Việt Nam bị chia cắt tạm thời theo vĩ tuyến 17; (2) Mỹ không ký nhưng tuyên bố công nhận 'hiệp định'; (3) Mỹ can thiệp, lập chế độ Sài Gòn; (4) Cam kết tổng tuyển cử thống nhất không được thực hiện.",
+      "expected_sources": ["Wikipedia: Hiệp định Genève 1954", "SGK 12: Chương 23"],
+      "era": "1954",
+      "difficulty": "hard",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g025",
+      "question": "Vai trò của Võ Nguyên Giáp trong Chiến tranh Việt Nam là gì?",
+      "ground_truth": "Đại tướng Võ Nguyên Giáp (1911-2013) là nhà quân sự lớn của Việt Nam, có vai trò then chốt: (1) Tổng tư lệnh Quân đội Nhân dân Việt Nam trong suốt cuộc kháng chiến; (2) Chỉ huy trận Điện Biên Phủ (1954) – chiến thắng vang dội chấn động thế giới; (3) Tổng Tham mưu trưởng Quân đội Nhân dân; (4) Chỉ huy các chiến dịch lớn trong kháng chiến chống Mỹ; (5) Đại tướng đầu tiên của Việt Nam, được nhân dân tôn vinh là 'Huyền thoại'. Ông là học trò xuất sắc của Hồ Chí Minh về quân sự.",
+      "expected_sources": ["Wikipedia: Võ Nguyên Giáp", "SGK 12: các chương liên quan"],
+      "era": "1954-1975",
+      "difficulty": "easy",
+      "intent": "factual",
+      "category": "entity"
+    },
+    {
+      "id": "g026",
+      "question": "Chế độ nguyên thuỷ quân sự Đức xâm lược Pháp trong Chiến tranh Thế giới thứ hai ảnh hưởng đến Việt Nam như thế nào?",
+      "ground_truth": "Chiến tranh Thế giới thứ hai (1939-1945) ảnh hưởng sâu sắc đến Việt Nam: (1) Nhật Bản xâm lược Đông Dương (tháng 9/1940), kết hợp với Pháp Vichy; (2) Pháp Vichy vẫn cai trị danh nghĩa dưới sự kiểm soát của Nhật; (3) Nhật tịch thu lương thực, phương tiện, gây nạn đói lớn ở Bắc Kỳ (1945); (4) Chính quyền thực dân Pháp suy yếu; (5) Hồ Chí Minh và Đảng Cộng sản Việt Nam nắm bắt thời cơ, lãnh đạo nhân dân khởi nghĩa giành chính quyền (tháng 8/1945).",
+      "expected_sources": ["Wikipedia: Chiến tranh Thế giới thứ hai tại Đông Dương", "SGK 12: Chương 15"],
+      "era": "1940-1945",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g027",
+      "question": "Cách mạng công nghiệp 4.0 có liên quan gì đến nghiên cứu lịch sử Việt Nam?",
+      "ground_truth": "Cáchch mạng công nghiệp 4.0 (AI, dữ liệu lớn, Internet vạn vật) ảnh hưởng sâu sắc đến nghiên cứu lịch sử: (1) Số hóa tài liệu lịch sử từ khắp thế giới, truy cập dễ dàng hơn qua cơ sở dữ liệu trực tuyến; (2) AI và NLP hỗ trợ dịch thuật, phân tích văn bản cổ, nhận diện hình ảnh lịch sử; (3) Hệ thống RAG (Retrieval-Augmented Generation) như HistoriAI Agent giúp người dùng truy vấn kho tư liệu lịch sử bằng ngôn ngữ tự nhiên; (4) Tuy nhiên, cần thận trọng với hallucination của AI khi nghiên cứu lịch sử – các chi tiết cần được kiểm chứng với nguồn gốc.",
+      "expected_sources": ["Các nguồn học thuật về ứng dụng AI trong nghiên cứu lịch sử"],
+      "era": "hien_dai",
+      "difficulty": "hard",
+      "intent": "factual",
+      "category": "analysis",
+      "note": "Câu hỏi meta về ứng dụng AI trong lịch sử"
+    },
+    {
+      "id": "g028",
+      "question": "Hãy mô tả diễn biến chiến tranh cục bộ của Mỹ tại Việt Nam (1965-1968)?",
+      "ground_truth": "Chiến tranh cục bộ của Mỹ tại Việt Nam (1965-1968): (1) Tháng 3/1965, Mỹ chính thức đổ quân với lực lượng lên đến 500.000 người (1968); (2) Chiến lược 'tìm-diệt' (search and destroy) của tướng Westmoreland; (3) Các trận đánh lớn: Ia Drăng (11/1965), APBia (1/1967), Khe Sanh (1-7/1968); (4) Chiến dịch 'An ninh nhân dân' của QGP phối hợp dân quân du kích; (5) Mỹ ném bom Bắc Việt với quy mô chưa từng có; (6) Cuối 1968, Tổng thống Johnson tuyên bố ngừng ném bom, mở đường đàm phán. Chiến lược của Mỹ thất bại trong việc tiêu diệt ý chí kháng chiến của QGP.",
+      "expected_sources": ["Wikipedia: Chiến tranh Việt Nam", "SGK 12: Chương 25"],
+      "era": "1965-1968",
+      "difficulty": "medium",
+      "intent": "timeline",
+      "category": "event"
+    },
+    {
+      "id": "g029",
+      "question": "Phong trào Đồng Khởi (1960) ở miền Nam Việt Nam có ý nghĩa gì?",
+      "ground_truth": "Phong trào Đồng Khởi (1960) là cao trào đấu tranh của nhân dân miền Nam Việt Nam chống chế độ Ngô Đình Diệm. Diễn biến: (1) Đầu 1960, phong trào đấu tranh chính trị bùng nổ ở khắp miền Nam; (2) 20/12/1960, Mặt trận Dân tộc Giải phóng miền Nam Việt Nam được thành lập; (3) Nhiều tỉnh, thị xã nổi dậy, đánh đuổi quân và chính quyền Ngô Đình Diệm. Ý nghĩa: (1) Đánh dấu sự trưởng thành của phong trào đấu tranh; (2) Tập hợp rộng rãi lực lượng yêu nước; (3) Đặt nền móng cho cuộc kháng chiến chống Mỹ cứu nước.",
+      "expected_sources": ["Wikipedia: Phong trào Đồng Khởi", "SGK 12: Chương 24"],
+      "era": "1960",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g030",
+      "question": "So sánh Chiến dịch Điện Biên Phủ và chiến dịch Hồ Chí Minh (1975) về quy mô và ý nghĩa?",
+      "ground_truth": "So sánh: (1) Quy mô: Điện Biên Phủ (1954) là trận đánh quy mô vừa, khoảng 50.000 quân Pháp vs 4 vạn QGP; Chiến dịch HCM (1975) là chiến dịch quân sự quy mô lớn toàn quốc, hàng triệu người tham gia. (2) Vũ khí: Điện Biên Phủ dùng vũ khí thô sơ, bộ binh; Chiến dịch HCM có pháo binh, xe tăng, không quân hiện đại. (3) Ý nghĩa: Điện Biên Phủ chấm dứt thực dân Pháp, buộc ký Genève; Chiến dịch HCM thống nhất đất nước, kết thúc hoàn toàn chiến tranh. Cả hai đều là thắng lợi vĩ đại của dân tộc Việt Nam.",
+      "expected_sources": ["SGK 12: Chương 23, 27"],
+      "era": "1954-1975",
+      "difficulty": "hard",
+      "intent": "compare",
+      "category": "analysis"
+    },
+    {
+      "id": "g031",
+      "question": "Trận Bạch Đằng năm 938 sử dụng chiến thuật gì để đánh bại quân Nam Hán?",
+      "ground_truth": "Ngô Quyền sử dụng chiến thuật độc đáo: (1) Cắm cọc gỗ nhọn đầu xuống đáy sông Bạch Đằng, ở nơi thủy triều rút xuống sẽ lộ ra; (2) Nhử địch vào sâu trong lãnh thổ bằng cách giả vờ thua; (3) Khi triều cường lên, cho thuyền chiến ra đối đầu; (4) Khi triều rút, thuyền địch mắc cạn trên cọc gỗ nhọn, không thể di chuyển; (5) Bộ binh Việt Nam tấn công từ hai bên bờ, tiêu diệt địch. Chiến thuật này thể hiện tài năng quân sự xuất sắc của Ngô Quyền, tận dụng địa hình và điều kiện tự nhiên.",
+      "expected_sources": ["Wikipedia: Trận Bạch Đằng", "SGK 10: Chương 3"],
+      "era": "nguyen_hong",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g032",
+      "question": "Chính sách khai thác thuộc địa của thực dân Pháp tại Việt Nam diễn ra như thế nào?",
+      "ground_truth": "Thực dân Pháp khai thác Việt Nam qua nhiều hình thức: (1) Kinh tế: độc quyền thuốc phiện, cà phê, cao su, than đá; lập nhà máy, khai thác mỏ, xây dựng đường sắt (đường sắt Hanoi-Saigon); (2) Chính trị: đặt các thống đốc Pháp, chia Việt Nam thành 3 xứ (Bắc Kỳ, Trung Kỳ, Nam Kỳ); (3) Văn hóa: truyền bá tiếng Pháp, thực dân hóa giáo dục (Trường Bưởi, Đông Kinh); (4) Xã hội: chia rẽ giai cấp, đào tạo tầng lớp người Pháp-việt hòa hợp; (5) Bất công: đánh thuế nặng, cướp đất đai của nông dân, lập đồn điền. Chính sách này gây ra đói nghèo, mất gốc văn hóa dân tộc.",
+      "expected_sources": ["SGK 11: Chương 10-12"],
+      "era": "phap_thuoc",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g033",
+      "question": "Cuộc vận động dân chủ 1946 có vai trò gì trong quan hệ Pháp-Việt?",
+      "ground_truth": "Cuộc vận động dân chủ 1946 là nỗ lực ngoại giao của Chủ tịch Hồ Chí Minh nhằm duy trì hòa bình, tranh thủ thời gian xây dựng đất nước. Diễn biến: (1) Tháng 9/1945, Hồ Chí Minh sang Pháp đàm phán, chấp nhận nhiều nhượng bộ; (2) Hiệp định sơ bộ 6/3/1946: Pháp công nhận Việt Nam là quốc gia tự do trong Khối Pháp; (3) Hiệp định ACCFQ 1/6/1946: tạm thời hòa hợp Pháp-Việt. Vai trò: (1) Tranh thủ 5 năm hòa bình để củng cố chính quyền cách mạng; (2) Khẳng định với quốc tế tinh thần hòa bình, thiện chí của Việt Nam; (3) Tuy nhiên, Pháp vi phạm hiệp định, dẫn đến chiến tranh (12/1946).",
+      "expected_sources": ["Wikipedia: Sơ hiệp định 6/3/1946", "SGK 12: Chương 16"],
+      "era": "1946",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g034",
+      "question": "Lịch sử các triều đại phong kiến Việt Nam theo thứ tự thời gian như thế nào?",
+      "ground_truth": "Các triều đại phong kiến Việt Nam theo thứ tự: (1) Hồng Bàng (khoảng 2879-258 TCN) – thời kỳ truyền thuyết; (2) Thục Hán (207-111 TCN) – nhà nước văn minh đầu tiên; (3) Bắc thuộc (111 TCN – 938 SCN) – dưới các triều Hán, Đông Hán, Tấn, Ngũ Hồ, nhà Đường; (4) Ngô (939-965) – thoát Bắc thuộc; (5) Đinh (968-980); (6) Tiền Lê (980-1009); (7) Lý (1009-1225); (8) Trần (1225-1400); (9) Hồ (1400-1407); (10) Minh đô hộ (1407-1428); (11) Hậu Lê (1428-1527); (12) Mạc (1527-1592); (13) Trịnh-Nguyễn chia cắt (1533-1789); (14) Tây Sơn (1778-1802); (15) Nguyễn (1802-1945).",
+      "expected_sources": ["SGK 10-11: Tổng quan lịch sử các triều đại"],
+      "era": "all",
+      "difficulty": "easy",
+      "intent": "factual",
+      "category": "timeline"
+    },
+    {
+      "id": "g035",
+      "question": "Các phong trào yêu nước chống Pháp cuối thế kỷ 19 khác nhau như thế nào?",
+      "ground_truth": "Các phong trào yêu nước cuối thế kỷ 19 có đặc điểm khác nhau: (1) Phong trào Cần Vương (1885-1889): do vua Hàm Nghi lãnh đạo, mang tính chất phong kiến chính thống, lấy danh nghĩa 'vua cứu nước', tập trung ở Trung Kỳ. (2) Phong trào Duy Tân (1906-1909): do sĩ phu yêu nước lãnh đạo, đòi cải cách chính trị (dân chủ, đại nghị), hoạt động ở miền Trung và Nam Kỳ. (3) Đông Du (1905-1909): phong trào đi Nhật học tập, lấy kinh nghiệm cách mạng. (4) Yêu nước bằng văn hóa: Duy Tân, cải cách giáo dục, chống mù chữ. Điểm chung: đều thể hiện tinh thần yêu nước nhưng khác nhau về lãnh đạo, phương pháp, quy mô.",
+      "expected_sources": ["SGK 11: Chương 11-12"],
+      "era": "phap_thuoc",
+      "difficulty": "hard",
+      "intent": "compare",
+      "category": "analysis"
+    },
+    {
+      "id": "g036",
+      "question": "Chiến lược 'Nước Việt Nam là một' của Hồ Chí Minh được hình thành như thế nào?",
+      "ground_truth": "Chiến lược 'Nước Việt Nam là một' của Hồ Chí Minh phản ánh tư tưởng thống nhất đất nước: (1) 1945: Tuyên ngôn Độc lập khẳng định Việt Nam thống nhất từ biển Đông đến biên giới phía Bắc; (2) 1946: Hồ Chí Minh chấp nhận tạm chia để tranh thủ hòa bình; (3) 1954: sau Điện Biên Phủ, HCM chấp nhận tạm chia nhưng kiên trì đấu tranh đến thống nhất; (4) 1960: tuyên bố 'Miền Bắc là hậu bị quân sự của miền Nam'; (5) 1968: 'Tết Mậu Thân' thể hiện quyết tâm thống nhất. Tư tưởng này xuất phát từ niềm tin vào sức mạnh dân tộc và ý chí độc lập không thể phân chia.",
+      "expected_sources": ["Wikipedia: Hồ Chí Minh", "SGK 12: các chương liên quan"],
+      "era": "1945-1975",
+      "difficulty": "hard",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g037",
+      "question": "Cuộc chiến tranh lạnh ảnh hưởng đến Việt Nam như thế nào?",
+      "ground_truth": "Chiến tranh lạnh (1947-1991) ảnh hưởng sâu sắc đến Việt Nam: (1) 1949: Trung Quốc và Liên Xô công nhận và hỗ trợ VNDCHCH; (2) Mỹ đứng đằng sau Pháp (1946-1954) và sau đó trực tiếp tham chiến (1965-1973); (3) Việt Nam trở thành chiến trường ủy nhiệm của hai khối: XHCN (Liên Xô, Trung Quốc) vs phương Tây (Mỹ); (4) Hậu quả: chia cắt đất nước, hàng triệu người chết, phá hủy nặng nề; (5) Sau 1975, Việt Nam theo khối XHCN; (6) Chiến tranh lạnh kết thúc (1991) mở đường cho Việt Nam đổi mới (1986). Việt Nam chịu thiệt hại nặng nề nhất trong chiến tranh lạnh tại Đông Dương.",
+      "expected_sources": ["SGK 12: Chương 23-27"],
+      "era": "1947-1975",
+      "difficulty": "hard",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g038",
+      "question": "Những điều kiện nào dẫn đến thắng lợi của Cách mạng tháng Tám 1945?",
+      "ground_truth": "Cáchch mạng tháng Tám 1945 thắng lợi nhờ nhiều điều kiện: (1) Nhật-Pháp đánh nhau (tháng 3/1945) làm suy yếu chính quyền thực dân; (2) Nhân dân Việt Nam đã sẵn sàng về tinh thần và lực lượng; (3) Hồ Chí Minh và Đảng Cộng sản Việt Nam lãnh đạo xuất sắc, nắm bắt thời cơ lịch sử; (4) Việt Minh là mặt trận rộng rãi, tập hợp mọi tầng lớp nhân dân; (5) Tuyên ngôn Độc lập của Hồ Chí Minh (2/9/1945) được quốc tế công nhận; (6) Tình hình quốc tế thuận lợi (phong trào giải phóng dân tộc lan rộng); (7) Nhân dân muốn giành độc lập sau hơn 80 năm đấu tranh.",
+      "expected_sources": ["Wikipedia: Cách mạng tháng Tám", "SGK 12: Chương 17"],
+      "era": "1945",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g039",
+      "question": "Hãy phân tích chiến lược 'tìm-diệt' của Mỹ tại Việt Nam và kết quả của nó?",
+      "ground_truth": "Chiến lược 'tìm-diệt' (Search and Destroy) của tướng Westmoreland: (1) Mục tiêu: tìm và tiêu diệt lực lượng Quân Giải phóng trong các vùng nông thôn; (2) Phương pháp: dùng máy bay, xe tăng, pháo binh áp đảo, kết hợp bộ binh cơ động; (3) Tham chiến đông nhất: 500.000 quân Mỹ (1968); (4) Chiến thuật trinh sát phối hợp với không quân. Kết quả: (1) Thất bại chiến lược – Mỹ tiêu diệt được lực lượng QGP nhưng không thể đánh bại ý chí kháng chiến; (2) Quân Mỹ chịu thương vong nặng nề (58.000 chết); (3) Chiến lược gây tổn thương dân thường, mất lòng tin quần chúng; (4) Dẫn đến phong trào phản chiến mạnh mẽ ở Mỹ.",
+      "expected_sources": ["Wikipedia: Chiến tranh Việt Nam", "SGK 12: Chương 25"],
+      "era": "1965-1968",
+      "difficulty": "hard",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g040",
+      "question": "Sự kiện Nam Kỳ kháng chiến (1945-1946) diễn ra như thế nào?",
+      "ground_truth": "Nam Kỳ kháng chiến (1945-1946) là cuộc đấu tranh của nhân dân Nam Bộ chống thực dân Pháp trở lại: (1) Sau khi Nhật đầu hàng (15/8/1945), nhân dân Nam Kỳ nổi dậy giành chính quyền; (2) Chính quyền cách mạng được thiết lập ở nhiều nơi (Sài Gòn, Chợ Lớn, các tỉnh); (3) 23/9/1945, Pháp nổ súng chiếm Sài Gòn; (4) Nhân dân Sài Gòn nổi dậy đánh Pháp trong 'Sự kiện Sài Gòn' (23-24/9/1945); (5) Kháng chiến lan rộng ở các tỉnh Nam Kỳ; (6) Các tỉnh Nam Bộ rút vào rừng, tổ chức kháng chiến; (7) Đến giữa 1946, Pháp kiểm soát thành thị, nhưng du kích vẫn hoạt động mạnh ở nông thôn. Đây là tiền đề cho cuộc kháng chiến 9 năm chống Pháp.",
+      "expected_sources": ["Wikipedia: Nam Kỳ kháng chiến", "SGK 12: Chương 16-17"],
+      "era": "1945-1946",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g041",
+      "question": "Trường Chinh có vai trò gì trong lịch sử Việt Nam hiện đại?",
+      "ground_truth": "Trường Chinh (1907-1988) là nhà cách mạng, nhà lý luận chính trị xuất sắc của Việt Nam. Vai trò chính: (1) Bí thư thứ nhất Trung ương Đảng Lao Động Việt Nam (1941-1956); (2) Chủ tịch nước Việt Nam Dân chủ Cộng hòa (1981-1987); (3) Tác giả 'Tổng phản công' (12/1946) – chiến lược đánh Pháp; (4) Đàm phán với Pháp tại Fontaine (1946); (5) Lãnh đạo công cuộc cải cách ruộng đất (chưa thành công); (6) Đóng góp lớn vào lý luận cách mạng Việt Nam, đặc biệt về đường lối cách mạng giai cấp công nhân.",
+      "expected_sources": ["Wikipedia: Trường Chinh", "SGK 12: các chương liên quan"],
+      "era": "1945-1988",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "entity"
+    },
+    {
+      "id": "g042",
+      "question": "Tại sao chiến dịch Điện Biên Phủ được coi là 'trận đánh để đời'?",
+      "ground_truth": "Chiến dịch Điện Biên Phủ được coi là 'trận đánh để đời' vì nhiều lý do: (1) Quy mô: lần đầu tiên một lực lượng thuộc địa đánh bại một cường quốc châu Âu trong chiến tranh chính quy; (2) Tài năng chỉ huy: Đại tướng Võ Nguyên Giáp thể hiện tài năng quân sự xuất sắc, điều phối hàng vạn quân trong điều kiện khó khăn; (3) Chiến thuật độc đáo: đào hào, xây công sự, vận chuyển pháo binh nặng lên núi cao; (4) Tác động quốc tế: chấn động dư luận thế giới, ảnh hưởng đến chính sách thuộc địa của Pháp; (5) Kết quả: buộc Pháp ký Hiệp định Genève, chấm dứt đô hộ tại Đông Dương; (6) Mở đường cho phong trào giải phóng dân tộc trên toàn thế giới.",
+      "expected_sources": ["Wikipedia: Trận Điện Biên Phủ", "SGK 12: Chương 23"],
+      "era": "1954",
+      "difficulty": "easy",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g043",
+      "question": "Chính sách Đổi Mới (1986) của Việt Nam có nội dung gì?",
+      "ground_truth": "Chính sách Đổi Mới (Đại hội VI, 12/1986) do lãnh đạo Nguyễn Văn Linh khởi xướng, gồm các nội dung chính: (1) Kinh tế: chuyển từ cơ chế tập trung quan liêu bao cấp sang kinh tế thị trường định hướng XHCN; (2) Nông nghiệp: giao quyền sử dụng đất cho nông dân, khoán sản phẩm; (3) Công nghiệp: đa dạng hóa kinh tế, thu hút đầu tư nước ngoài; (4) Thương mại: mở cửa, hội nhập quốc tế; (5) Xã hội: cải thiện đời sống nhân dân, xóa đói giảm nghèo; (6) Đối ngoại: bình thường hóa quan hệ với Mỹ (1995), ASEAN (1995), gia nhập WTO (2007). Đổi Mới không thay đổi chế độ chính trị.",
+      "expected_sources": ["Wikipedia: Đổi Mới", "SGK 12: Chương 28"],
+      "era": "1986-2000",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g044",
+      "question": "Vai trò của nhân dân Việt Nam trong Chiến tranh Việt Nam có ý nghĩa gì?",
+      "ground_truth": "Nhân dân Việt Nam đóng vai trò then chốt trong chiến thắng: (1) Lực lượng chiến đấu: bộ đội chủ lực, dân quân du kích, vệ quốc quân – hàng triệu người tham gia; (2) Hậu phương: cung cấp lương thực, quân trang, bảo đảm hậu cần – đường dây Hồ Chí Minh huyền thoại; (3) Tình báo: mạng lưới trinh sát, du kích phối hợp với quân chủ lực; (4) Tinh thần: ý chí 'quyết tâm đánh bại xâm lược' bất kể hy sinh; (5) Đoàn kết: đồng bào cả ba miền, mọi tầng lớp đoàn kết trong Mặt trận Dân tộc Giải phóng. Nhân dân là sức mạnh vô địch kết hợp với sự lãnh đạo tài tình của Đảng.",
+      "expected_sources": ["SGK 12: các chương 23-27"],
+      "era": "1954-1975",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g045",
+      "question": "Diễn biến cuộc chiến tranh Việt Nam trong giai đoạn 1969-1973 diễn ra như thế nào?",
+      "ground_truth": "Giai đoạn 1969-1973 diễn biến: (1) 1969: Tổng thống Nixon áp dụng 'Việt Nam hóa chiến tranh', rút quân Mỹ dần; (2) 1970: mở rộng chiến tranh sang Campuchia; (3) 1971: Chiến dịch Lam Sơn 719 tấn công sân bay Bắc Quảng Trị – phía Mỹ/NVNCH thất bại; (4) 1972: Quân Giải phóng tấn công mạnh vào miền Trung (Quảng Trị, Bình Định, Tây Nguyên); (5) 12/1972: 'Bão táp Bắc Việt' – Mỹ ném bom Hà Nội bằng B-52, thất bại về ngoại giao; (6) 1/1973: Ký Hiệp định Paris, Mỹ rút quân. Giai đoạn này cho thấy sức mạnh ngày càng tăng của QGP.",
+      "expected_sources": ["SGK 12: Chương 26"],
+      "era": "1969-1973",
+      "difficulty": "medium",
+      "intent": "timeline",
+      "category": "event"
+    },
+    {
+      "id": "g046",
+      "question": "Ảnh hưởng của Chiến tranh Việt Nam đối với quan hệ quốc tế thế giới là gì?",
+      "ground_truth": "Chiến tranh Việt Nam ảnh hưởng sâu rộng đến quan hệ quốc tế: (1) Chiến tranh lạnh: Việt Nam là chiến trường ủy nhiệm lớn nhất, quyết định cục diện XHCN vs phương Tây; (2) Suy thoái của Mỹ: thất bại tại Việt Nam làm Mỹ thận trọng hơn trong can thiệp quân sự; (3) Phong trào giải phóng dân tộc: Việt Nam trở thành hình mẫu cho các phong trào chống thực dân ở châu Phi, châu Á; (4) Quan hệ Xô-Trung: hỗ trợ Việt Nam nhưng có mâu thuẫn (Trung Quốc ngừng viện trợ 1978); (5) Liên minh XHCN: uy tín Liên Xô, Trung Quốc gắn liền với kết quả chiến tranh; (6) Luật pháp quốc tế: ảnh hưởng đến các công ước Geneva về chiến tranh.",
+      "expected_sources": ["SGK 12: các chương liên quan"],
+      "era": "1954-1975",
+      "difficulty": "hard",
+      "intent": "factual",
+      "category": "analysis"
+    },
+    {
+      "id": "g047",
+      "question": "Sự kiện 'Mùa thu Bắc Việt' 1939 có ý nghĩa gì trong lịch sử phong trào cách mạng Việt Nam?",
+      "ground_truth": "Sự kiện 'Mùa thu Bắc Việt' (tháng 11/1939) là cuộc khởi nghĩa vũ trang đầu tiên do Đảng Cộng sản Đông Dương lãnh đạo sau khi Chiến tranh Thế giới thứ hai bùng nổ ở châu Âu. Diễn biến: (1) Pháp Vichy hạn chế đời sống chính trị ở Đông Dương; (2) Nhân dân các tỉnh Bắc Ninh, Hà Đông, Hải Dương nổi dậy; (3) Đảng Cộng sản Đông Dương phát động 'khởi nghĩa' vũ trang; (4) Đáp trả cuộc đàn áp của Pháp Vichy. Ý nghĩa: (1) Mở đầu cho cuộc đấu tranh vũ trang ở Việt Nam; (2) Thử nghiệm chiến tranh du kích; (3) Rút kinh nghiệm cho các phong trào tiếp theo (Cần Vương, Xô-viết Nghệ Tĩnh).",
+      "expected_sources": ["Wikipedia: Mùa thu Bắc Việt", "SGK 12: Chương 13"],
+      "era": "1939",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "event"
+    },
+    {
+      "id": "g048",
+      "question": "Vì sao Chiến dịch Điện Biên Phủ được so sánh với trận Stalingrad?",
+      "ground_truth": "Chiến dịch Điện Biên Phủ được so sánh với trận Stalingrad vì: (1) Cả hai đều là trận đánh quyết định kéo dài, bao vây công sự kiên cố; (2) Kẻ tấn công (Việt Nam) đánh bại kẻ phòng thủ có vũ khí hỏa lực mạnh hơn nhiều; (3) Tinh thần chiến đấu quyết tử của bộ đội Việt Nam được so sánh với quân đội Liên Xô tại Stalingrad; (4) Cả hai trận đánh đều đánh dấu bước ngoặt của chiến tranh: Stalingrad cho Thế chiến II, Điện Biên Phủ cho chiến tranh Đông Dương; (5) Thời gian kéo dài: Stalingrad 6 tháng (8/1942 – 2/1943), Điện Biên Phủ gần 3 tháng (13/3 – 7/5/1954); (6) Cả hai đều thể hiện sức mạnh của ý chí con người đối với vũ khí.",
+      "expected_sources": ["SGK 12: Chương 23; tài liệu so sánh lịch sử"],
+      "era": "1954",
+      "difficulty": "hard",
+      "intent": "compare",
+      "category": "analysis"
+    },
+    {
+      "id": "g049",
+      "question": "Lê Duẩn có đóng góp gì trong cuộc kháng chiến chống Mỹ?",
+      "ground_truth": "Lê Duẩn (1908-1986) là nhà cách mạng lớn của Việt Nam. Đóng góp trong kháng chiến chống Mỹ: (1) Bí thư thứ nhất Trung ương Đảng Lao Động Việt Nam (1960-1976), lãnh đạo toàn bộ cuộc kháng chiến; (2) Chủ trì Hội nghị Trung ương 15 (1/1963), đề ra chủ trương đánh bại chiến lược 'tìm-diệt' của Mỹ; (3) Đề ra chiến lược đánh lâu dài, dựa vào dân; (4) Lãnh đạo Chiến dịch Hồ Chí Minh 1975; (5) Chủ tịch nước (1981-1986), lãnh đạo công cuộc thống nhất đất nước. Ông được đánh giá là 'kiến trúc sư' của chiến dịch giải phóng miền Nam.",
+      "expected_sources": ["Wikipedia: Lê Duẩn", "SGK 12: các chương liên quan"],
+      "era": "1960-1975",
+      "difficulty": "medium",
+      "intent": "factual",
+      "category": "entity"
+    },
+    {
+      "id": "g050",
+      "question": "Ý nghĩa của thắng lợi 30/4/1975 đối với dân tộc Việt Nam là gì?",
+      "ground_truth": "Thắng lợi 30/4/1975 có ý nghĩa lịch sử vô cùng to lớn: (1) Chấm dứt hoàn toàn chiến tranh, giải phóng miền Nam, thống nhất đất nước sau gần 40 năm chia cắt (1945-1975); (2) Chấm dứt ách đô hộ và chiến tranh xâm lược, giành lại độc lập dân tộc; (3) Nhân dân Việt Nam từ hai miền sum họp, xây dựng đất nước thống nhất; (4) Chiến thắng của dân tộc nhỏ đánh bại siêu cường, truyền cảm hứng cho các phong trào giải phóng trên thế giới; (5) Mở đường cho Việt Nam phát triển, hội nhập quốc tế; (6) Khẳng định tinh thần 'Không có gì quý hơn độc lập, tự do' của Hồ Chí Minh.",
+      "expected_sources": ["Wikipedia: Sự kiện 30 tháng 4 năm 1975", "SGK 12: Chương 27"],
+      "era": "1975",
+      "difficulty": "easy",
+      "intent": "factual",
+      "category": "analysis"
+    }
+  ]
+}

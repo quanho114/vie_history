@@ -1,0 +1,168 @@
+name: Evaluation Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: eval-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install -e ".[dev]" -q
+
+      - name: Run unit tests
+        working-directory: apps/api
+        run: |
+          pytest tests/unit/ -v --tb=short
+
+  retrieval-eval:
+    name: Retrieval Eval
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: vie_history_test
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval "10s"
+          --health-timeout "5s"
+          --health-retries "5"
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval "10s"
+          --health-timeout "5s"
+          --health-retries "5"
+
+      qdrant:
+        image: qdrant/qdrant:latest
+        ports:
+          - 6333:6333
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install -e ".[dev,eval]" -q
+
+      - name: Run retrieval evaluation
+        env:
+          DATABASE_URL: postgresql+asyncpg://test:test@localhost:5432/vie_history_test
+          REDIS_URL: redis://localhost:6379/0
+          QDRANT_URL: http://localhost:6333
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python scripts/eval_retrieval.py
+
+  ragas-eval:
+    name: RAGAS Evaluation
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Only run on PRs against main (not on every push to main to save cost)
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install eval dependencies
+        run: |
+          pip install -e ".[dev,eval]" -q
+          pip install ragas datasets -q 2>/dev/null || true
+
+      - name: Run RAGAS evaluation
+        env:
+          API_BASE_URL: http://localhost:8000
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          RAGAS_THRESHOLD: 0.70
+        run: |
+          # Start API server in background (requires full stack)
+          # For now, run LLM-judge fallback which doesn't need running API
+          python evals/run_ragas.py \
+            --max-questions 10 \
+            --threshold 0.70 \
+            --output evals/results.json
+
+      - name: Upload evaluation results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ragas-results
+          path: evals/results.json
+          retention-days: 30
+
+      - name: Post result comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const results = JSON.parse(fs.readFileSync('evals/results.json', 'utf8'));
+
+            const metrics = results.metrics || {};
+            const rows = Object.entries(metrics)
+              .map(([k, v]) => `| \`${k}\` | ${Number(v).toFixed(3)} | ${v >= results.threshold ? '✅' : '❌'} |`)
+              .join('\n');
+
+            const body = `
+            ## HistoriAI Evaluation Results
+
+            | Metric | Score | Status |
+            |--------|-------|--------|
+            ${rows}
+
+            **Threshold:** ${results.threshold} | **Questions evaluated:** ${results.actual_questions}
+            ${results.passed ? '### ✅ All metrics passed' : '### ❌ Some metrics below threshold'}
+
+            _Evaluated at ${results.timestamp}_
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body,
+            });

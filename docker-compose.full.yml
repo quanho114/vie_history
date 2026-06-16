@@ -1,0 +1,145 @@
+# Full-stack Docker Compose override for HistoriAI.
+# Usage:
+#   docker compose up -d                          # core infra only (pg, redis, qdrant, meili)
+#   docker compose -f docker-compose.yml -f docker-compose.full.yml up -d  # everything
+#
+# Ports:
+#   API      :12701
+#   Web      :12702
+#   Flower   :12703
+#   Langfuse :12708
+
+services:
+  # ── API Backend ──────────────────────────────────────────────────────────────
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: historiai-api
+    restart: unless-stopped
+    ports:
+      - "12701:8000"
+    environment:
+      - APP_ENV=development
+      - DATABASE_URL=postgresql+asyncpg://vie_history:vie_history_secret@postgres:5432/vie_history
+      - REDIS_URL=redis://redis:6379/0
+      - QDRANT_URL=http://qdrant:6333
+      - MEILISEARCH_URL=http://meilisearch:7700
+      - MEILISEARCH_MASTER_KEY=meili_master_key_secret
+      - MEILISEARCH_INDEX=historiai_chunks
+      - LANGFUSE_HOST=http://langfuse:3000
+      - LANGFUSE_ENABLED=false
+      - SENTRY_DSN=
+      - SECRET_KEY=dev-secret-change-in-production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      qdrant:
+        condition: service_healthy
+      meilisearch:
+        condition: service_healthy
+    networks:
+      - historiai-network
+
+  # ── React Frontend ────────────────────────────────────────────────────────────
+
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: historiai-web
+    restart: unless-stopped
+    ports:
+      - "12702:3000"
+    environment:
+      - VITE_API_URL=http://localhost:12701
+    networks:
+      - historiai-network
+
+  # ── RQ Worker (uses Redis as broker) ─────────────────────────────────
+  rq-worker:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: historiai-rq-worker
+    restart: unless-stopped
+    command: rq worker ingest-queue --url redis://redis:6379/0
+    environment:
+      - APP_ENV=development
+      - DATABASE_URL=postgresql+asyncpg://vie_history:vie_history_secret@postgres:5432/vie_history
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - historiai-network
+
+  # ── Celery Worker (COMMENTED OUT — project uses RQ instead) ──────────
+  # worker:
+  #   build:
+  #     context: ./apps/api
+  #     dockerfile: Dockerfile
+  #   container_name: historiai-worker
+  #   restart: unless-stopped
+  #   command: celery -A app.workers.celery_app worker --loglevel=info --concurrency=2
+  #   environment:
+  #     - APP_ENV=development
+  #     - DATABASE_URL=postgresql+asyncpg://vie_history:vie_history_secret@postgres:5432/vie_history
+  #     - REDIS_URL=redis://redis:6379/0
+  #     - QDRANT_URL=http://qdrant:6333
+  #     - ELASTICSEARCH_URL=http://elasticsearch:9200
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #     redis:
+  #       condition: service_healthy
+  #   networks:
+  #     - historiai-network
+
+  # ── Celery Flower (monitoring) (COMMENTED OUT — project uses RQ instead) ──
+  # flower:
+  #   build:
+  #     context: ./apps/api
+  #     dockerfile: Dockerfile
+  #   container_name: historiai-flower
+  #   restart: unless-stopped
+  #   ports:
+  #     - "12703:5555"
+  #   command: celery -A app.workers.celery_app flower --port=5555
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - historiai-network
+
+  # ── Langfuse (LLM Observability — self-hosted) ─────────────────────────────
+
+  langfuse:
+    image: ghcr.io/langfuse/langfuse:latest
+    container_name: historiai-langfuse
+    restart: unless-stopped
+    ports:
+      - "12708:3000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://vie_history:vie_history_secret@postgres:5432/langfuse
+      - NEXTAUTH_SECRET=dev-langfuse-secret-change-in-production
+      - NEXTAUTH_URL=http://localhost:12708
+      - SALT=dev-langfuse-salt-change-in-production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - historiai-network
+
+networks:
+  historiai-network:
+    name: historiai-network
+    external: true

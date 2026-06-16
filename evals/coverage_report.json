@@ -1,0 +1,65 @@
+{
+  "postgres": {
+    "status": "HEALTHY",
+    "tables": [
+      "alembic_version",
+      "ingest_jobs",
+      "users",
+      "document_chunks",
+      "sessions",
+      "documents",
+      "messages",
+      "feedback",
+      "document_entities",
+      "wiki_pages",
+      "brain_build_jobs",
+      "wiki_page_versions",
+      "wiki_links",
+      "wiki_claims",
+      "knowledge_edges",
+      "brain_review_plans",
+      "wiki_sources",
+      "projects",
+      "historical_events",
+      "knowledge_nodes",
+      "project_members",
+      "project_sources",
+      "wiki_page_drafts",
+      "knowledge_drafts",
+      "entities",
+      "reset_requests",
+      "audit_logs"
+    ],
+    "counts": {
+      "documents": 1,
+      "entities": 0,
+      "document_entities": 0,
+      "sessions": 102,
+      "users": 4
+    }
+  },
+  "qdrant": {
+    "status": "HEALTHY",
+    "collection_found": true,
+    "points_count": 188,
+    "collection_status": "green",
+    "all_collections": [
+      "historiai_chunks"
+    ]
+  },
+  "meilisearch": {
+    "status": "HEALTHY",
+    "index_found": true,
+    "document_count": 188
+  },
+  "neo4j": {
+    "status": "HEALTHY",
+    "nodes_count": 18,
+    "relationships_count": 6
+  },
+  "redis": {
+    "status": "HEALTHY",
+    "ping": true,
+    "cached_keys_count": 2
+  }
+}

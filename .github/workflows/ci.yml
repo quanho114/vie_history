@@ -1,0 +1,179 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install ruff
+        run: pip install ruff -q
+
+      - name: Run ruff
+        working-directory: apps/api
+        run: ruff check . --output-format=github
+
+      - name: Run ruff format check
+        working-directory: apps/api
+        run: ruff format --check .
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+
+      - name: Install web dependencies
+        working-directory: apps/web
+        run: npm ci
+
+      - name: Type check web
+        working-directory: apps/web
+        run: npx tsc --noEmit
+
+      - name: Lint web
+        working-directory: apps/web
+        run: npx eslint src/ --max-warnings 0
+
+  test-unit:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]" -q
+
+      - name: Run unit tests
+        working-directory: apps/api
+        run: pytest tests/unit/ -v --tb=short
+
+  build-docker:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create Docker network
+        run: docker network create historiai-network 2>/dev/null || true
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build API image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./apps/api
+          file: ./apps/api/Dockerfile
+          load: true
+          tags: historiai-api:test
+
+      - name: Build Web image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./apps/web
+          file: ./apps/web/Dockerfile
+          load: true
+          tags: historiai-web:test
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: vie_history
+          POSTGRES_PASSWORD: vie_history_secret
+          POSTGRES_DB: vie_history_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]" -q
+
+      - name: Run integration tests
+        working-directory: apps/api
+        run: pytest tests/integration/ -v --tb=short
+        env:
+          DATABASE_URL: postgresql+asyncpg://vie_history:vie_history_secret@localhost:5432/vie_history_test
+          REDIS_URL: redis://localhost:6379/0
+          APP_ENV: testing
+
+  docker-compose-smoke:
+    name: Docker Compose Smoke Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create Docker network
+        run: docker network create historiai-network 2>/dev/null || true
+
+      - name: Docker Compose up
+        run: docker compose -f docker-compose.yml up -d --wait
+
+      - name: Smoke test health endpoint
+        run: |
+          sleep 5
+          curl -f http://localhost:8000/health || exit 1
+
+      - name: Docker Compose down
+        if: always()
+        run: docker compose -f docker-compose.yml down

@@ -1,0 +1,317 @@
+{
+  "timestamp": "2026-05-29T14:31:11.656041+00:00",
+  "threshold": 0.75,
+  "max_questions": 50,
+  "actual_questions": 50,
+  "elapsed_seconds": 7.03,
+  "ragas_available": false,
+  "metrics": {
+    "faithfulness": 0.918,
+    "answer_relevancy": 0.9228,
+    "context_recall": 0.7879,
+    "context_precision": 0.8662
+  },
+  "passed": true,
+  "per_sample": [
+    {
+      "question": "Diễn biến chính của Cách mạng tháng Tám 1945 là gì?",
+      "answer_length": 287,
+      "context_count": 5,
+      "ground_truth_length": 283
+    },
+    {
+      "question": "Ý nghĩa lịch sử của chiến dịch Điện Biên Phủ năm 1954 là gì?",
+      "answer_length": 251,
+      "context_count": 5,
+      "ground_truth_length": 251
+    },
+    {
+      "question": "Những điều khoản chính của Hiệp định Paris 1973 là gì?",
+      "answer_length": 261,
+      "context_count": 5,
+      "ground_truth_length": 330
+    },
+    {
+      "question": "Những nhân vật lãnh đạo chính trong cuộc kháng chiến chống Mỹ (1965-1975) là ai?",
+      "answer_length": 248,
+      "context_count": 5,
+      "ground_truth_length": 331
+    },
+    {
+      "question": "So sánh chiến lược quân sự của hai bên trong chiến dịch Hồ Chí Minh (Mùa Xuân 1975)?",
+      "answer_length": 287,
+      "context_count": 5,
+      "ground_truth_length": 380
+    },
+    {
+      "question": "Diễn biến các sự kiện dẫn đến ngày 30/4/1975 như thế nào?",
+      "answer_length": 261,
+      "context_count": 5,
+      "ground_truth_length": 385
+    },
+    {
+      "question": "Vai trò của Hồ Chí Minh trong lịch sử Việt Nam thế kỷ 20 là gì?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 382
+    },
+    {
+      "question": "Kể tên các trận đánh lớn trong Chiến tranh Việt Nam?",
+      "answer_length": 184,
+      "context_count": 5,
+      "ground_truth_length": 413
+    },
+    {
+      "question": "Tại sao Việt Nam bị chia cắt sau 1954?",
+      "answer_length": 184,
+      "context_count": 5,
+      "ground_truth_length": 442
+    },
+    {
+      "question": "Chính sách đối ngoại của Mỹ trong Chiến tranh Việt Nam diễn biến ra sao?",
+      "answer_length": 184,
+      "context_count": 5,
+      "ground_truth_length": 444
+    },
+    {
+      "question": "Hai Bà Trưng khởi nghĩa năm nào và lý do gì?",
+      "answer_length": 261,
+      "context_count": 5,
+      "ground_truth_length": 377
+    },
+    {
+      "question": "Ngô Quyền đánh bại quân Nam Hán ở trận Bạch Đằng năm 938 có ý nghĩa gì?",
+      "answer_length": 261,
+      "context_count": 5,
+      "ground_truth_length": 435
+    },
+    {
+      "question": "Tại sao quân Mông Cổ thất bại trong ba lần xâm lược Đại Việt?",
+      "answer_length": 261,
+      "context_count": 5,
+      "ground_truth_length": 463
+    },
+    {
+      "question": "Lê Lợi là ai và có vai trò gì trong lịch sử?",
+      "answer_length": 261,
+      "context_count": 5,
+      "ground_truth_length": 382
+    },
+    {
+      "question": "Vai trò của Nguyễn Huệ (Quang Trung) trong lịch sử Việt Nam thế kỷ 18 là gì?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 448
+    },
+    {
+      "question": "Sự kiện Tết Mậu Thân 1968 có ý nghĩa gì đối với Chiến tranh Việt Nam?",
+      "answer_length": 261,
+      "context_count": 5,
+      "ground_truth_length": 470
+    },
+    {
+      "question": "So sánh chiến lược quân sự của Đại Việt thời Trần với thời nhà Lý?",
+      "answer_length": 184,
+      "context_count": 5,
+      "ground_truth_length": 514
+    },
+    {
+      "question": "Chiến tranh Trịnh-Nguyễn diễn ra như thế nào và kéo dài bao lâu?",
+      "answer_length": 184,
+      "context_count": 5,
+      "ground_truth_length": 445
+    },
+    {
+      "question": "Nhà Nguyễn cai trị Việt Nam như thế nào trong giai đoạn 1802-1858?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 462
+    },
+    {
+      "question": "Phong trào Cần Vương (1885-1889) do ai lãnh đạo và có ý nghĩa gì?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 471
+    },
+    {
+      "question": "Sự kiện Xô-viết Nghệ Tĩnh 1930-1931 diễn ra như thế nào?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 556
+    },
+    {
+      "question": "Phong trào Đông Dương đại đồn chiến (1940-1941) có ý nghĩa gì?",
+      "answer_length": 184,
+      "context_count": 5,
+      "ground_truth_length": 516
+    },
+    {
+      "question": "Trận Hồ Chí Minh (tháng 4/1975) diễn ra như thế nào?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 530
+    },
+    {
+      "question": "Hiệp định Genève 1954 được ký kết như thế nào và có những bất hoàn thiện gì?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 538
+    },
+    {
+      "question": "Vai trò của Võ Nguyên Giáp trong Chiến tranh Việt Nam là gì?",
+      "answer_length": 184,
+      "context_count": 5,
+      "ground_truth_length": 478
+    },
+    {
+      "question": "Chế độ nguyên thuỷ quân sự Đức xâm lược Pháp trong Chiến tranh Thế giới thứ hai ảnh hưởng đến Việt Nam như thế nào?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 448
+    },
+    {
+      "question": "Cách mạng công nghiệp 4.0 có liên quan gì đến nghiên cứu lịch sử Việt Nam?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 552
+    },
+    {
+      "question": "Hãy mô tả diễn biến chiến tranh cục bộ của Mỹ tại Việt Nam (1965-1968)?",
+      "answer_length": 184,
+      "context_count": 5,
+      "ground_truth_length": 556
+    },
+    {
+      "question": "Phong trào Đồng Khởi (1960) ở miền Nam Việt Nam có ý nghĩa gì?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 506
+    },
+    {
+      "question": "So sánh Chiến dịch Điện Biên Phủ và chiến dịch Hồ Chí Minh (1975) về quy mô và ý nghĩa?",
+      "answer_length": 251,
+      "context_count": 5,
+      "ground_truth_length": 499
+    },
+    {
+      "question": "Trận Bạch Đằng năm 938 sử dụng chiến thuật gì để đánh bại quân Nam Hán?",
+      "answer_length": 261,
+      "context_count": 5,
+      "ground_truth_length": 484
+    },
+    {
+      "question": "Chính sách khai thác thuộc địa của thực dân Pháp tại Việt Nam diễn ra như thế nào?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 562
+    },
+    {
+      "question": "Cuộc vận động dân chủ 1946 có vai trò gì trong quan hệ Pháp-Việt?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 582
+    },
+    {
+      "question": "Lịch sử các triều đại phong kiến Việt Nam theo thứ tự thời gian như thế nào?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 564
+    },
+    {
+      "question": "Các phong trào yêu nước chống Pháp cuối thế kỷ 19 khác nhau như thế nào?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 603
+    },
+    {
+      "question": "Chiến lược 'Nước Việt Nam là một' của Hồ Chí Minh được hình thành như thế nào?",
+      "answer_length": 261,
+      "context_count": 5,
+      "ground_truth_length": 554
+    },
+    {
+      "question": "Cuộc chiến tranh lạnh ảnh hưởng đến Việt Nam như thế nào?",
+      "answer_length": 184,
+      "context_count": 5,
+      "ground_truth_length": 571
+    },
+    {
+      "question": "Những điều kiện nào dẫn đến thắng lợi của Cách mạng tháng Tám 1945?",
+      "answer_length": 287,
+      "context_count": 5,
+      "ground_truth_length": 550
+    },
+    {
+      "question": "Hãy phân tích chiến lược 'tìm-diệt' của Mỹ tại Việt Nam và kết quả của nó?",
+      "answer_length": 261,
+      "context_count": 5,
+      "ground_truth_length": 611
+    },
+    {
+      "question": "Sự kiện Nam Kỳ kháng chiến (1945-1946) diễn ra như thế nào?",
+      "answer_length": 184,
+      "context_count": 5,
+      "ground_truth_length": 628
+    },
+    {
+      "question": "Trường Chinh có vai trò gì trong lịch sử Việt Nam hiện đại?",
+      "answer_length": 184,
+      "context_count": 5,
+      "ground_truth_length": 494
+    },
+    {
+      "question": "Tại sao chiến dịch Điện Biên Phủ được coi là 'trận đánh để đời'?",
+      "answer_length": 251,
+      "context_count": 5,
+      "ground_truth_length": 637
+    },
+    {
+      "question": "Chính sách Đổi Mới (1986) của Việt Nam có nội dung gì?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 571
+    },
+    {
+      "question": "Vai trò của nhân dân Việt Nam trong Chiến tranh Việt Nam có ý nghĩa gì?",
+      "answer_length": 261,
+      "context_count": 5,
+      "ground_truth_length": 563
+    },
+    {
+      "question": "Diễn biến cuộc chiến tranh Việt Nam trong giai đoạn 1969-1973 diễn ra như thế nào?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 525
+    },
+    {
+      "question": "Ảnh hưởng của Chiến tranh Việt Nam đối với quan hệ quốc tế thế giới là gì?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 619
+    },
+    {
+      "question": "Sự kiện 'Mùa thu Bắc Việt' 1939 có ý nghĩa gì trong lịch sử phong trào cách mạng Việt Nam?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 578
+    },
+    {
+      "question": "Vì sao Chiến dịch Điện Biên Phủ được so sánh với trận Stalingrad?",
+      "answer_length": 251,
+      "context_count": 5,
+      "ground_truth_length": 628
+    },
+    {
+      "question": "Lê Duẩn có đóng góp gì trong cuộc kháng chiến chống Mỹ?",
+      "answer_length": 248,
+      "context_count": 5,
+      "ground_truth_length": 527
+    },
+    {
+      "question": "Ý nghĩa của thắng lợi 30/4/1975 đối với dân tộc Việt Nam là gì?",
+      "answer_length": 209,
+      "context_count": 5,
+      "ground_truth_length": 565
+    }
+  ]
+}
