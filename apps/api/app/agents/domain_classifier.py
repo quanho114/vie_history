@@ -71,10 +71,29 @@ class DomainClassifier:
         "cải cách ruộng đất", "lịch sử", "sự kiện", "nhân vật", "tướng", "quân đội"
     ]
 
+    CAPABILITY_KEYWORDS = [
+        "bạn làm được gì", "bạn có khả năng gì", "bạn là ai", "historiai là gì",
+        "historiai dùng để làm gì", "hướng dẫn sử dụng", "làm sao sử dụng",
+        "sử dụng như thế nào", "chức năng của bạn", "bạn giúp gì",
+        "bạn có chức năng gì", "who are you", "what can you do",
+        "what is historiai", "giới thiệu bản thân", "hướng dẫn dùng"
+    ]
+
     def classify_rules(self, query: str) -> DomainResult | None:
         """Deterministic rule-based fast-path check."""
         q = query.lower().strip()
         words = re.sub(r"[.,!?;:]", " ", q).split()
+
+        # 0. Capability questions
+        for kw in self.CAPABILITY_KEYWORDS:
+            if kw in q:
+                logger.info("domain_classified_rules", is_in_scope=True, reason="capability_keyword")
+                return DomainResult(
+                    decision=DomainDecision.IN_SCOPE,
+                    confidence=1.0,
+                    source="rule",
+                    reason="Hỏi về khả năng/chức năng hệ thống."
+                )
 
         # 1. Greetings
         for kw in self.GREETING_KEYWORDS:

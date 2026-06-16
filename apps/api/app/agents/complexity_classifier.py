@@ -116,6 +116,18 @@ class ComplexityClassifier:
                 logger.info("complexity_classified", mode="fast", intent="out_of_scope", query=query[:60])
                 return ComplexityResult(mode="fast", intent="out_of_scope", confidence=0.95)
 
+        # ── 1.5. Capability ──────────────────────────────────
+        for kw in [
+            "bạn làm được gì", "bạn có khả năng gì", "bạn là ai", "historiai là gì",
+            "historiai dùng để làm gì", "hướng dẫn sử dụng", "làm sao sử dụng",
+            "sử dụng như thế nào", "chức năng của bạn", "bạn giúp gì",
+            "bạn có chức năng gì", "who are you", "what can you do",
+            "what is historiai", "giới thiệu bản thân", "hướng dẫn dùng"
+        ]:
+            if kw in q:
+                logger.info("complexity_classified", mode="fast", intent="capability", query=query[:60])
+                return ComplexityResult(mode="fast", intent="capability", confidence=0.99)
+
         # ── 2. Agentic (check BEFORE greeting — causal/geopolitical wins) ─
         agentic_hits = sum(1 for kw in _AGENTIC_PATTERNS if kw in q)
         if agentic_hits >= 1:

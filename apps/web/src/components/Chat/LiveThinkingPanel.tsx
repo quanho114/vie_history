@@ -144,17 +144,19 @@ export function LiveThinkingPanel({ liveTrace, isStreaming, finalTrace }: LiveTh
   const totalMs = finalTrace?.total_ms || 0
   const hasSteps = traceItems.length > 0
 
+  const hasFailed = traceItems.some(step => step.status === "failed")
+
   // Expanded state: always open while streaming, collapsible after done
   const [isExpanded, setIsExpanded] = useState(true)
 
-  // Keep expanded while streaming; auto-collapse 1.5s after streaming ends
+  // Keep expanded while streaming; auto-collapse 500ms after streaming ends
   useEffect(() => {
     if (isStreaming) {
       setIsExpanded(true)
       return
     }
     if (!isStreaming && hasSteps) {
-      const timer = setTimeout(() => setIsExpanded(false), 1500)
+      const timer = setTimeout(() => setIsExpanded(false), 500)
       return () => clearTimeout(timer)
     }
   }, [isStreaming, hasSteps])
@@ -174,62 +176,71 @@ export function LiveThinkingPanel({ liveTrace, isStreaming, finalTrace }: LiveTh
     <div
       className="mb-2 rounded-xl overflow-hidden"
       style={{
-        border: `1px solid ${isLive ? "rgba(204,120,92,0.25)" : "var(--hairline)"}`,
-        backgroundColor: isLive ? "rgba(254, 252, 250, 0.97)" : "rgba(250, 249, 245, 0.85)",
+        border: isLive
+          ? "1px solid rgba(204,120,92,0.25)"
+          : isExpanded
+            ? "1px solid var(--hairline)"
+            : "none",
+        backgroundColor: isLive
+          ? "rgba(254, 252, 250, 0.97)"
+          : isExpanded
+            ? "rgba(250, 249, 245, 0.85)"
+            : "transparent",
         transition: "border-color 0.3s, background-color 0.3s",
       }}
     >
       {/* ── Header ─────────────────────────────────────── */}
-      <button
-        onClick={() => !isLive && setIsExpanded(!isExpanded)}
-        className="w-full px-3.5 py-2.5 flex items-center justify-between text-left"
-        style={{ background: "none", border: "none", cursor: isLive ? "default" : "pointer" }}
-      >
-        <div className="flex items-center gap-2">
-          {isLive ? (
+      {!isLive ? (
+        <button
+          type="button"
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11.5px] transition-colors hover:bg-[#f5f1ea] border-none bg-transparent"
+          style={{ cursor: "pointer", color: "var(--soft)" }}
+        >
+          <span className="font-medium">
+            {isExpanded ? "Ẩn quá trình phân tích" : "Xem quá trình phân tích"}
+          </span>
+          {totalMs > 0 && (
+            <span className="opacity-80 font-mono text-[10.5px]">
+              ({(totalMs / 1000).toFixed(1)}s • {traceItems.length} bước)
+            </span>
+          )}
+          <ChevronDown
+            className={cn("w-3.5 h-3.5 transition-transform duration-200 ml-0.5", isExpanded && "rotate-180")}
+            style={{ color: "var(--muted)" }}
+          />
+        </button>
+      ) : (
+        <button
+          className="w-full px-3.5 py-2.5 flex items-center justify-between text-left border-none bg-transparent"
+          style={{ cursor: "default" }}
+        >
+          <div className="flex items-center gap-2">
             <div className="w-5 h-5 rounded-md bg-[#cc785c]/10 flex items-center justify-center">
               <Loader2 className="w-3 h-3 text-[#cc785c] animate-spin" />
             </div>
-          ) : (
-            <div className="w-5 h-5 rounded-md bg-emerald-50 flex items-center justify-center">
-              <CheckCircle className="w-3 h-3 text-emerald-600" />
-            </div>
-          )}
 
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <span
-              className="font-semibold text-[12px]"
-              style={{ color: isLive ? "var(--coral)" : "var(--body)" }}
-            >
-              {isLive ? "Đang suy luận..." : "Suy luận hoàn tất"}
-            </span>
-            <span className="text-[11px]" style={{ color: "var(--muted)" }}>•</span>
-            {isLive ? (
-              <ElapsedTimer />
-            ) : (
-              <span className="text-[11px] tabular-nums" style={{ color: "var(--muted)" }}>
-                {totalMs > 0 ? `${(totalMs / 1000).toFixed(1)}s` : ""}
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span
+                className="font-semibold text-[12px]"
+                style={{ color: "var(--coral)" }}
+              >
+                Đang suy luận...
               </span>
-            )}
-            {hasSteps && (
-              <>
-                <span className="text-[11px]" style={{ color: "var(--muted)" }}>•</span>
-                <span className="text-[11px]" style={{ color: "var(--muted)" }}>
-                  {traceItems.length} bước
-                </span>
-              </>
-            )}
+              <span className="text-[11px]" style={{ color: "var(--muted)" }}>•</span>
+              <ElapsedTimer />
+              {hasSteps && (
+                <>
+                  <span className="text-[11px]" style={{ color: "var(--muted)" }}>•</span>
+                  <span className="text-[11px]" style={{ color: "var(--muted)" }}>
+                    {traceItems.length} bước
+                  </span>
+                </>
+              )}
+            </div>
           </div>
-        </div>
-
-        {/* Only show chevron when NOT live (collapsible after done) */}
-        {!isLive && (
-          <ChevronDown
-            className={cn("w-4 h-4 transition-transform duration-200", isExpanded && "rotate-180")}
-            style={{ color: "var(--muted)" }}
-          />
-        )}
-      </button>
+        </button>
+      )}
 
       {/* ── Body — always visible while live ───────────── */}
       <div
@@ -267,7 +278,7 @@ export function LiveThinkingPanel({ liveTrace, isStreaming, finalTrace }: LiveTh
                 {[0, "0.2s", "0.4s"].map((delay, i) => (
                   <span
                     key={i}
-                    className="w-1 h-1 rounded-full bg-[#cc785c] animate-pulse"
+                    className="w-1.5 h-1.5 rounded-full bg-[#cc785c] animate-pulse"
                     style={{ animationDelay: String(delay) }}
                   />
                 ))}
@@ -281,10 +292,21 @@ export function LiveThinkingPanel({ liveTrace, isStreaming, finalTrace }: LiveTh
           {/* Done */}
           {!isLive && hasSteps && (
             <div className="flex items-center gap-2 mt-2.5">
-              <CheckCircle className="w-3 h-3 text-emerald-500 flex-shrink-0" />
-              <span className="text-[10px] italic" style={{ color: "var(--muted)" }}>
-                Pipeline hoàn tất. Trả về kết quả tổng hợp.
-              </span>
+              {hasFailed ? (
+                <>
+                  <AlertTriangle className="w-3 h-3 text-red-500 flex-shrink-0" />
+                  <span className="text-[10px] italic text-red-600">
+                    Pipeline bị gián đoạn. Vui lòng kiểm tra lại cấu hình kết nối AI.
+                  </span>
+                </>
+              ) : (
+                <>
+                  <CheckCircle className="w-3 h-3 text-emerald-500 flex-shrink-0" />
+                  <span className="text-[10px] italic" style={{ color: "var(--muted)" }}>
+                    Pipeline hoàn tất. Trả về kết quả tổng hợp.
+                  </span>
+                </>
+              )}
             </div>
           )}
         </div>

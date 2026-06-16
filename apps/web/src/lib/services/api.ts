@@ -142,6 +142,12 @@ export const sessionsApi = {
       method: "DELETE",
     })
   },
+
+  async deleteAll(): Promise<void> {
+    return request("/sessions", {
+      method: "DELETE",
+    })
+  },
 }
 
 function sanitizeKey(key: string | null): string {

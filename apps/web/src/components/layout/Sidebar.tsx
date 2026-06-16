@@ -380,7 +380,7 @@ export function Sidebar({
   isCollapsed = false,
   onToggleCollapse,
 }: SidebarProps) {
-  const { sessions, createSession, setActiveSession, activeSessionId, renameSession, deleteSession } = useChatStore();
+  const { sessions, createSession, setActiveSession, activeSessionId, renameSession, deleteSession, deleteAllSessions } = useChatStore();
   const { user, logout, updateUserProfile } = useAuthStore();
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -543,6 +543,8 @@ export function Sidebar({
   const [editTitle, setEditTitle] = useState("");
   const [showAllSessions, setShowAllSessions] = useState(false);
   const [deletingSessionId, setDeletingSessionId] = useState<string | null>(null);
+  const [isDeletingAll, setIsDeletingAll] = useState(false);
+  const [confirmDeleteAll, setConfirmDeleteAll] = useState(false);
   const [sessionError, setSessionError] = useState<string | null>(null);
   const filteredSessions = sessions.filter(session =>
     session.title?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -595,6 +597,19 @@ export function Sidebar({
       setSessionError(error instanceof Error ? error.message : "Không thể xóa cuộc trò chuyện.");
     } finally {
       setDeletingSessionId(null);
+    }
+  };
+
+  const handleDeleteAllSessions = async () => {
+    setIsDeletingAll(true);
+    setSessionError(null);
+    setConfirmDeleteAll(false);
+    try {
+      await deleteAllSessions();
+    } catch (error) {
+      setSessionError(error instanceof Error ? error.message : "Không thể xóa tất cả cuộc trò chuyện.");
+    } finally {
+      setIsDeletingAll(false);
     }
   };
 
@@ -765,6 +780,43 @@ export function Sidebar({
               <span className="text-[10px] font-medium text-soft uppercase tracking-wider">
                 {t("recent_chats")}
               </span>
+              {sessions.length > 0 && (
+                confirmDeleteAll ? (
+                  <div className="flex items-center gap-1">
+                    <span className="text-[10px] text-red-500 font-medium">
+                      {language === "en" ? "Sure?" : "Chắc chắn?"}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={handleDeleteAllSessions}
+                      disabled={isDeletingAll}
+                      className="text-[10px] font-semibold text-white bg-red-500 hover:bg-red-600 px-1.5 py-0.5 rounded transition-colors disabled:opacity-60"
+                      aria-label="Xác nhận xóa tất cả"
+                    >
+                      {isDeletingAll ? "..." : (language === "en" ? "Yes" : "Có")}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setConfirmDeleteAll(false)}
+                      className="text-[10px] font-semibold text-muted hover:text-ink px-1.5 py-0.5 rounded transition-colors"
+                      aria-label="Hủy xóa tất cả"
+                    >
+                      {language === "en" ? "No" : "Hủy"}
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setConfirmDeleteAll(true)}
+                    className="flex items-center gap-1 text-[10px] text-muted hover:text-red-500 transition-colors rounded px-1 py-0.5 hover:bg-red-50"
+                    title={language === "en" ? "Delete all chats" : "Xóa tất cả đoạn chat"}
+                    aria-label={language === "en" ? "Delete all chats" : "Xóa tất cả đoạn chat"}
+                  >
+                    <Trash2 size={10} />
+                    <span>{language === "en" ? "Clear all" : "Xóa tất cả"}</span>
+                  </button>
+                )
+              )}
             </div>
 
             {/* Session List - Interactive rows */}
@@ -1112,6 +1164,61 @@ export function Sidebar({
                           onChange={(e) => setPassword(e.target.value)}
                           className="w-full bg-surface-soft/20 border border-hairline rounded-lg px-3 py-2 text-[13px] text-ink outline-none focus:border-[#cc785c] transition-all"
                         />
+                      </div>
+                    </div>
+
+                    {/* Danger Zone */}
+                    <div className="pt-2 border-t border-hairline space-y-2">
+                      <h4 className="font-display text-[13px] font-semibold text-red-600 flex items-center gap-1.5">
+                        <Trash2 className="w-3.5 h-3.5" />
+                        {language === "en" ? "Danger Zone" : "Vùng nguy hiểm"}
+                      </h4>
+                      <div className="flex items-center justify-between p-3 rounded-xl border border-red-100 bg-red-50/40">
+                        <div>
+                          <p className="text-[12px] font-medium text-ink">
+                            {language === "en" ? "Delete all chats" : "Xóa tất cả đoạn chat"}
+                          </p>
+                          <p className="text-[11px] text-muted mt-0.5">
+                            {language === "en"
+                              ? "Permanently removes all conversation history."
+                              : "Xóa vĩnh viễn toàn bộ lịch sử trò chuyện."}
+                          </p>
+                        </div>
+                        {confirmDeleteAll ? (
+                          <div className="flex items-center gap-1.5 flex-shrink-0">
+                            <span className="text-[11px] text-red-500 font-medium">
+                              {language === "en" ? "Sure?" : "Chắc chắn?"}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={handleDeleteAllSessions}
+                              disabled={isDeletingAll}
+                              className="px-2.5 py-1 rounded-lg text-[11px] font-semibold text-white bg-red-500 hover:bg-red-600 transition-colors disabled:opacity-60"
+                              aria-label="Xác nhận xóa tất cả cuộc trò chuyện"
+                            >
+                              {isDeletingAll ? "..." : (language === "en" ? "Yes, delete" : "Có, xóa")}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setConfirmDeleteAll(false)}
+                              className="px-2.5 py-1 rounded-lg text-[11px] font-semibold border border-hairline text-muted hover:text-ink transition-colors"
+                              aria-label="Hủy xóa tất cả"
+                            >
+                              {language === "en" ? "Cancel" : "Hủy"}
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => setConfirmDeleteAll(true)}
+                            disabled={sessions.length === 0}
+                            className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium text-red-600 border border-red-200 hover:bg-red-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                            aria-label={language === "en" ? "Delete all chats" : "Xóa tất cả đoạn chat"}
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                            {language === "en" ? "Delete all" : "Xóa tất cả"}
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>

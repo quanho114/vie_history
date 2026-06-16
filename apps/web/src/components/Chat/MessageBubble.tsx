@@ -94,7 +94,9 @@ export const MessageBubble = memo(function MessageBubble({
             color: "var(--body)",
           }}
         >
-          <ReactMarkdown>{message.content || ""}</ReactMarkdown>
+          <div className="markdown-content">
+            <ReactMarkdown>{message.content || ""}</ReactMarkdown>
+          </div>
           {isStreaming && (
             <span
               aria-hidden="true"

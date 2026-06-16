@@ -110,6 +110,20 @@ class QueryCache:
         except Exception as exc:
             logger.warning("query_cache_set_failed", key=key, error=str(exc))
 
+    async def delete(self, query: str, filters: dict | None = None) -> None:
+        """Delete a single cached entry by query + filters.
+
+        Used to evict poisoned/stale entries without clearing the whole cache.
+        """
+        if self._cache is None:
+            return
+        key = _query_cache_key(query, filters)
+        try:
+            await self._cache.delete(key)
+            logger.info("query_cache_deleted", key=key)
+        except Exception as exc:
+            logger.warning("query_cache_delete_failed", key=key, error=str(exc))
+
     async def clear_all(self) -> list[str]:
         """
         Clear all cached query results.

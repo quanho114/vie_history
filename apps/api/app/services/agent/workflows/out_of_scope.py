@@ -13,14 +13,13 @@ class OutOfScopeWorkflow:
     """
 
     REFUSAL_MESSAGE = (
-        "HistoriAI chuyên hỗ trợ nghiên cứu và tra cứu lịch sử Việt Nam.\n\n"
-        "Câu hỏi của bạn nằm ngoài phạm vi chuyên môn của hệ thống, nên tôi không thể cung cấp câu trả lời đáng tin cậy.\n\n"
-        "Bạn có thể hỏi về:\n"
-        "• Các triều đại Việt Nam\n"
-        "• Nhân vật lịch sử\n"
-        "• Các cuộc kháng chiến\n"
-        "• Sự kiện lịch sử Việt Nam\n"
-        "• Chính sách và cải cách qua các thời kỳ"
+        "Mình có thể hỗ trợ bạn tra cứu và phân tích lịch sử Việt Nam qua các thời kỳ. Ví dụ:\n"
+        "• Tóm tắt các sự kiện lịch sử\n"
+        "• Giải thích nguyên nhân và kết quả của các cuộc kháng chiến\n"
+        "• Lập dòng thời gian sự kiện, niên biểu các triều đại\n"
+        "• So sánh các nhân vật hoặc giai đoạn lịch sử\n"
+        "• Trả lời câu hỏi dựa trên kho tài liệu lịch sử của hệ thống\n\n"
+        "Ngoài lĩnh vực lịch sử Việt Nam, mình có thể không đưa ra được câu trả lời đáng tin cậy. Bạn muốn hỏi mình câu hỏi nào về lịch sử Việt Nam không?"
     )
 
     async def execute(self, query: str) -> dict:

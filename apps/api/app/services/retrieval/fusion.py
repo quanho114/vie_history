@@ -51,6 +51,7 @@ class FusionSearch:
             weighted_score = rrf_score * boost_vector
 
             scores[doc_id] = {
+                **result,
                 "id": doc_id,
                 "rrf_score": weighted_score,
                 "vector_rank": i + 1,
@@ -69,8 +70,13 @@ class FusionSearch:
                 scores[doc_id]["rrf_score"] += weighted_score
                 scores[doc_id]["bm25_rank"] = i + 1
                 scores[doc_id]["bm25_score"] = result.get("score", 0)
+                # Merge BM25 fields that might not be in vector results
+                for k, v in result.items():
+                    if k not in scores[doc_id] or scores[doc_id][k] is None:
+                        scores[doc_id][k] = v
             else:
                 scores[doc_id] = {
+                    **result,
                     "id": doc_id,
                     "rrf_score": weighted_score,
                     "bm25_rank": i + 1,

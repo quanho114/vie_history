@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, type FormEvent } from "react";
 import { useChatStore } from "@/stores/chatStore";
 import { cn } from "@/lib/utils/cn";
-import { Send, Paperclip, Search, Copy, ThumbsUp, ThumbsDown, RefreshCw, Share2, Square, Check, Key, Settings } from "lucide-react";
+import { Send, Paperclip, Search, Copy, ThumbsUp, ThumbsDown, RefreshCw, Share2, Square, Check, Key, Settings, BookOpen } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import type { Message, Citation } from "@/types";
 import { LiveThinkingPanel } from "@/components/Chat/LiveThinkingPanel";
@@ -98,9 +98,18 @@ function TypingDots() {
 interface MessageActionsProps {
   message: Message;
   onRegenerate?: () => void;
+  showSources?: boolean;
+  onToggleSources?: () => void;
+  hasCitations?: boolean;
 }
 
-function MessageActions({ message, onRegenerate }: MessageActionsProps) {
+function MessageActions({
+  message,
+  onRegenerate,
+  showSources,
+  onToggleSources,
+  hasCitations,
+}: MessageActionsProps) {
   const [copied, setCopied] = useState(false);
   const [vote, setVote] = useState<"like" | "dislike" | null>(null);
 
@@ -209,49 +218,56 @@ function formatCitationTitle(title: string) {
   return title;
 }
 
-function CitationCard({ citation }: { citation: Citation }) {
-  const friendlyTitle = formatCitationTitle(citation.document_title);
+function CitationCard({ citation, index }: { citation: Citation; index: number }) {
+  let domain = "";
+  let pageTitle = citation.section_title || citation.document_title || "Tài liệu tham khảo";
+
+  if (citation.source_url && (citation.source_url.startsWith("http://") || citation.source_url.startsWith("https://"))) {
+    try {
+      const url = new URL(citation.source_url);
+      domain = url.hostname.replace("www.", "");
+    } catch {
+      domain = "Tài liệu";
+    }
+  } else {
+    domain = "Cơ sở dữ liệu";
+  }
 
   return (
     <a
       href={citation.source_url || "#"}
       target="_blank"
       rel="noopener noreferrer"
-      className="block p-2.5 rounded-lg border transition-all duration-150 hover:shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:border-[#cc785c] group"
+      className="flex items-center gap-3 p-2 rounded-lg border transition-all duration-150 hover:bg-[#f5f1ea] hover:border-[#cc785c] group"
       style={{
-        backgroundColor: "#fcfbf9",
-        borderColor: "#e8e2d9",
+        backgroundColor: "rgba(250, 249, 245, 0.5)",
+        borderColor: "var(--hairline-soft)",
       }}
     >
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex-1 min-w-0">
-          <span
-            className="font-medium text-[12px] truncate block group-hover:text-[#cc785c] transition-colors"
-            style={{ color: "var(--body-strong)" }}
-            title={friendlyTitle}
-          >
-            {friendlyTitle}
-          </span>
-          {citation.section_title && (
-            <span className="text-[11px] block mt-0.5 font-normal truncate" style={{ color: "var(--muted)" }}>
-              {citation.section_title}
-            </span>
-          )}
-          <p
-            className="mt-1 leading-normal line-clamp-1 text-[11px]"
-            style={{ color: "var(--muted)" }}
-          >
-            {citation.excerpt}
-          </p>
-        </div>
+      <div
+        className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-semibold flex-shrink-0"
+        style={{
+          backgroundColor: "var(--surface-soft)",
+          color: "var(--soft)",
+          border: "1px solid var(--hairline-soft)",
+        }}
+      >
+        {index}
+      </div>
+
+      <div className="flex-1 min-w-0">
         <span
-          className="px-1.5 py-0.5 rounded text-[10px] flex-shrink-0 font-medium"
-          style={{
-            backgroundColor: "var(--surface-soft)",
-            color: "var(--muted)",
-          }}
+          className="font-medium text-[11.5px] truncate block group-hover:text-[#cc785c] transition-colors"
+          style={{ color: "var(--body-strong)" }}
+          title={pageTitle}
         >
-          {Math.round(citation.score * 100)}%
+          {pageTitle}
+        </span>
+        <span
+          className="text-[9.5px] block font-mono uppercase tracking-wider opacity-60 mt-0.5 truncate"
+          style={{ color: "var(--soft)" }}
+        >
+          {domain}
         </span>
       </div>
     </a>
@@ -458,6 +474,24 @@ function StageIndicator({ stage }: { stage: string | null }) {
    Message Row
    ======================================== */
 
+function formatCitationsInText(content: string, citations: any[] | undefined) {
+  if (!content) return "";
+  if (!citations || citations.length === 0) return content;
+
+  let formatted = content;
+  citations.forEach((citation, index) => {
+    const num = index + 1;
+    const url = citation.source_url || "#";
+
+    const sMarker = `[S${num}]`;
+    const numMarker = `[${num}]`;
+
+    formatted = formatted.replaceAll(sMarker, `[${num}](${url})`);
+    formatted = formatted.replaceAll(numMarker, `[${num}](${url})`);
+  });
+  return formatted;
+}
+
 function MessageRow({
   message,
   isStreaming,
@@ -509,7 +543,7 @@ function MessageRow({
         >
           {/* AI message with markdown + cursor */}
           {!isUser && (
-            <div className="prose prose-sm max-w-none w-full">
+            <div className="prose prose-sm max-w-none w-full markdown-content">
               <ReactMarkdown
                 components={{
                   code({ className, children, ...props }) {
@@ -531,14 +565,25 @@ function MessageRow({
                     );
                   },
                   a({ href, children }) {
+                    const childText = Array.isArray(children) ? children[0] : children;
+                    const isCitation = typeof childText === "string" && /^\d+$/.test(childText);
                     return (
                       <a
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{ color: "var(--coral)" }}
+                        className={isCitation ? "citation-link font-bold text-xs hover:opacity-80 transition-opacity" : ""}
+                        style={isCitation ? {
+                          color: "var(--coral)",
+                          fontWeight: "bold",
+                          fontSize: "11px",
+                          verticalAlign: "super",
+                          marginLeft: "2px",
+                          marginRight: "2px",
+                          textDecoration: "none",
+                        } : { color: "var(--coral)" }}
                       >
-                        {children}
+                        {isCitation ? `[${childText}]` : children}
                       </a>
                     );
                   },
@@ -554,7 +599,7 @@ function MessageRow({
                   td: ({ children }) => <td className="py-2 px-3 border-b border-stone-100">{children}</td>,
                 }}
               >
-                {message.content || ""}
+                {formatCitationsInText(message.content || "", message.citations)}
               </ReactMarkdown>
               {/* Streaming cursor */}
               {isStreaming && (
@@ -577,7 +622,11 @@ function MessageRow({
           {/* Actions hiện khi hover */}
           {!isUser && !isStreaming && message.content && (
             <div className="mt-2 flex items-center gap-2">
-              <MessageActions message={message} onRegenerate={onRegenerate} />
+              <MessageActions
+                message={message}
+                onRegenerate={onRegenerate}
+                hasCitations={message.citations && message.citations.length > 0}
+              />
             </div>
           )}
         </div>
@@ -599,9 +648,9 @@ function MessageRow({
               >
                 Nguồn tham khảo
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                 {message.citations.map((citation, i) => (
-                  <CitationCard key={i} citation={citation} />
+                  <CitationCard key={i} citation={citation} index={i + 1} />
                 ))}
               </div>
             </div>

@@ -22,6 +22,7 @@ interface ChatState {
   clearError: () => void
   renameSession: (id: string, title: string) => Promise<void>
   deleteSession: (id: string) => Promise<void>
+  deleteAllSessions: () => Promise<void>
 }
 
 export const useChatStore = create<ChatState>()((set, get) => ({
@@ -304,4 +305,23 @@ export const useChatStore = create<ChatState>()((set, get) => ({
       throw error
     }
   },
+
+  deleteAllSessions: async () => {
+    const previousState = get()
+    try {
+      set({
+        sessions: [],
+        activeSessionId: null,
+      })
+      await sessionsApi.deleteAll()
+    } catch (error) {
+      console.error("Failed to delete all sessions:", error)
+      set({
+        sessions: previousState.sessions,
+        activeSessionId: previousState.activeSessionId,
+      })
+      throw error
+    }
+  },
 }))
+

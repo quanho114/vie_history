@@ -139,8 +139,11 @@ async def supervisor_node(state: AgentState) -> dict[str, Any]:
         retrieval_queries = [query]
         timeline_queries = [query]
         graph_slugs = []
+        status = "success"
         try:
             resp = await llm.generate(prompt, system="Bạn là Trí tuệ Điều phối Lịch sử (Autonomous History Planner AI).", max_tokens=600)
+            if resp.startswith("[Phản hồi từ bộ nhớ tạm"):
+                status = "failed"
             parsed = parse_llm_json(resp)
             additional_steps = parsed.get("additional_steps", ["retrieval_node"])
             retrieval_queries = parsed.get("retrieval_queries", [query])
@@ -148,6 +151,7 @@ async def supervisor_node(state: AgentState) -> dict[str, Any]:
             graph_slugs = parsed.get("graph_slugs", [])
         except Exception as exc:
             logger.error("agentic_replanning_llm_failed", error=str(exc))
+            status = "failed"
 
         # Append new steps and advance plan
         new_plan = list(state.get("plan", [])) + additional_steps
@@ -157,8 +161,8 @@ async def supervisor_node(state: AgentState) -> dict[str, Any]:
                 "action": f"Phân tích phản hồi từ Critic. Tái lập kế hoạch, cấu trúc lại sub-queries:\n"
                           f"- Retrieval: {retrieval_queries}\n"
                           f"- Timeline: {timeline_queries}\n"
-                          f"- Graph Slugs: {graph_slugs}",
-                "status": "success",
+                          f"- Graph Slugs: {graph_slugs}" if status == "success" else "Tái lập kế hoạch thất bại do lỗi kết nối LLM.",
+                "status": status,
             }
         )
 
@@ -213,15 +217,19 @@ async def supervisor_node(state: AgentState) -> dict[str, Any]:
             f"Trả về JSON thuần túy:\n"
             f"{{\"retrieval_queries\": [...], \"timeline_queries\": [...], \"graph_slugs\": [...]}}"
         )
+        status = "success"
         try:
             llm = get_llm_client()
             resp = await llm.generate(prompt, system="Bạn là chuyên gia điều phối nghiên cứu lịch sử.", max_tokens=400)
+            if resp.startswith("[Phản hồi từ bộ nhớ tạm"):
+                status = "failed"
             parsed = parse_llm_json(resp)
             retrieval_queries = parsed.get("retrieval_queries", [query])
             timeline_queries = parsed.get("timeline_queries", [query])
             graph_slugs = parsed.get("graph_slugs", [])
         except Exception as exc:
             logger.error("agentic_planning_llm_failed", error=str(exc))
+            status = "failed"
 
         plan = ["retrieval_node", "graph_node", "timeline_node"]
         trace.append({
@@ -229,8 +237,8 @@ async def supervisor_node(state: AgentState) -> dict[str, Any]:
             "action": f"Phân rã câu hỏi thành:\n"
                       f"- Retrieval: {retrieval_queries}\n"
                       f"- Timeline: {timeline_queries}\n"
-                      f"- Graph: {graph_slugs}",
-            "status": "success",
+                      f"- Graph: {graph_slugs}" if status == "success" else "Phân rã kế hoạch thất bại do lỗi kết nối LLM.",
+            "status": status,
         })
 
     return {
@@ -256,6 +264,7 @@ async def retrieval_node(state: AgentState) -> dict[str, Any]:
     trace = list(state.get("agent_trace", []))
     logger.info("agent_retrieval_node_running", queries=queries)
 
+    status = "success"
     retrieved = []
     try:
         service = QueryService()
@@ -263,7 +272,10 @@ async def retrieval_node(state: AgentState) -> dict[str, Any]:
         tasks = [service.hybrid_search(q, top_k=6) for q in queries]
         results = await asyncio.gather(*tasks, return_exceptions=True)
         for res in results:
-            if not isinstance(res, Exception) and res:
+            if isinstance(res, Exception):
+                logger.error("hybrid_search_task_failed", error=str(res))
+                status = "failed"
+            elif res:
                 retrieved.extend(res)
         
         # Deduplicate and cap retrieved chunks by length to prevent exceeding LLM TPM rate limits
@@ -277,6 +289,11 @@ async def retrieval_node(state: AgentState) -> dict[str, Any]:
         deduped = []
         total_chars = 0
         for chunk in retrieved:
+            # Filter low-relevance documents (relevance threshold < 15%)
+            # Only apply if cross-encoder score is present and valid, since RRF/lexical scores are on a different scale
+            ce_score = chunk.get("cross_encoder_score", 0.0)
+            if ce_score > 0.0 and ce_score < 0.15:
+                continue
             key = str(chunk.get("chunk_id") or chunk.get("id") or chunk.get("content", "")[:120])
             if key not in seen:
                 seen.add(key)
@@ -289,12 +306,13 @@ async def retrieval_node(state: AgentState) -> dict[str, Any]:
         retrieved = deduped
     except Exception as exc:
         logger.error("agent_retrieval_failed", error=str(exc))
+        status = "failed"
 
     trace.append(
         {
             "agent": "Retrieval Agent",
-            "action": f"Tìm kiếm văn bản song song hoàn tất. Thu thập {len(retrieved)} phân đoạn văn bản phù hợp.",
-            "status": "success",
+            "action": f"Tìm kiếm văn bản song song hoàn tất. Thu thập {len(retrieved)} phân đoạn văn bản phù hợp." if status == "success" else "Lỗi tìm kiếm cơ sở dữ liệu phân đoạn văn bản.",
+            "status": status,
         }
     )
 
@@ -468,6 +486,7 @@ async def world_model_node(state: AgentState) -> dict[str, Any]:
     )
 
     world_model_analysis = "Không thể sinh phân tích nhân quả lịch sử vĩ mô."
+    status = "success"
     try:
         llm = get_llm_client()
         world_model_analysis = await llm.generate(
@@ -475,14 +494,17 @@ async def world_model_node(state: AgentState) -> dict[str, Any]:
             system="Bạn là mô hình nhận thức phân tích các lực đẩy lịch sử và động lực nhân quả vĩ mô (World Causal Model).",
             max_tokens=1024
         )
+        if world_model_analysis.startswith("[Phản hồi từ bộ nhớ tạm"):
+            status = "failed"
     except Exception as exc:
         logger.error("agent_world_model_failed", error=str(exc))
+        status = "failed"
 
     trace.append(
         {
             "agent": "World Model Agent",
-            "action": "Phân tích và mô hình hóa liên kết nhân quả lịch sử vĩ mô (Historical Causal Dynamics & World Model Blueprint) thành công.",
-            "status": "success",
+            "action": "Phân tích và mô hình hóa liên kết nhân quả lịch sử vĩ mô (Historical Causal Dynamics & World Model Blueprint) thành công." if status == "success" else "Lỗi sinh phân tích nhân quả lịch sử vĩ mô do gián đoạn LLM.",
+            "status": status,
         }
     )
 
@@ -500,8 +522,8 @@ async def reasoning_node(state: AgentState) -> dict[str, Any]:
 
     # Format synthesized context
     context_blocks = []
-    for chunk in state.get("retrieved_chunks", []):
-        context_blocks.append(f" VĂN BẢN: {chunk.get('content', '')} (Nguồn: {chunk.get('source_url', 'Wiki')})")
+    for idx, chunk in enumerate(state.get("retrieved_chunks", []), 1):
+        context_blocks.append(f" [Nguồn {idx}] VĂN BẢN: {chunk.get('content', '')} (Nguồn: {chunk.get('source_url', 'Wiki')})")
 
     for ev in state.get("timeline_events", []):
         date_str = f"{ev['year']}-{ev.get('month', 1)}-{ev.get('day', 1)}"
@@ -521,6 +543,7 @@ async def reasoning_node(state: AgentState) -> dict[str, Any]:
     # Run answer synthesis
     answer_text = ""
     citations = []
+    status = "success"
 
     try:
         llm = get_llm_client()
@@ -550,15 +573,86 @@ async def reasoning_node(state: AgentState) -> dict[str, Any]:
             if state.get("world_model_analysis"):
                 world_model_context = f"\nBẢN ĐỒ NHÂN QUẢ LỊCH SỬ (WORLD CAUSAL MODEL):\n{state['world_model_analysis']}\n\n"
 
+            query_lower = query.lower()
+            if any(k in query_lower for k in ["so sánh", "khác nhau", "giống nhau", "đối chiếu", "phân biệt", " vs ", "versus"]):
+                template_instruction = (
+                    "HƯỚNG DẪN TRÌNH BÀY (So sánh/Đối chiếu):\n"
+                    "- Ở đầu câu trả lời, bắt đầu bằng một blockquote tóm tắt ngắn gọn: `> **Tóm tắt:** [Tóm tắt ngắn gọn 1-2 câu chứa nhận xét so sánh cốt lõi].`\n"
+                    "- Bắt buộc sử dụng bảng Markdown để so sánh giữa các đối tượng theo các tiêu chí rõ ràng (ví dụ: Tiêu chí, Đối tượng A, Đối tượng B).\n"
+                    "- Nêu tóm tắt điểm tương đồng và khác biệt chính dưới dạng gạch đầu dòng.\n"
+                    "- Nêu rõ mục '## Đánh giá / Ý nghĩa lịch sử'.\n"
+                    "- Kết thúc bằng phần takeaways: `### Điểm cần ghi nhớ` chứa 2-3 gạch đầu dòng tóm tắt thông điệp quan trọng nhất."
+                )
+            elif any(k in query_lower for k in ["tiểu sử", "ai là", "thân thế", "sự nghiệp", "cuộc đời", "đóng góp", "vai trò của", "tướng", "lãnh đạo", "nhân vật"]):
+                template_instruction = (
+                    "HƯỚNG DẪN TRÌNH BÀY (Nhân vật lịch sử):\n"
+                    "- Ở đầu câu trả lời, bắt đầu bằng một blockquote tóm tắt ngắn gọn: `> **Tóm tắt:** [Tóm tắt ngắn gọn 1-2 câu về vai trò lớn nhất của nhân vật và thời kỳ hoạt động].`\n"
+                    "- Hãy chia thành các mục rõ ràng sau:\n"
+                    "  ## Tiểu sử & Thân thế\n"
+                    "  ## Vai trò & Đóng góp lịch sử (Liệt kê các mốc hoạt động dạng gạch đầu dòng, sử dụng `- **[Thời gian]:**` nếu có niên biểu)\n"
+                    "  ## Đánh giá lịch sử\n"
+                    "- Kết thúc bằng phần takeaways: `### Điểm cần ghi nhớ` chứa 2-3 gạch đầu dòng tóm tắt thông điệp quan trọng nhất."
+                )
+            elif any(k in query_lower for k in ["niên biểu", "diễn biến", "tiến trình", "quá trình", "lịch trình", "mốc thời gian", "ngày", "năm", "khi nào"]):
+                template_instruction = (
+                    "HƯỚNG DẪN TRÌNH BÀY (Niên biểu/Diễn biến):\n"
+                    "- Ở đầu câu trả lời, bắt đầu bằng một blockquote tóm tắt ngắn gọn: `> **Tóm tắt:** [Tóm tắt ngắn gọn 1-2 câu chứa mốc thời gian cốt lõi và kết quả của tiến trình].`\n"
+                    "- Trình diễn biến theo trình tự thời gian dưới dạng danh sách gạch đầu dòng thoáng đãng, mỗi sự kiện cách nhau một dòng trống.\n"
+                    "- Sử dụng định dạng: `- **[Ngày/Tháng/Năm hoặc Thời gian]:** [Mô tả ngắn gọn sự kiện diễn ra].`\n"
+                    "- Chia câu trả lời thành:\n"
+                    "  ## Bối cảnh lịch sử\n"
+                    "  ## Diễn biến cột mốc\n"
+                    "  ## Kết quả & Ý nghĩa lịch sử\n"
+                    "- Kết thúc bằng phần takeaways: `### Điểm cần ghi nhớ` chứa 2-3 gạch đầu dòng tóm tắt thông điệp quan trọng nhất."
+                )
+            else:
+                template_instruction = (
+                    "HƯỚNG DẪN TRÌNH BÀY (Sự kiện/Khái niệm):\n"
+                    "- Ở đầu câu trả lời, bắt đầu bằng một blockquote tóm tắt ngắn gọn: `> **Tóm tắt:** [Tóm tắt ngắn gọn 1-2 câu chứa bối cảnh lớn và kết quả cốt lõi của sự kiện].`\n"
+                    "- Chia câu trả lời thành:\n"
+                    "  ## Bối cảnh & Nguyên nhân\n"
+                    "  ## Diễn biến chính (Nếu có từ 3 mốc thời gian trở lên, bắt buộc liệt kê dạng: `- **[Thời gian]:** [Sự kiện].` cách nhau một dòng trống)\n"
+                    "  ## Kết quả & Ý nghĩa lịch sử\n"
+                    "- Kết thúc bằng phần takeaways: `### Điểm cần ghi nhớ` chứa 2-3 gạch đầu dòng tóm tắt thông điệp quan trọng nhất."
+                )
+
+            system_prompt = (
+                "Bạn là HistoriAI, trợ lý nghiên cứu Lịch sử Việt Nam thông minh, chuyên nghiệp và có tư duy trình bày xuất sắc như Claude.\n\n"
+                "Nhiệm vụ của bạn là tổng hợp câu trả lời dựa trên dữ liệu nghiên cứu được cung cấp.\n\n"
+                "QUY TẮC TRÌNH BÀY (UX/UI & Readability):\n"
+                "1. BẮT ĐẦU BẰNG TÓM TẮT CÔ ĐỌNG:\n"
+                "   - Luôn bắt đầu bằng khối tóm tắt dạng blockquote (`> **Tóm tắt:** ...`).\n"
+                "   - Tóm tắt phải cực kỳ ngắn gọn, CHỈ 1-2 CÂU (tối đa 40 từ), cô đọng giá trị cốt lõi nhất.\n"
+                "2. BỐ CỤC PHÂN PHẲNG RÕ RÀNG (Hierarchy):\n"
+                "   - Phân chia câu trả lời thành các phần rõ ràng sử dụng tiêu đề cấp 2 (##).\n"
+                "   - Tránh hiện tượng 'bức tường chữ'. Các đoạn văn không viết dài quá 3 dòng.\n"
+                "3. NHẤN NHÁ TRỰC QUAN CỰC KỲ CHỌN LỌC (Selective Formatting):\n"
+                "   - Chỉ in đậm (`**từ khóa**`) cho các thực thể hoặc sự kiện quan trọng nhất (tổng cộng tối đa 5-8 cụm từ cho toàn bài). Tránh lạm dụng gây nhiễu thị giác.\n"
+                "   - Trình bày diễn biến/niên biểu bắt buộc dùng gạch đầu dòng dạng: `- **[Thời gian]:** [Mô tả].` cách nhau một dòng trống để dễ quét đọc.\n"
+                "4. TRÁNH DẪN DÒNG (Conciseness):\n"
+                "   - Đi thẳng vào nội dung câu trả lời. Tuyệt đối KHÔNG viết các câu xã giao, dẫn nhập dài dòng (ví dụ: 'Dưới đây là...', 'Để hiểu rõ...').\n"
+                "5. TUYỆT ĐỐI KHÔNG SỬ DỤNG EMOJI:\n"
+                "   - Không được sử dụng bất kỳ biểu tượng emoji nào (ví dụ: 📅, 📌, 📚, 🗓️, 🎯) trong toàn bộ câu trả lời để giữ văn phong nghiên cứu học thuật nghiêm túc.\n"
+                "6. MỤC TÓM TẮT ĐIỂM GHI NHỚ Ở CUỐI:\n"
+                "   - Phải kết thúc bằng tiêu đề cấp 3: `### Điểm cần ghi nhớ` chứa 2-3 gạch đầu dòng cô đọng nhất.\n"
+                "7. DẪN NGUỒN TRONG VĂN BẢN (In-text citations):\n"
+                "   - Mỗi khi trích dẫn hoặc sử dụng thông tin từ [Nguồn 1], [Nguồn 2], [Nguồn 3], [Nguồn 4], bắt buộc kết thúc câu hoặc ý đó bằng ký hiệu tương ứng dạng [1], [2], [3], [4].\n"
+                "   - Ví dụ: 'Ngày 3/2/1994, Hoa Kỳ chính thức gỡ bỏ cấm vận thương mại đối với Việt Nam [2].'\n"
+                "   - Tuyệt đối không tự bịa đặt các số nguồn lớn hơn số lượng nguồn được cung cấp."
+            )
+
             prompt = (
-                f"Bạn là chuyên gia Lịch sử Việt Nam cấp cao.\n"
                 f"Câu hỏi nghiên cứu: {query}\n\n"
                 f"{world_model_context}"
                 f"Dữ liệu bối cảnh nghiên cứu thu thập được:\n{context}\n\n"
-                f"Hãy biên soạn câu trả lời hoàn thiện một cách khoa học, khách quan, giàu dẫn chứng lịch sử.\n"
-                f"Kết hợp chặt chẽ bản đồ nhân quả từ World Model và thứ tự niên biểu để giải thích các diễn biến."
+                f"{template_instruction}\n\n"
+                f"Hãy biên soạn câu trả lời hoàn thiện đáp ứng đúng quy tắc trình bày và hướng dẫn cụ thể trên."
             )
-            answer_text = await llm.generate(prompt, system="Hệ thống Trí tuệ Nhân tạo Lịch sử Việt Nam.", max_tokens=max_tokens)
+            answer_text = await llm.generate(prompt, system=system_prompt, max_tokens=max_tokens)
+        
+        if answer_text.startswith("[Phản hồi từ bộ nhớ tạm"):
+            status = "failed"
+
         # Extract citations
         # Extract citations matching the frontend Citation interface
         citations = [
@@ -576,6 +670,7 @@ async def reasoning_node(state: AgentState) -> dict[str, Any]:
     except Exception as exc:
         logger.error("agent_reasoning_synthesis_failed", error=str(exc))
         answer_text = "Không thể tổng hợp câu trả lời do lỗi kỹ thuật."
+        status = "failed"
 
     # ── Post-process: strip stray CJK characters from LLM output ──────
     try:
@@ -588,8 +683,8 @@ async def reasoning_node(state: AgentState) -> dict[str, Any]:
     trace.append(
         {
             "agent": "Reasoning Agent",
-            "action": "Generated final comprehensive response combining chronological sequences and causal graph paths.",
-            "status": "success",
+            "action": "Generated final comprehensive response combining chronological sequences and causal graph paths." if status == "success" else "Lỗi kết nối mô hình ngôn ngữ lớn (LLM) khi tổng hợp câu trả lời.",
+            "status": status,
         }
     )
 
@@ -648,14 +743,18 @@ async def critic_node(state: AgentState) -> dict[str, Any]:
     llm = get_llm_client()
     approved = True
     feedback = "Approved."
+    status = "success"
 
     try:
         resp = await llm.generate(prompt, system="You are a strict, academic history reviewer AI.", max_tokens=500)
+        if resp.startswith("[Phản hồi từ bộ nhớ tạm"):
+            status = "failed"
         parsed = parse_llm_json(resp)
         approved = parsed.get("approved", True)
         feedback = parsed.get("feedback", "No issues detected.")
     except Exception as exc:
         logger.error("agent_critic_validation_failed", error=str(exc))
+        status = "failed"
 
     # Overrule approval if programmatic grounding checks fail
     if not has_grounding and approved:
@@ -682,8 +781,8 @@ async def critic_node(state: AgentState) -> dict[str, Any]:
     trace.append(
         {
             "agent": "Critic Agent",
-            "action": f"THÔNG QUA: Kiểm chứng tri thức lịch sử thành công. Ý kiến: {feedback}",
-            "status": "success",
+            "action": f"THÔNG QUA: Kiểm chứng tri thức lịch sử thành công. Ý kiến: {feedback}" if status == "success" else "Lỗi kết nối LLM khi thực hiện thẩm định.",
+            "status": status,
         }
     )
 
@@ -722,16 +821,20 @@ async def memory_consolidation_node(state: AgentState) -> dict[str, Any]:
 
     llm = get_llm_client()
     drafts = []
+    status = "success"
     try:
         resp = await llm.generate(prompt, system="You are a knowledge extraction agent.", max_tokens=1000)
+        if resp.startswith("[Phản hồi từ bộ nhớ tạm"):
+            status = "failed"
         parsed = parse_llm_json(resp)
         drafts = parsed.get("drafts", [])
     except Exception as exc:
         logger.error("agent_memory_consolidation_extraction_failed", error=str(exc))
+        status = "failed"
 
     # Persist draft proposals into PostgreSQL knowledge_drafts table
     saved_count = 0
-    if drafts:
+    if drafts and status == "success":
         try:
             async with get_db_context() as db:
                 for d in drafts:
@@ -749,8 +852,8 @@ async def memory_consolidation_node(state: AgentState) -> dict[str, Any]:
     trace.append(
         {
             "agent": "Memory Consolidation Agent",
-            "action": f"Phân tích hoàn tất. Trích xuất {saved_count} đề xuất tri thức lịch sử đưa vào hàng chờ kiểm duyệt (HITL).",
-            "status": "success",
+            "action": f"Phân tích hoàn tất. Trích xuất {saved_count} đề xuất tri thức lịch sử đưa vào hàng chờ kiểm duyệt (HITL)." if status == "success" else "Lỗi kết nối LLM khi phân tích đề xuất tri thức lịch sử.",
+            "status": status,
         }
     )
 

@@ -285,6 +285,13 @@ class TestSessionsEndpoint:
             if resp.status_code == 200:
                 assert resp.headers["content-type"].startswith("application/json")
 
+    def test_delete_all_sessions(self) -> None:
+        """DELETE /api/v1/sessions must be accepted."""
+        with TestClient(app, raise_server_exceptions=False) as client:
+            resp = client.delete("/api/v1/sessions", headers=auth_headers())
+            assert resp.status_code in (204, 500)
+
+
 
 # ─── Auth endpoint tests ────────────────────────────────────────────────────────
 

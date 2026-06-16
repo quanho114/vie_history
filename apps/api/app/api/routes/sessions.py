@@ -272,3 +272,21 @@ async def delete_session(
     except Exception as e:
         logger.error("delete_session_failed", session_id=session_id, error=str(e))
         raise HTTPException(status_code=500, detail="Failed to delete session")
+
+
+@router.delete("", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_all_sessions(
+    current_user: CurrentUser,
+    db: AsyncSession = Depends(get_db),
+):
+    """Delete all sessions for the current user."""
+    try:
+        from sqlalchemy import delete
+        stmt = delete(Session).where(Session.user_id == current_user.id)
+        await db.execute(stmt)
+        await db.commit()
+        return {}
+    except Exception as e:
+        logger.error("delete_all_sessions_failed", user_id=current_user.id, error=str(e))
+        raise HTTPException(status_code=500, detail="Failed to delete all sessions")
+

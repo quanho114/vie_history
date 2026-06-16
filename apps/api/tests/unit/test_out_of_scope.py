@@ -5,6 +5,6 @@ from app.services.agent.workflows.out_of_scope import OutOfScopeWorkflow
 async def test_out_of_scope_workflow_refusal_format():
     workflow = OutOfScopeWorkflow()
     res = await workflow.execute("bạn biết messi không?")
-    assert "HistoriAI chuyên hỗ trợ nghiên cứu" in res["answer"]
-    assert "Câu hỏi của bạn nằm ngoài phạm vi" in res["answer"]
-    assert "Các triều đại Việt Nam" in res["answer"]
+    assert "Mình có thể hỗ trợ bạn tra cứu và phân tích" in res["answer"]
+    assert "Ngoài lĩnh vực lịch sử Việt Nam, mình có thể không" in res["answer"]
+    assert "Tóm tắt các sự kiện lịch sử" in res["answer"]

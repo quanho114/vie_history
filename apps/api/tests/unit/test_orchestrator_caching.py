@@ -46,3 +46,17 @@ async def test_orchestrator_credential_checking_caching():
                 # Since rules resolved in-scope and no LLM is needed for rule-classification,
                 # but Agentic RAG requires LLM, the orchestrator should check LLM once for the RAG step.
                 mock_validate.assert_called_once()
+
+@pytest.mark.asyncio
+async def test_orchestrator_capability_routing():
+    orchestrator = AgentOrchestrator()
+    db_mock = MagicMock()
+    with patch.object(orchestrator, "_cache_get", new_callable=AsyncMock, return_value=None):
+        with patch.object(orchestrator, "_cache_set", new_callable=AsyncMock):
+            with patch("app.core.credentials.CredentialValidator.ensure_llm_available", new_callable=AsyncMock):
+                res = await orchestrator.answer("bạn có khả năng gì?", db_mock)
+                assert "Tra cứu sự kiện" in res.answer
+                assert "Nhân vật lịch sử" in res.answer
+                assert res.intent == "capability"
+                assert res.mode == "fast"
+

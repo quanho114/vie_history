@@ -21,15 +21,33 @@ logger = get_logger("agent_orchestrator")
 
 
 STATIC_GREETING_ANSWER = (
-    "Xin chào! Mình là HistoriAI, trợ lý nghiên cứu lịch sử Việt Nam giai đoạn 1945–1975. "
-    "Mình có thể giúp bạn giải đáp các câu hỏi lịch sử, lập niên biểu, hoặc phân tích sự kiện "
-    "trong giai đoạn này. Bạn muốn tìm hiểu về sự kiện hay nhân vật nào?"
+    "Xin chào! Mình là HistoriAI, trợ lý thông minh hỗ trợ nghiên cứu lịch sử Việt Nam qua các thời kỳ. "
+    "Mình có thể giúp bạn giải đáp các câu hỏi lịch sử, lập dòng thời gian, tìm hiểu nhân vật hoặc phân tích các sự kiện lịch sử. "
+    "Bạn muốn tìm hiểu về sự kiện hay nhân vật nào hôm nay?"
 )
 
 STATIC_OUT_OF_SCOPE_ANSWER = (
-    "Xin lỗi, câu hỏi của bạn nằm ngoài phạm vi lịch sử Việt Nam giai đoạn 1945–1975 "
-    "mà mình hỗ trợ. Hãy hỏi mình về các sự kiện, nhân vật, chiến dịch lịch sử trong "
-    "khoảng thời gian này để mình có thể giải đáp chính xác nhất."
+    "Mình có thể hỗ trợ bạn tra cứu và phân tích lịch sử Việt Nam qua các thời kỳ. Ví dụ:\n"
+    "• Tóm tắt các sự kiện lịch sử\n"
+    "• Giải thích nguyên nhân và kết quả của các cuộc kháng chiến\n"
+    "• Lập dòng thời gian sự kiện, niên biểu các triều đại\n"
+    "• So sánh các nhân vật hoặc giai đoạn lịch sử\n"
+    "• Trả lời câu hỏi dựa trên kho tài liệu lịch sử của hệ thống\n\n"
+    "Ngoài lĩnh vực lịch sử Việt Nam, mình có thể không đưa ra được câu trả lời đáng tin cậy. Bạn muốn hỏi mình câu hỏi nào về lịch sử Việt Nam không?"
+)
+
+STATIC_CAPABILITY_ANSWER = (
+    "Mình có thể hỗ trợ bạn trong việc nghiên cứu và tìm hiểu lịch sử Việt Nam, bao gồm:\n\n"
+    "* 📚 **Tra cứu sự kiện**: Cung cấp thông tin chi tiết về các sự kiện lịch sử quan trọng.\n"
+    "* 👑 **Nhân vật lịch sử**: Tìm hiểu về tiểu sử, đóng góp của các vị vua, tướng lĩnh và anh hùng dân tộc.\n"
+    "* 📅 **Xây dựng dòng thời gian**: Lập niên biểu, trình tự diễn biến các chiến dịch và triều đại.\n"
+    "* 🔍 **Phân tích so sánh**: So sánh chính sách, bối cảnh các giai đoạn hoặc triều đại khác nhau.\n"
+    "* 🗺️ **Bản đồ tri thức**: Khám phá mối liên hệ và ảnh hưởng giữa các sự kiện và nhân vật.\n\n"
+    "**Ví dụ bạn có thể hỏi mình:**\n"
+    "* *\"Nguyên nhân và ý nghĩa của Chiến thắng Điện Biên Phủ là gì?\"*\n"
+    "* *\"Tóm tắt diễn biến Chiến dịch Hồ Chí Minh 1975.\"*\n"
+    "* *\"So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê.\"*\n"
+    "* *\"Hãy lập dòng thời gian các sự kiện chính trong Cách mạng Tháng Tám.\"*"
 )
 
 
@@ -110,6 +128,14 @@ class AgentOrchestrator:
         self.verifier = kwargs.get("verifier") or Verifier(min_evidence=1)
         self.response_builder = kwargs.get("response_builder") or ResponseBuilder()
 
+    async def _stream_static_text(self, text: str, delay: float = 0.01) -> AsyncIterator[dict]:
+        """Stream a static text string in small chunks to preserve newlines and spaces."""
+        import asyncio
+        chunk_size = 8
+        for i in range(0, len(text), chunk_size):
+            yield {"type": "token", "token": text[i : i + chunk_size]}
+            await asyncio.sleep(delay)
+
     # ─── Safety helpers ───────────────────────────────────────────────────────
 
     async def _safety_input_check(
@@ -162,20 +188,16 @@ class AgentOrchestrator:
             logger.warning("safety_output_filter_failed", error=str(exc))
             return answer, {}
 
+
     # ─── Cache helpers ──────────────────────────────────────────────────────
 
-    async def _cache_get(
-        self,
-        query: str,
-        filters: dict | None,
-    ) -> dict[str, Any] | None:
-        """Try to return a cached result. Returns None on miss."""
-        try:
-            from app.services.cache import get_query_cache
-            return await get_query_cache().get(query, filters)
-        except Exception as exc:
-            logger.warning("cache_lookup_failed", error=str(exc))
-            return None
+    # Sentinel strings that identify non-cacheable fallback/error answers
+    _CACHE_POISON_MARKERS = (
+        "[Phản hồi từ bộ nhớ tạm:",
+        "[Nội dung đã được lọc",
+        "Dịch vụ LLM tạm thời không khả dụng",
+        "API_KEY_MISSING",
+    )
 
     async def _cache_set(
         self,
@@ -183,12 +205,46 @@ class AgentOrchestrator:
         filters: dict | None,
         result: dict[str, Any],
     ) -> None:
-        """Cache a result (fire-and-forget)."""
+        """Cache a result (fire-and-forget).
+
+        Skips caching if the answer is a fallback/error sentinel so that
+        subsequent requests can retry the real pipeline instead of receiving
+        a stale error from Redis.
+        """
+        answer = result.get("answer", "")
+        if any(marker in answer for marker in self._CACHE_POISON_MARKERS):
+            logger.info("cache_skip_fallback_answer", query=query[:60])
+            return
         try:
             from app.services.cache import get_query_cache
             await get_query_cache().set(query, filters, result)
         except Exception as exc:
             logger.warning("cache_store_failed", error=str(exc))
+
+    async def _cache_get(
+        self,
+        query: str,
+        filters: dict | None,
+    ) -> dict | None:
+        """Look up a cached result, evicting stale poisoned entries."""
+        try:
+            from app.services.cache import get_query_cache
+            cached = await get_query_cache().get(query, filters)
+            if cached is None:
+                return None
+            # Evict poisoned cache entry and return None so the pipeline re-runs
+            answer = cached.get("answer", "")
+            if any(marker in answer for marker in self._CACHE_POISON_MARKERS):
+                logger.info("cache_evict_poisoned_entry", query=query[:60])
+                try:
+                    await get_query_cache().delete(query, filters)
+                except Exception:
+                    pass
+                return None
+            return cached
+        except Exception as exc:
+            logger.warning("cache_lookup_failed", error=str(exc))
+            return None
 
     # ─── Complexity Classification ───────────────────────────────────────────
 
@@ -381,8 +437,8 @@ class AgentOrchestrator:
             query=query[:60],
         )
 
-        # Early routing for greetings and out of scope queries
-        if intent in ("greeting", "out_of_scope"):
+        # Early routing for greetings, out of scope, and capability queries
+        if intent in ("greeting", "out_of_scope", "capability"):
             if not llm_checked:
                 await validator.ensure_llm_available()
                 llm_checked = True
@@ -394,24 +450,37 @@ class AgentOrchestrator:
                         f"Người dùng nói: \"{query}\"\n\n"
                         f"Đây là câu chào hỏi hoặc câu hỏi xã giao không liên quan đến lịch sử cụ thể.\n"
                         f"Hãy trả lời thân thiện, ngắn gọn (2-3 câu), giới thiệu bản thân là HistoriAI — "
-                        f"trợ lý nghiên cứu lịch sử Việt Nam giai đoạn 1945–1975. Mới người dùng đặt câu hỏi lịch sử."
+                        f"trợ lý nghiên cứu lịch sử Việt Nam qua các thời kỳ. Mời người dùng đặt câu hỏi lịch sử."
                     )
                     system = "Bạn là HistoriAI, trợ lý nghiên cứu lịch sử Việt Nam thân thiện."
+                    answer_text = await llm.generate(prompt, system=system, max_tokens=300)
+                elif intent == "capability":
+                    answer_text = STATIC_CAPABILITY_ANSWER
                 else:
                     prompt = (
                         f"Người dùng hỏi: \"{query}\"\n\n"
-                        f"Câu hỏi này nằm ngoài phạm vi lịch sử Việt Nam giai đoạn 1945–1975.\n"
-                        f"Hãy từ chối một cách lịch sự, giải thích rõ phạm vi chuyên môn của mình (lịch sử Việt Nam 1945-1975), "
+                        f"Câu hỏi này nằm ngoài phạm vi lịch sử Việt Nam.\n"
+                        f"Hãy từ chối một cách lịch sự, giải thích rõ phạm vi chuyên môn của mình (lịch sử Việt Nam qua các thời kỳ), "
                         f"và mời họ hỏi câu hỏi thuộc phạm vi này."
                     )
-                    system = "Bạn là HistoriAI, trợ lý chỉ trả lời về lịch sử Việt Nam giai đoạn 1945–1975."
+                    system = "Bạn là HistoriAI, trợ lý chỉ trả lời về lịch sử Việt Nam."
+                    answer_text = await llm.generate(prompt, system=system, max_tokens=300)
 
-                answer_text = await llm.generate(prompt, system=system, max_tokens=300)
                 if "[Phản hồi từ bộ nhớ tạm:" in answer_text:
-                    answer_text = STATIC_GREETING_ANSWER if intent == "greeting" else STATIC_OUT_OF_SCOPE_ANSWER
+                    if intent == "greeting":
+                        answer_text = STATIC_GREETING_ANSWER
+                    elif intent == "capability":
+                        answer_text = STATIC_CAPABILITY_ANSWER
+                    else:
+                        answer_text = STATIC_OUT_OF_SCOPE_ANSWER
             except Exception as exc:
                 logger.warning("early_routing_llm_failed_using_static", error=str(exc))
-                answer_text = STATIC_GREETING_ANSWER if intent == "greeting" else STATIC_OUT_OF_SCOPE_ANSWER
+                if intent == "greeting":
+                    answer_text = STATIC_GREETING_ANSWER
+                elif intent == "capability":
+                    answer_text = STATIC_CAPABILITY_ANSWER
+                else:
+                    answer_text = STATIC_OUT_OF_SCOPE_ANSWER
 
             result = AgentResult(
                 answer=answer_text,
@@ -542,10 +611,8 @@ class AgentOrchestrator:
             yield {"type": "stage", "stage": "retrieving"}
             yield {"type": "stage", "stage": "verifying"}
             yield {"type": "stage", "stage": "generating"}
-            import asyncio
-            for token in cached["answer"].split(" "):
-                yield {"type": "token", "token": token + " "}
-                await asyncio.sleep(0.02)
+            async for token in self._stream_static_text(cached["answer"], delay=0.01):
+                yield token
             yield {"type": "citations", "citations": cached.get("citations", [])}
             yield {"type": "trace", "trace": {**cached.get("trace", {}), "cache_hit": True}}
             yield {"type": "done"}
@@ -592,10 +659,8 @@ class AgentOrchestrator:
             wf_res = await workflow.execute(query)
             answer_text = wf_res["answer"]
             
-            import asyncio
-            for word in answer_text.split(" "):
-                yield {"type": "token", "token": word + " "}
-                await asyncio.sleep(0.01)
+            async for token in self._stream_static_text(answer_text, delay=0.01):
+                yield token
                 
             trace_dict = {
                 "intent": "out_of_scope",
@@ -628,8 +693,8 @@ class AgentOrchestrator:
         execution_mode, intent = self._classify_complexity(query)
         yield {"type": "stage", "stage": "classifying"}
 
-        # Early routing for greetings and out of scope queries
-        if intent in ("greeting", "out_of_scope"):
+        # Early routing for greetings, out of scope, and capability queries
+        if intent in ("greeting", "out_of_scope", "capability"):
             if not llm_checked:
                 try:
                     await validator.ensure_llm_available()
@@ -657,30 +722,41 @@ class AgentOrchestrator:
                         f"Người dùng nói: \"{query}\"\n\n"
                         f"Đây là câu chào hỏi hoặc câu hỏi xã giao không liên quan đến lịch sử cụ thể.\n"
                         f"Hãy trả lời thân thiện, ngắn gọn (2-3 câu), giới thiệu bản thân là HistoriAI — "
-                        f"trợ lý nghiên cứu lịch sử Việt Nam giai đoạn 1945–1975. Mới người dùng đặt câu hỏi lịch sử."
+                        f"trợ lý nghiên cứu lịch sử Việt Nam qua các thời kỳ. Mời người dùng đặt câu hỏi lịch sử."
                     )
                     system = "Bạn là HistoriAI, trợ lý nghiên cứu lịch sử Việt Nam thân thiện."
+                    async for token_obj in llm.astream(prompt, system=system, max_tokens=300):
+                        token = token_obj.text
+                        answer_text += token
+                        yield {"type": "token", "token": token}
+                elif intent == "capability":
+                    static_ans = STATIC_CAPABILITY_ANSWER
+                    answer_text = static_ans
+                    async for token in self._stream_static_text(static_ans, delay=0.01):
+                        yield token
                 else:
                     prompt = (
                         f"Người dùng hỏi: \"{query}\"\n\n"
-                        f"Câu hỏi này nằm ngoài phạm vi lịch sử Việt Nam giai đoạn 1945–1975.\n"
-                        f"Hãy từ chối một cách lịch sự, giải thích rõ phạm vi chuyên môn của mình (lịch sử Việt Nam 1945-1975), "
+                        f"Câu hỏi này nằm ngoài phạm vi lịch sử Việt Nam.\n"
+                        f"Hãy từ chối một cách lịch sự, giải thích rõ phạm vi chuyên môn của mình (lịch sử Việt Nam qua các thời kỳ), "
                         f"và mời họ hỏi câu hỏi thuộc phạm vi này."
                     )
-                    system = "Bạn là HistoriAI, trợ lý chỉ trả lời về lịch sử Việt Nam giai đoạn 1945–1975."
-
-                async for token_obj in llm.astream(prompt, system=system, max_tokens=300):
-                    token = token_obj.text
-                    answer_text += token
-                    yield {"type": "token", "token": token}
+                    system = "Bạn là HistoriAI, trợ lý chỉ trả lời về lịch sử Việt Nam."
+                    async for token_obj in llm.astream(prompt, system=system, max_tokens=300):
+                        token = token_obj.text
+                        answer_text += token
+                        yield {"type": "token", "token": token}
             except Exception as exc:
                 logger.warning("early_routing_llm_failed_using_static", error=str(exc))
-                static_ans = STATIC_GREETING_ANSWER if intent == "greeting" else STATIC_OUT_OF_SCOPE_ANSWER
+                if intent == "greeting":
+                    static_ans = STATIC_GREETING_ANSWER
+                elif intent == "capability":
+                    static_ans = STATIC_CAPABILITY_ANSWER
+                else:
+                    static_ans = STATIC_OUT_OF_SCOPE_ANSWER
                 answer_text = static_ans
-                import asyncio
-                for word in static_ans.split(" "):
-                    yield {"type": "token", "token": word + " "}
-                    await asyncio.sleep(0.02)
+                async for token in self._stream_static_text(static_ans, delay=0.01):
+                    yield token
 
             # Cache the result
             trace_dict = {
