@@ -16,7 +16,7 @@ class TestQueryEndpoint:
             json={"query": "Chiến tranh Việt Nam"},
             headers=auth_headers,
         )
-        assert response.status_code in (200, 422)
+        assert response.status_code in (200, 400, 422)
 
     def test_query_debug_endpoint(self, client: TestClient, auth_headers):
         response = client.post(
@@ -24,4 +24,4 @@ class TestQueryEndpoint:
             json={"query": "Ai ký Hiệp định Geneva?"},
             headers=auth_headers,
         )
-        assert response.status_code in (200, 422)
+        assert response.status_code in (200, 400, 422)

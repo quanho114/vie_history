@@ -147,8 +147,8 @@ class TestQueryEndpoint:
                 json={"query": "Chiến dịch Điện Biên Phủ năm 1954"},
                 headers=auth_headers(),
             )
-            # Accept: 200 (success) or 500 (DB unavailable) — not 422
-            assert resp.status_code in (200, 500)
+            # Accept: 200 (success), 400 (unconfigured LLM credentials), or 500 (DB unavailable)
+            assert resp.status_code in (200, 400, 500)
 
     def test_query_with_filters(self) -> None:
         """Query with year filters must be accepted."""
@@ -161,7 +161,7 @@ class TestQueryEndpoint:
                 },
                 headers=auth_headers(),
             )
-            assert resp.status_code in (200, 500)
+            assert resp.status_code in (200, 400, 500)
 
     def test_query_with_forced_mode(self) -> None:
         """Query with forced mode must be accepted."""
@@ -171,7 +171,7 @@ class TestQueryEndpoint:
                 json={"query": "So sánh A và B", "mode": "compare"},
                 headers=auth_headers(),
             )
-            assert resp.status_code in (200, 500)
+            assert resp.status_code in (200, 400, 500)
 
     def test_query_with_session_id(self) -> None:
         """Query with session_id must be accepted."""
@@ -184,7 +184,7 @@ class TestQueryEndpoint:
                 },
                 headers=auth_headers(),
             )
-            assert resp.status_code in (200, 500)
+            assert resp.status_code in (200, 400, 500)
 
 
 class TestQueryStreamEndpoint:
@@ -221,8 +221,8 @@ class TestQueryStreamEndpoint:
                 json={"query": "Test query"},
                 headers=auth_headers(),
             )
-            # Either 200 with SSE or 500 (DB unavailable)
-            assert resp.status_code in (200, 500)
+            # Either 200 with SSE, 400, or 500 (DB unavailable)
+            assert resp.status_code in (200, 400, 500)
 
 
 class TestQueryDebugEndpoint:
