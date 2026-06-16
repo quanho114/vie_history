@@ -7,6 +7,8 @@ or out of scope. Uses hybrid rule-based matching and fast LLM classification.
 from __future__ import annotations
 
 import re
+from enum import Enum
+from typing import Literal
 from dataclasses import dataclass
 from app.core.logging import get_logger
 from app.services.llm.client import get_llm_client
@@ -15,10 +17,27 @@ from app.services.llm.json_parser import parse_llm_json
 logger = get_logger("domain_classifier")
 
 
+class DomainDecision(str, Enum):
+    IN_SCOPE = "IN_SCOPE"
+    OUT_OF_SCOPE = "OUT_OF_SCOPE"
+    UNKNOWN = "UNKNOWN"
+
+
 @dataclass
 class DomainResult:
-    is_in_scope: bool
+    decision: DomainDecision
+    confidence: float
+    source: Literal["rule", "llm", "fallback"]
     reason: str
+
+    @property
+    def is_in_scope(self) -> bool:
+        return self.decision == DomainDecision.IN_SCOPE
+
+    @property
+    def reason_text(self) -> str:
+        # Backward compatibility for any direct reason field access
+        return self.reason
 
 
 class DomainClassifier:
@@ -52,31 +71,46 @@ class DomainClassifier:
         "cải cách ruộng đất", "lịch sử", "sự kiện", "nhân vật", "tướng", "quân đội"
     ]
 
-    async def classify(self, query: str) -> DomainResult:
-        """Classify query using hybrid keywords + LLM verification."""
+    def classify_rules(self, query: str) -> DomainResult | None:
+        """Deterministic rule-based fast-path check."""
         q = query.lower().strip()
         words = re.sub(r"[.,!?;:]", " ", q).split()
 
-        # 1. Deterministic greetings
+        # 1. Greetings
         for kw in self.GREETING_KEYWORDS:
             if " " in kw:
                 if kw in q:
                     logger.info("domain_classified_rules", is_in_scope=True, reason="greeting_keyword")
-                    return DomainResult(is_in_scope=True, reason="Câu chào hỏi hoặc xã giao.")
+                    return DomainResult(
+                        decision=DomainDecision.IN_SCOPE,
+                        confidence=1.0,
+                        source="rule",
+                        reason="Câu chào hỏi hoặc xã giao."
+                    )
             else:
                 if kw in words:
                     logger.info("domain_classified_rules", is_in_scope=True, reason="greeting_keyword")
-                    return DomainResult(is_in_scope=True, reason="Câu chào hỏi hoặc xã giao.")
+                    return DomainResult(
+                        decision=DomainDecision.IN_SCOPE,
+                        confidence=1.0,
+                        source="rule",
+                        reason="Câu chào hỏi hoặc xã giao."
+                    )
 
-        # 2. Check for years to classify out-of-scope
+        # 2. Years outside 1945-1975
         all_years = [int(y) for y in re.findall(r"\b(\d{4})\b", q)]
         if all_years:
             has_in_scope_year = any(1945 <= y <= 1975 for y in all_years)
             if not has_in_scope_year:
                 logger.info("domain_classified_rules", is_in_scope=False, reason="out_of_scope_year")
-                return DomainResult(is_in_scope=False, reason="Chứa mốc năm ngoài giai đoạn 1945-1975.")
+                return DomainResult(
+                    decision=DomainDecision.OUT_OF_SCOPE,
+                    confidence=1.0,
+                    source="rule",
+                    reason="Chứa mốc năm ngoài giai đoạn 1945-1975."
+                )
 
-        # 3. Check for clear historical years in 1945-1975
+        # 3. Years inside 1945-1975
         years = re.findall(r"\b(19[4-7]\d)\b", q)
         has_valid_year = False
         for y_str in years:
@@ -84,33 +118,50 @@ class DomainClassifier:
             if 1945 <= y <= 1975:
                 has_valid_year = True
                 break
-        
-        # 4. Deterministic clear in-scope keywords
+
+        # 4. In-scope keywords
         for kw in self.IN_SCOPE_KEYWORDS:
             if kw in q:
                 logger.info("domain_classified_rules", is_in_scope=True, reason="in_scope_keyword")
-                return DomainResult(is_in_scope=True, reason="Từ khóa thuộc lịch sử Việt Nam.")
+                return DomainResult(
+                    decision=DomainDecision.IN_SCOPE,
+                    confidence=1.0,
+                    source="rule",
+                    reason="Từ khóa thuộc lịch sử Việt Nam."
+                )
 
         if has_valid_year:
             logger.info("domain_classified_rules", is_in_scope=True, reason="valid_history_year")
-            return DomainResult(is_in_scope=True, reason="Chứa mốc năm trong giai đoạn 1945-1975.")
+            return DomainResult(
+                decision=DomainDecision.IN_SCOPE,
+                confidence=1.0,
+                source="rule",
+                reason="Chứa mốc năm trong giai đoạn 1945-1975."
+            )
 
-        # 4. Deterministic clear out-of-scope keywords
+        # 5. Out-of-scope keywords
         for kw in self.OUT_OF_SCOPE_KEYWORDS:
             if kw in q:
                 logger.info("domain_classified_rules", is_in_scope=False, reason="out_of_scope_keyword")
-                return DomainResult(is_in_scope=False, reason="Từ khóa nằm ngoài phạm vi nghiên cứu.")
+                return DomainResult(
+                    decision=DomainDecision.OUT_OF_SCOPE,
+                    confidence=1.0,
+                    source="rule",
+                    reason="Từ khóa nằm ngoài phạm vi nghiên cứu."
+                )
 
-        # 5. Fast LLM Classification
+        return None
+
+    async def classify_llm(self, query: str) -> DomainResult:
+        """Fallback classification using LLM. Fails closed but safely as UNKNOWN."""
+        q = query.lower().strip()
         try:
             llm = get_llm_client()
-            # If mock client is used (like in tests), we can bypass or let mock handle
             from app.services.llm.client import MockLLMClient
             if isinstance(llm, MockLLMClient):
-                # Standard fallback logic for Mock LLM in tests
                 if "hà nội ngày mai" in q or "messi" in q or "thời tiết" in q:
-                    return DomainResult(is_in_scope=False, reason="Ngoài phạm vi (Mock)")
-                return DomainResult(is_in_scope=True, reason="Trong phạm vi (Mock)")
+                    return DomainResult(decision=DomainDecision.OUT_OF_SCOPE, confidence=1.0, source="llm", reason="Ngoài phạm vi (Mock)")
+                return DomainResult(decision=DomainDecision.IN_SCOPE, confidence=1.0, source="llm", reason="Trong phạm vi (Mock)")
 
             prompt = f"""Bạn là bộ lọc phạm vi câu hỏi (Domain Guardrail AI) của HistoriAI.
 Xác định xem câu hỏi của người dùng có thuộc phạm vi Lịch sử Việt Nam (đặc biệt giai đoạn 1945-1975) hoặc chào hỏi xã giao hay không.
@@ -130,15 +181,27 @@ Trả về định dạng JSON duy nhất:
             parsed = parse_llm_json(resp)
             scope = parsed.get("scope", "IN").strip().upper()
             reason = parsed.get("reason", "Phân tích bối cảnh.")
+            decision = DomainDecision.IN_SCOPE if scope == "IN" else DomainDecision.OUT_OF_SCOPE
             
-            is_in_scope = (scope == "IN")
-            logger.info("domain_classified_llm", is_in_scope=is_in_scope, reason=reason, query=query[:50])
-            return DomainResult(is_in_scope=is_in_scope, reason=reason)
-            
+            logger.info("domain_classified_llm", decision=decision, reason=reason, query=query[:50])
+            return DomainResult(decision=decision, confidence=0.9, source="llm", reason=reason)
+
         except Exception as exc:
             logger.warning("domain_classification_llm_failed", error=str(exc))
-            # Safe fallback: assume in-scope to prevent false positive rejects
-            return DomainResult(is_in_scope=True, reason="Lỗi phân loại (Mặc định trong phạm vi).")
+            # Fail closed but safely as UNKNOWN instead of OUT_OF_SCOPE
+            return DomainResult(
+                decision=DomainDecision.UNKNOWN,
+                confidence=0.0,
+                source="fallback",
+                reason=f"Lỗi phân loại: {str(exc)}",
+            )
+
+    async def classify(self, query: str) -> DomainResult:
+        """Classify query combining rules and LLM validation."""
+        res = self.classify_rules(query)
+        if res is not None:
+            return res
+        return await self.classify_llm(query)
 
 
 _classifier = DomainClassifier()
