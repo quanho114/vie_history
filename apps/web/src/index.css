@@ -47,20 +47,21 @@
   --font-body: 'Inter', -apple-system, sans-serif;
   --font-mono: ui-monospace, monospace;
 
-  /* Custom Design System Tokens */
+  /* Ethereal Archive Design Tokens */
   --color-primary: #D4AF37;
-  --color-background: #EBE7E0;
-  --color-surface: rgba(252, 251, 248, 0.65);
-  --color-text: #1C2120;
-  --color-muted: #737A77;
-  --color-accent: #0B3030;
+  --color-background: #0B3030;
+  --color-surface: rgba(11, 48, 48, 0.45);
+  --color-surface-border: rgba(235, 231, 224, 0.1);
+  --color-text: #EBE7E0;
+  --color-muted: #8F9E9E;
+  --color-accent: #9B2B2B;
   --font-heading: 'Playfair Display', serif;
   --font-body-custom: 'Albert Sans', sans-serif;
-  --radius-panel: 24px;
-  --radius-button: 12px;
-  --spacing-edge: 24px;
-  --shadow-float: 0 20px 40px rgba(11, 48, 48, 0.06);
-  --blur-glass: blur(16px);
+  --radius-lg: 32px;
+  --radius-md: 16px;
+  --radius-sm: 8px;
+  --shadow-ambient: 0 24px 48px rgba(0, 0, 0, 0.4);
+  --blur-glass: blur(24px);
 }
 
 .dark {
@@ -170,9 +171,9 @@ input:focus, textarea:focus, select:focus, button:focus-visible {
   background: var(--color-surface);
   backdrop-filter: var(--blur-glass);
   -webkit-backdrop-filter: var(--blur-glass);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: var(--shadow-float);
-  border-radius: var(--radius-panel);
+  border: 1px solid var(--color-surface-border);
+  box-shadow: var(--shadow-ambient);
+  border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -464,5 +465,27 @@ input:focus, textarea:focus, select:focus, button:focus-visible {
 
 .animate-scale-up {
   animation: scaleUp 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Ethereal background with radial gradients and noise */
+.bg-ethereal {
+  background-color: #0B3030;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(20, 80, 80, 0.45) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(212, 175, 55, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(155, 43, 43, 0.15) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(20, 80, 80, 0.45) 0px, transparent 50%);
+  position: relative;
+}
+
+.bg-ethereal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
