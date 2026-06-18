@@ -270,15 +270,45 @@ export function LoginPage() {
   useFocusTrap(forgotPasswordRef);
 
   return (
-    <div className="min-h-screen w-full flex bg-[#faf8f4] text-[#141413] selection:bg-[#cc785c]/10 selection:text-[#cc785c] overflow-hidden relative">
+    <div className="min-h-screen w-full flex bg-[#051A1A] text-white selection:bg-[#cc785c]/10 selection:text-[#cc785c] overflow-hidden relative font-sans">
       
       {/* ── LEFT SHOWCASE PANEL (Visible on Medium+ screens) ──────────────────── */}
-      <div className="hidden md:flex md:w-[50%] lg:w-[55%] bg-[#12100f] text-[#efeae4] p-12 lg:p-16 flex-col justify-between relative overflow-hidden">
-        {/* Background decorative grid and glow */}
-        <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
-             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
+      <div className="hidden md:flex md:w-[50%] lg:w-[55%] bg-gradient-to-br from-[#0D3E3E] to-[#051A1A] text-[#efeae4] p-12 lg:p-16 flex-col justify-between relative overflow-hidden border-r border-white/5">
+        {/* Dong Son Bronze Drum Background Watermark */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03] overflow-hidden">
+          <svg 
+            viewBox="0 0 500 500" 
+            className="w-[120vh] h-[120vh] text-[#cc785c] animate-spin-slow"
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="250" cy="250" r="240" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" />
+            <circle cx="250" cy="250" r="225" stroke="currentColor" strokeWidth="2" />
+            <circle cx="250" cy="250" r="200" stroke="currentColor" strokeWidth="1" strokeDasharray="10 5" />
+            <circle cx="250" cy="250" r="175" stroke="currentColor" strokeWidth="1.5" />
+            <circle cx="250" cy="250" r="140" stroke="currentColor" strokeWidth="1" strokeDasharray="2 4" />
+            <circle cx="250" cy="250" r="100" stroke="currentColor" strokeWidth="2.5" />
+            <circle cx="250" cy="250" r="60" stroke="currentColor" strokeWidth="1" />
+            <polygon 
+              points="250,195 254,232 288,212 264,241 298,250 264,259 288,288 254,268 250,305 246,268 212,288 236,259 202,250 236,241 212,212 246,232" 
+              fill="currentColor" 
+              opacity="0.8"
+            />
+          </svg>
+        </div>
+
+        {/* Cinematic Rising Embers */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
+          <span className="ember" style={{ left: "10%", animationDelay: "0s", animationDuration: "6s" }} />
+          <span className="ember" style={{ left: "30%", animationDelay: "1.5s", animationDuration: "8s" }} />
+          <span className="ember" style={{ left: "50%", animationDelay: "0.5s", animationDuration: "7s" }} />
+          <span className="ember" style={{ left: "70%", animationDelay: "2s", animationDuration: "9s" }} />
+          <span className="ember" style={{ left: "90%", animationDelay: "1s", animationDuration: "6s" }} />
+        </div>
+
+        {/* Ambient glows */}
         <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-[#cc785c]/10 blur-[130px] pointer-events-none" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-[#a8583c]/5 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-[#cc785c]/5 blur-[120px] pointer-events-none" />
 
         {/* Top brand */}
         <div className="flex items-center gap-3 z-10">
