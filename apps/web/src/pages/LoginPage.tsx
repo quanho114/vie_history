@@ -722,7 +722,7 @@ export function LoginPage() {
       `}</style>
 
       {isTransitioning && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#12100f] text-white p-6 overflow-hidden select-none font-sans">
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#051A1A] text-white p-6 overflow-hidden select-none font-sans">
           {/* SVG Displacement Wave Filter removed */}
 
           {/* Dong Son Bronze Drum Background Watermark - Spinning extremely slowly */}
@@ -777,10 +777,10 @@ export function LoginPage() {
           <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-[#cc785c]/10 blur-[140px] pointer-events-none" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-red-600/5 blur-[140px] pointer-events-none" />
           
-          <div className="relative z-10 flex flex-row items-center justify-center w-full h-full gap-8 md:gap-16 px-4">
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-center w-full h-full gap-8 md:gap-16 px-4">
             
             {/* Glowing Map of Vietnam with Sacred Imperial borders */}
-            <div className="relative w-[600px] h-[85vh] max-w-[65vw] bg-[#1a1a18]/50 border border-[#e6dfd8]/10 rounded-2xl p-5 flex items-center justify-center shadow-[0_0_50px_rgba(204,120,92,0.15)] backdrop-blur-md flex-shrink-0 overflow-hidden">
+            <div className="relative w-full md:w-[600px] h-[50vh] md:h-[85vh] max-w-[65vw] bg-[#0B3030]/30 border border-white/10 rounded-2xl p-5 flex items-center justify-center shadow-[0_0_50px_rgba(204,120,92,0.15)] backdrop-blur-md flex-shrink-0 overflow-hidden">
               
               {/* Imperial Corner Borders */}
               <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#cc785c]/60 rounded-tl-xl" />
@@ -828,7 +828,7 @@ export function LoginPage() {
                 {/* Continue button to proceed to the main chatbot */}
                 <button
                   onClick={handleContinue}
-                  className="mt-6 px-6 py-2.5 rounded-xl border border-[#cc785c]/40 bg-gradient-to-r from-[#cc785c]/10 to-[#b86246]/10 hover:from-[#cc785c]/25 hover:to-[#b86246]/25 text-[#cc785c] hover:text-[#faf8f4] text-xs font-semibold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(204,120,92,0.1)] hover:shadow-[0_0_20px_rgba(204,120,92,0.25)] flex items-center gap-2 mx-auto cursor-pointer outline-none"
+                  className="mt-6 px-6 py-2.5 rounded-xl border border-[#cc785c]/40 bg-gradient-to-r from-[#cc785c]/10 to-[#b86246]/10 hover:from-[#cc785c]/25 hover:to-[#b86246]/25 text-[#cc785c] hover:text-white text-xs font-semibold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(204,120,92,0.1)] hover:shadow-[0_0_20px_rgba(204,120,92,0.25)] flex items-center gap-2 mx-auto cursor-pointer outline-none"
                 >
                   <span>Tiếp tục tiến vào hệ thống</span>
                   <ArrowRight size={14} className="animate-pulse" />
@@ -867,41 +867,6 @@ export function LoginPage() {
             .animate-glow-path {
               animation: glow 2.5s ease-in-out infinite;
             }
-            @keyframes spin-slow {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
-            }
-            .animate-spin-slow {
-              animation: spin-slow 180s linear infinite;
-            }
-            .ember {
-              position: absolute;
-              bottom: -20px;
-              width: 3px;
-              height: 3px;
-              background: #cc785c;
-              border-radius: 50%;
-              opacity: 0.8;
-              filter: blur(0.5px);
-              box-shadow: 0 0 8px #cc785c, 0 0 15px #da251d;
-              animation: rise infinite ease-in-out;
-            }
-            @keyframes rise {
-              0% {
-                transform: translateY(0) scale(1) translateX(0);
-                opacity: 0;
-              }
-              10% {
-                opacity: 0.8;
-              }
-              90% {
-                opacity: 0.4;
-              }
-              100% {
-                transform: translateY(-110vh) scale(0.3) translateX(60px);
-                opacity: 0;
-              }
-            }
           `}</style>
         </div>
       )}
@@ -910,7 +875,7 @@ export function LoginPage() {
 
       {/* Exit Loading Transition Overlay */}
       {isExiting && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#12100f] text-[#efeae4] p-6 animate-fadeIn font-sans selection:bg-[#cc785c]/10 selection:text-[#cc785c]">
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#051A1A] text-white p-6 animate-fadeIn font-sans selection:bg-[#cc785c]/10 selection:text-[#cc785c]">
           {/* Ambient Glows */}
           <div className="absolute top-1/3 w-[500px] h-[500px] rounded-full bg-[#cc785c]/10 blur-[130px] pointer-events-none" />
           <div className="absolute bottom-1/4 w-[400px] h-[400px] rounded-full bg-red-600/5 blur-[120px] pointer-events-none" />
@@ -931,7 +896,7 @@ export function LoginPage() {
 
             <div className="space-y-4 w-full">
               <div className="space-y-1.5">
-                <h3 className="font-serif text-xl font-normal text-[#efeae4] tracking-wide">
+                <h3 className="font-serif text-xl font-normal text-white tracking-wide">
                   Đang khởi chạy hệ thống
                 </h3>
                 <p className="text-[12px] text-[#cc785c] font-medium tracking-wider h-4 animate-pulse">
@@ -950,7 +915,7 @@ export function LoginPage() {
                 />
               </div>
               
-              <div className="flex justify-between items-center text-[10px] text-[#6c6a64] uppercase tracking-widest font-mono">
+              <div className="flex justify-between items-center text-[10px] text-white/30 uppercase tracking-widest font-mono">
                 <span>Trạng thái: Sẵn sàng</span>
                 <span>{exitProgress}%</span>
               </div>
