@@ -294,7 +294,30 @@ export function LoginPage() {
     try {
       let response;
       if (isRegister) {
-        response = await authApi.register(email, username, password);
+        const regResponse = await authApi.register(email, username, password);
+        // Persist token temporarily in localStorage so updateProfile request can read it
+        localStorage.setItem("token", regResponse.access_token);
+        
+        let finalUser = regResponse.user;
+        try {
+          // Send academic metadata update
+          finalUser = await authApi.updateProfile({
+            settings: {
+              ...(regResponse.user?.settings || {}),
+              fullName,
+              role,
+              institution
+            }
+          });
+        } catch (metaErr) {
+          console.error("Failed to save academic profile settings:", metaErr);
+          // Fallback to original user object if update fails
+        }
+        
+        response = {
+          access_token: regResponse.access_token,
+          user: finalUser
+        };
       } else {
         response = await authApi.login(email, password);
       }
@@ -305,7 +328,7 @@ export function LoginPage() {
       useAuthStore.setState({ isLoading: false });
     } catch (err: any) {
       useAuthStore.setState({
-        error: err.message || "Đăng nhập thất bại",
+        error: err.message || (isRegister ? "Đăng ký thất bại" : "Đăng nhập thất bại"),
         isLoading: false,
       });
     }
