@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useChatStore } from "@/stores/chatStore";
 import { useAuthStore } from "@/stores/authStore";
+import { draftsApi, graphDraftsApi } from "@/lib/api/brain";
 import { cn } from "@/lib/utils/cn";
 import { t } from "@/lib/services/i18n";
 import {
@@ -25,6 +26,7 @@ import {
   Sliders,
   CheckCircle2,
   AlertCircle,
+  AlertTriangle,
   Loader2,
   ChevronRight,
   Lock,
@@ -383,6 +385,31 @@ export function Sidebar({
   const { sessions, createSession, setActiveSession, activeSessionId, renameSession, deleteSession, deleteAllSessions } = useChatStore();
   const { user, logout, updateUserProfile } = useAuthStore();
 
+  const [pendingGraphCount, setPendingGraphCount] = useState<number>(0);
+  const [pendingWikiCount, setPendingWikiCount] = useState<number>(0);
+
+  useEffect(() => {
+    const isAdminOrEditor = user?.role === "admin" || user?.role === "editor";
+    if (!isAdminOrEditor) return;
+
+    const fetchCounts = async () => {
+      try {
+        const [gRes, wRes] = await Promise.all([
+          graphDraftsApi.list({ status: "pending" }),
+          draftsApi.list({ status: "pending" }),
+        ]);
+        setPendingGraphCount(gRes?.length || 0);
+        setPendingWikiCount(wRes?.length || 0);
+      } catch (err) {
+        console.error("Lỗi khi tải số lượng bản thảo chưa duyệt", err);
+      }
+    };
+
+    fetchCounts();
+    const interval = setInterval(fetchCounts, 15000); // Poll every 15 seconds
+    return () => clearInterval(interval);
+  }, [user]);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [isHeaderHovered, setIsHeaderHovered] = useState(false);
 
@@ -573,6 +600,7 @@ export function Sidebar({
 
   const handleSessionClick = (sessionId: string) => {
     setActiveSession(sessionId);
+    navigate("/chat");
     onClose?.();
   };
 
@@ -646,16 +674,19 @@ export function Sidebar({
         {/* Mobile Close Button */}
         <div className="flex items-center justify-between p-4 border-b border-hairline md:hidden">
           <div className="flex items-center">
-            <span className="font-display text-[18px] font-normal text-ink">HistoriAI</span>
+            <span className="font-semibold text-[18px] text-[#1C2120]" style={{ fontFamily: "var(--font-heading)" }}>
+              HistoriAI
+            </span>
           </div>
         </div>
 
         {/* Brand Row with Actions */}
         {!isCollapsed ? (
-          <div className="px-4 py-3 flex items-center justify-between flex-shrink-0">
+          <div className="px-5 py-4 flex items-center justify-between flex-shrink-0">
             {/* App Name */}
-            <div className="flex items-center">
-              <span className="font-display text-[18px] font-normal text-ink leading-tight">
+            <div className="flex items-center gap-2.5">
+              <SpikeMarkLogo size={22} className="text-[#D4AF37]" />
+              <span className="font-semibold text-xl text-[#1C2120]" style={{ fontFamily: "var(--font-heading)" }}>
                 HistoriAI
               </span>
             </div>
@@ -665,7 +696,7 @@ export function Sidebar({
               <button
                 type="button"
                 onClick={onToggleCollapse}
-                className="w-[26px] h-[26px] rounded-md flex items-center justify-center text-muted hover:text-ink hover:bg-[rgba(20,20,18,.05)] transition-colors"
+                className="w-[28px] h-[28px] rounded-lg flex items-center justify-center text-[#737A77] hover:text-[#1C2120] hover:bg-white/40 transition-colors"
                 title="Thu nhỏ sidebar"
                 aria-label="Thu nhỏ sidebar"
               >
@@ -675,7 +706,7 @@ export function Sidebar({
           </div>
         ) : (
           <div 
-            className="h-[46px] flex items-center justify-center flex-shrink-0"
+            className="h-[56px] flex items-center justify-center flex-shrink-0"
             onMouseEnter={() => setIsHeaderHovered(true)}
             onMouseLeave={() => setIsHeaderHovered(false)}
           >
@@ -683,7 +714,7 @@ export function Sidebar({
               <button
                 type="button"
                 onClick={onToggleCollapse}
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-muted hover:text-ink hover:bg-[rgba(20,20,18,.05)] transition-all duration-150"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-[#737A77] hover:text-[#1C2120] hover:bg-white/40 transition-all duration-150"
                 title="Mở rộng sidebar"
                 aria-label="Mở rộng sidebar"
               >
@@ -691,48 +722,39 @@ export function Sidebar({
               </button>
             ) : (
               <div className="w-9 h-9 flex items-center justify-center">
-                <SpikeMarkLogo size={20} className="text-coral" />
+                <SpikeMarkLogo size={24} className="text-[#D4AF37]" />
               </div>
             )}
           </div>
         )}
 
-        {/* Divider */}
-        <div className="mx-3 border-t border-hairline" />
-
-        {/* New Session Button */}
-        <div className="px-3 pt-3 flex-shrink-0 flex justify-center">
+        {/* Navigation */}
+        <nav className="px-3 pt-2 pb-1 flex-shrink-0 space-y-1">
+          {/* New Chat Button */}
           <button
             type="button"
             onClick={handleNewChat}
             className={cn(
-              "flex items-center justify-center rounded-lg bg-[#cc785c] text-white hover:bg-[#a9583e] transition-all duration-150 shadow-sm",
-              isCollapsed ? "w-9 h-9" : "w-full gap-2 px-3 py-2 text-[13.5px] font-medium"
+              "flex items-center rounded-lg text-[13.5px] font-medium text-[#0B3030] hover:bg-[#0B3030]/10 hover:translate-x-1 transition-all duration-200 text-left w-full",
+              isCollapsed ? "justify-center w-8 h-8 mx-auto py-0 px-0 hover:translate-x-0" : "gap-2.5 px-3 py-2"
             )}
             title={t("new_chat")}
             aria-label={t("new_chat")}
           >
-            <PlusCircle className="w-[17px] h-[17px]" />
-            {!isCollapsed && <span>{t("new_chat")}</span>}
+            <PlusCircle className="w-[18px] h-[18px] text-[#D4AF37] flex-shrink-0" />
+            {!isCollapsed && <span style={{ fontFamily: "var(--font-body-custom)" }}>{t("new_chat")}</span>}
           </button>
-        </div>
-
-        {/* Divider */}
-        <div className="mx-3 border-t border-hairline" />
-
-        {/* Navigation */}
-        <nav className="px-2 pt-2 pb-1 flex-shrink-0">
           {navItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
                 cn(
-                  "flex items-center rounded-lg text-[13.5px] font-normal transition-colors",
-                  isCollapsed ? "justify-center w-9 h-9 mx-auto py-0 px-0" : "gap-2.5 px-3 py-2",
+                  "flex items-center rounded-lg text-[13.5px] font-medium transition-all duration-200 hover:translate-x-1",
+                  isCollapsed ? "justify-center w-8 h-8 mx-auto py-0 px-0 hover:translate-x-0" : "gap-2.5 px-3 py-2",
                   isActive
-                    ? "bg-surface-strong text-ink"
-                    : "text-body-text hover:bg-[rgba(20,20,18,.04)]"
+                    ? "bg-[#EBE7E0]/85 text-[#0B3030] shadow-sm font-semibold border border-white/20"
+                    : "text-[#1C2120]/80 hover:bg-white/40 hover:text-[#1C2120]"
                 )
               }
               onClick={onClose}
@@ -743,10 +765,10 @@ export function Sidebar({
                   <item.icon
                     className={cn(
                       "w-[18px] h-[18px] flex-shrink-0",
-                      isActive ? "text-coral" : "text-muted"
+                      isActive ? "text-[#D4AF37]" : "text-[#737A77]"
                     )}
                   />
-                  {!isCollapsed && <span>{translatedLabel(item.to, item.label)}</span>}
+                  {!isCollapsed && <span style={{ fontFamily: "var(--font-body-custom)" }}>{translatedLabel(item.to, item.label)}</span>}
                 </>
               )}
             </NavLink>
@@ -763,7 +785,7 @@ export function Sidebar({
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Tìm cuộc trò chuyện..."
-                className="w-full pl-8 pr-2.5 py-1.5 rounded-lg border border-hairline bg-[rgba(20,20,18,.02)] text-[12px] text-ink placeholder-soft focus:bg-white focus:border-coral transition-colors outline-none"
+                className="w-full pl-8 pr-2.5 py-1.5 rounded-lg border border-hairline bg-[rgba(20,20,18,.02)] dark:bg-white/5 text-[12px] text-ink placeholder-soft focus:bg-white dark:focus:bg-[#1f1e1b] focus:border-coral transition-colors outline-none"
               />
             </div>
           </div>
@@ -781,41 +803,16 @@ export function Sidebar({
                 {t("recent_chats")}
               </span>
               {sessions.length > 0 && (
-                confirmDeleteAll ? (
-                  <div className="flex items-center gap-1">
-                    <span className="text-[10px] text-red-500 font-medium">
-                      {language === "en" ? "Sure?" : "Chắc chắn?"}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={handleDeleteAllSessions}
-                      disabled={isDeletingAll}
-                      className="text-[10px] font-semibold text-white bg-red-500 hover:bg-red-600 px-1.5 py-0.5 rounded transition-colors disabled:opacity-60"
-                      aria-label="Xác nhận xóa tất cả"
-                    >
-                      {isDeletingAll ? "..." : (language === "en" ? "Yes" : "Có")}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setConfirmDeleteAll(false)}
-                      className="text-[10px] font-semibold text-muted hover:text-ink px-1.5 py-0.5 rounded transition-colors"
-                      aria-label="Hủy xóa tất cả"
-                    >
-                      {language === "en" ? "No" : "Hủy"}
-                    </button>
-                  </div>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => setConfirmDeleteAll(true)}
-                    className="flex items-center gap-1 text-[10px] text-muted hover:text-red-500 transition-colors rounded px-1 py-0.5 hover:bg-red-50"
-                    title={language === "en" ? "Delete all chats" : "Xóa tất cả đoạn chat"}
-                    aria-label={language === "en" ? "Delete all chats" : "Xóa tất cả đoạn chat"}
-                  >
-                    <Trash2 size={10} />
-                    <span>{language === "en" ? "Clear all" : "Xóa tất cả"}</span>
-                  </button>
-                )
+                <button
+                  type="button"
+                  onClick={() => setConfirmDeleteAll(true)}
+                  className="flex items-center gap-1 text-[10px] text-muted hover:text-red-500 transition-colors rounded px-1.5 py-0.5 hover:bg-red-50 dark:hover:bg-red-950/20"
+                  title={language === "en" ? "Delete all chats" : "Xóa tất cả đoạn chat"}
+                  aria-label={language === "en" ? "Delete all chats" : "Xóa tất cả đoạn chat"}
+                >
+                  <Trash2 size={10} />
+                  <span>{language === "en" ? "Clear all" : "Xóa tất cả"}</span>
+                </button>
               )}
             </div>
 
@@ -875,7 +872,7 @@ export function Sidebar({
                   <div
                     key={session.id}
                     className={cn(
-                      "group relative w-full flex items-center justify-between px-3 py-[7px] rounded-md text-[12.5px] text-body-text hover:bg-[rgba(20,20,18,.04)] transition-all duration-150",
+                      "group relative w-full flex items-center justify-between px-3 py-[7px] rounded-md text-[12.5px] text-body-text hover:bg-[rgba(20,20,18,.04)] dark:hover:bg-white/5 transition-all duration-150",
                       isActive && "bg-surface-strong text-ink font-medium"
                     )}
                     onClick={() => handleSessionClick(session.id)}
@@ -893,7 +890,7 @@ export function Sidebar({
                           setEditingSessionId(session.id);
                           setEditTitle(session.title || "");
                         }}
-                        className="p-1 rounded text-muted hover:text-ink hover:bg-[rgba(20,20,18,.06)] transition-colors"
+                        className="p-1 rounded text-muted hover:text-ink hover:bg-[rgba(20,20,18,.06)] dark:hover:bg-white/5 transition-colors"
                         aria-label={`${language === "en" ? "Rename" : "Đổi tên"} ${session.title || "chat"}`}
                         title={language === "en" ? "Rename" : "Đổi tên"}
                       >
@@ -946,84 +943,154 @@ export function Sidebar({
 
         {/* Admin Links (Only for Admin role) */}
         {user?.role === "admin" && (
-          <div className="px-2 py-1 flex-shrink-0">
+          <div className="px-3 py-0.5 flex-shrink-0">
             <NavLink
               to="/admin"
               className={({ isActive }) =>
                 cn(
-                  "flex items-center rounded-lg text-[13.5px] font-normal transition-colors",
-                  isCollapsed ? "justify-center w-9 h-9 mx-auto py-0 px-0" : "gap-2.5 px-3 py-2",
+                  "flex items-center rounded-lg text-[13.5px] font-medium transition-all duration-200 hover:translate-x-1",
+                  isCollapsed ? "justify-center w-8 h-8 mx-auto py-0 px-0 hover:translate-x-0" : "gap-2.5 px-3 py-2",
                   isActive
-                    ? "bg-surface-strong text-ink"
-                    : "text-body-text hover:bg-[rgba(20,20,18,.04)]"
+                    ? "bg-[#EBE7E0]/85 text-[#0B3030] shadow-sm font-semibold border border-white/20"
+                    : "text-[#1C2120]/80 hover:bg-white/40 hover:text-[#1C2120]"
                 )
               }
               onClick={onClose}
               title="Admin"
             >
-              <Shield className={cn("w-[18px] h-[18px] flex-shrink-0")} />
-              {!isCollapsed && <span>Admin</span>}
-            </NavLink>
-          </div>
-        )}
-
-        {/* Knowledge Evolution Link (For Admins and Editors) */}
-        {(user?.role === "admin" || user?.role === "editor") && (
-          <div className="px-2 py-0.5 flex-shrink-0">
-            <NavLink
-              to="/graph/drafts/review"
-              className={({ isActive }) =>
-                cn(
-                  "flex items-center rounded-lg text-[13.5px] font-normal transition-colors",
-                  isCollapsed ? "justify-center w-9 h-9 mx-auto py-0 px-0" : "gap-2.5 px-3 py-2",
-                  isActive
-                    ? "bg-surface-strong text-ink"
-                    : "text-body-text hover:bg-[rgba(20,20,18,.04)]"
-                )
-              }
-              onClick={onClose}
-              title="Tiến hóa Tri thức"
-            >
               {({ isActive }) => (
                 <>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className={cn("w-[18px] h-[18px] flex-shrink-0", isActive ? "text-coral" : "text-muted")}
-                  >
-                    <circle cx="12" cy="12" r="3" />
-                    <circle cx="6" cy="18" r="3" />
-                    <circle cx="18" cy="6" r="3" />
-                    <line x1="9" y1="15" x2="12" y2="12" />
-                    <line x1="12" y1="12" x2="15" y2="9" />
-                  </svg>
-                  {!isCollapsed && <span>Tiến hóa Tri thức</span>}
+                  <Shield className={cn("w-[18px] h-[18px] flex-shrink-0", isActive ? "text-[#D4AF37]" : "text-[#737A77]")} />
+                  {!isCollapsed && <span style={{ fontFamily: "var(--font-body-custom)" }}>Admin</span>}
                 </>
               )}
             </NavLink>
           </div>
         )}
 
+        {/* Wiki Drafts Review Link (For Admins and Editors) */}
+        {(user?.role === "admin" || user?.role === "editor") && (
+          <div className="px-3 py-0.5 flex-shrink-0">
+            <NavLink
+              to="/wiki/drafts/review"
+              className={({ isActive }) =>
+                cn(
+                  "flex items-center rounded-lg text-[13.5px] font-medium transition-all duration-200 hover:translate-x-1",
+                  isCollapsed ? "justify-center w-8 h-8 mx-auto py-0 px-0 hover:translate-x-0" : "gap-2.5 px-3 py-2",
+                  isActive
+                    ? "bg-[#EBE7E0]/85 text-[#0B3030] shadow-sm font-semibold border border-white/20"
+                    : "text-[#1C2120]/80 hover:bg-white/40 hover:text-[#1C2120]"
+                )
+              }
+              onClick={onClose}
+              title="Duyệt Wiki"
+            >
+              {({ isActive }) => (
+                <div className={cn("flex items-center w-full", isCollapsed ? "justify-center" : "justify-between")}>
+                  <div className={cn("flex items-center", isCollapsed ? "" : "gap-2.5")}>
+                    <div className="relative">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className={cn("w-[18px] h-[18px] flex-shrink-0", isActive ? "text-[#D4AF37]" : "text-[#737A77]")}
+                      >
+                        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
+                        <path d="M6 6h10" />
+                        <path d="M6 10h10" />
+                      </svg>
+                      {isCollapsed && pendingWikiCount > 0 && (
+                        <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#cc785c] rounded-full ring-2 ring-white dark:ring-stone-900" />
+                      )}
+                    </div>
+                    {!isCollapsed && <span style={{ fontFamily: "var(--font-body-custom)" }}>Duyệt Wiki</span>}
+                  </div>
+                  {!isCollapsed && pendingWikiCount > 0 && (
+                    <span className="ml-auto bg-[#cc785c] text-white text-[10.5px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] h-[18px] flex items-center justify-center">
+                      {pendingWikiCount}
+                    </span>
+                  )}
+                </div>
+              )}
+            </NavLink>
+          </div>
+        )}
+
+        {/* Knowledge Evolution Link (For Admins and Editors) */}
+        {(user?.role === "admin" || user?.role === "editor") && (
+          <div className="px-3 py-0.5 flex-shrink-0">
+            <NavLink
+              to="/graph/drafts/review"
+              className={({ isActive }) =>
+                cn(
+                  "flex items-center rounded-lg text-[13.5px] font-medium transition-all duration-200 hover:translate-x-1",
+                  isCollapsed ? "justify-center w-8 h-8 mx-auto py-0 px-0 hover:translate-x-0" : "gap-2.5 px-3 py-2",
+                  isActive
+                    ? "bg-[#EBE7E0]/85 text-[#0B3030] shadow-sm font-semibold border border-white/20"
+                    : "text-[#1C2120]/80 hover:bg-white/40 hover:text-[#1C2120]"
+                )
+              }
+              onClick={onClose}
+              title="Tiến hóa Tri thức"
+            >
+              {({ isActive }) => (
+                <div className={cn("flex items-center w-full", isCollapsed ? "justify-center" : "justify-between")}>
+                  <div className={cn("flex items-center", isCollapsed ? "" : "gap-2.5")}>
+                    <div className="relative">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className={cn("w-[18px] h-[18px] flex-shrink-0", isActive ? "text-[#D4AF37]" : "text-[#737A77]")}
+                      >
+                        <circle cx="12" cy="12" r="3" />
+                        <circle cx="6" cy="18" r="3" />
+                        <circle cx="18" cy="6" r="3" />
+                        <line x1="9" y1="15" x2="12" y2="12" />
+                        <line x1="12" y1="12" x2="15" y2="9" />
+                      </svg>
+                      {isCollapsed && pendingGraphCount > 0 && (
+                        <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#cc785c] rounded-full ring-2 ring-white dark:ring-stone-900" />
+                      )}
+                    </div>
+                    {!isCollapsed && <span style={{ fontFamily: "var(--font-body-custom)" }}>Tiến hóa Tri thức</span>}
+                  </div>
+                  {!isCollapsed && pendingGraphCount > 0 && (
+                    <span className="ml-auto bg-[#cc785c] text-white text-[10.5px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] h-[18px] flex items-center justify-center">
+                      {pendingGraphCount}
+                    </span>
+                  )}
+                </div>
+              )}
+            </NavLink>
+          </div>
+        )}
+
         {/* User Row - Clickable to open settings */}
-        <div className="px-3 pb-1 pt-2 flex-shrink-0 flex justify-center">
+        <div className={cn("pb-3 pt-2 flex-shrink-0 flex justify-center", isCollapsed ? "px-2" : "px-3")}>
           <button
             type="button"
             onClick={() => setSettingsOpen(true)}
             className={cn(
-              "flex items-center rounded-xl hover:bg-[rgba(20,20,18,.05)] transition-all duration-150 group",
-              isCollapsed ? "justify-center w-9 h-9 p-0" : "gap-3 w-full text-left p-1.5"
+              "flex items-center rounded-xl hover:bg-white/40 transition-all duration-150 group",
+              isCollapsed ? "justify-center w-8 h-8 p-0" : "gap-3 w-full text-left p-1.5"
             )}
             title={user?.username || "Guest"}
           >
             {/* Avatar */}
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[var(--coral)] to-orange-400 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-150 shadow-sm border border-orange-100/20">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#D4AF37] to-amber-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-150 shadow-sm border border-amber-100/20">
               <span className="text-white text-[13px] font-bold leading-none select-none flex items-center justify-center">
                 {user?.username?.[0]?.toUpperCase() || "?"}
               </span>
@@ -1031,11 +1098,11 @@ export function Sidebar({
 
             {/* Name */}
             {!isCollapsed && (
-              <div className="flex-1 min-w-0">
-                <p className="text-[13px] font-semibold text-ink truncate leading-tight">
+              <div className="flex-1 min-w-0" style={{ fontFamily: "var(--font-body-custom)" }}>
+                <p className="text-[13px] font-semibold text-[#1C2120] truncate leading-tight">
                   {user?.username || "Guest"}
                 </p>
-                <p className="text-[10px] text-soft mt-0.5 truncate">
+                <p className="text-[10px] text-[#737A77] mt-0.5 truncate">
                   {t("settings")}
                 </p>
               </div>
@@ -1043,7 +1110,7 @@ export function Sidebar({
 
             {/* Dots Icon */}
             {!isCollapsed && (
-              <div className="w-[26px] h-[26px] rounded-md flex items-center justify-center text-muted group-hover:text-ink transition-colors">
+              <div className="w-[26px] h-[26px] rounded-md flex items-center justify-center text-[#737A77] group-hover:text-[#1C2120] transition-colors">
                 <IconDots className="w-[18px] h-[18px]" />
               </div>
             )}
@@ -1053,6 +1120,60 @@ export function Sidebar({
         {/* Bottom Spacer to prevent cutoff */}
         <div className="h-1 flex-shrink-0" />
       </aside>
+
+      {/* Clear All Confirmation Modal */}
+      {confirmDeleteAll && (
+        <div className="fixed inset-0 z-[1060] flex items-center justify-center bg-black/50 dark:bg-black/75 backdrop-blur-[2px] p-4 animate-fade-in">
+          <div className="bg-canvas dark:bg-surface-soft border border-hairline rounded-2xl w-full max-w-md p-6 shadow-2xl relative animate-scale-up flex flex-col gap-4">
+            {/* Warning Icon & Title */}
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-full bg-red-50 dark:bg-red-950/30 flex items-center justify-center flex-shrink-0 text-[#c64545] dark:text-red-400">
+                <AlertTriangle className="w-5 h-5 animate-pulse" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-display text-[17px] font-bold text-ink leading-tight">
+                  {language === "en" ? "Clear Chat History?" : "Xóa Lịch sử Trò chuyện?"}
+                </h3>
+                <p className="text-[12.5px] text-muted mt-2 leading-relaxed">
+                  {language === "en" 
+                    ? "This action will permanently delete all your chat history. You cannot retrieve them later. Are you sure you want to continue?" 
+                    : "Hành động này sẽ xóa vĩnh viễn tất cả lịch sử cuộc trò chuyện của bạn. Bạn sẽ không thể khôi phục lại chúng. Bạn có chắc chắn muốn tiếp tục?"}
+                </p>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center justify-end gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={() => setConfirmDeleteAll(false)}
+                disabled={isDeletingAll}
+                className="px-3.5 py-1.5 rounded-lg text-[12.5px] font-medium text-body hover:bg-surface-strong/60 dark:hover:bg-white/5 border border-hairline transition-all duration-150"
+              >
+                {language === "en" ? "Cancel" : "Hủy"}
+              </button>
+              <button
+                type="button"
+                onClick={async () => {
+                  await handleDeleteAllSessions();
+                  setConfirmDeleteAll(false);
+                }}
+                disabled={isDeletingAll}
+                className="px-3.5 py-1.5 rounded-lg text-[12.5px] font-semibold text-white bg-[#c64545] hover:bg-[#b03d3d] transition-all duration-150 flex items-center gap-1.5 shadow-sm disabled:opacity-60"
+              >
+                {isDeletingAll ? (
+                  <span>{language === "en" ? "Clearing..." : "Đang xóa..."}</span>
+                ) : (
+                  <>
+                    <Trash2 size={13} />
+                    <span>{language === "en" ? "Clear all" : "Xóa tất cả"}</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Settings Modal */}
       {settingsOpen && (
@@ -1184,41 +1305,16 @@ export function Sidebar({
                               : "Xóa vĩnh viễn toàn bộ lịch sử trò chuyện."}
                           </p>
                         </div>
-                        {confirmDeleteAll ? (
-                          <div className="flex items-center gap-1.5 flex-shrink-0">
-                            <span className="text-[11px] text-red-500 font-medium">
-                              {language === "en" ? "Sure?" : "Chắc chắn?"}
-                            </span>
-                            <button
-                              type="button"
-                              onClick={handleDeleteAllSessions}
-                              disabled={isDeletingAll}
-                              className="px-2.5 py-1 rounded-lg text-[11px] font-semibold text-white bg-red-500 hover:bg-red-600 transition-colors disabled:opacity-60"
-                              aria-label="Xác nhận xóa tất cả cuộc trò chuyện"
-                            >
-                              {isDeletingAll ? "..." : (language === "en" ? "Yes, delete" : "Có, xóa")}
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => setConfirmDeleteAll(false)}
-                              className="px-2.5 py-1 rounded-lg text-[11px] font-semibold border border-hairline text-muted hover:text-ink transition-colors"
-                              aria-label="Hủy xóa tất cả"
-                            >
-                              {language === "en" ? "Cancel" : "Hủy"}
-                            </button>
-                          </div>
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={() => setConfirmDeleteAll(true)}
-                            disabled={sessions.length === 0}
-                            className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium text-red-600 border border-red-200 hover:bg-red-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                            aria-label={language === "en" ? "Delete all chats" : "Xóa tất cả đoạn chat"}
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                            {language === "en" ? "Delete all" : "Xóa tất cả"}
-                          </button>
-                        )}
+                        <button
+                          type="button"
+                          onClick={() => setConfirmDeleteAll(true)}
+                          disabled={sessions.length === 0 || isDeletingAll}
+                          className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium text-red-600 border border-red-200 hover:bg-red-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                          aria-label={language === "en" ? "Delete all chats" : "Xóa tất cả đoạn chat"}
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                          {language === "en" ? "Delete all" : "Xóa tất cả"}
+                        </button>
                       </div>
                     </div>
                   </div>
