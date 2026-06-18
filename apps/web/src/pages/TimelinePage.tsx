@@ -261,7 +261,7 @@ export function TimelinePage() {
       </div>
 
       {/* ── MAIN WORKSPACE: Vertical Historical Stream ── */}
-      <div className="flex-1 overflow-y-auto bg-[#faf8f3] px-8 py-8 relative">
+      <div className="flex-1 overflow-y-auto bg-[#faf8f3] px-6 py-6 relative">
         
         {loading ? (
           <div className="h-full flex items-center justify-center">
@@ -286,7 +286,7 @@ export function TimelinePage() {
             </p>
           </div>
         ) : (
-          <div className="relative pl-8 border-l border-[#e8ddd0]/80 ml-6 space-y-12 max-w-3xl mx-auto text-left">
+          <div className="relative pl-6 border-l-2 border-[#e8ddd0] ml-4 space-y-8 max-w-xl text-left">
             
             {uniqueYears.map((year) => {
               const yearEvents = eventsByYear[year]
@@ -294,20 +294,17 @@ export function TimelinePage() {
               return (
                 <div key={year} className="relative">
 
-                  {/* Year Section Header — in-flow, not absolute */}
-                  <div className="flex items-center gap-3 mb-5 -ml-8">
-                    {/* Dot on timeline axis */}
-                    <div className="w-4 h-4 rounded-full border-2 border-[#cc785c] bg-[#faf8f3] flex-shrink-0 shadow-sm z-10" />
-                    {/* Year label */}
-                    <span className="font-serif text-sm font-bold text-[#cc785c] tracking-wide bg-[#faf8f3] pr-2">
+                  {/* Year Section Header */}
+                  <div className="flex items-center gap-2 mb-3 -ml-6">
+                    <div className="w-3 h-3 rounded-full border-2 border-[#cc785c] bg-[#faf8f3] flex-shrink-0 z-10" />
+                    <span className="font-mono text-[11px] font-bold text-[#cc785c] tracking-[0.1em] uppercase">
                       {year < 0 ? `TCN ${Math.abs(year)}` : year}
                     </span>
-                    {/* Thin rule */}
-                    <div className="flex-1 h-[1px] bg-[#e8ddd0]/60" />
+                    <div className="flex-1 h-px bg-[#e8ddd0]" />
                   </div>
 
                   {/* Events list */}
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     {yearEvents.map((ev) => {
                       const isSelected = expandedEvent === ev.id
                       const cat = getEventCategory(ev.title)
@@ -317,37 +314,38 @@ export function TimelinePage() {
                           key={ev.id}
                           onClick={() => setExpandedEvent(isSelected ? null : ev.id)}
                           className={cn(
-                            "relative p-6 bg-white border border-[#e8ddd0] transition-all duration-300 cursor-pointer text-left rounded-sm pl-7",
+                            "relative p-4 bg-white border border-[#e8ddd0] transition-all duration-200 cursor-pointer text-left rounded-sm pl-5 group",
                             isSelected 
-                              ? "border-[#cc785c] shadow-[0_4px_20px_rgba(204,120,92,0.04)] translate-x-1" 
-                              : "hover:border-[#cc785c]/60"
+                              ? "border-[#cc785c] shadow-[0_2px_12px_rgba(204,120,92,0.08)] translate-x-0.5" 
+                              : "hover:border-[#cc785c]/50 hover:translate-x-0.5"
                           )}
                         >
-                          <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#cc785c]" />
+                          <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#cc785c] rounded-l-sm" />
                           
-                          <div className="flex items-center justify-between gap-3 mb-2">
-                            <span className={cn("text-[9px] font-bold tracking-wider uppercase px-2 py-0.5 border border-transparent rounded-sm", cat.color)}>
+                          <div className="flex items-center justify-between gap-2 mb-1.5">
+                            <span className={cn("text-[9px] font-bold tracking-wider uppercase px-1.5 py-0.5 rounded-sm", cat.color)}>
                               {cat.icon} {cat.label}
                             </span>
-                            <span className="font-mono text-xs text-[#8c8275] bg-[#f0eae1] px-1.5 py-0.5 rounded-sm">
+                            <span className="font-mono text-[10px] text-[#a09589]">
                               {formatEventDate(ev)}
                             </span>
                           </div>
 
-                          <h3 className="font-serif text-[17px] font-bold text-[#1c1a17] leading-snug group-hover:text-[#cc785c] transition-colors mt-1">
+                          <h3 className={cn(
+                            "font-serif text-[15px] font-bold leading-snug transition-colors",
+                            isSelected ? "text-[#cc785c]" : "text-[#1c1a17] group-hover:text-[#cc785c]"
+                          )}>
                             {ev.title}
                           </h3>
 
                           {ev.summary && (
-                            <p className="text-[12.5px] text-[#5c544a] mt-2.5 leading-relaxed font-serif italic text-justify opacity-95">
-                              "{ev.summary}"
+                            <p className="text-[11.5px] text-[#6b6259] mt-1.5 leading-relaxed font-serif italic line-clamp-2">
+                              {ev.summary}
                             </p>
                           )}
 
-                          <div className="mt-4 pt-3.5 border-t border-[#f0eae1]/50 flex items-center justify-between text-[10px] text-[#cc785c] font-bold">
-                            <span className="flex items-center gap-1">
-                              👤 {ev.wiki_page_slug ? "Xem liên kết & phân tích →" : "Xem chi tiết →"}
-                            </span>
+                          <div className="mt-3 pt-2 border-t border-[#f0eae1] flex items-center text-[10px] text-[#cc785c] font-semibold">
+                            {ev.wiki_page_slug ? "Xem liên kết & phân tích →" : "Khám phá →"}
                           </div>
                         </div>
                       )
