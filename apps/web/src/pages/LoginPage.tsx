@@ -4,7 +4,7 @@ import { useAuthStore, syncSettingsToLocalStorage } from "@/stores/authStore";
 import { authApi } from "@/lib/services/api";
 import { cn } from "@/lib/utils/cn";
 import { VietnamMap, PROVINCES_DATA } from "@/components/ui/VietnamMap";
-import { LogIn, Loader2, Mail, Lock, User, Sparkles, BookOpen, ShieldCheck, History, ArrowRight, Check } from "lucide-react";
+import { LogIn, Loader2, Mail, Lock, User, Sparkles, BookOpen, ShieldCheck, History, ArrowRight, Check, Eye, EyeOff } from "lucide-react";
 
 /* ========================================
    Focus Trap Hook for Modals
@@ -77,6 +77,7 @@ export function LoginPage() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const [isExiting, setIsExiting] = useState(false);
@@ -483,14 +484,22 @@ export function LoginPage() {
                       <Lock size={14} />
                     </span>
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
                       minLength={8}
                       placeholder="••••••••"
-                      className="w-full bg-[#faf8f4] border border-[#e6dfd8] rounded-xl py-2.5 pl-9 pr-4 text-sm text-[#141413] outline-none placeholder:text-[#8e8b82]/60 focus:border-[#cc785c] focus:ring-2 focus:ring-[#cc785c]/10 transition-all box-border"
+                      className="w-full bg-[#faf8f4] border border-[#e6dfd8] rounded-xl py-2.5 pl-9 pr-10 text-sm text-[#141413] outline-none placeholder:text-[#8e8b82]/60 focus:border-[#cc785c] focus:ring-2 focus:ring-[#cc785c]/10 transition-all box-border"
                     />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#8e8b82] hover:text-[#141413] focus:outline-none transition-colors"
+                      tabIndex={-1}
+                    >
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
                   </div>
                 </div>
 
@@ -644,6 +653,41 @@ export function LoginPage() {
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(4px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes spin-slow {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+          animation: spin-slow 180s linear infinite;
+        }
+        .ember {
+          position: absolute;
+          bottom: -20px;
+          width: 3px;
+          height: 3px;
+          background: #cc785c;
+          border-radius: 50%;
+          opacity: 0.8;
+          filter: blur(0.5px);
+          box-shadow: 0 0 8px #cc785c, 0 0 15px #da251d;
+          animation: rise infinite ease-in-out;
+        }
+        @keyframes rise {
+          0% {
+            transform: translateY(0) scale(1) translateX(0);
+            opacity: 0;
+          }
+          10% {
+            opacity: 0.8;
+          }
+          90% {
+            opacity: 0.4;
+          }
+          100% {
+            transform: translateY(-110vh) scale(0.3) translateX(60px);
+            opacity: 0;
+          }
         }
       `}</style>
 
