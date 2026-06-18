@@ -387,7 +387,7 @@ export function LoginPage() {
       </div>
 
       {/* ── RIGHT AUTH PANEL (Center on mobile) ─────────────────────────────── */}
-      <div className="w-full md:w-[50%] lg:w-[45%] flex flex-col justify-between p-6 sm:p-12 lg:p-16 relative">
+      <div className="w-full md:w-[50%] lg:w-[45%] flex flex-col justify-between p-6 sm:p-12 lg:p-16 relative bg-transparent">
         {/* Soft background glows on mobile */}
         <div className="absolute top-0 right-0 w-[80%] h-[30%] rounded-full bg-[#cc785c]/5 blur-[80px] pointer-events-none md:hidden" />
         
@@ -403,7 +403,7 @@ export function LoginPage() {
           <button 
             type="button" 
             onClick={() => setIsRegister(!isRegister)}
-            className="text-xs text-[#cc785c] hover:text-[#b86246] transition-colors inline-flex items-center gap-1 font-medium group"
+            className="text-xs text-[#cc785c] hover:text-[#b86246] transition-colors inline-flex items-center gap-1 font-medium group bg-transparent border-0 p-0 cursor-pointer"
           >
             <span>{isRegister ? "Đã có tài khoản?" : "Chưa có tài khoản?"}</span>
             <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
@@ -416,10 +416,10 @@ export function LoginPage() {
             
             {/* Header info */}
             <div className="space-y-2">
-              <h1 className="text-2xl font-serif font-normal text-[#141413]">
+              <h1 className="text-2xl font-serif font-normal text-white">
                 {isRegister ? "Kiến tạo tài khoản" : "Chào mừng trở lại"}
               </h1>
-              <p className="text-xs text-[#8e8b82] leading-normal">
+              <p className="text-xs text-white/60 leading-normal">
                 {isRegister 
                   ? "Đăng ký thành viên để bắt đầu xây dựng và khám phá hệ tri thức lịch sử."
                   : "Truy cập hệ thống tác nhân nghiên cứu AI để bắt đầu truy vấn tài liệu lịch sử."}
@@ -427,18 +427,18 @@ export function LoginPage() {
             </div>
 
             {/* Form Card */}
-            <div className="bg-[#efe9de]/50 backdrop-blur-md rounded-2xl border border-[#e6dfd8] p-6 sm:p-8 shadow-sm">
+            <div className="bg-[#0B3030]/40 backdrop-blur-md rounded-2xl border border-white/10 p-6 sm:p-8 shadow-[0_4px_30px_rgba(0,0,0,0.2)]">
               
               {/* Tab Selector */}
-              <div className="flex bg-[#faf8f4]/60 border border-[#e6dfd8] rounded-xl p-1 mb-6">
+              <div className="flex bg-[#0B3030]/60 border border-white/10 rounded-xl p-1 mb-6">
                 <button
                   type="button"
                   onClick={() => setIsRegister(false)}
                   className={cn(
-                    "flex-1 text-center py-2 text-xs font-semibold rounded-lg transition-all duration-200",
+                    "flex-1 text-center py-2 text-xs font-semibold rounded-lg transition-all duration-200 cursor-pointer border-0",
                     !isRegister 
                       ? "bg-[#cc785c] text-white shadow-sm"
-                      : "text-[#6c6a64] hover:text-[#141413]"
+                      : "text-white/60 hover:text-white bg-transparent"
                   )}
                 >
                   Đăng nhập
@@ -447,10 +447,10 @@ export function LoginPage() {
                   type="button"
                   onClick={() => setIsRegister(true)}
                   className={cn(
-                    "flex-1 text-center py-2 text-xs font-semibold rounded-lg transition-all duration-200",
+                    "flex-1 text-center py-2 text-xs font-semibold rounded-lg transition-all duration-200 cursor-pointer border-0",
                     isRegister 
                       ? "bg-[#cc785c] text-white shadow-sm"
-                      : "text-[#6c6a64] hover:text-[#141413]"
+                      : "text-white/60 hover:text-white bg-transparent"
                   )}
                 >
                   Đăng ký
@@ -459,7 +459,7 @@ export function LoginPage() {
 
               {/* Error Alert */}
               {error && (
-                <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-600 text-xs flex gap-2 items-start">
+                <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-xs flex gap-2 items-start" role="alert">
                   <span className="font-bold">⚠️</span>
                   <span>{error}</span>
                 </div>
@@ -469,9 +469,9 @@ export function LoginPage() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Email Input */}
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-[#6c6a64] block">Email</label>
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-white/60 block">Email</label>
                   <div className="relative">
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-[#8e8b82]">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-white/40">
                       <Mail size={14} />
                     </span>
                     <input
@@ -480,7 +480,7 @@ export function LoginPage() {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                       placeholder="you@example.com"
-                      className="w-full bg-[#faf8f4] border border-[#e6dfd8] rounded-xl py-2.5 pl-9 pr-4 text-sm text-[#141413] outline-none placeholder:text-[#8e8b82]/60 focus:border-[#cc785c] focus:ring-2 focus:ring-[#cc785c]/10 transition-all box-border"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-4 text-sm text-white outline-none placeholder:text-white/30 focus:border-[#cc785c] focus:ring-2 focus:ring-[#cc785c]/10 transition-all box-border"
                     />
                   </div>
                 </div>
@@ -488,9 +488,9 @@ export function LoginPage() {
                 {/* Username Input (Only on Register) */}
                 {isRegister && (
                   <div className="space-y-1.5 animate-fadeIn">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-[#6c6a64] block">Tên người dùng</label>
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-white/60 block">Tên người dùng</label>
                     <div className="relative">
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-[#8e8b82]">
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-white/40">
                         <User size={14} />
                       </span>
                       <input
@@ -500,7 +500,7 @@ export function LoginPage() {
                         required
                         minLength={3}
                         placeholder="yourname"
-                        className="w-full bg-[#faf8f4] border border-[#e6dfd8] rounded-xl py-2.5 pl-9 pr-4 text-sm text-[#141413] outline-none placeholder:text-[#8e8b82]/60 focus:border-[#cc785c] focus:ring-2 focus:ring-[#cc785c]/10 transition-all box-border"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-4 text-sm text-white outline-none placeholder:text-white/30 focus:border-[#cc785c] focus:ring-2 focus:ring-[#cc785c]/10 transition-all box-border"
                       />
                     </div>
                   </div>
@@ -508,9 +508,9 @@ export function LoginPage() {
 
                 {/* Password Input */}
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-[#6c6a64] block">Mật khẩu</label>
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-white/60 block">Mật khẩu</label>
                   <div className="relative">
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-[#8e8b82]">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-white/40">
                       <Lock size={14} />
                     </span>
                     <input
@@ -520,12 +520,12 @@ export function LoginPage() {
                       required
                       minLength={8}
                       placeholder="••••••••"
-                      className="w-full bg-[#faf8f4] border border-[#e6dfd8] rounded-xl py-2.5 pl-9 pr-10 text-sm text-[#141413] outline-none placeholder:text-[#8e8b82]/60 focus:border-[#cc785c] focus:ring-2 focus:ring-[#cc785c]/10 transition-all box-border"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-10 text-sm text-white outline-none placeholder:text-white/30 focus:border-[#cc785c] focus:ring-2 focus:ring-[#cc785c]/10 transition-all box-border"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#8e8b82] hover:text-[#141413] focus:outline-none transition-colors"
+                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-white/40 hover:text-white focus:outline-none transition-colors bg-transparent border-0 cursor-pointer"
                       tabIndex={-1}
                     >
                       {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -537,7 +537,7 @@ export function LoginPage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-gradient-to-r from-[#cc785c] to-[#b86246] hover:opacity-95 text-white py-2.5 px-4 rounded-xl text-xs font-semibold tracking-wide flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50 transition-all active:scale-[0.98] mt-2 border-0"
+                  className="w-full bg-gradient-to-r from-[#cc785c] to-[#a8583c] hover:opacity-95 text-white py-2.5 px-4 rounded-xl text-xs font-semibold tracking-wide flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50 transition-all hover:scale-[1.01] active:scale-[0.99] mt-2 border-0"
                 >
                   {isLoading ? (
                     <Loader2 size={14} className="animate-spin" />
@@ -567,23 +567,23 @@ export function LoginPage() {
         </div>
 
         {/* Footer */}
-        <div className="z-10 flex flex-col items-center gap-2 border-t border-[#e6dfd8] pt-4 text-center">
-          <span className="text-[10px] text-[#8e8b82] tracking-wider">Hệ thống AI hỗ trợ tra cứu lịch sử Việt Nam</span>
-          <span className="text-[9px] text-[#8e8b82]/60">Khuyên dùng trong môi trường học thuật và tra cứu lịch sử</span>
+        <div className="z-10 flex flex-col items-center gap-2 border-t border-white/5 pt-4 text-center">
+          <span className="text-[10px] text-white/50 tracking-wider">Hệ thống AI hỗ trợ tra cứu lịch sử Việt Nam</span>
+          <span className="text-[9px] text-white/30">Khuyên dùng trong môi trường học thuật và tra cứu lịch sử</span>
         </div>
       </div>
 
       {showForgotPassword && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fadeIn">
-          <div ref={forgotPasswordRef} className="bg-[#efe9de] border border-[#e6dfd8] rounded-2xl p-6 sm:p-8 max-w-[380px] w-full text-center shadow-xl space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
+          <div ref={forgotPasswordRef} className="bg-[#0B3030]/95 border border-white/10 rounded-2xl p-6 sm:p-8 max-w-[380px] w-full text-center shadow-2xl space-y-4">
             {resetSuccess ? (
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto">
+                <div className="w-12 h-12 rounded-full bg-green-950 text-green-400 flex items-center justify-center mx-auto border border-green-500/30">
                   <Check size={24} />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="font-serif text-lg font-normal text-[#141413]">Đã gửi yêu cầu</h3>
-                  <p className="text-xs text-[#6c6a64] leading-relaxed">
+                  <h3 className="font-serif text-lg font-normal text-white">Đã gửi yêu cầu</h3>
+                  <p className="text-xs text-white/60 leading-relaxed">
                     {resetSuccess}
                   </p>
                 </div>
@@ -600,54 +600,54 @@ export function LoginPage() {
               </div>
             ) : (
               <form onSubmit={handleResetRequest} className="space-y-4 text-left">
-                <div className="flex items-center gap-3 border-b border-[#e6dfd8] pb-3 justify-center text-center">
-                  <div className="w-9 h-9 rounded-full bg-[#cc785c]/10 text-[#cc785c] flex items-center justify-center">
+                <div className="flex items-center gap-3 border-b border-white/10 pb-3 justify-center text-center">
+                  <div className="w-9 h-9 rounded-full bg-[#cc785c]/10 text-[#cc785c] flex items-center justify-center border border-[#cc785c]/20">
                     <Mail size={16} />
                   </div>
-                  <h3 className="font-serif text-lg font-normal text-[#141413]">Khôi phục mật khẩu</h3>
+                  <h3 className="font-serif text-lg font-normal text-white">Khôi phục mật khẩu</h3>
                 </div>
 
-                <p className="text-xs text-[#6c6a64] leading-relaxed text-center">
+                <p className="text-xs text-white/60 leading-relaxed text-center">
                   Nhập email đăng ký của bạn. Ban Quản trị sẽ xem xét và xử lý yêu cầu đặt lại mật khẩu.
                 </p>
 
                 {resetError && (
-                  <div className="p-2.5 bg-red-50 text-red-600 text-xs rounded-lg text-center font-medium border border-red-100">
+                  <div className="p-2.5 bg-red-500/10 text-red-400 text-xs rounded-lg text-center font-medium border border-red-500/20">
                     {resetError}
                   </div>
                 )}
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-semibold text-[#8e8b82] tracking-wider uppercase">Email đăng ký *</label>
+                  <label className="text-[10px] font-semibold text-white/50 tracking-wider uppercase">Email đăng ký *</label>
                   <input
                     type="email"
                     required
                     value={resetEmail}
                     onChange={(e) => setResetEmail(e.target.value)}
                     placeholder="example@gmail.com"
-                    className="w-full bg-white/50 border border-[#e6dfd8] rounded-xl px-3 py-2 text-xs text-[#141413] outline-none focus:border-[#cc785c] transition-colors"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-[#cc785c] transition-colors"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-semibold text-[#8e8b82] tracking-wider uppercase">Tên tài khoản (nếu nhớ)</label>
+                  <label className="text-[10px] font-semibold text-white/50 tracking-wider uppercase">Tên tài khoản (nếu nhớ)</label>
                   <input
                     type="text"
                     value={resetUsername}
                     onChange={(e) => setResetUsername(e.target.value)}
                     placeholder="username"
-                    className="w-full bg-white/50 border border-[#e6dfd8] rounded-xl px-3 py-2 text-xs text-[#141413] outline-none focus:border-[#cc785c] transition-colors"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-[#cc785c] transition-colors"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-semibold text-[#8e8b82] tracking-wider uppercase">Lý do hoặc ghi chú gửi Admin</label>
+                  <label className="text-[10px] font-semibold text-white/50 tracking-wider uppercase">Lý do hoặc ghi chú gửi Admin</label>
                   <textarea
                     value={resetReason}
                     onChange={(e) => setResetReason(e.target.value)}
                     placeholder="ví dụ: Tôi quên mật khẩu cũ..."
                     rows={2}
-                    className="w-full bg-white/50 border border-[#e6dfd8] rounded-xl px-3 py-2 text-xs text-[#141413] outline-none focus:border-[#cc785c] transition-colors resize-none"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-[#cc785c] transition-colors resize-none"
                   />
                 </div>
 
@@ -658,7 +658,7 @@ export function LoginPage() {
                       setShowForgotPassword(false);
                       setResetError(null);
                     }}
-                    className="flex-1 bg-white/80 hover:bg-white text-[#6c6a64] border border-[#e6dfd8] py-2.5 px-4 rounded-xl text-xs font-semibold cursor-pointer transition-colors"
+                    className="flex-1 bg-white/5 hover:bg-white/10 text-white/70 border border-white/10 py-2.5 px-4 rounded-xl text-xs font-semibold cursor-pointer transition-colors"
                   >
                     Hủy
                   </button>
