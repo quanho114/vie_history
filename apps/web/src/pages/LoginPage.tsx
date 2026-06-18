@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore, syncSettingsToLocalStorage } from "@/stores/authStore";
 import { authApi } from "@/lib/services/api";
@@ -68,6 +69,21 @@ function SpikeMarkLogo({ size = 32, className = "" }: { size?: number; className
   );
 }
 
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 100 : -100,
+    opacity: 0
+  }),
+  center: {
+    x: 0,
+    opacity: 1
+  },
+  exit: (direction: number) => ({
+    x: direction < 0 ? 100 : -100,
+    opacity: 0
+  })
+};
+
 /* ========================================
    Login Page
    ======================================== */
@@ -75,6 +91,7 @@ function SpikeMarkLogo({ size = 32, className = "" }: { size?: number; className
 export function LoginPage() {
   const [isRegister, setIsRegister] = useState(false);
   const [registerStep, setRegisterStep] = useState<1 | 2>(1);
+  const [slideDirection, setSlideDirection] = useState(1);
   const [fullName, setFullName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("enthusiast");
@@ -493,88 +510,290 @@ export function LoginPage() {
               )}
 
               {/* Inputs */}
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Email Input */}
-                <div className="space-y-1.5">
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-[#6C6A64] block">Email</label>
-                  <div className="relative">
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-[#9F9D99]">
-                      <Mail size={14} />
-                    </span>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      placeholder="you@example.com"
-                      className="w-full bg-[#FBFBFA] border border-[#E2DFDA] rounded-xl py-2.5 pl-9 pr-4 text-sm text-[#2D2A26] outline-none placeholder:text-[#A8A59E] focus:bg-white focus:border-[#cc785c] focus:ring-4 focus:ring-[#cc785c]/10 transition-all duration-200 box-border shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
-                    />
-                  </div>
-                </div>
-
-                {/* Username Input (Only on Register) */}
-                {isRegister && (
-                  <div className="space-y-1.5 animate-fadeIn">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-[#6C6A64] block">Tên người dùng</label>
-                    <div className="relative">
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-[#9F9D99]">
-                        <User size={14} />
-                      </span>
-                      <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                        minLength={3}
-                        placeholder="yourname"
-                        className="w-full bg-[#FBFBFA] border border-[#E2DFDA] rounded-xl py-2.5 pl-9 pr-4 text-sm text-[#2D2A26] outline-none placeholder:text-[#A8A59E] focus:bg-white focus:border-[#cc785c] focus:ring-4 focus:ring-[#cc785c]/10 transition-all duration-200 box-border shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
-                      />
+              <form onSubmit={handleSubmit} className="space-y-4 overflow-hidden relative min-h-[380px] flex flex-col justify-between">
+                {!isRegister ? (
+                  <div className="space-y-4">
+                    {/* Email Input */}
+                    <div className="space-y-1.5">
+                      <label className="text-[11px] font-bold uppercase tracking-wider text-[#6C6A64] block">Email</label>
+                      <div className="relative">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-[#9F9D99]">
+                          <Mail size={14} />
+                        </span>
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          placeholder="you@example.com"
+                          className="w-full bg-[#FBFBFA] border border-[#E2DFDA] rounded-xl py-2.5 pl-9 pr-4 text-sm text-[#2D2A26] outline-none placeholder:text-[#A8A59E] focus:bg-white focus:border-[#cc785c] focus:ring-4 focus:ring-[#cc785c]/10 transition-all duration-200 box-border shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
+                        />
+                      </div>
                     </div>
-                  </div>
-                )}
 
-                {/* Password Input */}
-                <div className="space-y-1.5">
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-[#6C6A64] block">Mật khẩu</label>
-                  <div className="relative">
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-[#9F9D99]">
-                      <Lock size={14} />
-                    </span>
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      minLength={8}
-                      placeholder="••••••••"
-                      className="w-full bg-[#FBFBFA] border border-[#E2DFDA] rounded-xl py-2.5 pl-9 pr-10 text-sm text-[#2D2A26] outline-none placeholder:text-[#A8A59E] focus:bg-white focus:border-[#cc785c] focus:ring-4 focus:ring-[#cc785c]/10 transition-all duration-200 box-border shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
-                    />
+                    {/* Password Input */}
+                    <div className="space-y-1.5">
+                      <label className="text-[11px] font-bold uppercase tracking-wider text-[#6C6A64] block">Mật khẩu</label>
+                      <div className="relative">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-[#9F9D99]">
+                          <Lock size={14} />
+                        </span>
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                          minLength={8}
+                          placeholder="••••••••"
+                          className="w-full bg-[#FBFBFA] border border-[#E2DFDA] rounded-xl py-2.5 pl-9 pr-10 text-sm text-[#2D2A26] outline-none placeholder:text-[#A8A59E] focus:bg-white focus:border-[#cc785c] focus:ring-4 focus:ring-[#cc785c]/10 transition-all duration-200 box-border shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#9F9D99] hover:text-[#2D2A26] focus:outline-none transition-colors bg-transparent border-0 cursor-pointer"
+                          tabIndex={-1}
+                        >
+                          {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Submit button */}
                     <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#9F9D99] hover:text-[#2D2A26] focus:outline-none transition-colors bg-transparent border-0 cursor-pointer"
-                      tabIndex={-1}
+                      type="submit"
+                      disabled={isLoading}
+                      className="w-full bg-[#cc785c] hover:bg-[#b86246] text-white py-3 px-4 rounded-xl text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer shadow-[0_4px_12px_rgba(204,120,92,0.15)] hover:shadow-[0_6px_20px_rgba(204,120,92,0.25)] transition-all duration-200 active:scale-[0.98] mt-2 border border-[#b86246]/10 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                      {isLoading ? (
+                        <Loader2 size={14} className="animate-spin" />
+                      ) : (
+                        <>
+                          <LogIn size={14} />
+                          <span>Đăng nhập hệ thống</span>
+                        </>
+                      )}
                     </button>
                   </div>
-                </div>
+                ) : (
+                  <div className="relative overflow-hidden flex-1 flex flex-col justify-between min-h-[380px]">
+                    <AnimatePresence initial={false} custom={slideDirection} mode="wait">
+                      {registerStep === 1 ? (
+                        <motion.div
+                          key="step1"
+                          custom={slideDirection}
+                          variants={slideVariants}
+                          initial="enter"
+                          animate="center"
+                          exit="exit"
+                          transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+                          className="space-y-4 flex flex-col justify-between h-full w-full"
+                        >
+                          <div className="space-y-4">
+                            {/* Email */}
+                            <div className="space-y-1.5">
+                              <label className="text-[11px] font-bold uppercase tracking-wider text-[#6C6A64] block">Email</label>
+                              <div className="relative">
+                                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-[#9F9D99]">
+                                  <Mail size={14} />
+                                </span>
+                                <input
+                                  type="email"
+                                  value={email}
+                                  onChange={(e) => setEmail(e.target.value)}
+                                  required
+                                  placeholder="you@example.com"
+                                  className="w-full bg-[#FBFBFA] border border-[#E2DFDA] rounded-xl py-2.5 pl-9 pr-4 text-sm text-[#2D2A26] outline-none placeholder:text-[#A8A59E] focus:bg-white focus:border-[#cc785c] focus:ring-4 focus:ring-[#cc785c]/10 transition-all duration-200 box-border shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
+                                />
+                              </div>
+                            </div>
 
-                {/* Submit button */}
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full bg-[#cc785c] hover:bg-[#b86246] text-white py-3 px-4 rounded-xl text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer shadow-[0_4px_12px_rgba(204,120,92,0.15)] hover:shadow-[0_6px_20px_rgba(204,120,92,0.25)] transition-all duration-200 active:scale-[0.98] mt-2 border border-[#b86246]/10 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isLoading ? (
-                    <Loader2 size={14} className="animate-spin" />
-                  ) : (
-                    <>
-                      <LogIn size={14} />
-                      <span>{isRegister ? "Đăng ký thành viên" : "Đăng nhập hệ thống"}</span>
-                    </>
-                  )}
-                </button>
+                            {/* Username */}
+                            <div className="space-y-1.5">
+                              <label className="text-[11px] font-bold uppercase tracking-wider text-[#6C6A64] block">Tên người dùng</label>
+                              <div className="relative">
+                                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-[#9F9D99]">
+                                  <User size={14} />
+                                </span>
+                                <input
+                                  type="text"
+                                  value={username}
+                                  onChange={(e) => setUsername(e.target.value)}
+                                  required
+                                  minLength={3}
+                                  placeholder="yourname"
+                                  className="w-full bg-[#FBFBFA] border border-[#E2DFDA] rounded-xl py-2.5 pl-9 pr-4 text-sm text-[#2D2A26] outline-none placeholder:text-[#A8A59E] focus:bg-white focus:border-[#cc785c] focus:ring-4 focus:ring-[#cc785c]/10 transition-all duration-200 box-border shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
+                                />
+                              </div>
+                            </div>
+
+                            {/* Password */}
+                            <div className="space-y-1.5">
+                              <label className="text-[11px] font-bold uppercase tracking-wider text-[#6C6A64] block">Mật khẩu</label>
+                              <div className="relative">
+                                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-[#9F9D99]">
+                                  <Lock size={14} />
+                                </span>
+                                <input
+                                  type={showPassword ? "text" : "password"}
+                                  value={password}
+                                  onChange={(e) => setPassword(e.target.value)}
+                                  required
+                                  minLength={8}
+                                  placeholder="••••••••"
+                                  className="w-full bg-[#FBFBFA] border border-[#E2DFDA] rounded-xl py-2.5 pl-9 pr-10 text-sm text-[#2D2A26] outline-none placeholder:text-[#A8A59E] focus:bg-white focus:border-[#cc785c] focus:ring-4 focus:ring-[#cc785c]/10 transition-all duration-200 box-border shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => setShowPassword(!showPassword)}
+                                  className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#9F9D99] hover:text-[#2D2A26] focus:outline-none transition-colors bg-transparent border-0 cursor-pointer"
+                                  tabIndex={-1}
+                                >
+                                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* Confirm Password */}
+                            <div className="space-y-1.5">
+                              <label className="text-[11px] font-bold uppercase tracking-wider text-[#6C6A64] block">Xác nhận mật khẩu</label>
+                              <div className="relative">
+                                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-[#9F9D99]">
+                                  <Lock size={14} />
+                                </span>
+                                <input
+                                  type={showPassword ? "text" : "password"}
+                                  value={confirmPassword}
+                                  onChange={(e) => setConfirmPassword(e.target.value)}
+                                  required
+                                  minLength={8}
+                                  placeholder="••••••••"
+                                  className="w-full bg-[#FBFBFA] border border-[#E2DFDA] rounded-xl py-2.5 pl-9 pr-10 text-sm text-[#2D2A26] outline-none placeholder:text-[#A8A59E] focus:bg-white focus:border-[#cc785c] focus:ring-4 focus:ring-[#cc785c]/10 transition-all duration-200 box-border shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (validateStep1()) {
+                                setSlideDirection(1);
+                                setRegisterStep(2);
+                              }
+                            }}
+                            className="w-full bg-[#cc785c] hover:bg-[#b86246] text-white py-3 px-4 rounded-xl text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer shadow-[0_4px_12px_rgba(204,120,92,0.15)] hover:shadow-[0_6px_20px_rgba(204,120,92,0.25)] transition-all duration-200 active:scale-[0.98] mt-4 border border-[#b86246]/10"
+                          >
+                            <span>Tiếp tục thiết lập hồ sơ</span>
+                            <ArrowRight size={14} />
+                          </button>
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="step2"
+                          custom={slideDirection}
+                          variants={slideVariants}
+                          initial="enter"
+                          animate="center"
+                          exit="exit"
+                          transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+                          className="space-y-4 flex flex-col justify-between h-full w-full"
+                        >
+                          <div className="space-y-4">
+                            {/* Full Name */}
+                            <div className="space-y-1.5">
+                              <label className="text-[11px] font-bold uppercase tracking-wider text-[#6C6A64] block">Họ và tên *</label>
+                              <div className="relative">
+                                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-[#9F9D99]">
+                                  <User size={14} />
+                                </span>
+                                <input
+                                  type="text"
+                                  value={fullName}
+                                  onChange={(e) => setFullName(e.target.value)}
+                                  required
+                                  placeholder="Nguyễn Văn A"
+                                  className="w-full bg-[#FBFBFA] border border-[#E2DFDA] rounded-xl py-2.5 pl-9 pr-4 text-sm text-[#2D2A26] outline-none placeholder:text-[#A8A59E] focus:bg-white focus:border-[#cc785c] focus:ring-4 focus:ring-[#cc785c]/10 transition-all duration-200 box-border shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
+                                />
+                              </div>
+                            </div>
+
+                            {/* Research Role */}
+                            <div className="space-y-1.5">
+                              <label className="text-[11px] font-bold uppercase tracking-wider text-[#6C6A64] block">Vai trò nghiên cứu *</label>
+                              <select
+                                value={role}
+                                onChange={(e) => setRole(e.target.value)}
+                                className="w-full bg-[#FBFBFA] border border-[#E2DFDA] rounded-xl py-2.5 px-3 text-sm text-[#2D2A26] outline-none focus:bg-white focus:border-[#cc785c] focus:ring-4 focus:ring-[#cc785c]/10 transition-all duration-200 box-border shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
+                              >
+                                <option value="researcher">Nhà nghiên cứu / Giảng viên</option>
+                                <option value="student">Học sinh / Sinh viên</option>
+                                <option value="enthusiast">Độc giả tự do</option>
+                              </select>
+                            </div>
+
+                            {/* Institution */}
+                            <div className="space-y-1.5">
+                              <label className="text-[11px] font-bold uppercase tracking-wider text-[#6C6A64] block">Đơn vị công tác / Trường học</label>
+                              <div className="relative">
+                                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-[#9F9D99]">
+                                  <BookOpen size={14} />
+                                </span>
+                                <input
+                                  type="text"
+                                  value={institution}
+                                  onChange={(e) => setInstitution(e.target.value)}
+                                  placeholder="Ví dụ: Đại học Quốc gia Hà Nội"
+                                  className="w-full bg-[#FBFBFA] border border-[#E2DFDA] rounded-xl py-2.5 pl-9 pr-4 text-sm text-[#2D2A26] outline-none placeholder:text-[#A8A59E] focus:bg-white focus:border-[#cc785c] focus:ring-4 focus:ring-[#cc785c]/10 transition-all duration-200 box-border shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
+                                />
+                              </div>
+                            </div>
+
+                            {/* Agree to Terms */}
+                            <label className="flex items-start gap-2.5 pt-1 cursor-pointer select-none">
+                              <input
+                                type="checkbox"
+                                checked={agreeTerms}
+                                onChange={(e) => setAgreeTerms(e.target.checked)}
+                                required
+                                className="mt-0.5 rounded border-[#E2DFDA] text-[#cc785c] focus:ring-[#cc785c] transition-all cursor-pointer"
+                              />
+                              <span className="text-[11px] text-[#6C6A64] leading-normal">
+                                Tôi đồng ý với điều khoản sử dụng & chính sách học thuật của hệ thống.
+                              </span>
+                            </label>
+                          </div>
+
+                          <div className="flex gap-3 pt-2">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSlideDirection(-1);
+                                setRegisterStep(1);
+                              }}
+                              className="flex-1 bg-white hover:bg-[#F9F8F6] text-[#6C6A64] border border-[#E5E3DF] py-3 px-4 rounded-xl text-xs font-semibold cursor-pointer transition-all duration-200 active:scale-[0.98]"
+                            >
+                              Quay lại
+                            </button>
+                            <button
+                              type="submit"
+                              disabled={isLoading || !fullName.trim() || !agreeTerms}
+                              className="flex-1 bg-[#cc785c] hover:bg-[#b86246] text-white py-3 px-4 rounded-xl text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 active:scale-[0.98] border border-[#b86246]/10 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                              {isLoading ? (
+                                <Loader2 size={14} className="animate-spin" />
+                              ) : (
+                                <>
+                                  <LogIn size={14} />
+                                  <span>Đăng ký</span>
+                                </>
+                              )}
+                            </button>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                )}
               </form>
             </div>
 
