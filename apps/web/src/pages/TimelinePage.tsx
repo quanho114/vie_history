@@ -286,25 +286,28 @@ export function TimelinePage() {
             </p>
           </div>
         ) : (
-          <div className="relative pl-6 sm:pl-20 border-l border-[#e8ddd0]/80 ml-4 sm:ml-16 space-y-12 max-w-4xl mx-auto text-left">
+          <div className="relative pl-8 border-l border-[#e8ddd0]/80 ml-6 space-y-12 max-w-3xl mx-auto text-left">
             
             {uniqueYears.map((year) => {
               const yearEvents = eventsByYear[year]
               
               return (
                 <div key={year} className="relative">
-                  
-                  {/* Floating Timeline Year Badge */}
-                  <div className="absolute -left-[31px] sm:-left-[105px] top-0 flex items-center">
-                    <div className="w-4 h-4 rounded-full border-2 border-[#cc785c] bg-[#faf8f3] z-10 shadow-sm" />
-                    <div className="w-[15px] sm:w-[50px] h-[1px] bg-[#e8ddd0]" />
-                    <div className="font-serif text-xl sm:text-2xl font-bold text-[#cc785c] tracking-tight bg-[#faf8f3] px-2 rounded-sm">
+
+                  {/* Year Section Header — in-flow, not absolute */}
+                  <div className="flex items-center gap-3 mb-5 -ml-8">
+                    {/* Dot on timeline axis */}
+                    <div className="w-4 h-4 rounded-full border-2 border-[#cc785c] bg-[#faf8f3] flex-shrink-0 shadow-sm z-10" />
+                    {/* Year label */}
+                    <span className="font-serif text-sm font-bold text-[#cc785c] tracking-wide bg-[#faf8f3] pr-2">
                       {year < 0 ? `TCN ${Math.abs(year)}` : year}
-                    </div>
+                    </span>
+                    {/* Thin rule */}
+                    <div className="flex-1 h-[1px] bg-[#e8ddd0]/60" />
                   </div>
 
-                  {/* Events list under this year */}
-                  <div className="pt-8 sm:pt-0 pl-2 space-y-5">
+                  {/* Events list */}
+                  <div className="space-y-4">
                     {yearEvents.map((ev) => {
                       const isSelected = expandedEvent === ev.id
                       const cat = getEventCategory(ev.title)
