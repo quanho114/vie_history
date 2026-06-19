@@ -91,6 +91,12 @@ function getEntityIcon(name: string) {
   return "🏷️"
 }
 
+interface WikiContextData {
+  context?: {
+    entities?: string[];
+  };
+}
+
 export function TimelinePage() {
   const navigate = useNavigate()
   
@@ -103,7 +109,7 @@ export function TimelinePage() {
   const [searchQuery, setSearchQuery] = useState("")
 
   // Knowledge Graph connections from active wiki page
-  const [wikiContext, setWikiContext] = useState<any>(null)
+  const [wikiContext, setWikiContext] = useState<WikiContextData | null>(null)
   const [loadingContext, setLoadingContext] = useState(false)
 
   // Fetch events based on selected period
