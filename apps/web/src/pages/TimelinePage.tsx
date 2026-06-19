@@ -178,6 +178,18 @@ export function TimelinePage() {
     "Đổi mới năm 1986"
   ]
 
+  // Compute stats for current period
+  const stats = { total: filteredEvents.length, military: 0, diplomacy: 0, politics: 0, culture: 0, general: 0 }
+  filteredEvents.forEach(ev => {
+    const cat = getEventCategory(ev.title).label
+    if (cat === "Quân sự") stats.military++
+    else if (cat === "Ngoại giao") stats.diplomacy++
+    else if (cat === "Chính trị") stats.politics++
+    else if (cat === "Văn hóa") stats.culture++
+    else stats.general++
+  })
+  const maxStat = Math.max(stats.military, stats.diplomacy, stats.politics, stats.culture, stats.general) || 1
+
   return (
     <div className="flex-1 flex flex-col overflow-hidden bg-[#faf8f3] relative">
       
@@ -365,14 +377,15 @@ export function TimelinePage() {
         />
       )}
 
-      {/* ── DRAWER PANEL CONTAINER (Slide-over RAG explorer) ── */}
+      {/* ── RIGHT COLUMN: AI Insights Panel ── */}
       <div className={cn(
-        "fixed top-0 right-0 h-full w-[400px] max-w-[90vw] bg-[#faf8f3] border-l border-[#e8ddd0] shadow-[-8px_0_24px_rgba(28,26,23,0.08)] z-50 transition-transform duration-300 transform flex flex-col",
-        expandedEvent ? "translate-x-0" : "translate-x-full"
+        "fixed top-0 right-0 h-full w-[400px] max-w-[90vw] z-50 transition-transform duration-300 transform shadow-[-8px_0_24px_rgba(28,26,23,0.08)] border-l border-[#e8ddd0] flex flex-col bg-[#faf8f3]",
+        expandedEvent ? "translate-x-0" : "translate-x-full",
+        "lg:static lg:col-span-4 lg:h-full lg:w-full lg:max-w-none lg:shadow-none lg:translate-x-0 lg:z-0 lg:overflow-hidden lg:flex"
       )}>
-        {expandedData && (
-          <div className="flex-1 flex flex-col overflow-hidden text-left">
-            
+        {expandedData ? (
+          // DETAILED VIEW: Active selection state
+          <div className="flex-1 flex flex-col overflow-hidden text-left h-full">
             {/* Context Panel Header */}
             <div className="px-6 py-4 bg-[#f4ece1] border-b border-[#e8ddd0] flex items-center justify-between flex-shrink-0">
               <div className="flex items-center gap-2.5">
@@ -397,7 +410,7 @@ export function TimelinePage() {
             </div>
 
             {/* Context Panel Content */}
-            <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+            <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 scrollbar-thin">
               
               {/* Header title */}
               <div className="text-left space-y-1">
@@ -570,10 +583,144 @@ export function TimelinePage() {
                 💬 Hỏi AI Assistant
               </button>
             </div>
+          </div>
+        ) : (
+          // DEFAULT VIEW: Stats & Period Overview dashboard
+          <div className="flex-1 flex flex-col overflow-hidden text-left h-full">
+            {/* Header */}
+            <div className="px-6 py-4 bg-[#f4ece1] border-b border-[#e8ddd0] flex items-center justify-between flex-shrink-0">
+              <div className="flex items-center gap-2.5">
+                <span className="text-xl bg-white w-8 h-8 rounded-sm flex items-center justify-center border border-[#e8ddd0] shadow-sm">
+                  📊
+                </span>
+                <div className="text-left">
+                  <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#8c8275]">
+                    Báo cáo Thời kỳ
+                  </span>
+                  <div className="text-xs font-bold text-[#cc785c] mt-0.5">
+                    {PERIOD_FILTERS.find(p => p.value === selectedPeriod)?.label || "Toàn bộ lịch sử"}
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 scrollbar-thin">
+              {/* Total events card */}
+              <div className="p-4 rounded-sm bg-white border border-[#e8ddd0] shadow-xs text-left">
+                <div className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#8c8275] mb-1">
+                  Số lượng sự kiện ghi nhận
+                </div>
+                <div className="text-3xl font-serif font-bold text-[#cc785c]">
+                  {stats.total}
+                </div>
+                <p className="text-[11px] text-[#8c8275] mt-1">
+                  Tổng số mốc lịch sử trong danh sách đang được lọc theo thời kỳ.
+                </p>
+              </div>
+
+              {/* Category distribution Breakdown */}
+              <div className="space-y-3 text-left">
+                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#8c8275]">
+                  Phân loại sự kiện
+                </h4>
+                
+                <div className="p-4 rounded-sm bg-white border border-[#e8ddd0] shadow-xs space-y-4">
+                  {/* Military */}
+                  <div className="space-y-1">
+                    <div className="flex justify-between items-center text-xs font-bold text-[#1c1a17]">
+                      <span className="flex items-center gap-1">⚔️ Quân sự</span>
+                      <span className="font-mono text-stone-500">{stats.military}</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-[#f4ece1] rounded-full overflow-hidden">
+                      <div className="h-full bg-red-500 rounded-full transition-all duration-500" style={{ width: `${(stats.military / maxStat) * 100}%` }} />
+                    </div>
+                  </div>
+
+                  {/* Politics */}
+                  <div className="space-y-1">
+                    <div className="flex justify-between items-center text-xs font-bold text-[#1c1a17]">
+                      <span className="flex items-center gap-1">🏛️ Chính trị</span>
+                      <span className="font-mono text-stone-500">{stats.politics}</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-[#f4ece1] rounded-full overflow-hidden">
+                      <div className="h-full bg-amber-500 rounded-full transition-all duration-500" style={{ width: `${(stats.politics / maxStat) * 100}%` }} />
+                    </div>
+                  </div>
+
+                  {/* Diplomacy */}
+                  <div className="space-y-1">
+                    <div className="flex justify-between items-center text-xs font-bold text-[#1c1a17]">
+                      <span className="flex items-center gap-1">🤝 Ngoại giao</span>
+                      <span className="font-mono text-stone-500">{stats.diplomacy}</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-[#f4ece1] rounded-full overflow-hidden">
+                      <div className="h-full bg-sky-500 rounded-full transition-all duration-500" style={{ width: `${(stats.diplomacy / maxStat) * 100}%` }} />
+                    </div>
+                  </div>
+
+                  {/* Culture */}
+                  <div className="space-y-1">
+                    <div className="flex justify-between items-center text-xs font-bold text-[#1c1a17]">
+                      <span className="flex items-center gap-1">📜 Văn hóa</span>
+                      <span className="font-mono text-stone-500">{stats.culture}</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-[#f4ece1] rounded-full overflow-hidden">
+                      <div className="h-full bg-emerald-500 rounded-full transition-all duration-500" style={{ width: `${(stats.culture / maxStat) * 100}%` }} />
+                    </div>
+                  </div>
+
+                  {/* General */}
+                  <div className="space-y-1">
+                    <div className="flex justify-between items-center text-xs font-bold text-[#1c1a17]">
+                      <span className="flex items-center gap-1">📅 Khác</span>
+                      <span className="font-mono text-stone-500">{stats.general}</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-[#f4ece1] rounded-full overflow-hidden">
+                      <div className="h-full bg-stone-400 rounded-full transition-all duration-500" style={{ width: `${(stats.general / maxStat) * 100}%` }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* RAG Quick Ask suggestions */}
+              <div className="p-4 bg-[#cc785c]/5 border border-[#cc785c]/10 rounded-sm text-left space-y-3">
+                <div className="text-[10px] font-bold text-[#cc785c] uppercase tracking-[0.1em] flex items-center gap-1.5">
+                  <Sparkles size={13} />
+                  Gợi ý hỏi đáp AI RAG
+                </div>
+                
+                <div className="space-y-2">
+                  <button
+                    onClick={() => {
+                      const label = PERIOD_FILTERS.find(p => p.value === selectedPeriod)?.label || "toàn bộ lịch sử"
+                      navigate(`/chat?q=${encodeURIComponent(`Hãy khái quát các đặc điểm nổi bật và dấu ấn lịch sử chính của "${label}"?`)}`)
+                    }}
+                    className="w-full p-3 bg-white hover:bg-stone-50 border border-[#e8ddd0] hover:border-[#cc785c] rounded-sm text-left text-xs font-medium text-[#1c1a17] flex items-center justify-between group transition-all cursor-pointer"
+                  >
+                    <span className="line-clamp-1 font-semibold text-[#1c1a17]">Giới thiệu khái quát thời kỳ này?</span>
+                    <ArrowRight size={13} className="text-[#cc785c] group-hover:translate-x-0.5 transition-transform shrink-0 ml-2" />
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      const label = PERIOD_FILTERS.find(p => p.value === selectedPeriod)?.label || "toàn bộ lịch sử"
+                      navigate(`/chat?q=${encodeURIComponent(`Các mốc sự kiện mang tính bước ngoặt và bài học lịch sử rút ra trong giai đoạn "${label}"?`)}`)
+                    }}
+                    className="w-full p-3 bg-white hover:bg-stone-50 border border-[#e8ddd0] hover:border-[#cc785c] rounded-sm text-left text-xs font-medium text-[#1c1a17] flex items-center justify-between group transition-all cursor-pointer"
+                  >
+                    <span className="line-clamp-1 font-semibold text-[#1c1a17]">Sự kiện bước ngoặt và bài học lớn?</span>
+                    <ArrowRight size={13} className="text-[#cc785c] group-hover:translate-x-0.5 transition-transform shrink-0 ml-2" />
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
+
+    </div>
+  </div>
 
     </div>
   )
