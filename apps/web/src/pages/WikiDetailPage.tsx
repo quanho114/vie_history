@@ -2,6 +2,9 @@ import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { wikiApi, projectsApi, draftsApi, graphApi, type WikiPage, type Project } from "@/lib/api/brain"
 import { cn } from "@/lib/utils/cn"
+import { useUIStore } from "@/stores/uiStore"
+import { MarkdownRenderer } from "@/components/UI/MarkdownRenderer"
+import { MarkdownEditor } from "@/components/UI/MarkdownEditor"
 
 // ── Icons ──────────────────────────────────────────────
 function IconArrowLeft({ className = "" }: { className?: string }) {
@@ -130,6 +133,7 @@ const SECTION_KEYS = [
 
 // ── Main component ─────────────────────────────────────
 export function WikiDetailPage() {
+  const showToast = useUIStore((s) => s.showToast)
   const { slug } = useParams<{ slug: string }>()
   const navigate = useNavigate()
   const [page, setPage] = useState<WikiPage | null>(null)
@@ -162,7 +166,7 @@ export function WikiDetailPage() {
     if (!slug) return
     setLoading(true)
     setError(null)
-    
+
     // Load wiki page
     wikiApi.getPage(slug)
       .then((p) => {
@@ -202,14 +206,14 @@ export function WikiDetailPage() {
   }, [])
 
   const handleAskChatbot = () => {
-    const q = page ? `Hãy kể cho tôi nghe về ${page.title}` : ""
-    navigate(`/chat?q=${encodeURIComponent(q)}`)
+    if (!slug) return
+    navigate(`/chat?context_type=wiki&context_id=${slug}`)
   }
 
   const handleCreateDraft = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!draftTitle.trim()) {
-      alert("Vui lòng điền tiêu đề trang")
+      showToast("Vui lòng điền tiêu đề trang", "error")
       return
     }
     setDraftSubmitting(true)
@@ -229,10 +233,10 @@ export function WikiDetailPage() {
         content: Object.keys(content).length > 0 ? content : undefined,
       })
 
-      alert("Đề xuất chỉnh sửa trang thành công! Đang chờ duyệt.")
+      showToast("Đề xuất chỉnh sửa trang thành công! Đang chờ duyệt.", "success")
       setIsEditModalOpen(false)
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Không thể tạo bản thảo đề xuất")
+      showToast(err instanceof Error ? err.message : "Không thể tạo bản thảo đề xuất", "error")
     } finally {
       setDraftSubmitting(false)
     }
@@ -314,7 +318,7 @@ export function WikiDetailPage() {
                   <div className="space-y-2">
                     {page.sections.map((section, i) => (
                       <ExpandableSection key={i} title={section.title}>
-                        <p className="whitespace-pre-line">{section.content}</p>
+                        <MarkdownRenderer content={section.content} />
                       </ExpandableSection>
                     ))}
                   </div>
@@ -328,14 +332,14 @@ export function WikiDetailPage() {
                         if (!match) return null
                         return (
                           <ExpandableSection key={title} title={title}>
-                            <p className="whitespace-pre-line">{match[1].trim()}</p>
+                            <MarkdownRenderer content={match[1].trim()} />
                           </ExpandableSection>
                         )
                       }).filter(Boolean)}
                       {/* Full content fallback */}
                       {!SECTION_KEYS.some((t) => page.content!.match(new RegExp(`#+\\s*${t}`, "i"))) && (
                         <ExpandableSection title="Nội dung">
-                          <p className="whitespace-pre-line">{page.content}</p>
+                          <MarkdownRenderer content={page.content} />
                         </ExpandableSection>
                       )}
                     </div>
@@ -478,14 +482,14 @@ export function WikiDetailPage() {
                 <h3 className="text-lg font-display font-semibold text-[#141413]">Đề xuất chỉnh sửa trang</h3>
                 <p className="text-xs text-[#8e8b82] mt-0.5">Bản thảo chỉnh sửa sẽ được gửi tới Admin/Biên tập viên phê duyệt trước khi cập nhật</p>
               </div>
-              <button 
+              <button
                 onClick={() => setIsEditModalOpen(false)}
                 className="p-1.5 rounded-lg hover:bg-[#f5f0e8] text-[#8e8b82] hover:text-[#141413] transition-colors"
               >
                 <IconClose />
               </button>
             </div>
-            
+
             <form onSubmit={handleCreateDraft} className="flex-1 flex flex-col overflow-hidden">
               <div className="flex-1 overflow-y-auto p-6 space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -538,83 +542,75 @@ export function WikiDetailPage() {
                   <h4 className="text-xs font-semibold text-[#141413] uppercase tracking-wider mb-3">Nội dung chi tiết từng mục</h4>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Bối cảnh</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Bối cảnh</label>
+                      <MarkdownEditor
                         value={draftSections.background}
-                        onChange={(e) => setDraftSections({ ...draftSections, background: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, background: val })}
                         placeholder="Tình hình lịch sử trước khi sự kiện diễn ra..."
-                        rows={3}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="140px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Nguyên nhân</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Nguyên nhân</label>
+                      <MarkdownEditor
                         value={draftSections.causes}
-                        onChange={(e) => setDraftSections({ ...draftSections, causes: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, causes: val })}
                         placeholder="Tại sao sự kiện này xảy ra?"
-                        rows={3}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="140px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Diễn biến chính</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Diễn biến chính</label>
+                      <MarkdownEditor
                         value={draftSections.main_events}
-                        onChange={(e) => setDraftSections({ ...draftSections, main_events: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, main_events: val })}
                         placeholder="Các mốc tiến trình và sự kiện quan trọng xảy ra..."
-                        rows={4}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="180px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Kết quả</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Kết quả</label>
+                      <MarkdownEditor
                         value={draftSections.results}
-                        onChange={(e) => setDraftSections({ ...draftSections, results: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, results: val })}
                         placeholder="Kết cục của sự kiện, chiến thắng, tổn thất..."
-                        rows={3}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="140px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Ý nghĩa lịch sử</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Ý nghĩa lịch sử</label>
+                      <MarkdownEditor
                         value={draftSections.significance}
-                        onChange={(e) => setDraftSections({ ...draftSections, significance: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, significance: val })}
                         placeholder="Tầm ảnh hưởng, bài học lịch sử..."
-                        rows={3}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="140px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Nhân vật liên quan</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Nhân vật liên quan</label>
+                      <MarkdownEditor
                         value={draftSections.people}
-                        onChange={(e) => setDraftSections({ ...draftSections, people: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, people: val })}
                         placeholder="Các tướng lĩnh, nhà lãnh đạo, anh hùng..."
-                        rows={2}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="120px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Mốc thời gian</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Mốc thời gian</label>
+                      <MarkdownEditor
                         value={draftSections.timeline}
-                        onChange={(e) => setDraftSections({ ...draftSections, timeline: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, timeline: val })}
                         placeholder="Liệt kê các mốc ngày tháng quan trọng..."
-                        rows={2}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="120px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Nguồn tham khảo</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Nguồn tham khảo</label>
+                      <MarkdownEditor
                         value={draftSections.references}
-                        onChange={(e) => setDraftSections({ ...draftSections, references: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, references: val })}
                         placeholder="Các tài liệu sách báo, nguồn dẫn..."
-                        rows={2}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="120px"
                       />
                     </div>
                   </div>

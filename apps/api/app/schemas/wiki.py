@@ -197,3 +197,20 @@ class ApproveReviewPlanRequest(BaseModel):
         None,
         description="Optional admin notes / rationale for the decision",
     )
+
+
+class WikiContextResponse(BaseModel):
+    title: str
+    summary: str
+    entities: list[str] = Field(default_factory=list)
+
+
+class WikiContextSource(BaseModel):
+    title: str
+    page: int | None = None
+
+
+class WikiPageContextResponse(BaseModel):
+    context: WikiContextResponse
+    sources: list[WikiContextSource] = Field(default_factory=list)
+

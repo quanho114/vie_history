@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom"
 import { draftsApi, projectsApi, type WikiPageDraft, type Project } from "@/lib/api/brain"
 import { useAuthStore } from "@/stores/authStore"
 import { cn } from "@/lib/utils/cn"
+import { useUIStore } from "@/stores/uiStore"
+import { MarkdownRenderer } from "@/components/UI/MarkdownRenderer"
 
 // ── Icons ──────────────────────────────────────────────
 function IconArrowLeft({ className = "" }: { className?: string }) {
@@ -62,6 +64,7 @@ const SECTION_LABELS: Record<string, string> = {
 }
 
 export function DraftsReviewPage() {
+  const showToast = useUIStore((s) => s.showToast)
   const navigate = useNavigate()
   const { user } = useAuthStore()
   const isAdminOrEditor = user?.role === "admin" || user?.role === "editor"
@@ -111,11 +114,11 @@ export function DraftsReviewPage() {
         status,
         admin_notes: adminNotes.trim() || undefined,
       })
-      alert(status === "approved" ? "Đã phê duyệt bản thảo thành công!" : "Đã từ chối bản thảo.")
+      showToast(status === "approved" ? "Đã phê duyệt bản thảo thành công!" : "Đã từ chối bản thảo.", "success")
       setAdminNotes("")
       fetchDrafts()
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Thao tác phê duyệt thất bại")
+      showToast(err instanceof Error ? err.message : "Thao tác phê duyệt thất bại", "error")
     } finally {
       setSubmitting(false)
     }
@@ -298,9 +301,7 @@ export function DraftsReviewPage() {
                         <h5 className="font-display font-medium text-sm text-[#141413] border-b border-[#f5f0e8] pb-2 mb-3">
                           {SECTION_LABELS[key] || key}
                         </h5>
-                        <p className="text-sm text-[#3d3d3a] leading-relaxed whitespace-pre-line">
-                          {val.trim()}
-                        </p>
+                        <MarkdownRenderer content={val.trim()} />
                       </div>
                     )
                   }).filter(Boolean)

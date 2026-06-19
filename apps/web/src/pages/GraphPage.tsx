@@ -298,13 +298,13 @@ export function GraphPage() {
 
   return (
     <div className="flex-1 flex overflow-hidden relative">
-      
+
       {/* Background */}
       <div className="absolute inset-0 bg-[#FAF9F5]/45 bg-gradient-to-tr from-[#FAF9F5] via-white to-white" />
 
       {/* Graph Container */}
       <div ref={containerRef} className="flex-1 relative overflow-hidden">
-        
+
         {/* Canvas Graph - 2D/3D Mode Toggle */}
         {nodes.length > 0 && (
           <AnimatePresence mode="wait">

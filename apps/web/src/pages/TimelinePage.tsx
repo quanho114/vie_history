@@ -261,7 +261,11 @@ export function TimelinePage() {
       </div>
 
       {/* ── MAIN WORKSPACE: Vertical Historical Stream ── */}
-      <div className="flex-1 overflow-y-auto bg-[#faf8f3] px-6 py-6 relative">
+      <div className="flex-1 bg-[#faf8f3] p-6 overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-10 gap-6 h-full overflow-hidden">
+          
+          {/* Left Column: Timeline List */}
+          <div className="col-span-1 lg:col-span-6 h-full overflow-y-auto pr-2 scrollbar-thin text-left flex flex-col">
         
         {loading ? (
           <div className="h-full flex items-center justify-center">
@@ -286,7 +290,7 @@ export function TimelinePage() {
             </p>
           </div>
         ) : (
-          <div className="relative pl-6 border-l-2 border-[#e8ddd0] ml-4 space-y-8 max-w-xl text-left">
+          <div className="relative pl-6 border-l-2 border-[#e8ddd0] ml-4 space-y-8 max-w-full text-left py-2">
             
             {uniqueYears.map((year) => {
               const yearEvents = eventsByYear[year]
@@ -304,7 +308,7 @@ export function TimelinePage() {
                   </div>
 
                   {/* Events list */}
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     {yearEvents.map((ev) => {
                       const isSelected = expandedEvent === ev.id
                       const cat = getEventCategory(ev.title)
@@ -314,39 +318,32 @@ export function TimelinePage() {
                           key={ev.id}
                           onClick={() => setExpandedEvent(isSelected ? null : ev.id)}
                           className={cn(
-                            "relative p-4 bg-white border border-[#e8ddd0] transition-all duration-200 cursor-pointer text-left rounded-sm pl-5 group",
+                            "relative p-2.5 pl-3.5 pr-2.5 bg-white border border-[#e8ddd0] transition-all duration-200 cursor-pointer text-left rounded-sm group",
                             isSelected 
-                              ? "border-[#cc785c] shadow-[0_2px_12px_rgba(204,120,92,0.08)] translate-x-0.5" 
-                              : "hover:border-[#cc785c]/50 hover:translate-x-0.5"
+                              ? "border-[#cc785c] bg-[#cc785c]/5 shadow-[0_2px_12px_rgba(204,120,92,0.05)] translate-x-0.5" 
+                              : "hover:bg-[#faf8f3] hover:border-[#cc785c]/45 hover:translate-x-0.5"
                           )}
                         >
-                          <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#cc785c] rounded-l-sm" />
+                          <div className={cn(
+                            "absolute left-0 top-0 bottom-0 w-[3px] rounded-l-sm transition-colors",
+                            isSelected ? "bg-[#cc785c]" : "bg-transparent group-hover:bg-[#cc785c]/45"
+                          )} />
                           
-                          <div className="flex items-center justify-between gap-2 mb-1.5">
+                          <div className="flex items-center justify-between gap-2 mb-1">
                             <span className={cn("text-[9px] font-bold tracking-wider uppercase px-1.5 py-0.5 rounded-sm", cat.color)}>
                               {cat.icon} {cat.label}
                             </span>
-                            <span className="font-mono text-[10px] text-[#a09589]">
+                            <span className="font-mono text-[9px] text-[#a09589]">
                               {formatEventDate(ev)}
                             </span>
                           </div>
 
                           <h3 className={cn(
-                            "font-serif text-[15px] font-bold leading-snug transition-colors",
+                            "font-serif text-[13px] font-bold leading-snug transition-colors",
                             isSelected ? "text-[#cc785c]" : "text-[#1c1a17] group-hover:text-[#cc785c]"
                           )}>
                             {ev.title}
                           </h3>
-
-                          {ev.summary && (
-                            <p className="text-[11.5px] text-[#6b6259] mt-1.5 leading-relaxed font-serif italic line-clamp-2">
-                              {ev.summary}
-                            </p>
-                          )}
-
-                          <div className="mt-3 pt-2 border-t border-[#f0eae1] flex items-center text-[10px] text-[#cc785c] font-semibold">
-                            {ev.wiki_page_slug ? "Xem liên kết & phân tích →" : "Khám phá →"}
-                          </div>
                         </div>
                       )
                     })}
@@ -363,7 +360,7 @@ export function TimelinePage() {
       {/* ── DRAWER BACKDROP OVERLAY ── */}
       {expandedEvent && (
         <div 
-          className="fixed inset-0 bg-black/10 backdrop-blur-xs z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-black/10 backdrop-blur-xs z-40 transition-opacity duration-300 lg:hidden"
           onClick={() => setExpandedEvent(null)}
         />
       )}

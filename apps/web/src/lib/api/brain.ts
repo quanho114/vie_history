@@ -257,6 +257,17 @@ export const wikiApi = {
     const raw = await request<RawWikiPage>(`/wiki/pages/${slug}`);
     return transformWikiPage(raw);
   },
+
+  getContext: async (slug: string) => {
+    return request<{
+      context: {
+        title: string;
+        summary: string;
+        entities: string[];
+      };
+      sources: Array<{ title: string; page?: number }>;
+    }>(`/wiki/pages/${slug}/context`);
+  },
 };
 
 // ========================

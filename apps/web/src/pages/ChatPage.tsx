@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect, type FormEvent } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useChatStore } from "@/stores/chatStore";
+import { useUIStore } from "@/stores/uiStore";
 import { cn } from "@/lib/utils/cn";
-import { Send, Paperclip, Search, Copy, ThumbsUp, ThumbsDown, RefreshCw, Share2, Square, Check, Key, Settings, BookOpen } from "lucide-react";
+import { wikiApi } from "@/lib/api/brain";
+import { Send, Paperclip, Search, Copy, ThumbsUp, ThumbsDown, RefreshCw, Share2, Square, Check, Key, Settings, BookOpen, X } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import type { Message, Citation } from "@/types";
 import { LiveThinkingPanel } from "@/components/Chat/LiveThinkingPanel";
@@ -123,6 +126,8 @@ function MessageActions({
     }
   };
 
+  const showToast = useUIStore((s) => s.showToast);
+
   const handleShare = async () => {
     try {
       if (navigator.share) {
@@ -132,7 +137,7 @@ function MessageActions({
         });
       } else {
         await navigator.clipboard.writeText(window.location.href);
-        alert("Đã sao chép liên kết cuộc trò chuyện vào bộ nhớ tạm!");
+        showToast("Đã sao chép liên kết cuộc trò chuyện vào bộ nhớ tạm!", "success");
       }
     } catch (err) {
       console.error("Failed to share:", err);
@@ -729,6 +734,8 @@ function InputBar({
     }
   };
 
+  const showToast = useUIStore((s) => s.showToast);
+
   // Handle file select and background ingestion
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -740,9 +747,10 @@ function InputBar({
         const { ingestApi } = await import("@/lib/services/api");
         await ingestApi.submitFile(file, ["chat-upload"]);
         setUploadSuccess(true);
+        showToast("Đính kèm tư liệu thành công!", "success");
       } catch (err) {
         console.error("Failed to upload attached file:", err);
-        alert("Đính kèm tư liệu thất bại: " + (err instanceof Error ? err.message : "Lỗi hệ thống"));
+        showToast("Đính kèm tư liệu thất bại: " + (err instanceof Error ? err.message : "Lỗi hệ thống"), "error");
         setAttachedFile(null);
       } finally {
         setUploadingFile(false);
@@ -772,7 +780,7 @@ function InputBar({
                 Đóng bộ lọc
               </button>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[12px]">
               {/* Period filters */}
               <div>
@@ -987,6 +995,42 @@ function getStoredModel(provider: string) {
 
 export function ChatPage() {
   const [query, setQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [activeContext, setActiveContext] = useState<{
+    type: "wiki";
+    id: string;
+    title: string;
+    summary: string;
+  } | null>(null);
+
+  useEffect(() => {
+    const contextType = searchParams.get("context_type");
+    const contextId = searchParams.get("context_id");
+
+    if (contextType === "wiki" && contextId) {
+      const fetchContext = async () => {
+        try {
+          const res = await wikiApi.getContext(contextId);
+          setActiveContext({
+            type: "wiki",
+            id: contextId,
+            title: res.context.title,
+            summary: res.context.summary,
+          });
+          setQuery(`Hãy cho tôi biết thêm về ${res.context.title}`);
+        } catch (err) {
+          console.error("Failed to fetch wiki context:", err);
+        }
+      };
+      fetchContext();
+
+      const newParams = new URLSearchParams(searchParams);
+      newParams.delete("context_type");
+      newParams.delete("context_id");
+      setSearchParams(newParams, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
+
   const {
     messages,
     activeSessionId,
@@ -1016,7 +1060,7 @@ export function ChatPage() {
       const provider = localStorage.getItem("active_provider") || "gemini";
       setActiveProvider(provider);
       setActiveModel(getStoredModel(provider));
-      
+
       if (provider === "ollama") {
         setIsKeyMissing(false);
       } else {
@@ -1050,7 +1094,12 @@ export function ChatPage() {
       textareaRef.current.style.height = "auto";
     }
     clearError();
-    await sendMessage(trimmedQuery);
+
+    const filters = activeContext
+      ? { context_type: activeContext.type, context_id: activeContext.id }
+      : undefined;
+
+    await sendMessage(trimmedQuery, filters);
   };
 
   const handleRegenerate = async (msg: Message) => {
@@ -1099,8 +1148,8 @@ export function ChatPage() {
                   }
                   liveTrace={
                     isStreaming &&
-                    index === currentMessages.length - 1 &&
-                    message.role === "assistant"
+                      index === currentMessages.length - 1 &&
+                      message.role === "assistant"
                       ? liveTrace
                       : null
                   }
@@ -1122,8 +1171,8 @@ export function ChatPage() {
         <div className="mx-auto mb-4 w-full max-w-[760px] px-4">
           {(() => {
             const isApiError = isKeyMissing || (error && (
-              error.includes("API_KEY_MISSING") || 
-              error.toLowerCase().includes("api key") || 
+              error.includes("API_KEY_MISSING") ||
+              error.toLowerCase().includes("api key") ||
               error.toLowerCase().includes("connect") ||
               error.toLowerCase().includes("unauthorized") ||
               error.toLowerCase().includes("auth") ||
@@ -1133,7 +1182,7 @@ export function ChatPage() {
 
             if (isApiError) {
               return (
-                <div 
+                <div
                   className="relative overflow-hidden rounded-2xl border p-4 shadow-sm backdrop-blur-sm animate-fade-in flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left"
                   style={{
                     backgroundColor: "var(--surface-soft)",
@@ -1142,7 +1191,7 @@ export function ChatPage() {
                   }}
                 >
                   <div className="flex items-start gap-3">
-                    <div 
+                    <div
                       className="p-2 rounded-xl mt-0.5 flex-shrink-0 animate-pulse"
                       style={{
                         backgroundColor: "rgba(232, 165, 90, 0.12)",
@@ -1156,7 +1205,7 @@ export function ChatPage() {
                         Cấu hình API chưa hoàn thiện
                       </h4>
                       <p className="text-[12px] leading-relaxed max-w-lg" style={{ color: "var(--body)" }}>
-                        {isKeyMissing 
+                        {isKeyMissing
                           ? `Vui lòng nhập API Key cho nhà cung cấp ${activeProvider.toUpperCase()} để bắt đầu trò chuyện tìm kiếm lịch sử.`
                           : error?.replace("API_KEY_MISSING:", "").trim()}
                       </p>
@@ -1201,6 +1250,58 @@ export function ChatPage() {
               </div>
             );
           })()}
+        </div>
+      )}
+      {activeContext && (
+        <div className="mx-auto w-full max-w-[760px] px-4 mb-3 animate-fade-in text-left">
+          <div 
+            className="flex items-center justify-between gap-3 rounded-2xl p-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.02)] backdrop-blur-sm transition-all duration-200"
+            style={{
+              backgroundColor: "var(--surface-soft)",
+              border: "1px solid var(--hairline)",
+              borderLeft: "4px solid var(--coral)"
+            }}
+          >
+            <div className="flex items-center gap-3 overflow-hidden">
+              <div 
+                className="flex h-9 w-9 items-center justify-center rounded-xl shrink-0 transition-transform duration-200"
+                style={{
+                  backgroundColor: "rgba(204, 120, 92, 0.08)",
+                  color: "var(--coral)"
+                }}
+              >
+                <BookOpen size={18} />
+              </div>
+              <div className="overflow-hidden">
+                <div className="text-[11px] font-bold uppercase tracking-wider mb-0.5" style={{ color: "var(--muted)" }}>
+                  Hội thoại trong bối cảnh
+                </div>
+                <div className="text-[13.5px] font-semibold truncate" style={{ color: "var(--ink)" }}>
+                  {activeContext.title}
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={() => setActiveContext(null)}
+              className="p-1.5 rounded-xl transition-all duration-150 hover:scale-[1.05] active:scale-[0.95] shrink-0 flex items-center justify-center border-none cursor-pointer"
+              style={{
+                backgroundColor: "transparent",
+                color: "var(--muted)"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--hairline-soft)";
+                e.currentTarget.style.color = "var(--ink)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
+                e.currentTarget.style.color = "var(--muted)";
+              }}
+              title="Xóa bối cảnh"
+              aria-label="Xóa bối cảnh"
+            >
+              <X size={15} />
+            </button>
+          </div>
         </div>
       )}
       <InputBar

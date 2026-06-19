@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom"
 import { wikiApi, projectsApi, draftsApi, type WikiPage, type Project } from "@/lib/api/brain"
 import { useAuthStore } from "@/stores/authStore"
 import { cn } from "@/lib/utils/cn"
+import { useUIStore } from "@/stores/uiStore"
+import { MarkdownEditor } from "@/components/UI/MarkdownEditor"
 
 // ── Infinite Scroll Hook ─────────────────────────────────
 function useInfiniteScroll(fetchMore: () => void, hasMore: boolean) {
@@ -21,6 +23,73 @@ function useInfiniteScroll(fetchMore: () => void, hasMore: boolean) {
   }, [hasMore, fetchMore]);
   return observerRef;
 }
+
+// ── Markdown Parser Helper ──────────────────────────────
+const parseMarkdownToSections = (markdownText: string) => {
+  const sections = {
+    background: "",
+    causes: "",
+    main_events: "",
+    results: "",
+    significance: "",
+    people: "",
+    timeline: "",
+    references: "",
+  };
+
+  const mapping = [
+    { key: "background" as const, keywords: ["bối cảnh", "boi canh", "background"] },
+    { key: "causes" as const, keywords: ["nguyên nhân", "nguyen nhan", "causes", "cause"] },
+    { key: "main_events" as const, keywords: ["diễn biến", "dien bien", "diễn biến chính", "dien bien chinh", "events", "main events"] },
+    { key: "results" as const, keywords: ["kết quả", "ket qua", "results", "result"] },
+    { key: "significance" as const, keywords: ["ý nghĩa", "y nghia", "ý nghĩa lịch sử", "y nghia lich su", "significance", "historical significance"] },
+    { key: "people" as const, keywords: ["nhân vật", "nhan vat", "nhân vật liên quan", "nhan vat lien quan", "people", "figures"] },
+    { key: "timeline" as const, keywords: ["mốc thời gian", "moc thoi gian", "timeline", "chronology"] },
+    { key: "references" as const, keywords: ["nguồn", "nguon", "nguồn tham khảo", "nguon tham khao", "references", "sources"] },
+  ];
+
+  const lines = markdownText.split("\n");
+  let currentKey: keyof typeof sections | null = null;
+  let currentContent: string[] = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const headingMatch = line.match(/^#+\s+(.+)$/);
+
+    if (headingMatch) {
+      if (currentKey) {
+        sections[currentKey] = currentContent.join("\n").trim();
+      }
+
+      const headingText = headingMatch[1].trim().toLowerCase();
+      const match = mapping.find((item) =>
+        item.keywords.some((kw) => headingText.includes(kw))
+      );
+
+      if (match) {
+        currentKey = match.key;
+      } else {
+        currentKey = null;
+      }
+      currentContent = [];
+    } else {
+      if (currentKey) {
+        currentContent.push(line);
+      }
+    }
+  }
+
+  if (currentKey) {
+    sections[currentKey] = currentContent.join("\n").trim();
+  }
+
+  const hasContent = Object.values(sections).some((val) => val.trim() !== "");
+  if (!hasContent && markdownText.trim()) {
+    sections.background = markdownText.trim();
+  }
+
+  return sections;
+};
 
 // ── Icons ──────────────────────────────────────────────
 function IconSearch({ className = "" }: { className?: string }) {
@@ -60,6 +129,36 @@ function IconClose({ className = "" }: { className?: string }) {
   )
 }
 
+function IconChevronDown({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  )
+}
+
+function IconCheck({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  )
+}
+
+function IconUpload({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="17 8 12 3 7 8" />
+      <line x1="12" y1="3" x2="12" y2="15" />
+    </svg>
+  )
+}
+
+
 // ── Period config ──────────────────────────────────────
 const PERIODS = [
   { value: "", label: "Tất cả" },
@@ -97,10 +196,30 @@ function SkeletonCard() {
 // ── Main component ─────────────────────────────────────
 export function WikiBrowserPage() {
   const navigate = useNavigate()
+  const showToast = useUIStore((s) => s.showToast)
   const { user } = useAuthStore()
   const [allPages, setAllPages] = useState<WikiPage[]>([])
   const [projects, setProjects] = useState<Project[]>([])
   const [selectedProjectId, setSelectedProjectId] = useState("")
+  const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false)
+  const [isModalDropdownOpen, setIsModalDropdownOpen] = useState(false)
+
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const modalDropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsProjectDropdownOpen(false)
+      }
+      if (modalDropdownRef.current && !modalDropdownRef.current.contains(event.target as Node)) {
+        setIsModalDropdownOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState("")
   const [debouncedSearch, setDebouncedSearch] = useState("")
@@ -140,6 +259,10 @@ export function WikiBrowserPage() {
     references: "",
   })
   const [draftSubmitting, setDraftSubmitting] = useState(false)
+
+  const selectedProject = projects.find(p => p.id === selectedProjectId)
+  const selectedDraftProject = projects.find(p => p.id === draftProjectId)
+
 
   // Debounce search
   useEffect(() => {
@@ -206,17 +329,40 @@ export function WikiBrowserPage() {
       setNewProjectName("")
       setNewProjectDesc("")
       setIsCreateProjectModalOpen(false)
+      showToast("Tạo dự án mới thành công!", "success")
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Không thể tạo dự án")
+      showToast(err instanceof Error ? err.message : "Không thể tạo dự án", "error")
     } finally {
       setProjectSubmitting(false)
     }
   }
 
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onload = (event) => {
+      const text = event.target?.result as string
+      if (!text) return
+
+      // Try to parse H1 header for title
+      const h1Match = text.match(/^#\s+(.+)$/m)
+      if (h1Match && h1Match[1]) {
+        setDraftTitle(h1Match[1].trim())
+      }
+
+      const parsed = parseMarkdownToSections(text)
+      setDraftSections(parsed)
+      showToast("Đã nhập nội dung từ file markdown thành công!", "success")
+    }
+    reader.readAsText(file)
+  }
+
   const handleCreateDraft = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!draftTitle.trim()) {
-      alert("Vui lòng điền tiêu đề trang")
+      showToast("Vui lòng điền tiêu đề trang", "error")
       return
     }
     setDraftSubmitting(true)
@@ -235,7 +381,7 @@ export function WikiBrowserPage() {
         content: Object.keys(content).length > 0 ? content : undefined,
       })
 
-      alert("Đề xuất bản thảo trang mới thành công! Đang chờ duyệt.")
+      showToast("Đề xuất bản thảo trang mới thành công! Đang chờ duyệt.", "success")
       setDraftTitle("")
       setDraftProjectId("")
       setDraftSummary("")
@@ -251,7 +397,7 @@ export function WikiBrowserPage() {
       })
       setIsCreateModalOpen(false)
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Không thể tạo bản thảo đề xuất")
+      showToast(err instanceof Error ? err.message : "Không thể tạo bản thảo đề xuất", "error")
     } finally {
       setDraftSubmitting(false)
     }
@@ -302,18 +448,67 @@ export function WikiBrowserPage() {
             />
           </div>
 
-          <select
-            value={selectedProjectId}
-            onChange={(e) => setSelectedProjectId(e.target.value)}
-            className="px-4 py-2.5 bg-white border border-[#e6dfd8] rounded-xl text-sm text-[#6c6a64] outline-none focus:border-[#cc785c] transition-all cursor-pointer"
-          >
-            <option value="">Tất cả Dự án</option>
-            {projects.map((proj) => (
-              <option key={proj.id} value={proj.id}>
-                {proj.name} {proj.slug !== proj.name && `(${proj.slug})`}
-              </option>
-            ))}
-          </select>
+          <div ref={dropdownRef} className="relative flex-shrink-0">
+            <button
+              type="button"
+              onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
+              className="flex items-center justify-between gap-3 px-4 py-2.5 bg-white border border-[#e6dfd8] rounded-xl text-sm text-[#6c6a64] hover:border-[#cc785c] hover:text-[#cc785c] focus:border-[#cc785c] transition-all cursor-pointer min-w-[200px] text-left shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
+            >
+              <span className="truncate font-medium">
+                {selectedProject ? selectedProject.name : "Tất cả Dự án"}
+              </span>
+              <IconChevronDown className={cn("w-4 h-4 text-[#8e8b82] transition-transform duration-200 flex-shrink-0", isProjectDropdownOpen && "rotate-180")} />
+            </button>
+
+            {isProjectDropdownOpen && (
+              <div className="absolute left-0 mt-1.5 w-64 bg-white border border-[#e6dfd8] rounded-xl shadow-lg py-1.5 z-30 animate-fadeIn max-h-60 overflow-y-auto">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedProjectId("")
+                    setIsProjectDropdownOpen(false)
+                  }}
+                  className={cn(
+                    "w-full px-4 py-2 text-left text-sm flex items-center justify-between transition-colors cursor-pointer",
+                    selectedProjectId === ""
+                      ? "bg-[#f5f0e8] text-[#cc785c] font-semibold"
+                      : "text-[#6c6a64] hover:bg-[#fcfbf9] hover:text-[#cc785c]"
+                  )}
+                >
+                  <span>Tất cả Dự án</span>
+                  {selectedProjectId === "" && <IconCheck className="w-4 h-4 text-[#cc785c] flex-shrink-0" />}
+                </button>
+                <div className="h-px bg-[#e6dfd8] my-1" />
+                {projects.map((proj) => (
+                  <button
+                    key={proj.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedProjectId(proj.id)
+                      setIsProjectDropdownOpen(false)
+                    }}
+                    className={cn(
+                      "w-full px-4 py-2 text-left text-sm flex items-center justify-between transition-colors cursor-pointer",
+                      selectedProjectId === proj.id
+                        ? "bg-[#f5f0e8] text-[#cc785c] font-semibold"
+                        : "text-[#6c6a64] hover:bg-[#fcfbf9] hover:text-[#cc785c]"
+                    )}
+                  >
+                    <div className="flex flex-col min-w-0">
+                      <span className="truncate">{proj.name}</span>
+                      {proj.slug !== proj.name && (
+                        <span className="text-[10px] text-[#8e8b82] truncate mt-0.5">
+                          {proj.slug}
+                        </span>
+                      )}
+                    </div>
+                    {selectedProjectId === proj.id && <IconCheck className="w-4 h-4 text-[#cc785c] flex-shrink-0" />}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
 
           <button
             onClick={() => setIsCreateProjectModalOpen(true)}
@@ -455,12 +650,25 @@ export function WikiBrowserPage() {
                 <h3 className="text-lg font-display font-semibold text-[#141413]">Đề xuất trang wiki mới</h3>
                 <p className="text-xs text-[#8e8b82] mt-0.5">Bản thảo của bạn sẽ được gửi tới Admin/Biên tập viên phê duyệt trước khi xuất bản</p>
               </div>
-              <button 
-                onClick={() => setIsCreateModalOpen(false)}
-                className="p-1.5 rounded-lg hover:bg-[#f5f0e8] text-[#8e8b82] hover:text-[#141413] transition-colors"
-              >
-                <IconClose />
-              </button>
+              <div className="flex items-center gap-3">
+                <label className="flex items-center gap-1.5 px-3 py-1.5 border border-[#cc785c]/30 text-[#cc785c] hover:bg-[#cc785c]/5 text-xs font-semibold rounded-xl cursor-pointer transition-all shadow-sm">
+                  <IconUpload className="w-3.5 h-3.5" />
+                  <span>Nhập file .md</span>
+                  <input
+                    type="file"
+                    accept=".md,.txt"
+                    onChange={handleFileUpload}
+                    className="hidden"
+                  />
+                </label>
+                <button 
+                  type="button"
+                  onClick={() => setIsCreateModalOpen(false)}
+                  className="p-1.5 rounded-lg hover:bg-[#f5f0e8] text-[#8e8b82] hover:text-[#141413] transition-colors"
+                >
+                  <IconClose />
+                </button>
+              </div>
             </div>
             
             <form onSubmit={handleCreateDraft} className="flex-1 flex flex-col overflow-hidden">
@@ -483,18 +691,66 @@ export function WikiBrowserPage() {
                     <label className="block text-xs font-semibold text-[#6c6a64] uppercase tracking-wider mb-1">
                       Dự án / Không gian làm việc
                     </label>
-                    <select
-                      value={draftProjectId}
-                      onChange={(e) => setDraftProjectId(e.target.value)}
-                      className="w-full px-3.5 py-2.5 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#6c6a64] outline-none focus:border-[#cc785c] focus:bg-white transition-all cursor-pointer"
-                    >
-                      <option value="">Không thuộc dự án nào (Chung)</option>
-                      {projects.map((proj) => (
-                        <option key={proj.id} value={proj.id}>
-                          {proj.name} {proj.slug !== proj.name && `(${proj.slug})`}
-                        </option>
-                      ))}
-                    </select>
+                    <div ref={modalDropdownRef} className="relative">
+                      <button
+                        type="button"
+                        onClick={() => setIsModalDropdownOpen(!isModalDropdownOpen)}
+                        className="w-full flex items-center justify-between gap-3 px-3.5 py-2.5 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#6c6a64] hover:border-[#cc785c] focus:border-[#cc785c] focus:bg-white transition-all cursor-pointer text-left shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
+                      >
+                        <span className="truncate">
+                          {selectedDraftProject ? selectedDraftProject.name : "Không thuộc dự án nào (Chung)"}
+                        </span>
+                        <IconChevronDown className={cn("w-4 h-4 text-[#8e8b82] transition-transform duration-200 flex-shrink-0", isModalDropdownOpen && "rotate-180")} />
+                      </button>
+
+                      {isModalDropdownOpen && (
+                        <div className="absolute left-0 mt-1.5 w-full bg-white border border-[#e6dfd8] rounded-xl shadow-lg py-1.5 z-30 animate-fadeIn max-h-48 overflow-y-auto">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setDraftProjectId("")
+                              setIsModalDropdownOpen(false)
+                            }}
+                            className={cn(
+                              "w-full px-4 py-2 text-left text-sm flex items-center justify-between transition-colors cursor-pointer",
+                              draftProjectId === ""
+                                ? "bg-[#f5f0e8] text-[#cc785c] font-semibold"
+                                : "text-[#6c6a64] hover:bg-[#fcfbf9] hover:text-[#cc785c]"
+                            )}
+                          >
+                            <span>Không thuộc dự án nào (Chung)</span>
+                            {draftProjectId === "" && <IconCheck className="w-4 h-4 text-[#cc785c] flex-shrink-0" />}
+                          </button>
+                          <div className="h-px bg-[#e6dfd8] my-1" />
+                          {projects.map((proj) => (
+                            <button
+                              key={proj.id}
+                              type="button"
+                              onClick={() => {
+                                setDraftProjectId(proj.id)
+                                setIsModalDropdownOpen(false)
+                              }}
+                              className={cn(
+                                "w-full px-4 py-2 text-left text-sm flex items-center justify-between transition-colors cursor-pointer",
+                                draftProjectId === proj.id
+                                  ? "bg-[#f5f0e8] text-[#cc785c] font-semibold"
+                                  : "text-[#6c6a64] hover:bg-[#fcfbf9] hover:text-[#cc785c]"
+                              )}
+                            >
+                              <div className="flex flex-col min-w-0">
+                                <span className="truncate">{proj.name}</span>
+                                {proj.slug !== proj.name && (
+                                  <span className="text-[10px] text-[#8e8b82] truncate mt-0.5">
+                                    {proj.slug}
+                                  </span>
+                                )}
+                              </div>
+                              {draftProjectId === proj.id && <IconCheck className="w-4 h-4 text-[#cc785c] flex-shrink-0" />}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 
@@ -515,83 +771,75 @@ export function WikiBrowserPage() {
                   <h4 className="text-xs font-semibold text-[#141413] uppercase tracking-wider mb-3">Nội dung chi tiết từng mục</h4>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Bối cảnh</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Bối cảnh</label>
+                      <MarkdownEditor
                         value={draftSections.background}
-                        onChange={(e) => setDraftSections({ ...draftSections, background: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, background: val })}
                         placeholder="Tình hình lịch sử trước khi sự kiện diễn ra..."
-                        rows={3}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="140px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Nguyên nhân</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Nguyên nhân</label>
+                      <MarkdownEditor
                         value={draftSections.causes}
-                        onChange={(e) => setDraftSections({ ...draftSections, causes: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, causes: val })}
                         placeholder="Tại sao sự kiện này xảy ra?"
-                        rows={3}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="140px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Diễn biến chính</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Diễn biến chính</label>
+                      <MarkdownEditor
                         value={draftSections.main_events}
-                        onChange={(e) => setDraftSections({ ...draftSections, main_events: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, main_events: val })}
                         placeholder="Các mốc tiến trình và sự kiện quan trọng xảy ra..."
-                        rows={4}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="180px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Kết quả</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Kết quả</label>
+                      <MarkdownEditor
                         value={draftSections.results}
-                        onChange={(e) => setDraftSections({ ...draftSections, results: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, results: val })}
                         placeholder="Kết cục của sự kiện, chiến thắng, tổn thất..."
-                        rows={3}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="140px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Ý nghĩa lịch sử</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Ý nghĩa lịch sử</label>
+                      <MarkdownEditor
                         value={draftSections.significance}
-                        onChange={(e) => setDraftSections({ ...draftSections, significance: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, significance: val })}
                         placeholder="Tầm ảnh hưởng, bài học lịch sử..."
-                        rows={3}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="140px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Nhân vật liên quan</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Nhân vật liên quan</label>
+                      <MarkdownEditor
                         value={draftSections.people}
-                        onChange={(e) => setDraftSections({ ...draftSections, people: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, people: val })}
                         placeholder="Các tướng lĩnh, nhà lãnh đạo, anh hùng..."
-                        rows={2}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="120px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Mốc thời gian</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Mốc thời gian</label>
+                      <MarkdownEditor
                         value={draftSections.timeline}
-                        onChange={(e) => setDraftSections({ ...draftSections, timeline: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, timeline: val })}
                         placeholder="Liệt kê các mốc ngày tháng quan trọng..."
-                        rows={2}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="120px"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#6c6a64] mb-1">Nguồn tham khảo</label>
-                      <textarea
+                      <label className="block text-xs font-medium text-[#6c6a64] mb-1.5">Nguồn tham khảo</label>
+                      <MarkdownEditor
                         value={draftSections.references}
-                        onChange={(e) => setDraftSections({ ...draftSections, references: e.target.value })}
+                        onChange={(val) => setDraftSections({ ...draftSections, references: val })}
                         placeholder="Các tài liệu sách báo, nguồn dẫn..."
-                        rows={2}
-                        className="w-full px-3.5 py-2 bg-[#faf9f5] border border-[#e6dfd8] rounded-xl text-sm text-[#141413] outline-none focus:border-[#cc785c] focus:bg-white transition-all resize-none"
+                        minHeight="120px"
                       />
                     </div>
                   </div>

@@ -13,6 +13,7 @@ from app.schemas.wiki import (
     WikiPageResponse,
     WikiPageUpdate,
     WikiPageVersionResponse,
+    WikiPageContextResponse,
 )
 from app.services.wiki.wiki_service import WikiService
 
@@ -164,3 +165,53 @@ async def list_wiki_page_versions(
         )
     versions = await wiki_service.get_page_versions(db, existing.id)
     return [WikiPageVersionResponse.model_validate(v) for v in versions]
+
+
+@router.get(
+    "/{slug}/context",
+    response_model=WikiPageContextResponse,
+    summary="Get context for wiki page",
+)
+async def get_wiki_context(
+    slug: str,
+    current_user: CurrentUser,
+    db: AsyncSession = Depends(get_db),
+) -> WikiPageContextResponse:
+    """Retrieve context and sources of a wiki page for the chat system."""
+    page = await wiki_service.get_page_by_slug(db, slug)
+    if page is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Wiki page with slug '{slug}' not found",
+        )
+
+    entities = []
+    if page.period:
+        entities.append(page.period)
+    if page.event_type:
+        entities.append(page.event_type)
+
+    sources = []
+    if page.content and isinstance(page.content, dict):
+        # Extract references
+        refs = page.content.get("references", "")
+        if isinstance(refs, str):
+            for ref in refs.split("\n"):
+                if ref.strip():
+                    sources.append({"title": ref.strip(), "page": 1})
+        elif isinstance(refs, list):
+            for ref in refs:
+                if isinstance(ref, str) and ref.strip():
+                    sources.append({"title": ref.strip(), "page": 1})
+                elif isinstance(ref, dict) and ref.get("title"):
+                    sources.append({"title": ref["title"], "page": ref.get("page", 1)})
+
+    return WikiPageContextResponse(
+        context={
+            "title": page.title,
+            "summary": page.summary or "",
+            "entities": entities,
+        },
+        sources=sources,
+    )
+

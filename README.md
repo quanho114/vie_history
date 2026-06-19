@@ -1,296 +1,622 @@
 # HistoriAI Agent
 
-**AI Research Agent for Vietnamese Historical Documents (1945-1975)**
+> **AI Research Agent cho Tài liệu Lịch sử Việt Nam (1945–1975)**
 
-An AI research system for tra cuu (research) Vietnamese history, featuring workflow-based agents, grounded citations, URL ingestion, hybrid retrieval, and a modern React + FastAPI stack.
+HistoriAI là một hệ thống AI học thuật nghiên cứu Agentic RAG cho việc tra cứu lịch sử Việt Nam. Hệ thống kết hợp **hybrid retrieval** (Qdrant vector search + Meilisearch BM25), **metadata-aware query processing**, và **citation verification pipeline** để cung cấp câu trả lời có trích dẫn nguồn chính xác.
+
+---
+
+## Mục lục
+
+1. [Tổng quan kiến trúc](#kiến-trúc)
+2. [Tech Stack](#tech-stack)
+3. [Yêu cầu hệ thống](#yêu-cầu-hệ-thống)
+4. [Cài đặt lần đầu](#cài-đặt-lần-đầu)
+5. [Chạy development](#chạy-development)
+6. [Biến môi trường](#biến-môi-trường)
+7. [Cấu trúc dự án](#cấu-trúc-dự-án)
+8. [API Endpoints](#api-endpoints)
+9. [Evaluation & Benchmark](#evaluation--benchmark)
+10. [Testing](#testing)
+11. [Observability](#observability)
+12. [Makefile Commands](#makefile-commands)
+13. [Troubleshooting](#troubleshooting)
+
+---
+
+## Kiến trúc
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                         React + Vite UI                         │
+│                      http://localhost:12702                      │
+└───────────────────────────┬─────────────────────────────────────┘
+                            │ HTTP / SSE
+┌───────────────────────────▼─────────────────────────────────────┐
+│                       FastAPI Backend                           │
+│                     http://localhost:12701                       │
+│                                                                 │
+│  ┌─────────────┐  ┌──────────────┐  ┌────────────────────────┐ │
+│  │  AI Agents  │  │   Retrieval  │  │   Ingestion Pipeline   │ │
+│  │ orchestrator│  │  hybrid BM25 │  │  URL → extract → chunk │ │
+│  │ synthesizer │  │  + vector +  │  │  → Qdrant + Meili      │ │
+│  │  classifier │  │  reranker    │  │                        │ │
+│  └─────────────┘  └──────────────┘  └────────────────────────┘ │
+└──────┬──────────────────┬──────────────────────────────────────-┘
+       │                  │
+   ┌───▼────┐    ┌────────▼──────────────────────────────┐
+   │Postgres│    │  Docker Services                       │
+   │  :5432 │    │  Redis :12704 | Qdrant :12705          │
+   │(host)  │    │  Meilisearch :12707 | Langfuse :12708  │
+   └────────┘    └────────────────────────────────────────┘
+```
+
+### Agent Pipeline
+
+Mỗi query người dùng đi qua pipeline sau:
+
+```
+Query → ComplexityClassifier → DomainClassifier → QueryExpander
+      → HybridRetrieval (BM25 + Vector + RRF Fusion)
+      → CrossEncoderReranker → GuardedSynthesizer
+      → CitationVerifier → SSE Stream Response
+```
+
+---
 
 ## Tech Stack
 
-| Component | Technology |
-|-----------|------------|
-| Backend | FastAPI (Python 3.11+) |
-| Frontend | React 18 + TypeScript + Vite |
-| Database | PostgreSQL 16 |
-| Cache | Redis 7 |
-| Vector DB | Qdrant |
-| Lexical Search | Elasticsearch (BM25) |
-| AI Framework | LlamaIndex + LangGraph (planned) |
-| Observability | Prometheus, Langfuse, Sentry |
-| Deployment | Docker + dev on host |
+| Layer | Technology |
+|-------|------------|
+| **Backend** | Python 3.11+, FastAPI, Uvicorn |
+| **Frontend** | React 18, TypeScript, Vite |
+| **Database** | PostgreSQL 16 |
+| **Cache / Queue** | Redis 7, RQ (Redis Queue) |
+| **Vector DB** | Qdrant (dense embeddings) |
+| **Lexical Search** | Meilisearch (BM25) |
+| **Embeddings** | SentenceTransformers `paraphrase-multilingual-MiniLM-L12-v2` |
+| **LLM** | OpenAI GPT-4o / Anthropic Claude / Ollama (local) |
+| **Observability** | Langfuse, Prometheus, Grafana, Sentry |
+| **Infra** | Docker Compose |
 
-## Architecture
+---
 
-```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   React +   │────▶│   FastAPI   │────▶│ PostgreSQL  │
-│   Vite UI   │     │   Backend   │     │  (Docker)   │
-│ (dev :12702)│     │ (dev :12701)│     │  (Docker)   │
-└─────────────┘     └──────┬──────┘     └─────────────┘
-                           │
-         ┌─────────────────┼─────────────────┬───────────────┐
-         ▼                 ▼                 ▼               ▼
-   ┌──────────┐    ┌──────────┐    ┌──────────┐   ┌──────────┐
-   │  Redis  │    │  Qdrant  │    │ Elastic- │   │ Langfuse │
-   │(Docker) │    │(Docker)  │    │ search   │   │(optional)│
-   │  :12704  │    │ :12705-6 │    │(Docker) │   │  :12708  │
-   │          │    │ (vectors) │    │ :12707   │   │          │
-   └──────────┘    └──────────┘    └──────────┘   └──────────┘
-                        Prometheus metrics endpoint: GET /metrics
-```
+## Yêu cầu hệ thống
 
-## Features
+| Tool | Phiên bản tối thiểu |
+|------|---------------------|
+| Docker | 24+ |
+| Docker Compose | 2.20+ |
+| Python | 3.11+ |
+| Node.js | 20+ |
+| npm | 9+ |
+| Git | 2.x |
 
-- **Workflow-based AI Agents**: Intent classification, task planning, query expansion, cross-encoder reranking, guarded synthesis, citations, and response traces
-- **Retrieval**: Two-stage hybrid search (Elasticsearch BM25 + Qdrant vectors) with Reciprocal Rank Fusion and cross-encoder reranking for precision boost
-- **Ingestion Pipeline**: URL/file ingestion, SSRF protection, PDF text extraction, Vietnamese text cleaning, chunk persistence, and best-effort dual-indexing (Qdrant + Elasticsearch)
-- **Citation-grounded Answers**: Every claim is backed by source citations
-- **SSE Streaming**: Real-time response tokens, citations, traces, and status stages in the chat UI
-- **Admin Curation**: Document approval, quality scoring, job monitoring
-- **JWT Authentication**: Secure user auth with role-based access
+---
 
-## Dev Ports
+## Cài đặt lần đầu
 
-| Service | Host Port |
-|---------|-----------|
-| PostgreSQL | `12703` |
-| Redis | `12704` |
-| Qdrant REST | `12705` |
-| Qdrant GRPC | `12706` |
-| Elasticsearch | `12707` |
-| Langfuse | `12708` |
-| Prometheus | `9090` |
-| Grafana | `13000` |
-| FastAPI (dev) | `12701` |
-| React/Vite (dev) | `12702` |
-
-## Quick Start
-
-### Prerequisites
-
-- Docker & Docker Compose
-- Python 3.11+
-- Node.js 20+
-
-### 1. Clone and Setup
+### Bước 1 — Clone repo
 
 ```bash
 git clone <repo-url> Vie_history
 cd Vie_history
-
-# Copy environment variables
-cp .env.example .env
-# Edit .env with your settings (add your LLM API keys)
 ```
 
-### 2. Start Services
+### Bước 2 — Cấu hình môi trường
 
 ```bash
-# Create shared network
+cp .env.example .env
+```
+
+Mở `.env` và điền các giá trị bắt buộc:
+
+```bash
+# Bắt buộc: chọn 1 LLM provider
+LLM_PROVIDER=openai          # openai | anthropic | openrouter | ollama
+OPENAI_API_KEY=sk-...        # nếu dùng OpenAI
+ANTHROPIC_API_KEY=sk-ant-... # nếu dùng Anthropic
+
+# Bắt buộc: secret key cho JWT
+SECRET_KEY=$(python3 -c "import secrets; print(secrets.token_urlsafe(32))")
+```
+
+### Bước 3 — Tạo Docker network (chỉ 1 lần)
+
+```bash
 docker network create historiai-network 2>/dev/null || true
+```
 
-# Start core services only
+### Bước 4 — Khởi động Docker services
+
+```bash
 docker-compose up -d
+```
 
-# OR start with full observability (Prometheus + Grafana)
-docker-compose -f docker-compose.yml -f infrastructure/docker-compose.observability.yml up -d
+Kiểm tra tất cả services đang chạy:
 
-# Check status
+```bash
 docker-compose ps
 ```
 
-### 3. Initialize Database
+Kết quả mong đợi — tất cả status phải là `Up`:
 
-```bash
-# Chay migrations trong container postgres dang chay
-docker-compose exec postgres psql -U vie_history -d vie_history -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
+```
+NAME              STATUS    PORTS
+vie_postgres      Up        0.0.0.0:12703->5432/tcp
+vie_redis         Up        0.0.0.0:12704->6379/tcp
+vie_qdrant        Up        0.0.0.0:12705->6333/tcp
+vie_meilisearch   Up        0.0.0.0:12707->7700/tcp
 ```
 
-### 4. Start Backend (dev tren host)
+### Bước 5 — Cài đặt Backend
 
 ```bash
 cd apps/api
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # hoac venv\Scripts\activate tren Windows
+# Tạo virtual environment
+python3 -m venv venv
+source venv/bin/activate     # Linux/macOS
+# venv\Scripts\activate      # Windows
 
-# Install dependencies
-pip install -e .
+# Cài dependencies
+pip install -e ".[dev]"
 
-# Run Alembic migrations
-alembic upgrade head
-
-# Start dev server
-uvicorn app.main:app --host 0.0.0.0 --port 12701 --reload
-# API Docs: http://localhost:12701/docs
+# Chạy database migrations
+ALEMBIC_AUTOCOMMIT=true alembic upgrade head
 ```
 
-### 5. Start Frontend (dev tren host)
+### Bước 6 — Cài đặt Frontend
 
 ```bash
 cd apps/web
-
-# Install dependencies
 npm install
+```
 
-# Start dev server
+---
+
+## Chạy development
+
+Cần **3 terminal** riêng biệt:
+
+### Terminal 1 — Backend API
+
+```bash
+cd apps/api
+source venv/bin/activate
+uvicorn app.main:app --host 0.0.0.0 --port 12701 --reload
+```
+
+### Terminal 2 — Background Worker (ingestion jobs)
+
+```bash
+cd apps/api
+source venv/bin/activate
+rq worker ingest-queue --url redis://localhost:12704/0
+```
+
+### Terminal 3 — Frontend
+
+```bash
+cd apps/web
 npm run dev
-# Frontend: http://localhost:12702
 ```
 
-### 6. Access Services
+### Truy cập các services
 
-- **Frontend**: http://localhost:12702
-- **API Docs**: http://localhost:12701/docs
-- **Qdrant Dashboard**: http://localhost:12705/dashboard
-- **Prometheus Metrics**: http://localhost:12701/metrics
-- **Prometheus UI**: http://localhost:9090
-- **Grafana Dashboard**: http://localhost:13000 (admin/historiai)
+| Service | URL |
+|---------|-----|
+| **Frontend** | http://localhost:12702 |
+| **API Docs (Swagger)** | http://localhost:12701/docs |
+| **API ReDoc** | http://localhost:12701/redoc |
+| **Qdrant Dashboard** | http://localhost:12705/dashboard |
+| **Meilisearch** | http://localhost:12707 |
+| **Prometheus Metrics** | http://localhost:12701/metrics |
+| **Prometheus UI** | http://localhost:9090 |
+| **Grafana** | http://localhost:13000 (admin / historiai) |
 
-### Observability Stack
+---
+
+## Biến môi trường
+
+File `.env.example` chứa toàn bộ template với chú thích. Dưới đây là các nhóm quan trọng:
+
+### LLM Provider
 
 ```bash
-# Start full observability stack (Prometheus + Grafana)
-docker network create historiai-network 2>/dev/null || true
-docker compose -f docker-compose.yml -f infrastructure/docker-compose.observability.yml up -d
+LLM_PROVIDER=openai            # openai | anthropic | openrouter | ollama
 
-# Prometheus: http://localhost:9090
-# Grafana:   http://localhost:13000 (admin / historiai)
+# OpenAI
+OPENAI_API_KEY=sk-...
+OPENAI_MODEL=gpt-4o
+
+# Anthropic
+ANTHROPIC_API_KEY=sk-ant-...
+ANTHROPIC_MODEL=claude-sonnet-4-20250514
+
+# Ollama (local, không cần API key)
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=llama3.2
 ```
 
-To enable Langfuse tracing, set these in `.env`:
+### Database & Cache
+
 ```bash
+POSTGRES_USER=vie_history
+POSTGRES_PASSWORD=change_me_in_production
+POSTGRES_DB=vie_history
+
+REDIS_URL=redis://localhost:12704/0
+QDRANT_URL=http://localhost:12705
+MEILISEARCH_URL=http://localhost:12707
+MEILISEARCH_MASTER_KEY=meili_master_key_secret
+```
+
+### Observability (tùy chọn)
+
+```bash
+# Langfuse — LLM tracing
 LANGFUSE_ENABLED=true
 LANGFUSE_PUBLIC_KEY=pk-lf-...
 LANGFUSE_SECRET_KEY=sk-lf-...
-LANGFUSE_HOST=https://cloud.langfuse.com  # or http://localhost:12708
+LANGFUSE_HOST=https://cloud.langfuse.com
+
+# Sentry — error tracking
+SENTRY_DSN=https://...@sentry.io/...
 ```
 
-## Development
+---
 
-### Backend
-
-```bash
-cd apps/api
-
-# Activate venv
-source venv/bin/activate
-
-# Run migrations
-alembic upgrade head
-
-# Start dev server (port 12701)
-uvicorn app.main:app --host 0.0.0.0 --port 12701 --reload
-```
-
-### Frontend
-
-```bash
-cd apps/web
-npm install
-npm run dev   # port 12702
-```
-
-### Stop Services
-
-```bash
-# Stop Docker services
-docker-compose down
-
-# Stop backend (Ctrl+C in terminal)
-# Stop frontend (Ctrl+C in terminal)
-```
-
-## Project Structure
+## Cấu trúc dự án
 
 ```
 Vie_history/
 ├── apps/
-│   ├── api/                    # FastAPI backend
+│   ├── api/                          # FastAPI backend
+│   │   ├── alembic/                  # Database migrations
 │   │   ├── app/
-│   │   │   ├── api/routes/     # API endpoints
-│   │   │   ├── core/          # config, db, cache, security, observability
-│   │   │   ├── models/         # SQLAlchemy models
-│   │   │   ├── schemas/        # Pydantic schemas
-│   │   │   └── services/       # business logic
-│   │   │       ├── agent/      # AI agent workflows
-│   │   │       ├── ingestion/  # URL ingestion pipeline
-│   │   │       └── retrieval/  # hybrid search (vector + BM25 + reranking)
-│   │   └── alembic/            # DB migrations
-│   └── web/                    # React frontend
+│   │   │   ├── main.py               # Entry point
+│   │   │   ├── factory.py            # App factory (middleware, DI setup)
+│   │   │   ├── containers.py         # Dependency injection container
+│   │   │   ├── core/                 # Config, DB, Redis, security, logging
+│   │   │   ├── models/               # SQLAlchemy models
+│   │   │   │   ├── user.py
+│   │   │   │   ├── document.py
+│   │   │   │   ├── message.py
+│   │   │   │   └── audit_log.py
+│   │   │   ├── schemas/              # Pydantic request/response schemas
+│   │   │   ├── api/                  # Route handlers
+│   │   │   │   └── routes/           # auth, query, ingest, admin, feedback
+│   │   │   ├── agents/               # AI Agent logic
+│   │   │   │   ├── agent_graph.py    # LangGraph agent graph
+│   │   │   │   ├── orchestrator.py   # Main agent orchestrator
+│   │   │   │   ├── synthesizer.py    # Guarded LLM synthesizer
+│   │   │   │   ├── complexity_classifier.py
+│   │   │   │   └── domain_classifier.py
+│   │   │   ├── services/
+│   │   │   │   ├── retrieval/        # Hybrid search pipeline
+│   │   │   │   │   ├── fusion.py           # Reciprocal Rank Fusion
+│   │   │   │   │   ├── vector_search.py    # Qdrant dense search
+│   │   │   │   │   ├── meilisearch_bm25.py # Meilisearch BM25
+│   │   │   │   │   ├── cross_encoder_reranker.py
+│   │   │   │   │   ├── query_metadata_extractor.py
+│   │   │   │   │   ├── hyde.py             # HyDE query expansion
+│   │   │   │   │   ├── rag_fusion.py
+│   │   │   │   │   └── query_service.py
+│   │   │   │   ├── ingestion/        # URL ingestion pipeline
+│   │   │   │   ├── citation/         # Citation verification
+│   │   │   │   ├── brain/            # 5-tier memory system
+│   │   │   │   ├── llm/              # LLM provider abstraction
+│   │   │   │   └── evaluation/       # In-service eval helpers
+│   │   │   ├── worker/               # Arq worker config
+│   │   │   └── middleware/           # Rate limiting, auth middleware
+│   │   ├── tests/
+│   │   │   ├── unit/                 # Unit tests
+│   │   │   └── integration/          # Integration tests (cần services)
+│   │   └── pyproject.toml
+│   │
+│   └── web/                          # React frontend
 │       └── src/
-│           ├── components/     # UI components
-│           ├── pages/           # Route pages
-│           ├── stores/          # Zustand state
-│           └── lib/             # utilities
-├── docker-compose.yml
-├── docker-compose.full.yml    # Full stack: API + Web + Worker + Flower + Langfuse
-├── .env.example
-├── evals/                      # Evaluation scripts and golden datasets
-│   ├── golden_dataset.json     # 50 Vietnamese history Q&A pairs
-│   ├── run_ragas.py            # RAGAS evaluation pipeline
-│   ├── eval_retrieval.py       # Retrieval metrics (MRR, Hit Rate, NDCG)
-│   └── eval_llm_judge.py       # LLM-as-Judge evaluation
-├── scripts/                    # Utility scripts
-└── infrastructure/            # Docker & monitoring configs
-    ├── prometheus/
-    │   └── prometheus.yml     # Prometheus scrape config
-    ├── grafana/
-    │   └── provisioning/
-    │       ├── datasources/prometheus.yaml
-    │       └── dashboards/
-    │           ├── dashboard.yaml
-    │           └── historiai.json   # Pre-built dashboard
-    └── docker-compose.observability.yml  # Prometheus + Grafana override
+│           ├── components/           # Reusable UI components
+│           ├── pages/                # ChatPage, AdminPage, SearchPage
+│           ├── stores/               # Zustand state (chatStore, authStore)
+│           ├── hooks/                # Custom hooks (SSE stream)
+│           └── lib/                  # API client wrapper
+│
+├── data/                             # Entity catalogs, era rules, seed data
+├── docs/
+│   ├── AGENT_SAFETY.md              # Production safety documentation
+│   ├── ARCHITECTURE.md
+│   └── reproducibility.md
+├── evals/                            # Evaluation harness
+│   ├── golden_dataset.json          # 50 Q&A pairs (Vietnamese history)
+│   ├── run_ragas.py                 # RAGAS evaluation pipeline
+│   ├── run_ablation_study.py        # Ablation study (Config A–F)
+│   ├── eval_retrieval.py            # MRR, Hit Rate, NDCG metrics
+│   └── calculate_agreement.py       # Cohen's Kappa inter-annotator
+├── infrastructure/
+│   ├── prometheus/prometheus.yml
+│   ├── grafana/provisioning/
+│   └── docker-compose.observability.yml
+├── scripts/                          # Utility & seed scripts
+├── docker-compose.yml               # Core services (DB, cache, search)
+├── docker-compose.full.yml          # Full stack + API + Web + Worker
+├── Makefile
+└── .env.example
 ```
+
+---
 
 ## API Endpoints
 
-| Group | Path | Methods |
-|-------|------|---------|
-| Auth | `/api/v1/auth` | POST login, register; GET me |
-| Query | `/api/v1/query` | POST (sync), POST /stream (SSE) |
-| Sessions | `/api/v1/sessions` | GET list, GET /{id}, GET /{id}/messages |
-| Ingest | `/api/v1/ingest` | POST /url, GET /jobs, GET /jobs/{id} |
-| Documents | `/api/v1/documents` | GET list, GET /{id}, PATCH /{id} |
-| Admin | `/api/v1/admin` | GET /stats, POST /approve, POST /reject |
-| Feedback | `/api/v1/feedback` | POST |
-| Metrics | `/metrics` | GET (Prometheus format) |
+Xem interactive docs tại http://localhost:12701/docs
 
-## Implementation Phases
+| Group | Method | Path | Mô tả |
+|-------|--------|------|-------|
+| **Auth** | POST | `/api/v1/auth/register` | Đăng ký tài khoản |
+| | POST | `/api/v1/auth/login` | Đăng nhập, nhận JWT |
+| | GET | `/api/v1/auth/me` | Thông tin user hiện tại |
+| **Query** | POST | `/api/v1/query` | Truy vấn đồng bộ |
+| | POST | `/api/v1/query/stream` | Truy vấn SSE streaming |
+| **Sessions** | GET | `/api/v1/sessions` | Danh sách phiên chat |
+| | GET | `/api/v1/sessions/{id}/messages` | Lịch sử tin nhắn |
+| **Ingest** | POST | `/api/v1/ingest/url` | Nạp tài liệu từ URL |
+| | GET | `/api/v1/ingest/jobs` | Danh sách ingestion jobs |
+| | GET | `/api/v1/ingest/jobs/{id}` | Trạng thái job |
+| **Documents** | GET | `/api/v1/documents` | Danh sách tài liệu |
+| | PATCH | `/api/v1/documents/{id}` | Cập nhật metadata |
+| **Admin** | GET | `/api/v1/admin/stats` | Thống kê hệ thống |
+| | POST | `/api/v1/admin/approve` | Duyệt tài liệu |
+| **Feedback** | POST | `/api/v1/feedback` | Gửi feedback câu trả lời |
+| **Metrics** | GET | `/metrics` | Prometheus metrics |
 
-- [x] **Phase 0**: Repository setup, Docker Compose (DB only), PostgreSQL schema, FastAPI skeleton, React + Vite
-- [x] **Phase 1**: URL Ingestion Pipeline (SSRF, extraction, cleaning, chunk persistence)
-- [x] **Phase 2**: Retrieval foundation (SQL fallback, embedder, Qdrant/BM25 components)
-- [x] **Phase 3**: Research Agent foundation (classifier, planner, verifier, reranker, guarded synthesizer)
-- [x] **Phase 4**: Chat UI (single SSE flow, citations, trace-capable session state)
-- [x] **Phase 5**: LLM synthesis hooks with per-claim citation validation and extractive fallback
-- [x] **Phase 6**: Unit + integration tests, RAGAS evaluation pipeline, golden dataset (50 Q&A), LLM-as-Judge evaluation, GitHub Actions CI + eval workflow
-- [x] **Phase 7**: Prometheus metrics, Langfuse tracing (self-hosted), Sentry error reporting, `/metrics` endpoint, Grafana dashboards, full Docker stack (API + Web + Worker + Flower)
-- [x] **Phase 8**: Production Safety & Resilience (Kill switch, 5-tier memory, circuit breakers, anomaly detection, A2A protocol)
+---
 
-## Production Safety Features
+## Evaluation & Benchmark
 
-HistoriAI implements production-grade Agentic AI safety following 2026 best practices:
+### Chạy RAGAS evaluation
 
-- **Agent Safety Layer**: Kill switch, hard token budget enforcement, session management
-- **5-Tier Memory**: Short-term, Episodic, Semantic, Procedural, Observational
-- **Tool Safety**: Input validation, PII detection, output filtering, permission scoping
-- **Circuit Breakers**: Prevent cascading failures, automatic recovery
-- **Anomaly Detection**: Loop prevention, latency monitoring, cost tracking
-- **Graceful Degradation**: Fallback chains, dead letter queue, rate limiting
-- **A2A Protocol**: Multi-agent communication standard with discovery
-- **Safe LangGraph**: Safety-wrapped agent graph with checkpoints
+```bash
+cd evals
+source ../apps/api/venv/bin/activate
 
-See [docs/AGENT_SAFETY.md](docs/AGENT_SAFETY.md) for detailed documentation.
+# Chạy full evaluation pipeline
+python run_ragas.py
+
+# Chạy ablation study (6 cấu hình A–F)
+python run_ablation_study.py
+
+# Đánh giá retrieval metrics (MRR, Hit@k, NDCG)
+python eval_retrieval.py
+
+# Tính Cohen's Kappa inter-annotator agreement
+python calculate_agreement.py
+```
+
+### Kết quả mục tiêu
+
+| Metric | Target |
+|--------|--------|
+| RAGAS Faithfulness | > 0.85 |
+| Citation Precision | > 0.80 |
+| Citation Recall | > 0.80 |
+| Wilcoxon p-value | < 0.05 |
+
+---
+
+## Testing
+
+### Unit tests
+
+```bash
+cd apps/api
+source venv/bin/activate
+
+# Chạy tất cả tests
+pytest tests/ -v
+
+# Chạy với coverage report
+pytest tests/ -v --cov=app --cov-report=term-missing --cov-report=html
+
+# Chạy một file cụ thể
+pytest tests/unit/test_fusion.py -v
+pytest tests/unit/test_query_metadata_extractor.py -v
+```
+
+### Integration tests (cần Docker services đang chạy)
+
+```bash
+pytest tests/integration/ -v
+```
+
+### Frontend tests
+
+```bash
+cd apps/web
+npm run test -- --run
+```
+
+---
+
+## Observability
+
+### Prometheus + Grafana
+
+```bash
+# Start observability stack
+docker network create historiai-network 2>/dev/null || true
+docker-compose -f docker-compose.yml -f infrastructure/docker-compose.observability.yml up -d
+
+# Truy cập
+# Prometheus: http://localhost:9090
+# Grafana:    http://localhost:13000  (admin / historiai)
+# Metrics:    http://localhost:12701/metrics
+```
+
+Grafana đã được pre-configured với dashboard `infrastructure/grafana/provisioning/dashboards/historiai.json`.
+
+### Langfuse (LLM Tracing)
+
+```bash
+# Trong .env
+LANGFUSE_ENABLED=true
+LANGFUSE_PUBLIC_KEY=pk-lf-...
+LANGFUSE_SECRET_KEY=sk-lf-...
+LANGFUSE_HOST=https://cloud.langfuse.com
+# Hoặc self-hosted: LANGFUSE_HOST=http://localhost:12708
+```
+
+---
+
+## Makefile Commands
+
+```bash
+make help           # Xem tất cả lệnh có sẵn
+
+# Development
+make dev-api        # Chạy backend (port 12701)
+make dev-web        # Chạy frontend (port 12702)
+
+# Docker
+make up             # docker-compose up -d
+make down           # docker-compose down
+make logs           # Tail tất cả logs
+make logs-api       # Tail API logs
+
+# Database
+make db-migrate     # alembic upgrade head
+make db-rollback    # alembic downgrade -1
+
+# Testing
+make test-api       # pytest tests/ -v
+make test-api-cov   # pytest với coverage
+make test-web       # npm run test
+
+# Linting & Formatting
+make lint-api       # ruff check app/
+make lint-api-fix   # ruff check app/ --fix
+make fmt-api        # ruff format app/
+make fmt-web        # prettier --write src/
+
+# Type checking
+make typecheck-api  # mypy app/
+make typecheck-web  # tsc --noEmit
+
+# Cleanup
+make clean          # Xóa __pycache__, .pytest_cache, etc.
+```
+
+---
+
+## Ports Reference
+
+| Service | Host Port |
+|---------|-----------|
+| FastAPI Backend | `12701` |
+| React/Vite Frontend | `12702` |
+| PostgreSQL | `12703` |
+| Redis | `12704` |
+| Qdrant REST | `12705` |
+| Qdrant GRPC | `12706` |
+| Meilisearch | `12707` |
+| Langfuse | `12708` |
+| Prometheus | `9090` |
+| Grafana | `13000` |
+
+---
+
+## Troubleshooting
+
+### `docker-compose up -d` thất bại — port đã bị dùng
+
+```bash
+# Kiểm tra port nào đang bị chiếm
+sudo lsof -i :12703   # PostgreSQL
+sudo lsof -i :12704   # Redis
+
+# Kill process
+sudo kill -9 <PID>
+```
+
+### Alembic migration lỗi `ProgrammingError: index already exists`
+
+```bash
+cd apps/api
+source venv/bin/activate
+ALEMBIC_AUTOCOMMIT=true alembic upgrade head
+```
+
+### Backend lỗi `Connection refused` khi kết nối services
+
+Đảm bảo Docker services đang chạy:
+
+```bash
+docker-compose ps        # kiểm tra status
+docker-compose up -d     # restart nếu cần
+```
+
+### Frontend không kết nối được API
+
+Kiểm tra `VITE_API_URL` trong `apps/web/.env.local`:
+
+```bash
+VITE_API_URL=http://localhost:12701
+```
+
+### Reset toàn bộ database
+
+```bash
+docker-compose down -v   # xóa volumes
+docker-compose up -d     # tạo lại
+cd apps/api
+source venv/bin/activate
+ALEMBIC_AUTOCOMMIT=true alembic upgrade head
+```
+
+### Worker không nhận jobs
+
+```bash
+# Kiểm tra Redis kết nối
+redis-cli -p 12704 ping   # phải trả về PONG
+
+# Restart worker
+cd apps/api
+source venv/bin/activate
+rq worker ingest-queue --url redis://localhost:12704/0
+```
+
+---
+
+## Full Stack Docker (Production-like)
+
+Chạy toàn bộ stack trong Docker (bao gồm API + Web + Worker):
+
+```bash
+docker network create historiai-network 2>/dev/null || true
+docker compose -f docker-compose.yml -f docker-compose.full.yml up -d --build
+
+# Xem logs
+docker compose -f docker-compose.yml -f docker-compose.full.yml logs -f
+
+# Rebuild sau khi sửa code
+docker compose -f docker-compose.yml -f docker-compose.full.yml up -d --build
+```
+
+---
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+1. Fork repository
+2. Tạo feature branch: `git checkout -b feature/ten-tinh-nang`
+3. Chạy lint trước khi commit: `make lint`
+4. Chạy tests: `make test-api`
+5. Commit với message rõ ràng
+6. Tạo Pull Request
+
+Xem [CONTRIBUTING.md](CONTRIBUTING.md) để biết thêm chi tiết.
+
+---
 
 ## License
 
-MIT
+MIT — xem [LICENSE](LICENSE)

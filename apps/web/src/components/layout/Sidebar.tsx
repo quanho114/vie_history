@@ -339,15 +339,81 @@ function IconBrain({ className = "" }: { className?: string }) {
 }
 
 /* ========================================
+   Custom Museum Archive Icons
+   ======================================== */
+
+function IconTrangChu({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <polyline points="9,22 9,12 15,12 15,22" />
+    </svg>
+  );
+}
+
+function IconTimelineCustom({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
+    </svg>
+  );
+}
+
+function IconNhanVat({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  );
+}
+
+function IconSuKien({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="m9 12 2 2 4-4" />
+      <circle cx="12" cy="12" r="10" />
+    </svg>
+  );
+}
+
+function IconTaiLieu({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="16" y1="13" x2="8" y2="13" />
+      <line x1="16" y1="17" x2="8" y2="17" />
+    </svg>
+  );
+}
+
+function IconAIAssistant({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M12 8V4H8" />
+      <rect width="16" height="12" x="4" y="8" rx="2" />
+      <path d="M9 13h.01" />
+      <path d="M15 13h.01" />
+      <path d="M10 16h4" />
+    </svg>
+  );
+}
+
+/* ========================================
    Nav Items Config
    ======================================== */
 
 const navItems = [
-  { to: "/wiki", icon: IconBookOpen, label: "Wiki Lịch sử" },
-  { to: "/timeline", icon: IconTimeline, label: "Mốc thời gian" },
-  { to: "/graph", icon: IconGitCommit, label: "Bản đồ Tri thức" },
-  { to: "/brain-builder", icon: IconBrain, label: "Biên dịch Tri thức" },
-  { to: "/documents", icon: IconDocuments, label: "Kho tài liệu" },
+  { to: "/chat", icon: IconTrangChu, label: "Trang chủ" },
+  { to: "/timeline", icon: IconTimelineCustom, label: "Dòng thời gian" },
+  { to: "/wiki", icon: IconNhanVat, label: "Nhân vật" },
+  { to: "/graph", icon: IconSuKien, label: "Sự kiện" },
+  { to: "/documents", icon: IconTaiLieu, label: "Tài liệu" },
+  { to: "/brain-builder", icon: IconAIAssistant, label: "AI Assistant" },
 ];
 
 const GROQ_LEGACY_MODEL_MAP: Record<string, string> = {
@@ -579,10 +645,10 @@ export function Sidebar({
   const visibleSessions = showAllSessions ? filteredSessions : filteredSessions.slice(0, 8);
 
   const handleNewChat = async () => {
-    const emptySession = sessions.find((session) => session.message_count === 0);
-
-    if (emptySession) {
-      setActiveSession(emptySession.id);
+    setSessionError(null);
+    const activeSession = sessions.find((s) => s.id === activeSessionId);
+    
+    if (activeSession && (activeSession.message_count ?? 0) === 0) {
       navigate("/chat");
       onClose?.();
       return;
@@ -595,10 +661,12 @@ export function Sidebar({
       onClose?.();
     } catch (e) {
       console.error("Failed to create new chat:", e);
+      setSessionError(e instanceof Error ? e.message : "Không thể tạo cuộc trò chuyện mới.");
     }
   };
 
   const handleSessionClick = (sessionId: string) => {
+    setSessionError(null);
     setActiveSession(sessionId);
     navigate("/chat");
     onClose?.();
@@ -643,12 +711,12 @@ export function Sidebar({
 
   const translatedLabel = (to: string, fallback: string) => {
     switch (to) {
-      case "/chat": return t("chat");
-      case "/wiki": return t("wiki");
-      case "/timeline": return t("timeline");
-      case "/graph": return t("knowledge_map");
-      case "/brain-builder": return t("knowledge_translate");
-      case "/documents": return t("documents");
+      case "/chat": return "Trang chủ";
+      case "/wiki": return "Nhân vật";
+      case "/timeline": return "Dòng thời gian";
+      case "/graph": return "Sự kiện";
+      case "/documents": return "Tài liệu";
+      case "/brain-builder": return "AI Assistant";
       default: return fallback;
     }
   };
@@ -729,7 +797,7 @@ export function Sidebar({
         )}
 
         {/* Navigation */}
-        <nav className="px-3 pt-2 pb-1 flex-shrink-0 space-y-1">
+        <nav className={cn("pt-2 pb-1 flex-shrink-0 space-y-1", isCollapsed ? "px-1" : "px-3")}>
           {/* New Chat Button */}
           <button
             type="button"
@@ -792,7 +860,7 @@ export function Sidebar({
         )}
 
         {/* Divider */}
-        <div className="mx-3 mt-3 border-t border-hairline" />
+        <div className={cn("mt-3 border-t border-hairline", isCollapsed ? "mx-2" : "mx-3")} />
 
         {/* Recents Section */}
         {!isCollapsed && (
@@ -939,11 +1007,11 @@ export function Sidebar({
         )}
 
         {/* Divider */}
-        <div className="mx-3 border-t border-hairline" />
+        <div className={cn("border-t border-hairline", isCollapsed ? "mx-2" : "mx-3")} />
 
         {/* Admin Links (Only for Admin role) */}
         {user?.role === "admin" && (
-          <div className="px-3 py-0.5 flex-shrink-0">
+          <div className={cn("py-0.5 flex-shrink-0", isCollapsed ? "px-1" : "px-3")}>
             <NavLink
               to="/admin"
               className={({ isActive }) =>
@@ -970,7 +1038,7 @@ export function Sidebar({
 
         {/* Wiki Drafts Review Link (For Admins and Editors) */}
         {(user?.role === "admin" || user?.role === "editor") && (
-          <div className="px-3 py-0.5 flex-shrink-0">
+          <div className={cn("py-0.5 flex-shrink-0", isCollapsed ? "px-1" : "px-3")}>
             <NavLink
               to="/wiki/drafts/review"
               className={({ isActive }) =>
@@ -1024,7 +1092,7 @@ export function Sidebar({
 
         {/* Knowledge Evolution Link (For Admins and Editors) */}
         {(user?.role === "admin" || user?.role === "editor") && (
-          <div className="px-3 py-0.5 flex-shrink-0">
+          <div className={cn("py-0.5 flex-shrink-0", isCollapsed ? "px-1" : "px-3")}>
             <NavLink
               to="/graph/drafts/review"
               className={({ isActive }) =>
@@ -1079,7 +1147,7 @@ export function Sidebar({
         )}
 
         {/* User Row - Clickable to open settings */}
-        <div className={cn("pb-3 pt-2 flex-shrink-0 flex justify-center", isCollapsed ? "px-2" : "px-3")}>
+        <div className={cn("pb-3 pt-2 flex-shrink-0 flex justify-center", isCollapsed ? "px-1" : "px-3")}>
           <button
             type="button"
             onClick={() => setSettingsOpen(true)}

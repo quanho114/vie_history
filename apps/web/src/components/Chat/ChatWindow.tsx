@@ -10,7 +10,7 @@ interface ChatWindowProps {
   onRetry?: () => void;
 }
 
-export function ChatWindow({ messages, isStreaming, error, onRetry }: ChatWindowProps) {
+export const ChatWindow = memo(function ChatWindow({ messages, isStreaming, error, onRetry }: ChatWindowProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const lastMessageCountRef = useRef(messages.length);

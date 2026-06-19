@@ -298,11 +298,20 @@ async def retrieval_node(state: AgentState) -> dict[str, Any]:
             if key not in seen:
                 seen.add(key)
                 content = chunk.get("content", "")
-                if total_chars + len(content) <= char_limit or not deduped:
+                available_chars = char_limit - total_chars
+                if available_chars <= 0:
+                    break
+                if len(content) > available_chars:
+                    # If this is the first chunk or we have enough space (>= 200 chars), truncate it
+                    if not deduped or available_chars >= 200:
+                        chunk_copy = dict(chunk)
+                        chunk_copy["content"] = content[:available_chars] + "... [nội dung bị cắt giảm để tránh quá tải]"
+                        deduped.append(chunk_copy)
+                        total_chars += len(chunk_copy["content"])
+                    break
+                else:
                     deduped.append(chunk)
                     total_chars += len(content)
-                else:
-                    break
         retrieved = deduped
     except Exception as exc:
         logger.error("agent_retrieval_failed", error=str(exc))

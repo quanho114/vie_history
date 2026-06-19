@@ -4,6 +4,8 @@ import { AppShell } from "@/components/layout"
 import { useAuthStore } from "@/stores/authStore"
 import { ErrorBoundary } from "@/components/ErrorBoundary"
 import { PageSkeleton } from "@/components/ui"
+import { ToastContainer } from "@/components/UI/ToastContainer"
+import { ConfirmModal } from "@/components/UI/ConfirmModal"
 
 // Lazy load all pages — reduces initial bundle size by loading
 // each page only when its route is first accessed.
@@ -83,6 +85,8 @@ export default function App() {
         {/* 404 – outside AppShell so no sidebar */}
         <Route path="*" element={<Suspense fallback={<PageSkeleton />}><NotFoundPage /></Suspense>} />
       </Routes>
+      <ToastContainer />
+      <ConfirmModal />
     </ErrorBoundary>
   )
 }

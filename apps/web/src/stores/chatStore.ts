@@ -17,7 +17,7 @@ interface ChatState {
   createSession: (title?: string) => Promise<Session>
   setActiveSession: (id: string | null) => void
   loadMessages: (sessionId: string) => Promise<void>
-  sendMessage: (query: string) => Promise<void>
+  sendMessage: (query: string, filters?: Record<string, any>) => Promise<void>
   abortStreaming: () => void
   clearError: () => void
   renameSession: (id: string, title: string) => Promise<void>
@@ -47,10 +47,14 @@ export const useChatStore = create<ChatState>()((set, get) => ({
 
   createSession: async (title?: string) => {
     const session = await sessionsApi.create(title)
+    const sessionWithClientTime = {
+      ...session,
+      client_created_at: Date.now(),
+    }
     set((state) => ({
-      sessions: [session, ...state.sessions],
+      sessions: [sessionWithClientTime, ...state.sessions],
     }))
-    return session
+    return sessionWithClientTime
   },
 
   setActiveSession: (id: string | null) => {
@@ -74,7 +78,7 @@ export const useChatStore = create<ChatState>()((set, get) => ({
     }
   },
 
-  sendMessage: async (query: string) => {
+  sendMessage: async (query: string, filters?: Record<string, any>) => {
     const { activeSessionId, sessions } = get()
 
     // Create session if none selected
@@ -135,7 +139,7 @@ export const useChatStore = create<ChatState>()((set, get) => ({
 
     try {
       await queryApi.streamQuery(
-        { query, session_id: sessionId },
+        { query, session_id: sessionId, filters },
         (data) => {
           if (data.type === "stage") {
             set({ currentStage: (data.stage ?? data.data ?? null) as string | null })
@@ -297,6 +301,14 @@ export const useChatStore = create<ChatState>()((set, get) => ({
         get().loadMessages(activeSessionId)
       }
     } catch (error) {
+      const isNotFoundError = error instanceof Error && (
+        error.message.includes("404") ||
+        error.message.toLowerCase().includes("not found")
+      )
+      if (isNotFoundError) {
+        console.warn("Session was already deleted or not found on server:", id)
+        return
+      }
       console.error("Failed to delete session:", error)
       set({
         sessions: previousState.sessions,
