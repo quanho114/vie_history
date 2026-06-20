@@ -1,0 +1,31 @@
+{
+  "dataset_size": 500,
+  "evaluated_subset_size": 20,
+  "metrics": {
+    "retrieval_recall": 0.57,
+    "faithfulness": 0.6,
+    "citation_accuracy": 0.47
+  },
+  "by_category": {
+    "factual": {
+      "retrieval_recall": 0.8,
+      "faithfulness": 0.75,
+      "citation_accuracy": 0.7
+    },
+    "timeline": {
+      "retrieval_recall": 0.6,
+      "faithfulness": 0.65,
+      "citation_accuracy": 0.5
+    },
+    "comparison": {
+      "retrieval_recall": 0.5,
+      "faithfulness": 0.55,
+      "citation_accuracy": 0.4
+    },
+    "multihop": {
+      "retrieval_recall": 0.4,
+      "faithfulness": 0.45,
+      "citation_accuracy": 0.3
+    }
+  }
+}
