@@ -403,6 +403,14 @@ function IconAIAssistant({ className = "" }: { className?: string }) {
   );
 }
 
+function IconAgentTrace({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+    </svg>
+  );
+}
+
 /* ========================================
    Nav Items Config
    ======================================== */
@@ -414,6 +422,7 @@ const navItems = [
   { to: "/graph", icon: IconSuKien, label: "Sự kiện" },
   { to: "/documents", icon: IconTaiLieu, label: "Tài liệu" },
   { to: "/brain-builder", icon: IconAIAssistant, label: "AI Assistant" },
+  { to: "/agent-trace", icon: IconAgentTrace, label: "Giám sát Agent" },
 ];
 
 const GROQ_LEGACY_MODEL_MAP: Record<string, string> = {
@@ -448,7 +457,7 @@ export function Sidebar({
   isCollapsed = false,
   onToggleCollapse,
 }: SidebarProps) {
-  const { sessions, createSession, setActiveSession, activeSessionId, renameSession, deleteSession, deleteAllSessions } = useChatStore();
+  const { sessions, createSession, setActiveSession, activeSessionId, renameSession, deleteSession, deleteAllSessions, abortStreaming, isStreaming } = useChatStore();
   const { user, logout, updateUserProfile } = useAuthStore();
 
   const [pendingGraphCount, setPendingGraphCount] = useState<number>(0);
@@ -646,6 +655,12 @@ export function Sidebar({
 
   const handleNewChat = async () => {
     setSessionError(null);
+
+    // Cancel any ongoing stream before switching
+    if (isStreaming) {
+      abortStreaming();
+    }
+
     const activeSession = sessions.find((s) => s.id === activeSessionId);
     
     if (activeSession && (activeSession.message_count ?? 0) === 0) {
@@ -667,6 +682,10 @@ export function Sidebar({
 
   const handleSessionClick = (sessionId: string) => {
     setSessionError(null);
+    // Cancel any ongoing stream before switching to another session
+    if (isStreaming) {
+      abortStreaming();
+    }
     setActiveSession(sessionId);
     navigate("/chat");
     onClose?.();
@@ -717,6 +736,7 @@ export function Sidebar({
       case "/graph": return "Sự kiện";
       case "/documents": return "Tài liệu";
       case "/brain-builder": return "AI Assistant";
+      case "/agent-trace": return "Giám sát Agent";
       default: return fallback;
     }
   };
