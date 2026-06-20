@@ -17,9 +17,44 @@ class CitationVerifier:
 
     def _split_into_sentences(self, text: str) -> List[str]:
         """Split text into sentences, keeping track of original content."""
-        # Split by periods/questions followed by space, EXCEPT when followed by a citation marker like [S1]
-        raw_sentences = re.split(r'(?<=\.|\?)\s+(?!\[S\d+\])', text)
-        return [s.strip() for s in raw_sentences if s.strip()]
+        if not text:
+            return []
+
+        # Common Vietnamese abbreviations to protect from splitting
+        abbreviations = ["TP", "ThS", "TS", "GS", "tr", "Q", "PGS", "NXB", "đ", "v.v"]
+        
+        protected_text = text
+        for abbr in abbreviations:
+            # Match whole-word abbreviation followed by a dot
+            protected_text = re.sub(
+                rf"\b{abbr}\.",
+                f"{abbr}_DOT_TEMP",
+                protected_text,
+                flags=re.IGNORECASE,
+            )
+
+        # Split at sentence boundaries:
+        # 1. Dot, question, or exclamation mark followed by space, unless followed by a citation marker [S1]
+        # 2. Space after a 1-digit or 2-digit citation marker [S1]/[S12] if it was preceded by a boundary
+        pattern = r'(?<=[\.\?\!])\s+(?!\[S\d+\])|(?<=[\.\?\!]\s\[S\d\])\s+|(?<=[\.\?\!]\s\[S\d\d\])\s+'
+        raw_sentences = re.split(pattern, protected_text)
+
+        sentences = []
+        for s in raw_sentences:
+            s_clean = s.strip()
+            if not s_clean:
+                continue
+            # Restore the protected dots
+            for abbr in abbreviations:
+                s_clean = re.sub(
+                    rf"{abbr}_DOT_TEMP",
+                    f"{abbr}.",
+                    s_clean,
+                    flags=re.IGNORECASE,
+                )
+            sentences.append(s_clean)
+
+        return sentences
 
     async def verify(self, answer: str, chunks: List[Dict[str, Any]]) -> Dict[str, Any]:
         """

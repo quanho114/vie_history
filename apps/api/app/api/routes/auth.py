@@ -179,25 +179,27 @@ async def login(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid email or password",
             )
-    except DBAPIError:
-        # No database — use bypass user with any credentials
-        bypass_user = get_bypass_user()
-        bypass_user.email = data.email
-        access_token = create_access_token(
-            user_id=bypass_user.id,
-            email=bypass_user.email,
-            role=bypass_user.role,
-        )
-        return TokenResponse(
-            access_token=access_token,
-            user=UserResponse(
-                id=bypass_user.id,
+    except DBAPIError as exc:
+        if DEV_BYPASS:
+            # No database — use bypass user with any credentials
+            bypass_user = get_bypass_user()
+            bypass_user.email = data.email
+            access_token = create_access_token(
+                user_id=bypass_user.id,
                 email=bypass_user.email,
-                username=bypass_user.username,
                 role=bypass_user.role,
-                settings=mask_settings_keys(bypass_user.settings),
-            ),
-        )
+            )
+            return TokenResponse(
+                access_token=access_token,
+                user=UserResponse(
+                    id=bypass_user.id,
+                    email=bypass_user.email,
+                    username=bypass_user.username,
+                    role=bypass_user.role,
+                    settings=mask_settings_keys(bypass_user.settings),
+                ),
+            )
+        raise exc
 
     # Generate token
     access_token = create_access_token(
