@@ -471,40 +471,48 @@ async def world_model_node(state: AgentState) -> dict[str, Any]:
     trace = list(state.get("agent_trace", []))
     logger.info("agent_world_model_node_running", query=query[:50])
 
-    # Assemble context for World Model to analyze
-    context_blocks = []
-    for chunk in state.get("retrieved_chunks", []):
-        context_blocks.append(f" VĂN BẢN: {chunk.get('content', '')}")
-    for ev in state.get("timeline_events", []):
-        context_blocks.append(f" NIÊN BIỂU: {ev['title']} ({ev['year']}) - {ev['description']}")
-    for ent in state.get("graph_entities", []):
-        context_blocks.append(f" QUAN HỆ ĐỒ THỊ: {ent['node_name']} ({ent['edge_type']}) - {ent.get('direction', '')}")
-
-    context = "\n".join(context_blocks[:15])
-
-    prompt = (
-        f"Bạn là World Model Agent của hệ thống Trí tuệ Nhân tạo Lịch sử Việt Nam.\n"
-        f"Câu hỏi nghiên cứu: {query}\n\n"
-        f"Dữ liệu bối cảnh thô thu thập được:\n{context}\n\n"
-        f"Nhiệm vụ của bạn:\n"
-        f"Hãy phân tích và mô hình hóa các ĐỘNG LỰC LỊCH SỬ và LIÊN KẾT NHÂN QUẢ vĩ mô ẩn sau câu hỏi này.\n"
-        f"Giải thích ảnh hưởng của bối cảnh thời đại, tương quan lực lượng, lý do sâu xa dẫn đến diễn biến lịch sử đó (bằng tiếng Việt).\n"
-        f"Hãy trả về phân tích sâu sắc dưới dạng Chain-of-Thought (từng bước lập luận nhân quả). Không viết câu trả lời hoàn chỉnh cho người dùng."
-    )
-
-    world_model_analysis = "Không thể sinh phân tích nhân quả lịch sử vĩ mô."
     status = "success"
     try:
-        llm = get_llm_client()
-        world_model_analysis = await llm.generate(
-            prompt,
-            system="Bạn là mô hình nhận thức phân tích các lực đẩy lịch sử và động lực nhân quả vĩ mô (World Causal Model).",
-            max_tokens=1024
+        from app.services.agent.historical_reasoning_engine import HistoricalReasoningEngine
+        engine = HistoricalReasoningEngine()
+        analysis = await engine.analyze_causality(
+            query,
+            state.get("retrieved_chunks", []),
+            state.get("timeline_events", [])
         )
-        if world_model_analysis.startswith("[Phản hồi từ bộ nhớ tạm"):
-            status = "failed"
+        
+        # Format the structured JSON into a cohesive Markdown report for the synthesizer
+        report_lines = ["BẢN ĐỒ NHÂN QUẢ LỊCH SỬ (WORLD CAUSAL MODEL):"]
+        
+        if analysis.get("causes"):
+            report_lines.append("- **Bối cảnh & Nguyên nhân sâu xa (Causes):**")
+            for c in analysis["causes"]:
+                report_lines.append(f"  - {c}")
+                
+        if analysis.get("triggers"):
+            report_lines.append("- **Nguyên nhân trực tiếp & Ngòi nổ (Triggers):**")
+            for t in analysis["triggers"]:
+                report_lines.append(f"  - {t}")
+                
+        if analysis.get("turning_points"):
+            report_lines.append("- **Các bước ngoặt quyết định (Turning Points):**")
+            for tp in analysis["turning_points"]:
+                report_lines.append(f"  - {tp}")
+                
+        if analysis.get("consequences"):
+            report_lines.append("- **Kết quả & Hậu quả trực tiếp (Consequences):**")
+            for cn in analysis["consequences"]:
+                report_lines.append(f"  - {cn}")
+                
+        if analysis.get("long_term_impacts"):
+            report_lines.append("- **Ý nghĩa & Ảnh hưởng lâu dài (Long-term Impacts):**")
+            for lti in analysis["long_term_impacts"]:
+                report_lines.append(f"  - {lti}")
+                
+        world_model_analysis = "\n".join(report_lines)
     except Exception as exc:
         logger.error("agent_world_model_failed", error=str(exc))
+        world_model_analysis = "Không thể sinh phân tích nhân quả lịch sử vĩ mô."
         status = "failed"
 
     trace.append(
