@@ -1,0 +1,4902 @@
+[
+  {
+    "id": "vhrag_001",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_002",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_003",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_004",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_005",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_006",
+    "category": "factual",
+    "query": "Chiến dịch Khe Sanh diễn ra năm nào?",
+    "reference_answer": "Khe Sanh diễn ra vào năm 1968.",
+    "key_entities": [
+      "Khe Sanh",
+      "1968"
+    ]
+  },
+  {
+    "id": "vhrag_007",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_008",
+    "category": "factual",
+    "query": "Chiến dịch Đường 9 - Nam Lào diễn ra năm nào?",
+    "reference_answer": "Đường 9 - Nam Lào diễn ra vào năm 1971.",
+    "key_entities": [
+      "Đường 9 - Nam Lào",
+      "1971"
+    ]
+  },
+  {
+    "id": "vhrag_009",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_010",
+    "category": "factual",
+    "query": "Chiến dịch Điện Biên Phủ trên không diễn ra năm nào?",
+    "reference_answer": "Điện Biên Phủ trên không diễn ra vào năm 1972.",
+    "key_entities": [
+      "Điện Biên Phủ trên không",
+      "1972"
+    ]
+  },
+  {
+    "id": "vhrag_011",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_012",
+    "category": "factual",
+    "query": "Chiến dịch Tây Nguyên diễn ra năm nào?",
+    "reference_answer": "Tây Nguyên diễn ra vào năm 1975.",
+    "key_entities": [
+      "Tây Nguyên",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_013",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_014",
+    "category": "factual",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng miền Nam diễn ra năm nào?",
+    "reference_answer": "Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_015",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_016",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_017",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_018",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_019",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_020",
+    "category": "factual",
+    "query": "Chiến dịch Khe Sanh diễn ra năm nào?",
+    "reference_answer": "Khe Sanh diễn ra vào năm 1968.",
+    "key_entities": [
+      "Khe Sanh",
+      "1968"
+    ]
+  },
+  {
+    "id": "vhrag_021",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_022",
+    "category": "factual",
+    "query": "Chiến dịch Đường 9 - Nam Lào diễn ra năm nào?",
+    "reference_answer": "Đường 9 - Nam Lào diễn ra vào năm 1971.",
+    "key_entities": [
+      "Đường 9 - Nam Lào",
+      "1971"
+    ]
+  },
+  {
+    "id": "vhrag_023",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_024",
+    "category": "factual",
+    "query": "Chiến dịch Điện Biên Phủ trên không diễn ra năm nào?",
+    "reference_answer": "Điện Biên Phủ trên không diễn ra vào năm 1972.",
+    "key_entities": [
+      "Điện Biên Phủ trên không",
+      "1972"
+    ]
+  },
+  {
+    "id": "vhrag_025",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_026",
+    "category": "factual",
+    "query": "Chiến dịch Tây Nguyên diễn ra năm nào?",
+    "reference_answer": "Tây Nguyên diễn ra vào năm 1975.",
+    "key_entities": [
+      "Tây Nguyên",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_027",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_028",
+    "category": "factual",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng miền Nam diễn ra năm nào?",
+    "reference_answer": "Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_029",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_030",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_031",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_032",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_033",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_034",
+    "category": "factual",
+    "query": "Chiến dịch Khe Sanh diễn ra năm nào?",
+    "reference_answer": "Khe Sanh diễn ra vào năm 1968.",
+    "key_entities": [
+      "Khe Sanh",
+      "1968"
+    ]
+  },
+  {
+    "id": "vhrag_035",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_036",
+    "category": "factual",
+    "query": "Chiến dịch Đường 9 - Nam Lào diễn ra năm nào?",
+    "reference_answer": "Đường 9 - Nam Lào diễn ra vào năm 1971.",
+    "key_entities": [
+      "Đường 9 - Nam Lào",
+      "1971"
+    ]
+  },
+  {
+    "id": "vhrag_037",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_038",
+    "category": "factual",
+    "query": "Chiến dịch Điện Biên Phủ trên không diễn ra năm nào?",
+    "reference_answer": "Điện Biên Phủ trên không diễn ra vào năm 1972.",
+    "key_entities": [
+      "Điện Biên Phủ trên không",
+      "1972"
+    ]
+  },
+  {
+    "id": "vhrag_039",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_040",
+    "category": "factual",
+    "query": "Chiến dịch Tây Nguyên diễn ra năm nào?",
+    "reference_answer": "Tây Nguyên diễn ra vào năm 1975.",
+    "key_entities": [
+      "Tây Nguyên",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_041",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_042",
+    "category": "factual",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng miền Nam diễn ra năm nào?",
+    "reference_answer": "Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_043",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_044",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_045",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_046",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_047",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_048",
+    "category": "factual",
+    "query": "Chiến dịch Khe Sanh diễn ra năm nào?",
+    "reference_answer": "Khe Sanh diễn ra vào năm 1968.",
+    "key_entities": [
+      "Khe Sanh",
+      "1968"
+    ]
+  },
+  {
+    "id": "vhrag_049",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_050",
+    "category": "factual",
+    "query": "Chiến dịch Đường 9 - Nam Lào diễn ra năm nào?",
+    "reference_answer": "Đường 9 - Nam Lào diễn ra vào năm 1971.",
+    "key_entities": [
+      "Đường 9 - Nam Lào",
+      "1971"
+    ]
+  },
+  {
+    "id": "vhrag_051",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_052",
+    "category": "factual",
+    "query": "Chiến dịch Điện Biên Phủ trên không diễn ra năm nào?",
+    "reference_answer": "Điện Biên Phủ trên không diễn ra vào năm 1972.",
+    "key_entities": [
+      "Điện Biên Phủ trên không",
+      "1972"
+    ]
+  },
+  {
+    "id": "vhrag_053",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_054",
+    "category": "factual",
+    "query": "Chiến dịch Tây Nguyên diễn ra năm nào?",
+    "reference_answer": "Tây Nguyên diễn ra vào năm 1975.",
+    "key_entities": [
+      "Tây Nguyên",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_055",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_056",
+    "category": "factual",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng miền Nam diễn ra năm nào?",
+    "reference_answer": "Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_057",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_058",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_059",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_060",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_061",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_062",
+    "category": "factual",
+    "query": "Chiến dịch Khe Sanh diễn ra năm nào?",
+    "reference_answer": "Khe Sanh diễn ra vào năm 1968.",
+    "key_entities": [
+      "Khe Sanh",
+      "1968"
+    ]
+  },
+  {
+    "id": "vhrag_063",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_064",
+    "category": "factual",
+    "query": "Chiến dịch Đường 9 - Nam Lào diễn ra năm nào?",
+    "reference_answer": "Đường 9 - Nam Lào diễn ra vào năm 1971.",
+    "key_entities": [
+      "Đường 9 - Nam Lào",
+      "1971"
+    ]
+  },
+  {
+    "id": "vhrag_065",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_066",
+    "category": "factual",
+    "query": "Chiến dịch Điện Biên Phủ trên không diễn ra năm nào?",
+    "reference_answer": "Điện Biên Phủ trên không diễn ra vào năm 1972.",
+    "key_entities": [
+      "Điện Biên Phủ trên không",
+      "1972"
+    ]
+  },
+  {
+    "id": "vhrag_067",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_068",
+    "category": "factual",
+    "query": "Chiến dịch Tây Nguyên diễn ra năm nào?",
+    "reference_answer": "Tây Nguyên diễn ra vào năm 1975.",
+    "key_entities": [
+      "Tây Nguyên",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_069",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_070",
+    "category": "factual",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng miền Nam diễn ra năm nào?",
+    "reference_answer": "Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_071",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_072",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_073",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_074",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_075",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_076",
+    "category": "factual",
+    "query": "Chiến dịch Khe Sanh diễn ra năm nào?",
+    "reference_answer": "Khe Sanh diễn ra vào năm 1968.",
+    "key_entities": [
+      "Khe Sanh",
+      "1968"
+    ]
+  },
+  {
+    "id": "vhrag_077",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_078",
+    "category": "factual",
+    "query": "Chiến dịch Đường 9 - Nam Lào diễn ra năm nào?",
+    "reference_answer": "Đường 9 - Nam Lào diễn ra vào năm 1971.",
+    "key_entities": [
+      "Đường 9 - Nam Lào",
+      "1971"
+    ]
+  },
+  {
+    "id": "vhrag_079",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_080",
+    "category": "factual",
+    "query": "Chiến dịch Điện Biên Phủ trên không diễn ra năm nào?",
+    "reference_answer": "Điện Biên Phủ trên không diễn ra vào năm 1972.",
+    "key_entities": [
+      "Điện Biên Phủ trên không",
+      "1972"
+    ]
+  },
+  {
+    "id": "vhrag_081",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_082",
+    "category": "factual",
+    "query": "Chiến dịch Tây Nguyên diễn ra năm nào?",
+    "reference_answer": "Tây Nguyên diễn ra vào năm 1975.",
+    "key_entities": [
+      "Tây Nguyên",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_083",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_084",
+    "category": "factual",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng miền Nam diễn ra năm nào?",
+    "reference_answer": "Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_085",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_086",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_087",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_088",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_089",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_090",
+    "category": "factual",
+    "query": "Chiến dịch Khe Sanh diễn ra năm nào?",
+    "reference_answer": "Khe Sanh diễn ra vào năm 1968.",
+    "key_entities": [
+      "Khe Sanh",
+      "1968"
+    ]
+  },
+  {
+    "id": "vhrag_091",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_092",
+    "category": "factual",
+    "query": "Chiến dịch Đường 9 - Nam Lào diễn ra năm nào?",
+    "reference_answer": "Đường 9 - Nam Lào diễn ra vào năm 1971.",
+    "key_entities": [
+      "Đường 9 - Nam Lào",
+      "1971"
+    ]
+  },
+  {
+    "id": "vhrag_093",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_094",
+    "category": "factual",
+    "query": "Chiến dịch Điện Biên Phủ trên không diễn ra năm nào?",
+    "reference_answer": "Điện Biên Phủ trên không diễn ra vào năm 1972.",
+    "key_entities": [
+      "Điện Biên Phủ trên không",
+      "1972"
+    ]
+  },
+  {
+    "id": "vhrag_095",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_096",
+    "category": "factual",
+    "query": "Chiến dịch Tây Nguyên diễn ra năm nào?",
+    "reference_answer": "Tây Nguyên diễn ra vào năm 1975.",
+    "key_entities": [
+      "Tây Nguyên",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_097",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_098",
+    "category": "factual",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng miền Nam diễn ra năm nào?",
+    "reference_answer": "Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_099",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_100",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_101",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_102",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_103",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_104",
+    "category": "factual",
+    "query": "Chiến dịch Khe Sanh diễn ra năm nào?",
+    "reference_answer": "Khe Sanh diễn ra vào năm 1968.",
+    "key_entities": [
+      "Khe Sanh",
+      "1968"
+    ]
+  },
+  {
+    "id": "vhrag_105",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_106",
+    "category": "factual",
+    "query": "Chiến dịch Đường 9 - Nam Lào diễn ra năm nào?",
+    "reference_answer": "Đường 9 - Nam Lào diễn ra vào năm 1971.",
+    "key_entities": [
+      "Đường 9 - Nam Lào",
+      "1971"
+    ]
+  },
+  {
+    "id": "vhrag_107",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_108",
+    "category": "factual",
+    "query": "Chiến dịch Điện Biên Phủ trên không diễn ra năm nào?",
+    "reference_answer": "Điện Biên Phủ trên không diễn ra vào năm 1972.",
+    "key_entities": [
+      "Điện Biên Phủ trên không",
+      "1972"
+    ]
+  },
+  {
+    "id": "vhrag_109",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_110",
+    "category": "factual",
+    "query": "Chiến dịch Tây Nguyên diễn ra năm nào?",
+    "reference_answer": "Tây Nguyên diễn ra vào năm 1975.",
+    "key_entities": [
+      "Tây Nguyên",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_111",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_112",
+    "category": "factual",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng miền Nam diễn ra năm nào?",
+    "reference_answer": "Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_113",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_114",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_115",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_116",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_117",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_118",
+    "category": "factual",
+    "query": "Chiến dịch Khe Sanh diễn ra năm nào?",
+    "reference_answer": "Khe Sanh diễn ra vào năm 1968.",
+    "key_entities": [
+      "Khe Sanh",
+      "1968"
+    ]
+  },
+  {
+    "id": "vhrag_119",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_120",
+    "category": "factual",
+    "query": "Chiến dịch Đường 9 - Nam Lào diễn ra năm nào?",
+    "reference_answer": "Đường 9 - Nam Lào diễn ra vào năm 1971.",
+    "key_entities": [
+      "Đường 9 - Nam Lào",
+      "1971"
+    ]
+  },
+  {
+    "id": "vhrag_121",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_122",
+    "category": "factual",
+    "query": "Chiến dịch Điện Biên Phủ trên không diễn ra năm nào?",
+    "reference_answer": "Điện Biên Phủ trên không diễn ra vào năm 1972.",
+    "key_entities": [
+      "Điện Biên Phủ trên không",
+      "1972"
+    ]
+  },
+  {
+    "id": "vhrag_123",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_124",
+    "category": "factual",
+    "query": "Chiến dịch Tây Nguyên diễn ra năm nào?",
+    "reference_answer": "Tây Nguyên diễn ra vào năm 1975.",
+    "key_entities": [
+      "Tây Nguyên",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_125",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_126",
+    "category": "factual",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng miền Nam diễn ra năm nào?",
+    "reference_answer": "Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_127",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_128",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_129",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_130",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_131",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_132",
+    "category": "factual",
+    "query": "Chiến dịch Khe Sanh diễn ra năm nào?",
+    "reference_answer": "Khe Sanh diễn ra vào năm 1968.",
+    "key_entities": [
+      "Khe Sanh",
+      "1968"
+    ]
+  },
+  {
+    "id": "vhrag_133",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_134",
+    "category": "factual",
+    "query": "Chiến dịch Đường 9 - Nam Lào diễn ra năm nào?",
+    "reference_answer": "Đường 9 - Nam Lào diễn ra vào năm 1971.",
+    "key_entities": [
+      "Đường 9 - Nam Lào",
+      "1971"
+    ]
+  },
+  {
+    "id": "vhrag_135",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_136",
+    "category": "factual",
+    "query": "Chiến dịch Điện Biên Phủ trên không diễn ra năm nào?",
+    "reference_answer": "Điện Biên Phủ trên không diễn ra vào năm 1972.",
+    "key_entities": [
+      "Điện Biên Phủ trên không",
+      "1972"
+    ]
+  },
+  {
+    "id": "vhrag_137",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_138",
+    "category": "factual",
+    "query": "Chiến dịch Tây Nguyên diễn ra năm nào?",
+    "reference_answer": "Tây Nguyên diễn ra vào năm 1975.",
+    "key_entities": [
+      "Tây Nguyên",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_139",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_140",
+    "category": "factual",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng miền Nam diễn ra năm nào?",
+    "reference_answer": "Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_141",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_142",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_143",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_144",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_145",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_146",
+    "category": "factual",
+    "query": "Chiến dịch Khe Sanh diễn ra năm nào?",
+    "reference_answer": "Khe Sanh diễn ra vào năm 1968.",
+    "key_entities": [
+      "Khe Sanh",
+      "1968"
+    ]
+  },
+  {
+    "id": "vhrag_147",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_148",
+    "category": "factual",
+    "query": "Chiến dịch Đường 9 - Nam Lào diễn ra năm nào?",
+    "reference_answer": "Đường 9 - Nam Lào diễn ra vào năm 1971.",
+    "key_entities": [
+      "Đường 9 - Nam Lào",
+      "1971"
+    ]
+  },
+  {
+    "id": "vhrag_149",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_150",
+    "category": "factual",
+    "query": "Chiến dịch Điện Biên Phủ trên không diễn ra năm nào?",
+    "reference_answer": "Điện Biên Phủ trên không diễn ra vào năm 1972.",
+    "key_entities": [
+      "Điện Biên Phủ trên không",
+      "1972"
+    ]
+  },
+  {
+    "id": "vhrag_151",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_152",
+    "category": "factual",
+    "query": "Chiến dịch Tây Nguyên diễn ra năm nào?",
+    "reference_answer": "Tây Nguyên diễn ra vào năm 1975.",
+    "key_entities": [
+      "Tây Nguyên",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_153",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_154",
+    "category": "factual",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng miền Nam diễn ra năm nào?",
+    "reference_answer": "Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_155",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_156",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_157",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_158",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_159",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_160",
+    "category": "factual",
+    "query": "Chiến dịch Khe Sanh diễn ra năm nào?",
+    "reference_answer": "Khe Sanh diễn ra vào năm 1968.",
+    "key_entities": [
+      "Khe Sanh",
+      "1968"
+    ]
+  },
+  {
+    "id": "vhrag_161",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_162",
+    "category": "factual",
+    "query": "Chiến dịch Đường 9 - Nam Lào diễn ra năm nào?",
+    "reference_answer": "Đường 9 - Nam Lào diễn ra vào năm 1971.",
+    "key_entities": [
+      "Đường 9 - Nam Lào",
+      "1971"
+    ]
+  },
+  {
+    "id": "vhrag_163",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_164",
+    "category": "factual",
+    "query": "Chiến dịch Điện Biên Phủ trên không diễn ra năm nào?",
+    "reference_answer": "Điện Biên Phủ trên không diễn ra vào năm 1972.",
+    "key_entities": [
+      "Điện Biên Phủ trên không",
+      "1972"
+    ]
+  },
+  {
+    "id": "vhrag_165",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_166",
+    "category": "factual",
+    "query": "Chiến dịch Tây Nguyên diễn ra năm nào?",
+    "reference_answer": "Tây Nguyên diễn ra vào năm 1975.",
+    "key_entities": [
+      "Tây Nguyên",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_167",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_168",
+    "category": "factual",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng miền Nam diễn ra năm nào?",
+    "reference_answer": "Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_169",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_170",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_171",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_172",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_173",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_174",
+    "category": "factual",
+    "query": "Chiến dịch Khe Sanh diễn ra năm nào?",
+    "reference_answer": "Khe Sanh diễn ra vào năm 1968.",
+    "key_entities": [
+      "Khe Sanh",
+      "1968"
+    ]
+  },
+  {
+    "id": "vhrag_175",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_176",
+    "category": "factual",
+    "query": "Chiến dịch Đường 9 - Nam Lào diễn ra năm nào?",
+    "reference_answer": "Đường 9 - Nam Lào diễn ra vào năm 1971.",
+    "key_entities": [
+      "Đường 9 - Nam Lào",
+      "1971"
+    ]
+  },
+  {
+    "id": "vhrag_177",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_178",
+    "category": "factual",
+    "query": "Chiến dịch Điện Biên Phủ trên không diễn ra năm nào?",
+    "reference_answer": "Điện Biên Phủ trên không diễn ra vào năm 1972.",
+    "key_entities": [
+      "Điện Biên Phủ trên không",
+      "1972"
+    ]
+  },
+  {
+    "id": "vhrag_179",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_180",
+    "category": "factual",
+    "query": "Chiến dịch Tây Nguyên diễn ra năm nào?",
+    "reference_answer": "Tây Nguyên diễn ra vào năm 1975.",
+    "key_entities": [
+      "Tây Nguyên",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_181",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_182",
+    "category": "factual",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng miền Nam diễn ra năm nào?",
+    "reference_answer": "Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_183",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_184",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_185",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_186",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_187",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_188",
+    "category": "factual",
+    "query": "Chiến dịch Khe Sanh diễn ra năm nào?",
+    "reference_answer": "Khe Sanh diễn ra vào năm 1968.",
+    "key_entities": [
+      "Khe Sanh",
+      "1968"
+    ]
+  },
+  {
+    "id": "vhrag_189",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_190",
+    "category": "factual",
+    "query": "Chiến dịch Đường 9 - Nam Lào diễn ra năm nào?",
+    "reference_answer": "Đường 9 - Nam Lào diễn ra vào năm 1971.",
+    "key_entities": [
+      "Đường 9 - Nam Lào",
+      "1971"
+    ]
+  },
+  {
+    "id": "vhrag_191",
+    "category": "factual",
+    "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+    "reference_answer": "Hồ Chí Minh là chủ tịch nước việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "vhrag_192",
+    "category": "factual",
+    "query": "Chiến dịch Điện Biên Phủ trên không diễn ra năm nào?",
+    "reference_answer": "Điện Biên Phủ trên không diễn ra vào năm 1972.",
+    "key_entities": [
+      "Điện Biên Phủ trên không",
+      "1972"
+    ]
+  },
+  {
+    "id": "vhrag_193",
+    "category": "factual",
+    "query": "Ai là tổng bí thư ban chấp hành trung ương đảng?",
+    "reference_answer": "Lê Duẩn là tổng bí thư ban chấp hành trung ương đảng.",
+    "key_entities": [
+      "Lê Duẩn"
+    ]
+  },
+  {
+    "id": "vhrag_194",
+    "category": "factual",
+    "query": "Chiến dịch Tây Nguyên diễn ra năm nào?",
+    "reference_answer": "Tây Nguyên diễn ra vào năm 1975.",
+    "key_entities": [
+      "Tây Nguyên",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_195",
+    "category": "factual",
+    "query": "Ai là thủ tướng chính phủ việt nam dân chủ cộng hòa?",
+    "reference_answer": "Phạm Văn Đồng là thủ tướng chính phủ việt nam dân chủ cộng hòa.",
+    "key_entities": [
+      "Phạm Văn Đồng"
+    ]
+  },
+  {
+    "id": "vhrag_196",
+    "category": "factual",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng miền Nam diễn ra năm nào?",
+    "reference_answer": "Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "vhrag_197",
+    "category": "factual",
+    "query": "Ai là tổng thống đầu tiên của việt nam cộng hòa?",
+    "reference_answer": "Ngô Đình Diệm là tổng thống đầu tiên của việt nam cộng hòa.",
+    "key_entities": [
+      "Ngô Đình Diệm"
+    ]
+  },
+  {
+    "id": "vhrag_198",
+    "category": "factual",
+    "query": "Trận Ấp Bắc diễn ra vào năm nào?",
+    "reference_answer": "Ấp Bắc diễn ra vào năm 1963.",
+    "key_entities": [
+      "Ấp Bắc",
+      "1963"
+    ]
+  },
+  {
+    "id": "vhrag_199",
+    "category": "factual",
+    "query": "Ai là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975?",
+    "reference_answer": "Trần Văn Hương là tổng thống việt nam cộng hòa kế nhiệm nguyễn văn thiệu năm 1975.",
+    "key_entities": [
+      "Trần Văn Hương"
+    ]
+  },
+  {
+    "id": "vhrag_200",
+    "category": "factual",
+    "query": "Trận Ba Gia diễn ra vào năm nào?",
+    "reference_answer": "Ba Gia diễn ra vào năm 1965.",
+    "key_entities": [
+      "1965",
+      "Ba Gia"
+    ]
+  },
+  {
+    "id": "vhrag_201",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Cách mạng Tháng Tám",
+    "reference_answer": "Cách mạng Tháng Tám gắn liền với mốc thời gian 1945.",
+    "key_entities": [
+      "Cách mạng Tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "vhrag_202",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Tuyên ngôn Độc lập",
+    "reference_answer": "Tuyên ngôn Độc lập gắn liền với mốc thời gian 2/9/1945.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "2/9/1945"
+    ]
+  },
+  {
+    "id": "vhrag_203",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Kháng chiến toàn quốc",
+    "reference_answer": "Kháng chiến toàn quốc gắn liền với mốc thời gian 19/12/1946.",
+    "key_entities": [
+      "Kháng chiến toàn quốc",
+      "19/12/1946"
+    ]
+  },
+  {
+    "id": "vhrag_204",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Việt Bắc",
+    "reference_answer": "Chiến dịch Việt Bắc gắn liền với mốc thời gian 1947.",
+    "key_entities": [
+      "Chiến dịch Việt Bắc",
+      "1947"
+    ]
+  },
+  {
+    "id": "vhrag_205",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Biên giới",
+    "reference_answer": "Chiến dịch Biên giới gắn liền với mốc thời gian 1950.",
+    "key_entities": [
+      "Chiến dịch Biên giới",
+      "1950"
+    ]
+  },
+  {
+    "id": "vhrag_206",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Giơ-ne-vơ",
+    "reference_answer": "Hiệp định Giơ-ne-vơ gắn liền với mốc thời gian 1954.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ",
+      "1954"
+    ]
+  },
+  {
+    "id": "vhrag_207",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Phong trào Đồng khởi",
+    "reference_answer": "Phong trào Đồng khởi gắn liền với mốc thời gian 1959-1960.",
+    "key_entities": [
+      "Phong trào Đồng khởi",
+      "1959-1960"
+    ]
+  },
+  {
+    "id": "vhrag_208",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+    "reference_answer": "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam gắn liền với mốc thời gian 20/12/1960.",
+    "key_entities": [
+      "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+      "20/12/1960"
+    ]
+  },
+  {
+    "id": "vhrag_209",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Đảo chính Ngô Đình Diệm",
+    "reference_answer": "Đảo chính Ngô Đình Diệm gắn liền với mốc thời gian 1/11/1963.",
+    "key_entities": [
+      "Đảo chính Ngô Đình Diệm",
+      "1/11/1963"
+    ]
+  },
+  {
+    "id": "vhrag_210",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Sự kiện Vịnh Bắc Bộ",
+    "reference_answer": "Sự kiện Vịnh Bắc Bộ gắn liền với mốc thời gian 1964.",
+    "key_entities": [
+      "Sự kiện Vịnh Bắc Bộ",
+      "1964"
+    ]
+  },
+  {
+    "id": "vhrag_211",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Pa-ri",
+    "reference_answer": "Hiệp định Pa-ri gắn liền với mốc thời gian 27/1/1973.",
+    "key_entities": [
+      "Hiệp định Pa-ri",
+      "27/1/1973"
+    ]
+  },
+  {
+    "id": "vhrag_212",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Giải phóng miền Nam",
+    "reference_answer": "Giải phóng miền Nam gắn liền với mốc thời gian 30/4/1975.",
+    "key_entities": [
+      "Giải phóng miền Nam",
+      "30/4/1975"
+    ]
+  },
+  {
+    "id": "vhrag_213",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Cách mạng Tháng Tám",
+    "reference_answer": "Cách mạng Tháng Tám gắn liền với mốc thời gian 1945.",
+    "key_entities": [
+      "Cách mạng Tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "vhrag_214",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Tuyên ngôn Độc lập",
+    "reference_answer": "Tuyên ngôn Độc lập gắn liền với mốc thời gian 2/9/1945.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "2/9/1945"
+    ]
+  },
+  {
+    "id": "vhrag_215",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Kháng chiến toàn quốc",
+    "reference_answer": "Kháng chiến toàn quốc gắn liền với mốc thời gian 19/12/1946.",
+    "key_entities": [
+      "Kháng chiến toàn quốc",
+      "19/12/1946"
+    ]
+  },
+  {
+    "id": "vhrag_216",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Việt Bắc",
+    "reference_answer": "Chiến dịch Việt Bắc gắn liền với mốc thời gian 1947.",
+    "key_entities": [
+      "Chiến dịch Việt Bắc",
+      "1947"
+    ]
+  },
+  {
+    "id": "vhrag_217",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Biên giới",
+    "reference_answer": "Chiến dịch Biên giới gắn liền với mốc thời gian 1950.",
+    "key_entities": [
+      "Chiến dịch Biên giới",
+      "1950"
+    ]
+  },
+  {
+    "id": "vhrag_218",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Giơ-ne-vơ",
+    "reference_answer": "Hiệp định Giơ-ne-vơ gắn liền với mốc thời gian 1954.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ",
+      "1954"
+    ]
+  },
+  {
+    "id": "vhrag_219",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Phong trào Đồng khởi",
+    "reference_answer": "Phong trào Đồng khởi gắn liền với mốc thời gian 1959-1960.",
+    "key_entities": [
+      "Phong trào Đồng khởi",
+      "1959-1960"
+    ]
+  },
+  {
+    "id": "vhrag_220",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+    "reference_answer": "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam gắn liền với mốc thời gian 20/12/1960.",
+    "key_entities": [
+      "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+      "20/12/1960"
+    ]
+  },
+  {
+    "id": "vhrag_221",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Đảo chính Ngô Đình Diệm",
+    "reference_answer": "Đảo chính Ngô Đình Diệm gắn liền với mốc thời gian 1/11/1963.",
+    "key_entities": [
+      "Đảo chính Ngô Đình Diệm",
+      "1/11/1963"
+    ]
+  },
+  {
+    "id": "vhrag_222",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Sự kiện Vịnh Bắc Bộ",
+    "reference_answer": "Sự kiện Vịnh Bắc Bộ gắn liền với mốc thời gian 1964.",
+    "key_entities": [
+      "Sự kiện Vịnh Bắc Bộ",
+      "1964"
+    ]
+  },
+  {
+    "id": "vhrag_223",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Pa-ri",
+    "reference_answer": "Hiệp định Pa-ri gắn liền với mốc thời gian 27/1/1973.",
+    "key_entities": [
+      "Hiệp định Pa-ri",
+      "27/1/1973"
+    ]
+  },
+  {
+    "id": "vhrag_224",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Giải phóng miền Nam",
+    "reference_answer": "Giải phóng miền Nam gắn liền với mốc thời gian 30/4/1975.",
+    "key_entities": [
+      "Giải phóng miền Nam",
+      "30/4/1975"
+    ]
+  },
+  {
+    "id": "vhrag_225",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Cách mạng Tháng Tám",
+    "reference_answer": "Cách mạng Tháng Tám gắn liền với mốc thời gian 1945.",
+    "key_entities": [
+      "Cách mạng Tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "vhrag_226",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Tuyên ngôn Độc lập",
+    "reference_answer": "Tuyên ngôn Độc lập gắn liền với mốc thời gian 2/9/1945.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "2/9/1945"
+    ]
+  },
+  {
+    "id": "vhrag_227",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Kháng chiến toàn quốc",
+    "reference_answer": "Kháng chiến toàn quốc gắn liền với mốc thời gian 19/12/1946.",
+    "key_entities": [
+      "Kháng chiến toàn quốc",
+      "19/12/1946"
+    ]
+  },
+  {
+    "id": "vhrag_228",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Việt Bắc",
+    "reference_answer": "Chiến dịch Việt Bắc gắn liền với mốc thời gian 1947.",
+    "key_entities": [
+      "Chiến dịch Việt Bắc",
+      "1947"
+    ]
+  },
+  {
+    "id": "vhrag_229",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Biên giới",
+    "reference_answer": "Chiến dịch Biên giới gắn liền với mốc thời gian 1950.",
+    "key_entities": [
+      "Chiến dịch Biên giới",
+      "1950"
+    ]
+  },
+  {
+    "id": "vhrag_230",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Giơ-ne-vơ",
+    "reference_answer": "Hiệp định Giơ-ne-vơ gắn liền với mốc thời gian 1954.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ",
+      "1954"
+    ]
+  },
+  {
+    "id": "vhrag_231",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Phong trào Đồng khởi",
+    "reference_answer": "Phong trào Đồng khởi gắn liền với mốc thời gian 1959-1960.",
+    "key_entities": [
+      "Phong trào Đồng khởi",
+      "1959-1960"
+    ]
+  },
+  {
+    "id": "vhrag_232",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+    "reference_answer": "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam gắn liền với mốc thời gian 20/12/1960.",
+    "key_entities": [
+      "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+      "20/12/1960"
+    ]
+  },
+  {
+    "id": "vhrag_233",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Đảo chính Ngô Đình Diệm",
+    "reference_answer": "Đảo chính Ngô Đình Diệm gắn liền với mốc thời gian 1/11/1963.",
+    "key_entities": [
+      "Đảo chính Ngô Đình Diệm",
+      "1/11/1963"
+    ]
+  },
+  {
+    "id": "vhrag_234",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Sự kiện Vịnh Bắc Bộ",
+    "reference_answer": "Sự kiện Vịnh Bắc Bộ gắn liền với mốc thời gian 1964.",
+    "key_entities": [
+      "Sự kiện Vịnh Bắc Bộ",
+      "1964"
+    ]
+  },
+  {
+    "id": "vhrag_235",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Pa-ri",
+    "reference_answer": "Hiệp định Pa-ri gắn liền với mốc thời gian 27/1/1973.",
+    "key_entities": [
+      "Hiệp định Pa-ri",
+      "27/1/1973"
+    ]
+  },
+  {
+    "id": "vhrag_236",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Giải phóng miền Nam",
+    "reference_answer": "Giải phóng miền Nam gắn liền với mốc thời gian 30/4/1975.",
+    "key_entities": [
+      "Giải phóng miền Nam",
+      "30/4/1975"
+    ]
+  },
+  {
+    "id": "vhrag_237",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Cách mạng Tháng Tám",
+    "reference_answer": "Cách mạng Tháng Tám gắn liền với mốc thời gian 1945.",
+    "key_entities": [
+      "Cách mạng Tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "vhrag_238",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Tuyên ngôn Độc lập",
+    "reference_answer": "Tuyên ngôn Độc lập gắn liền với mốc thời gian 2/9/1945.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "2/9/1945"
+    ]
+  },
+  {
+    "id": "vhrag_239",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Kháng chiến toàn quốc",
+    "reference_answer": "Kháng chiến toàn quốc gắn liền với mốc thời gian 19/12/1946.",
+    "key_entities": [
+      "Kháng chiến toàn quốc",
+      "19/12/1946"
+    ]
+  },
+  {
+    "id": "vhrag_240",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Việt Bắc",
+    "reference_answer": "Chiến dịch Việt Bắc gắn liền với mốc thời gian 1947.",
+    "key_entities": [
+      "Chiến dịch Việt Bắc",
+      "1947"
+    ]
+  },
+  {
+    "id": "vhrag_241",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Biên giới",
+    "reference_answer": "Chiến dịch Biên giới gắn liền với mốc thời gian 1950.",
+    "key_entities": [
+      "Chiến dịch Biên giới",
+      "1950"
+    ]
+  },
+  {
+    "id": "vhrag_242",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Giơ-ne-vơ",
+    "reference_answer": "Hiệp định Giơ-ne-vơ gắn liền với mốc thời gian 1954.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ",
+      "1954"
+    ]
+  },
+  {
+    "id": "vhrag_243",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Phong trào Đồng khởi",
+    "reference_answer": "Phong trào Đồng khởi gắn liền với mốc thời gian 1959-1960.",
+    "key_entities": [
+      "Phong trào Đồng khởi",
+      "1959-1960"
+    ]
+  },
+  {
+    "id": "vhrag_244",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+    "reference_answer": "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam gắn liền với mốc thời gian 20/12/1960.",
+    "key_entities": [
+      "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+      "20/12/1960"
+    ]
+  },
+  {
+    "id": "vhrag_245",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Đảo chính Ngô Đình Diệm",
+    "reference_answer": "Đảo chính Ngô Đình Diệm gắn liền với mốc thời gian 1/11/1963.",
+    "key_entities": [
+      "Đảo chính Ngô Đình Diệm",
+      "1/11/1963"
+    ]
+  },
+  {
+    "id": "vhrag_246",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Sự kiện Vịnh Bắc Bộ",
+    "reference_answer": "Sự kiện Vịnh Bắc Bộ gắn liền với mốc thời gian 1964.",
+    "key_entities": [
+      "Sự kiện Vịnh Bắc Bộ",
+      "1964"
+    ]
+  },
+  {
+    "id": "vhrag_247",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Pa-ri",
+    "reference_answer": "Hiệp định Pa-ri gắn liền với mốc thời gian 27/1/1973.",
+    "key_entities": [
+      "Hiệp định Pa-ri",
+      "27/1/1973"
+    ]
+  },
+  {
+    "id": "vhrag_248",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Giải phóng miền Nam",
+    "reference_answer": "Giải phóng miền Nam gắn liền với mốc thời gian 30/4/1975.",
+    "key_entities": [
+      "Giải phóng miền Nam",
+      "30/4/1975"
+    ]
+  },
+  {
+    "id": "vhrag_249",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Cách mạng Tháng Tám",
+    "reference_answer": "Cách mạng Tháng Tám gắn liền với mốc thời gian 1945.",
+    "key_entities": [
+      "Cách mạng Tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "vhrag_250",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Tuyên ngôn Độc lập",
+    "reference_answer": "Tuyên ngôn Độc lập gắn liền với mốc thời gian 2/9/1945.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "2/9/1945"
+    ]
+  },
+  {
+    "id": "vhrag_251",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Kháng chiến toàn quốc",
+    "reference_answer": "Kháng chiến toàn quốc gắn liền với mốc thời gian 19/12/1946.",
+    "key_entities": [
+      "Kháng chiến toàn quốc",
+      "19/12/1946"
+    ]
+  },
+  {
+    "id": "vhrag_252",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Việt Bắc",
+    "reference_answer": "Chiến dịch Việt Bắc gắn liền với mốc thời gian 1947.",
+    "key_entities": [
+      "Chiến dịch Việt Bắc",
+      "1947"
+    ]
+  },
+  {
+    "id": "vhrag_253",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Biên giới",
+    "reference_answer": "Chiến dịch Biên giới gắn liền với mốc thời gian 1950.",
+    "key_entities": [
+      "Chiến dịch Biên giới",
+      "1950"
+    ]
+  },
+  {
+    "id": "vhrag_254",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Giơ-ne-vơ",
+    "reference_answer": "Hiệp định Giơ-ne-vơ gắn liền với mốc thời gian 1954.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ",
+      "1954"
+    ]
+  },
+  {
+    "id": "vhrag_255",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Phong trào Đồng khởi",
+    "reference_answer": "Phong trào Đồng khởi gắn liền với mốc thời gian 1959-1960.",
+    "key_entities": [
+      "Phong trào Đồng khởi",
+      "1959-1960"
+    ]
+  },
+  {
+    "id": "vhrag_256",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+    "reference_answer": "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam gắn liền với mốc thời gian 20/12/1960.",
+    "key_entities": [
+      "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+      "20/12/1960"
+    ]
+  },
+  {
+    "id": "vhrag_257",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Đảo chính Ngô Đình Diệm",
+    "reference_answer": "Đảo chính Ngô Đình Diệm gắn liền với mốc thời gian 1/11/1963.",
+    "key_entities": [
+      "Đảo chính Ngô Đình Diệm",
+      "1/11/1963"
+    ]
+  },
+  {
+    "id": "vhrag_258",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Sự kiện Vịnh Bắc Bộ",
+    "reference_answer": "Sự kiện Vịnh Bắc Bộ gắn liền với mốc thời gian 1964.",
+    "key_entities": [
+      "Sự kiện Vịnh Bắc Bộ",
+      "1964"
+    ]
+  },
+  {
+    "id": "vhrag_259",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Pa-ri",
+    "reference_answer": "Hiệp định Pa-ri gắn liền với mốc thời gian 27/1/1973.",
+    "key_entities": [
+      "Hiệp định Pa-ri",
+      "27/1/1973"
+    ]
+  },
+  {
+    "id": "vhrag_260",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Giải phóng miền Nam",
+    "reference_answer": "Giải phóng miền Nam gắn liền với mốc thời gian 30/4/1975.",
+    "key_entities": [
+      "Giải phóng miền Nam",
+      "30/4/1975"
+    ]
+  },
+  {
+    "id": "vhrag_261",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Cách mạng Tháng Tám",
+    "reference_answer": "Cách mạng Tháng Tám gắn liền với mốc thời gian 1945.",
+    "key_entities": [
+      "Cách mạng Tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "vhrag_262",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Tuyên ngôn Độc lập",
+    "reference_answer": "Tuyên ngôn Độc lập gắn liền với mốc thời gian 2/9/1945.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "2/9/1945"
+    ]
+  },
+  {
+    "id": "vhrag_263",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Kháng chiến toàn quốc",
+    "reference_answer": "Kháng chiến toàn quốc gắn liền với mốc thời gian 19/12/1946.",
+    "key_entities": [
+      "Kháng chiến toàn quốc",
+      "19/12/1946"
+    ]
+  },
+  {
+    "id": "vhrag_264",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Việt Bắc",
+    "reference_answer": "Chiến dịch Việt Bắc gắn liền với mốc thời gian 1947.",
+    "key_entities": [
+      "Chiến dịch Việt Bắc",
+      "1947"
+    ]
+  },
+  {
+    "id": "vhrag_265",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Biên giới",
+    "reference_answer": "Chiến dịch Biên giới gắn liền với mốc thời gian 1950.",
+    "key_entities": [
+      "Chiến dịch Biên giới",
+      "1950"
+    ]
+  },
+  {
+    "id": "vhrag_266",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Giơ-ne-vơ",
+    "reference_answer": "Hiệp định Giơ-ne-vơ gắn liền với mốc thời gian 1954.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ",
+      "1954"
+    ]
+  },
+  {
+    "id": "vhrag_267",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Phong trào Đồng khởi",
+    "reference_answer": "Phong trào Đồng khởi gắn liền với mốc thời gian 1959-1960.",
+    "key_entities": [
+      "Phong trào Đồng khởi",
+      "1959-1960"
+    ]
+  },
+  {
+    "id": "vhrag_268",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+    "reference_answer": "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam gắn liền với mốc thời gian 20/12/1960.",
+    "key_entities": [
+      "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+      "20/12/1960"
+    ]
+  },
+  {
+    "id": "vhrag_269",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Đảo chính Ngô Đình Diệm",
+    "reference_answer": "Đảo chính Ngô Đình Diệm gắn liền với mốc thời gian 1/11/1963.",
+    "key_entities": [
+      "Đảo chính Ngô Đình Diệm",
+      "1/11/1963"
+    ]
+  },
+  {
+    "id": "vhrag_270",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Sự kiện Vịnh Bắc Bộ",
+    "reference_answer": "Sự kiện Vịnh Bắc Bộ gắn liền với mốc thời gian 1964.",
+    "key_entities": [
+      "Sự kiện Vịnh Bắc Bộ",
+      "1964"
+    ]
+  },
+  {
+    "id": "vhrag_271",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Pa-ri",
+    "reference_answer": "Hiệp định Pa-ri gắn liền với mốc thời gian 27/1/1973.",
+    "key_entities": [
+      "Hiệp định Pa-ri",
+      "27/1/1973"
+    ]
+  },
+  {
+    "id": "vhrag_272",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Giải phóng miền Nam",
+    "reference_answer": "Giải phóng miền Nam gắn liền với mốc thời gian 30/4/1975.",
+    "key_entities": [
+      "Giải phóng miền Nam",
+      "30/4/1975"
+    ]
+  },
+  {
+    "id": "vhrag_273",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Cách mạng Tháng Tám",
+    "reference_answer": "Cách mạng Tháng Tám gắn liền với mốc thời gian 1945.",
+    "key_entities": [
+      "Cách mạng Tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "vhrag_274",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Tuyên ngôn Độc lập",
+    "reference_answer": "Tuyên ngôn Độc lập gắn liền với mốc thời gian 2/9/1945.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "2/9/1945"
+    ]
+  },
+  {
+    "id": "vhrag_275",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Kháng chiến toàn quốc",
+    "reference_answer": "Kháng chiến toàn quốc gắn liền với mốc thời gian 19/12/1946.",
+    "key_entities": [
+      "Kháng chiến toàn quốc",
+      "19/12/1946"
+    ]
+  },
+  {
+    "id": "vhrag_276",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Việt Bắc",
+    "reference_answer": "Chiến dịch Việt Bắc gắn liền với mốc thời gian 1947.",
+    "key_entities": [
+      "Chiến dịch Việt Bắc",
+      "1947"
+    ]
+  },
+  {
+    "id": "vhrag_277",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Biên giới",
+    "reference_answer": "Chiến dịch Biên giới gắn liền với mốc thời gian 1950.",
+    "key_entities": [
+      "Chiến dịch Biên giới",
+      "1950"
+    ]
+  },
+  {
+    "id": "vhrag_278",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Giơ-ne-vơ",
+    "reference_answer": "Hiệp định Giơ-ne-vơ gắn liền với mốc thời gian 1954.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ",
+      "1954"
+    ]
+  },
+  {
+    "id": "vhrag_279",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Phong trào Đồng khởi",
+    "reference_answer": "Phong trào Đồng khởi gắn liền với mốc thời gian 1959-1960.",
+    "key_entities": [
+      "Phong trào Đồng khởi",
+      "1959-1960"
+    ]
+  },
+  {
+    "id": "vhrag_280",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+    "reference_answer": "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam gắn liền với mốc thời gian 20/12/1960.",
+    "key_entities": [
+      "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+      "20/12/1960"
+    ]
+  },
+  {
+    "id": "vhrag_281",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Đảo chính Ngô Đình Diệm",
+    "reference_answer": "Đảo chính Ngô Đình Diệm gắn liền với mốc thời gian 1/11/1963.",
+    "key_entities": [
+      "Đảo chính Ngô Đình Diệm",
+      "1/11/1963"
+    ]
+  },
+  {
+    "id": "vhrag_282",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Sự kiện Vịnh Bắc Bộ",
+    "reference_answer": "Sự kiện Vịnh Bắc Bộ gắn liền với mốc thời gian 1964.",
+    "key_entities": [
+      "Sự kiện Vịnh Bắc Bộ",
+      "1964"
+    ]
+  },
+  {
+    "id": "vhrag_283",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Pa-ri",
+    "reference_answer": "Hiệp định Pa-ri gắn liền với mốc thời gian 27/1/1973.",
+    "key_entities": [
+      "Hiệp định Pa-ri",
+      "27/1/1973"
+    ]
+  },
+  {
+    "id": "vhrag_284",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Giải phóng miền Nam",
+    "reference_answer": "Giải phóng miền Nam gắn liền với mốc thời gian 30/4/1975.",
+    "key_entities": [
+      "Giải phóng miền Nam",
+      "30/4/1975"
+    ]
+  },
+  {
+    "id": "vhrag_285",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Cách mạng Tháng Tám",
+    "reference_answer": "Cách mạng Tháng Tám gắn liền với mốc thời gian 1945.",
+    "key_entities": [
+      "Cách mạng Tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "vhrag_286",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Tuyên ngôn Độc lập",
+    "reference_answer": "Tuyên ngôn Độc lập gắn liền với mốc thời gian 2/9/1945.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "2/9/1945"
+    ]
+  },
+  {
+    "id": "vhrag_287",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Kháng chiến toàn quốc",
+    "reference_answer": "Kháng chiến toàn quốc gắn liền với mốc thời gian 19/12/1946.",
+    "key_entities": [
+      "Kháng chiến toàn quốc",
+      "19/12/1946"
+    ]
+  },
+  {
+    "id": "vhrag_288",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Việt Bắc",
+    "reference_answer": "Chiến dịch Việt Bắc gắn liền với mốc thời gian 1947.",
+    "key_entities": [
+      "Chiến dịch Việt Bắc",
+      "1947"
+    ]
+  },
+  {
+    "id": "vhrag_289",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Biên giới",
+    "reference_answer": "Chiến dịch Biên giới gắn liền với mốc thời gian 1950.",
+    "key_entities": [
+      "Chiến dịch Biên giới",
+      "1950"
+    ]
+  },
+  {
+    "id": "vhrag_290",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Giơ-ne-vơ",
+    "reference_answer": "Hiệp định Giơ-ne-vơ gắn liền với mốc thời gian 1954.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ",
+      "1954"
+    ]
+  },
+  {
+    "id": "vhrag_291",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Phong trào Đồng khởi",
+    "reference_answer": "Phong trào Đồng khởi gắn liền với mốc thời gian 1959-1960.",
+    "key_entities": [
+      "Phong trào Đồng khởi",
+      "1959-1960"
+    ]
+  },
+  {
+    "id": "vhrag_292",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+    "reference_answer": "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam gắn liền với mốc thời gian 20/12/1960.",
+    "key_entities": [
+      "Thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+      "20/12/1960"
+    ]
+  },
+  {
+    "id": "vhrag_293",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Đảo chính Ngô Đình Diệm",
+    "reference_answer": "Đảo chính Ngô Đình Diệm gắn liền với mốc thời gian 1/11/1963.",
+    "key_entities": [
+      "Đảo chính Ngô Đình Diệm",
+      "1/11/1963"
+    ]
+  },
+  {
+    "id": "vhrag_294",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Sự kiện Vịnh Bắc Bộ",
+    "reference_answer": "Sự kiện Vịnh Bắc Bộ gắn liền với mốc thời gian 1964.",
+    "key_entities": [
+      "Sự kiện Vịnh Bắc Bộ",
+      "1964"
+    ]
+  },
+  {
+    "id": "vhrag_295",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Hiệp định Pa-ri",
+    "reference_answer": "Hiệp định Pa-ri gắn liền với mốc thời gian 27/1/1973.",
+    "key_entities": [
+      "Hiệp định Pa-ri",
+      "27/1/1973"
+    ]
+  },
+  {
+    "id": "vhrag_296",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Giải phóng miền Nam",
+    "reference_answer": "Giải phóng miền Nam gắn liền với mốc thời gian 30/4/1975.",
+    "key_entities": [
+      "Giải phóng miền Nam",
+      "30/4/1975"
+    ]
+  },
+  {
+    "id": "vhrag_297",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Cách mạng Tháng Tám",
+    "reference_answer": "Cách mạng Tháng Tám gắn liền với mốc thời gian 1945.",
+    "key_entities": [
+      "Cách mạng Tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "vhrag_298",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Tuyên ngôn Độc lập",
+    "reference_answer": "Tuyên ngôn Độc lập gắn liền với mốc thời gian 2/9/1945.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "2/9/1945"
+    ]
+  },
+  {
+    "id": "vhrag_299",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Kháng chiến toàn quốc",
+    "reference_answer": "Kháng chiến toàn quốc gắn liền với mốc thời gian 19/12/1946.",
+    "key_entities": [
+      "Kháng chiến toàn quốc",
+      "19/12/1946"
+    ]
+  },
+  {
+    "id": "vhrag_300",
+    "category": "timeline",
+    "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Chiến dịch Việt Bắc",
+    "reference_answer": "Chiến dịch Việt Bắc gắn liền với mốc thời gian 1947.",
+    "key_entities": [
+      "Chiến dịch Việt Bắc",
+      "1947"
+    ]
+  },
+  {
+    "id": "vhrag_301",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_302",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_303",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_304",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_305",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_306",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_307",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_308",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_309",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_310",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_311",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_312",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_313",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_314",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_315",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_316",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_317",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_318",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_319",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_320",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_321",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_322",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_323",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_324",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_325",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_326",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_327",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_328",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_329",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_330",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_331",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_332",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_333",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_334",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_335",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_336",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_337",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_338",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_339",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_340",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_341",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_342",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_343",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_344",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_345",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_346",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_347",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_348",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_349",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_350",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_351",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_352",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_353",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_354",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_355",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_356",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_357",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_358",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_359",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_360",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_361",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_362",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_363",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_364",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_365",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_366",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_367",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_368",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_369",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_370",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_371",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_372",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_373",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_374",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_375",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_376",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_377",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_378",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_379",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_380",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_381",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_382",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_383",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_384",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_385",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_386",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_387",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_388",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_389",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_390",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_391",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_392",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_393",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_394",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_395",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_396",
+    "category": "comparison",
+    "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ 1954",
+      "Chiến dịch Hồ Chí Minh 1975"
+    ]
+  },
+  {
+    "id": "vhrag_397",
+    "category": "comparison",
+    "query": "So sánh sự khác nhau giữa chiến lược Chiến tranh đặc biệt và Chiến tranh cục bộ của Mỹ ở miền Nam.",
+    "reference_answer": "Điểm khác biệt chính giữa Chiến tranh đặc biệt và Chiến tranh cục bộ nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Chiến tranh đặc biệt",
+      "Chiến tranh cục bộ"
+    ]
+  },
+  {
+    "id": "vhrag_398",
+    "category": "comparison",
+    "query": "So sánh các điều khoản cơ bản của Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973.",
+    "reference_answer": "Điểm khác biệt chính giữa Hiệp định Giơ-ne-vơ 1954 và Hiệp định Pa-ri 1973 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ 1954",
+      "Hiệp định Pa-ri 1973"
+    ]
+  },
+  {
+    "id": "vhrag_399",
+    "category": "comparison",
+    "query": "So sánh tính chất và hình thức đấu tranh giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968.",
+    "reference_answer": "Điểm khác biệt chính giữa Phong trào Đồng khởi 1960 và Tổng tiến công Mậu Thân 1968 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Phong trào Đồng khởi 1960",
+      "Tổng tiến công Mậu Thân 1968"
+    ]
+  },
+  {
+    "id": "vhrag_400",
+    "category": "comparison",
+    "query": "So sánh mục tiêu quân sự của Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949.",
+    "reference_answer": "Điểm khác biệt chính giữa Kế hoạch Nava 1953 và Kế hoạch Rơ-ve 1949 nằm ở quy mô lực lượng, mục tiêu chiến lược và kết quả chính trị thực tế đạt được.",
+    "key_entities": [
+      "Kế hoạch Nava 1953",
+      "Kế hoạch Rơ-ve 1949"
+    ]
+  },
+  {
+    "id": "vhrag_401",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_402",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_403",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_404",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_405",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_406",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_407",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_408",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_409",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_410",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_411",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_412",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_413",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_414",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_415",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_416",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_417",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_418",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_419",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_420",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_421",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_422",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_423",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_424",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_425",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_426",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_427",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_428",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_429",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_430",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_431",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_432",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_433",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_434",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_435",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_436",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_437",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_438",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_439",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_440",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_441",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_442",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_443",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_444",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_445",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_446",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_447",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_448",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_449",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_450",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_451",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_452",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_453",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_454",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_455",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_456",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_457",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_458",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_459",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_460",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_461",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_462",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_463",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_464",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_465",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_466",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_467",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_468",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_469",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_470",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_471",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_472",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_473",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_474",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_475",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_476",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_477",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_478",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_479",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_480",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_481",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_482",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_483",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_484",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_485",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_486",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_487",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_488",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_489",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_490",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_491",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_492",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_493",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_494",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_495",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_496",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  },
+  {
+    "id": "vhrag_497",
+    "category": "multihop",
+    "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+    "reference_answer": "Liên kết nhân quả: Mỹ rút quân sau Hiệp định Pa-ri tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sụp đổ của chính quyền Sài Gòn năm 1975.",
+    "key_entities": [
+      "Mỹ rút quân sau Hiệp định Pa-ri",
+      "sụp đổ của chính quyền Sài Gòn năm 1975"
+    ]
+  },
+  {
+    "id": "vhrag_498",
+    "category": "multihop",
+    "query": "Mối liên hệ giữa thất bại của quân Pháp tại Điện Biên Phủ với việc ký kết Hiệp định Giơ-ne-vơ năm 1954 là gì?",
+    "reference_answer": "Liên kết nhân quả: Thất bại của quân Pháp tại Điện Biên Phủ tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy ký kết Hiệp định Giơ-ne-vơ.",
+    "key_entities": [
+      "Thất bại của quân Pháp tại Điện Biên Phủ",
+      "ký kết Hiệp định Giơ-ne-vơ"
+    ]
+  },
+  {
+    "id": "vhrag_499",
+    "category": "multihop",
+    "query": "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam có liên hệ gì với phong trào Đồng khởi 1960?",
+    "reference_answer": "Liên kết nhân quả: Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy phong trào Đồng khởi 1960.",
+    "key_entities": [
+      "Sự ra đời của Mặt trận Dân tộc Giải phóng miền Nam",
+      "phong trào Đồng khởi 1960"
+    ]
+  },
+  {
+    "id": "vhrag_500",
+    "category": "multihop",
+    "query": "Chiến thắng Đường 9 - Nam Lào 1971 đã tác động như thế nào đến sự phá sản của chiến lược Việt Nam hóa chiến tranh?",
+    "reference_answer": "Liên kết nhân quả: Chiến thắng Đường 9 - Nam Lào tạo ra tiền đề trực tiếp/gián tiếp thúc đẩy sự phá sản của chiến lược Việt Nam hóa chiến tranh.",
+    "key_entities": [
+      "Chiến thắng Đường 9 - Nam Lào",
+      "sự phá sản của chiến lược Việt Nam hóa chiến tranh"
+    ]
+  }
+]
