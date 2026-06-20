@@ -204,40 +204,38 @@ async def supervisor_node(state: AgentState) -> dict[str, Any]:
         })
 
     else:
-        # Agentic: full LLM task decomposition
+        # Agentic: research-grade dynamic planning using QueryAnalyzer and HistoricalPlanner
         logger.info("agentic_task_decomposition_started", query=query[:60])
-        prompt = (
-            f"Bạn là Trí tuệ Điều phối Lịch sử Việt Nam (Autonomous History Planner AI).\n"
-            f"Nhiệm vụ của bạn là phân tích câu hỏi nghiên cứu lịch sử của người dùng:\n"
-            f"\"{query}\"\n\n"
-            f"Hãy phân rã nó thành các nhiệm vụ con cụ thể cho các Agent chuyên biệt:\n"
-            f"1. retrieval_queries: Mảng chứa 1-3 câu truy vấn tìm kiếm văn bản tập trung.\n"
-            f"2. timeline_queries: Mảng chứa 1-2 từ khóa lịch sử hoặc năm/thập kỷ cụ thể.\n"
-            f"3. graph_slugs: Mảng chứa 1-3 slug thực thể lịch sử (ví dụ: 'hiep-dinh-geneve').\n\n"
-            f"Trả về JSON thuần túy:\n"
-            f"{{\"retrieval_queries\": [...], \"timeline_queries\": [...], \"graph_slugs\": [...]}}"
-        )
         status = "success"
         try:
-            llm = get_llm_client()
-            resp = await llm.generate(prompt, system="Bạn là chuyên gia điều phối nghiên cứu lịch sử.", max_tokens=400)
-            if resp.startswith("[Phản hồi từ bộ nhớ tạm"):
-                status = "failed"
-            parsed = parse_llm_json(resp)
-            retrieval_queries = parsed.get("retrieval_queries", [query])
-            timeline_queries = parsed.get("timeline_queries", [query])
-            graph_slugs = parsed.get("graph_slugs", [])
+            from app.services.agent.query_analyzer import QueryAnalyzer
+            from app.services.agent.planner import HistoricalPlanner, AVAILABLE_TOOLS
+            
+            analyzer = QueryAnalyzer()
+            analysis = await analyzer.analyze(query)
+            
+            planner = HistoricalPlanner()
+            raw_plan = await planner.create_plan(query)
+            
+            # Map tools to nodes using Tool Registry validation mapping
+            plan = [AVAILABLE_TOOLS[task["tool"]] for task in raw_plan.get("tasks", []) if task["tool"] in AVAILABLE_TOOLS]
+            
+            # Use analysis for query boosting and entity tracking
+            graph_slugs = analysis.get("entities", [])
+            retrieval_queries = [query] + [e for e in analysis.get("entities", []) if e != query]
+            timeline_queries = [query]
+            
+            logger.info("planner_dynamic_plan_generated", plan=plan, analysis=analysis)
         except Exception as exc:
-            logger.error("agentic_planning_llm_failed", error=str(exc))
+            logger.error("agentic_planning_failed_defaulting_to_fallback", error=str(exc))
+            plan = ["retrieval_node", "graph_node", "timeline_node"]
             status = "failed"
 
-        plan = ["retrieval_node", "graph_node", "timeline_node"]
         trace.append({
             "agent": "Supervisor (Agentic Planning)",
-            "action": f"Phân rã câu hỏi thành:\n"
-                      f"- Retrieval: {retrieval_queries}\n"
-                      f"- Timeline: {timeline_queries}\n"
-                      f"- Graph: {graph_slugs}" if status == "success" else "Phân rã kế hoạch thất bại do lỗi kết nối LLM.",
+            "action": f"Kế hoạch động lập từ QueryAnalyzer & HistoricalPlanner:\n"
+                      f"- Plan nodes: {plan}\n"
+                      f"- Entities extracted: {graph_slugs}" if status == "success" else "Lập kế hoạch động thất bại, dùng fallback.",
             "status": status,
         })
 
