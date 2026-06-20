@@ -124,6 +124,25 @@ class CitationVerifier:
                     status = "unsupported"
                     needs_rewrite = True
 
+            # If the claim was classified as supported or partially_supported, run strict numerical/entity checks
+            if status in ("supported", "partially_supported") and matched_source is not None:
+                source_txt = source_texts[matched_source]
+                
+                # Check numbers (exclude citation markers)
+                claim_nums_text = re.sub(r"\[S\d+\]", "", sentence)
+                claim_nums = set(re.findall(r"\b\d+\b", claim_nums_text))
+                source_nums = set(re.findall(r"\b\d+\b", source_txt))
+                
+                if not claim_nums.issubset(source_nums):
+                    status = "unsupported"
+                    needs_rewrite = True
+                else:
+                    from app.services.citation.nli_verifier import NLIVerifier
+                    nli = NLIVerifier()
+                    if not nli.verify_entailment(sentence, source_txt):
+                        status = "unsupported"
+                        needs_rewrite = True
+
             claims.append({
                 "sentence": sentence,
                 "status": status,
