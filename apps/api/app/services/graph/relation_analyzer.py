@@ -10,8 +10,9 @@ class RelationAnalyzer:
 
     async def find_connection(self, source: str, target: str) -> list:
         query = (
-            "MATCH (s {name: $source}), (t {name: $target}), "
-            "p = shortestPath((s)-[*..4]-(t)) "
+            "MATCH (s) WHERE s.name = $source OR $source IN s.aliases "
+            "MATCH (t) WHERE t.name = $target OR $target IN t.aliases "
+            "MATCH p = shortestPath((s)-[*..4]-(t)) "
             "RETURN [n in nodes(p) | n.name] as path"
         )
         async with self.driver.session() as session:
