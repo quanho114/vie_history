@@ -12,6 +12,7 @@ class LangGraphOrchestrator:
         workflow.add_node("retrieve_knowledge", self._retrieve_knowledge)
         workflow.add_node("verify_evidence", self._verify_evidence)
         workflow.add_node("synthesize_answer", self._synthesize_answer)
+        workflow.add_node("critic", self._critic_evaluation)
         workflow.add_node("re_plan", self._re_plan)
 
         # Set Entrypoint
@@ -21,18 +22,19 @@ class LangGraphOrchestrator:
         workflow.add_edge("classify_intent", "plan_steps")
         workflow.add_edge("plan_steps", "retrieve_knowledge")
         workflow.add_edge("retrieve_knowledge", "verify_evidence")
+        workflow.add_edge("verify_evidence", "synthesize_answer")
+        workflow.add_edge("synthesize_answer", "critic")
         
         workflow.add_conditional_edges(
-            "verify_evidence",
+            "critic",
             self._decide_routing,
             {
-                "sufficient": "synthesize_answer",
+                "sufficient": END,
                 "insufficient": "re_plan"
             }
         )
         
         workflow.add_edge("re_plan", "retrieve_knowledge")
-        workflow.add_edge("synthesize_answer", END)
         
         self.app = workflow.compile()
 
@@ -62,6 +64,18 @@ class LangGraphOrchestrator:
             "plan": [{"type": "expanded_search", "query": state["query"]}],
             "reasoning_trace": ["Triggered replan."]
         }
+
+    async def _critic_evaluation(self, state: AgentState) -> Dict[str, Any]:
+        draft = state["final_answer"]
+        query = state["query"]
+        
+        # Simulating critic scoring (to be replaced by actual LLM check in service layer)
+        if "tại sao" in query.lower() and "chính trị" not in draft.lower() and state["retry_count"] == 0:
+            return {
+                "confidence": 0.5,
+                "reasoning_trace": ["Critic found missing perspective: political factors."]
+            }
+        return {"confidence": 0.9, "reasoning_trace": ["Critic passed the response."]}
 
     async def _synthesize_answer(self, state: AgentState) -> Dict[str, Any]:
         return {"final_answer": "Vua Quang Trung đại phá quân Thanh.", "reasoning_trace": ["Synthesized answer."]}
