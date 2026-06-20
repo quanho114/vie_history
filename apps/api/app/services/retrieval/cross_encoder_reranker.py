@@ -34,6 +34,8 @@ logger = get_logger("cross_encoder_reranker")
 # Supported multilingual cross-encoder models for Vietnamese.
 # These models are trained on sentence-level relevance data.
 _CROSS_ENCODER_POOL = [
+    # BGE Reranker Large (state-of-the-art cross-encoder for Vietnamese/multilingual)
+    "BAAI/bge-reranker-large",
     #ms-marco = trained on Bing query-document relevance pairs, multilingual
     "cross-encoder/ms-marco-MiniLM-L-6-v2",
     #ms-marco multilingual — better for non-English queries
