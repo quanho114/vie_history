@@ -1,0 +1,5253 @@
+[
+  {
+    "id": "q_001",
+    "category": "factual",
+    "query": "Ai là người sáng lập ra nhà Ngô?",
+    "reference_answer": "Người sáng lập ra nhà Ngô là Ngô Quyền.",
+    "key_entities": [
+      "Ngô Quyền",
+      "nhà Ngô"
+    ]
+  },
+  {
+    "id": "q_002",
+    "category": "factual",
+    "query": "Kinh đô của nhà Ngô nằm ở đâu?",
+    "reference_answer": "Kinh đô của nhà Ngô được đặt tại Cổ Loa.",
+    "key_entities": [
+      "nhà Ngô",
+      "Cổ Loa"
+    ]
+  },
+  {
+    "id": "q_003",
+    "category": "factual",
+    "query": "Ai là người sáng lập ra nhà Đinh?",
+    "reference_answer": "Người sáng lập ra nhà Đinh là Đinh Bộ Lĩnh (Đinh Tiên Hoàng).",
+    "key_entities": [
+      "Đinh Bộ Lĩnh (Đinh Tiên Hoàng)",
+      "nhà Đinh"
+    ]
+  },
+  {
+    "id": "q_004",
+    "category": "factual",
+    "query": "Kinh đô của nhà Đinh nằm ở đâu?",
+    "reference_answer": "Kinh đô của nhà Đinh được đặt tại Hoa Lư.",
+    "key_entities": [
+      "nhà Đinh",
+      "Hoa Lư"
+    ]
+  },
+  {
+    "id": "q_005",
+    "category": "factual",
+    "query": "Ai là người sáng lập ra nhà Tiền Lê?",
+    "reference_answer": "Người sáng lập ra nhà Tiền Lê là Lê Hoàn (Lê Đại Hành).",
+    "key_entities": [
+      "Lê Hoàn (Lê Đại Hành)",
+      "nhà Tiền Lê"
+    ]
+  },
+  {
+    "id": "q_006",
+    "category": "factual",
+    "query": "Kinh đô của nhà Tiền Lê nằm ở đâu?",
+    "reference_answer": "Kinh đô của nhà Tiền Lê được đặt tại Hoa Lư.",
+    "key_entities": [
+      "nhà Tiền Lê",
+      "Hoa Lư"
+    ]
+  },
+  {
+    "id": "q_007",
+    "category": "factual",
+    "query": "Ai là người sáng lập ra nhà Lý?",
+    "reference_answer": "Người sáng lập ra nhà Lý là Lý Công Uẩn (Lý Thái Tổ).",
+    "key_entities": [
+      "Lý Công Uẩn (Lý Thái Tổ)",
+      "nhà Lý"
+    ]
+  },
+  {
+    "id": "q_008",
+    "category": "factual",
+    "query": "Kinh đô của nhà Lý nằm ở đâu?",
+    "reference_answer": "Kinh đô của nhà Lý được đặt tại Thăng Long.",
+    "key_entities": [
+      "nhà Lý",
+      "Thăng Long"
+    ]
+  },
+  {
+    "id": "q_009",
+    "category": "factual",
+    "query": "Ai là người sáng lập ra nhà Trần?",
+    "reference_answer": "Người sáng lập ra nhà Trần là Trần Cảnh (Trần Thái Tông).",
+    "key_entities": [
+      "Trần Cảnh (Trần Thái Tông)",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_010",
+    "category": "factual",
+    "query": "Kinh đô của nhà Trần nằm ở đâu?",
+    "reference_answer": "Kinh đô của nhà Trần được đặt tại Thăng Long.",
+    "key_entities": [
+      "nhà Trần",
+      "Thăng Long"
+    ]
+  },
+  {
+    "id": "q_011",
+    "category": "factual",
+    "query": "Ai là người sáng lập ra nhà Hồ?",
+    "reference_answer": "Người sáng lập ra nhà Hồ là Hồ Quý Ly.",
+    "key_entities": [
+      "Hồ Quý Ly",
+      "nhà Hồ"
+    ]
+  },
+  {
+    "id": "q_012",
+    "category": "factual",
+    "query": "Kinh đô của nhà Hồ nằm ở đâu?",
+    "reference_answer": "Kinh đô của nhà Hồ được đặt tại Tây Đô.",
+    "key_entities": [
+      "nhà Hồ",
+      "Tây Đô"
+    ]
+  },
+  {
+    "id": "q_013",
+    "category": "factual",
+    "query": "Ai là người sáng lập ra nhà Hậu Lê?",
+    "reference_answer": "Người sáng lập ra nhà Hậu Lê là Lê Lợi (Lê Thái Tổ).",
+    "key_entities": [
+      "Lê Lợi (Lê Thái Tổ)",
+      "nhà Hậu Lê"
+    ]
+  },
+  {
+    "id": "q_014",
+    "category": "factual",
+    "query": "Kinh đô của nhà Hậu Lê nằm ở đâu?",
+    "reference_answer": "Kinh đô của nhà Hậu Lê được đặt tại Đông Kinh (Thăng Long).",
+    "key_entities": [
+      "nhà Hậu Lê",
+      "Đông Kinh (Thăng Long)"
+    ]
+  },
+  {
+    "id": "q_015",
+    "category": "factual",
+    "query": "Ai là người sáng lập ra nhà Mạc?",
+    "reference_answer": "Người sáng lập ra nhà Mạc là Mạc Đăng Dung.",
+    "key_entities": [
+      "Mạc Đăng Dung",
+      "nhà Mạc"
+    ]
+  },
+  {
+    "id": "q_016",
+    "category": "factual",
+    "query": "Kinh đô của nhà Mạc nằm ở đâu?",
+    "reference_answer": "Kinh đô của nhà Mạc được đặt tại Cao Bằng / Thăng Long.",
+    "key_entities": [
+      "nhà Mạc",
+      "Cao Bằng / Thăng Long"
+    ]
+  },
+  {
+    "id": "q_017",
+    "category": "factual",
+    "query": "Ai là người sáng lập ra nhà Tây Sơn?",
+    "reference_answer": "Người sáng lập ra nhà Tây Sơn là Nguyễn Huệ (Quang Trung).",
+    "key_entities": [
+      "Nguyễn Huệ (Quang Trung)",
+      "nhà Tây Sơn"
+    ]
+  },
+  {
+    "id": "q_018",
+    "category": "factual",
+    "query": "Kinh đô của nhà Tây Sơn nằm ở đâu?",
+    "reference_answer": "Kinh đô của nhà Tây Sơn được đặt tại Phú Xuân.",
+    "key_entities": [
+      "nhà Tây Sơn",
+      "Phú Xuân"
+    ]
+  },
+  {
+    "id": "q_019",
+    "category": "factual",
+    "query": "Ai là người sáng lập ra nhà Nguyễn?",
+    "reference_answer": "Người sáng lập ra nhà Nguyễn là Nguyễn Ánh (Gia Long).",
+    "key_entities": [
+      "Nguyễn Ánh (Gia Long)",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_020",
+    "category": "factual",
+    "query": "Kinh đô của nhà Nguyễn nằm ở đâu?",
+    "reference_answer": "Kinh đô của nhà Nguyễn được đặt tại Phú Xuân (Huế).",
+    "key_entities": [
+      "nhà Nguyễn",
+      "Phú Xuân (Huế)"
+    ]
+  },
+  {
+    "id": "q_021",
+    "category": "factual",
+    "query": "Ai là người chỉ huy Trận Bạch Đằng năm 938?",
+    "reference_answer": "Người chỉ huy Trận Bạch Đằng năm 938 là Ngô Quyền.",
+    "key_entities": [
+      "Ngô Quyền",
+      "Trận Bạch Đằng năm 938"
+    ]
+  },
+  {
+    "id": "q_022",
+    "category": "factual",
+    "query": "Quân đội nước ta đã đánh bại quân xâm lược nào trong Trận Bạch Đằng năm 938?",
+    "reference_answer": "Trong Trận Bạch Đằng năm 938, quân ta đã đánh bại quân Nam Hán.",
+    "key_entities": [
+      "Trận Bạch Đằng năm 938",
+      "quân Nam Hán"
+    ]
+  },
+  {
+    "id": "q_023",
+    "category": "factual",
+    "query": "Chiến thuật chính được sử dụng trong Trận Bạch Đằng năm 938 là gì?",
+    "reference_answer": "Chiến thuật chính trong Trận Bạch Đằng năm 938 là cắm cọc gỗ nhọn đầu bịt sắt dưới lòng sông.",
+    "key_entities": [
+      "Trận Bạch Đằng năm 938",
+      "cắm cọc gỗ nhọn đầu bịt sắt dưới lòng sông"
+    ]
+  },
+  {
+    "id": "q_024",
+    "category": "factual",
+    "query": "Ai là người chỉ huy Trận Bạch Đằng năm 981?",
+    "reference_answer": "Người chỉ huy Trận Bạch Đằng năm 981 là Lê Hoàn.",
+    "key_entities": [
+      "Lê Hoàn",
+      "Trận Bạch Đằng năm 981"
+    ]
+  },
+  {
+    "id": "q_025",
+    "category": "factual",
+    "query": "Quân đội nước ta đã đánh bại quân xâm lược nào trong Trận Bạch Đằng năm 981?",
+    "reference_answer": "Trong Trận Bạch Đằng năm 981, quân ta đã đánh bại quân Tống.",
+    "key_entities": [
+      "Trận Bạch Đằng năm 981",
+      "quân Tống"
+    ]
+  },
+  {
+    "id": "q_026",
+    "category": "factual",
+    "query": "Chiến thuật chính được sử dụng trong Trận Bạch Đằng năm 981 là gì?",
+    "reference_answer": "Chiến thuật chính trong Trận Bạch Đằng năm 981 là nhử quân địch vào sâu rồi phục kích tiêu diệt.",
+    "key_entities": [
+      "Trận Bạch Đằng năm 981",
+      "nhử quân địch vào sâu rồi phục kích tiêu diệt"
+    ]
+  },
+  {
+    "id": "q_027",
+    "category": "factual",
+    "query": "Ai là người chỉ huy Trận Bạch Đằng năm 1288?",
+    "reference_answer": "Người chỉ huy Trận Bạch Đằng năm 1288 là Trần Hưng Đạo.",
+    "key_entities": [
+      "Trần Hưng Đạo",
+      "Trận Bạch Đằng năm 1288"
+    ]
+  },
+  {
+    "id": "q_028",
+    "category": "factual",
+    "query": "Quân đội nước ta đã đánh bại quân xâm lược nào trong Trận Bạch Đằng năm 1288?",
+    "reference_answer": "Trong Trận Bạch Đằng năm 1288, quân ta đã đánh bại quân Nguyên Mông.",
+    "key_entities": [
+      "Trận Bạch Đằng năm 1288",
+      "quân Nguyên Mông"
+    ]
+  },
+  {
+    "id": "q_029",
+    "category": "factual",
+    "query": "Chiến thuật chính được sử dụng trong Trận Bạch Đằng năm 1288 là gì?",
+    "reference_answer": "Chiến thuật chính trong Trận Bạch Đằng năm 1288 là áp dụng chiến thuật cắm cọc gỗ trên sông Bạch Đằng.",
+    "key_entities": [
+      "Trận Bạch Đằng năm 1288",
+      "áp dụng chiến thuật cắm cọc gỗ trên sông Bạch Đằng"
+    ]
+  },
+  {
+    "id": "q_030",
+    "category": "factual",
+    "query": "Ai là người chỉ huy Chiến thắng Chi Lăng - Xương Giang?",
+    "reference_answer": "Người chỉ huy Chiến thắng Chi Lăng - Xương Giang là Lê Lợi và Nguyễn Trãi.",
+    "key_entities": [
+      "Lê Lợi và Nguyễn Trãi",
+      "Chiến thắng Chi Lăng - Xương Giang"
+    ]
+  },
+  {
+    "id": "q_031",
+    "category": "factual",
+    "query": "Quân đội nước ta đã đánh bại quân xâm lược nào trong Chiến thắng Chi Lăng - Xương Giang?",
+    "reference_answer": "Trong Chiến thắng Chi Lăng - Xương Giang, quân ta đã đánh bại quân Minh.",
+    "key_entities": [
+      "Chiến thắng Chi Lăng - Xương Giang",
+      "quân Minh"
+    ]
+  },
+  {
+    "id": "q_032",
+    "category": "factual",
+    "query": "Chiến thuật chính được sử dụng trong Chiến thắng Chi Lăng - Xương Giang là gì?",
+    "reference_answer": "Chiến thuật chính trong Chiến thắng Chi Lăng - Xương Giang là vây thành diệt viện, phục kích chém Liễu Thăng.",
+    "key_entities": [
+      "Chiến thắng Chi Lăng - Xương Giang",
+      "vây thành diệt viện, phục kích chém Liễu Thăng"
+    ]
+  },
+  {
+    "id": "q_033",
+    "category": "factual",
+    "query": "Ai là người chỉ huy Chiến thắng Ngọc Hồi - Đống Đa?",
+    "reference_answer": "Người chỉ huy Chiến thắng Ngọc Hồi - Đống Đa là Quang Trung (Nguyễn Huệ).",
+    "key_entities": [
+      "Quang Trung (Nguyễn Huệ)",
+      "Chiến thắng Ngọc Hồi - Đống Đa"
+    ]
+  },
+  {
+    "id": "q_034",
+    "category": "factual",
+    "query": "Quân đội nước ta đã đánh bại quân xâm lược nào trong Chiến thắng Ngọc Hồi - Đống Đa?",
+    "reference_answer": "Trong Chiến thắng Ngọc Hồi - Đống Đa, quân ta đã đánh bại quân Thanh.",
+    "key_entities": [
+      "Chiến thắng Ngọc Hồi - Đống Đa",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_035",
+    "category": "factual",
+    "query": "Chiến thuật chính được sử dụng trong Chiến thắng Ngọc Hồi - Đống Đa là gì?",
+    "reference_answer": "Chiến thuật chính trong Chiến thắng Ngọc Hồi - Đống Đa là hành quân thần tốc và tấn công bất ngờ vào dịp Tết Kỷ Dậu.",
+    "key_entities": [
+      "Chiến thắng Ngọc Hồi - Đống Đa",
+      "hành quân thần tốc và tấn công bất ngờ vào dịp Tết Kỷ Dậu"
+    ]
+  },
+  {
+    "id": "q_036",
+    "category": "factual",
+    "query": "Ai là người chỉ huy Chiến dịch Điện Biên Phủ?",
+    "reference_answer": "Người chỉ huy Chiến dịch Điện Biên Phủ là Đại tướng Võ Nguyên Giáp.",
+    "key_entities": [
+      "Đại tướng Võ Nguyên Giáp",
+      "Chiến dịch Điện Biên Phủ"
+    ]
+  },
+  {
+    "id": "q_037",
+    "category": "factual",
+    "query": "Quân đội nước ta đã đánh bại quân xâm lược nào trong Chiến dịch Điện Biên Phủ?",
+    "reference_answer": "Trong Chiến dịch Điện Biên Phủ, quân ta đã đánh bại thực dân Pháp.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ",
+      "thực dân Pháp"
+    ]
+  },
+  {
+    "id": "q_038",
+    "category": "factual",
+    "query": "Chiến thuật chính được sử dụng trong Chiến dịch Điện Biên Phủ là gì?",
+    "reference_answer": "Chiến thuật chính trong Chiến dịch Điện Biên Phủ là chuyển phương châm từ đánh nhanh thắng nhanh sang đánh chắc tiến chắc.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ",
+      "chuyển phương châm từ đánh nhanh thắng nhanh sang đánh chắc tiến chắc"
+    ]
+  },
+  {
+    "id": "q_039",
+    "category": "factual",
+    "query": "Ai là người chỉ huy Chiến dịch Hồ Chí Minh?",
+    "reference_answer": "Người chỉ huy Chiến dịch Hồ Chí Minh là Đại tướng Văn Tiến Dũng.",
+    "key_entities": [
+      "Đại tướng Văn Tiến Dũng",
+      "Chiến dịch Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_040",
+    "category": "factual",
+    "query": "Quân đội nước ta đã đánh bại quân xâm lược nào trong Chiến dịch Hồ Chí Minh?",
+    "reference_answer": "Trong Chiến dịch Hồ Chí Minh, quân ta đã đánh bại chính quyền Sài Gòn (Mỹ).",
+    "key_entities": [
+      "Chiến dịch Hồ Chí Minh",
+      "chính quyền Sài Gòn (Mỹ)"
+    ]
+  },
+  {
+    "id": "q_041",
+    "category": "factual",
+    "query": "Chiến thuật chính được sử dụng trong Chiến dịch Hồ Chí Minh là gì?",
+    "reference_answer": "Chiến thuật chính trong Chiến dịch Hồ Chí Minh là thần tốc, táo bạo, bất ngờ, chắc thắng, hợp điểm 5 cánh quân vào Sài Gòn.",
+    "key_entities": [
+      "Chiến dịch Hồ Chí Minh",
+      "thần tốc, táo bạo, bất ngờ, chắc thắng, hợp điểm 5 cánh quân vào Sài Gòn"
+    ]
+  },
+  {
+    "id": "q_042",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Hai Bà Trưng là gì?",
+    "reference_answer": "Hai Bà Trưng là Lãnh đạo cuộc khởi nghĩa Hai Bà Trưng chống nhà Đông Hán năm 40.",
+    "key_entities": [
+      "Hai Bà Trưng"
+    ]
+  },
+  {
+    "id": "q_043",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Bà Triệu (Triệu Thị Trinh) là gì?",
+    "reference_answer": "Bà Triệu (Triệu Thị Trinh) là Lãnh đạo cuộc khởi nghĩa chống quân Ngô năm 248.",
+    "key_entities": [
+      "Bà Triệu (Triệu Thị Trinh)"
+    ]
+  },
+  {
+    "id": "q_044",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Lý Nam Đế (Lý Bí) là gì?",
+    "reference_answer": "Lý Nam Đế (Lý Bí) là Người thành lập nước Vạn Xuân chống nhà Lương năm 544.",
+    "key_entities": [
+      "Lý Nam Đế (Lý Bí)"
+    ]
+  },
+  {
+    "id": "q_045",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Mai Thúc Loan (Mai Hắc Đế) là gì?",
+    "reference_answer": "Mai Thúc Loan (Mai Hắc Đế) là Lãnh đạo khởi nghĩa chống nhà Đường đầu thế kỷ VIII.",
+    "key_entities": [
+      "Mai Thúc Loan (Mai Hắc Đế)"
+    ]
+  },
+  {
+    "id": "q_046",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Phùng Hưng (Bố Cái Đại Vương) là gì?",
+    "reference_answer": "Phùng Hưng (Bố Cái Đại Vương) là Lãnh đạo khởi nghĩa chống ách đô hộ của nhà Đường.",
+    "key_entities": [
+      "Phùng Hưng (Bố Cái Đại Vương)"
+    ]
+  },
+  {
+    "id": "q_047",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Ngô Quyền là gì?",
+    "reference_answer": "Ngô Quyền là Người đánh bại quân Nam Hán trên sông Bạch Đằng năm 938, mở ra kỷ nguyên độc lập lâu dài.",
+    "key_entities": [
+      "Ngô Quyền"
+    ]
+  },
+  {
+    "id": "q_048",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Đinh Bộ Lĩnh là gì?",
+    "reference_answer": "Đinh Bộ Lĩnh là Người dẹp loạn 12 sứ quân, thống nhất đất nước, lập ra nước Đại Cồ Việt.",
+    "key_entities": [
+      "Đinh Bộ Lĩnh"
+    ]
+  },
+  {
+    "id": "q_049",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Lê Hoàn là gì?",
+    "reference_answer": "Lê Hoàn là Người sáng lập nhà Tiền Lê, lãnh đạo cuộc kháng chiến chống quân Tống xâm lược lần thứ nhất.",
+    "key_entities": [
+      "Lê Hoàn"
+    ]
+  },
+  {
+    "id": "q_050",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Lý Thường Kiệt là gì?",
+    "reference_answer": "Lý Thường Kiệt là Danh tướng nhà Lý, người chỉ huy kháng chiến chống Tống và viết bài thơ thần Nam quốc sơn hà.",
+    "key_entities": [
+      "Lý Thường Kiệt"
+    ]
+  },
+  {
+    "id": "q_051",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Trần Hưng Đạo (Trần Quốc Tuấn) là gì?",
+    "reference_answer": "Trần Hưng Đạo (Trần Quốc Tuấn) là Tiết chế Quốc công chỉ huy quân dân nhà Trần đánh bại quân Nguyên Mông lần 2 và lần 3.",
+    "key_entities": [
+      "Trần Hưng Đạo (Trần Quốc Tuấn)"
+    ]
+  },
+  {
+    "id": "q_052",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Lê Lợi là gì?",
+    "reference_answer": "Lê Lợi là Lãnh đạo khởi nghĩa Lam Sơn ròng rã 10 năm giải phóng đất nước khỏi ách đô hộ của nhà Minh.",
+    "key_entities": [
+      "Lê Lợi"
+    ]
+  },
+  {
+    "id": "q_053",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Nguyễn Trãi là gì?",
+    "reference_answer": "Nguyễn Trãi là Khai quốc công thần nhà Hậu Lê, danh nhân văn hóa thế giới, tác giả Bình Ngô Đại Cáo.",
+    "key_entities": [
+      "Nguyễn Trãi"
+    ]
+  },
+  {
+    "id": "q_054",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Quang Trung (Nguyễn Huệ) là gì?",
+    "reference_answer": "Quang Trung (Nguyễn Huệ) là Người anh hùng áo vải Tây Sơn, đánh dẹp tập đoàn phong kiến Trịnh - Nguyễn, đánh tan 5 vạn quân Xiêm và 29 vạn quân Thanh.",
+    "key_entities": [
+      "Quang Trung (Nguyễn Huệ)"
+    ]
+  },
+  {
+    "id": "q_055",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Hồ Chí Minh là gì?",
+    "reference_answer": "Hồ Chí Minh là Người sáng lập Đảng Cộng sản Việt Nam, lãnh đạo Cách mạng tháng Tám, khai sinh nước Việt Nam Dân chủ Cộng hòa.",
+    "key_entities": [
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_056",
+    "category": "factual",
+    "query": "Vai trò lịch sử của Võ Nguyên Giáp là gì?",
+    "reference_answer": "Võ Nguyên Giáp là Đại tướng đầu tiên của Quân đội Nhân dân Việt Nam, tổng chỉ huy chiến dịch Điện Biên Phủ.",
+    "key_entities": [
+      "Võ Nguyên Giáp"
+    ]
+  },
+  {
+    "id": "q_057",
+    "category": "factual",
+    "query": "Hiệp ước / Hiệp định nào được ký kết vào năm 1862?",
+    "reference_answer": "Hiệp định hoặc hiệp ước được ký kết năm 1862 là Hiệp ước Nhâm Tuất.",
+    "key_entities": [
+      "Hiệp ước Nhâm Tuất",
+      "1862"
+    ]
+  },
+  {
+    "id": "q_058",
+    "category": "factual",
+    "query": "Bên ký kết và hậu quả của Hiệp ước Nhâm Tuất là gì?",
+    "reference_answer": "Hiệp ước Nhâm Tuất được ký kết bởi nhà Nguyễn và Pháp dẫn đến hậu quả nhượng 3 tỉnh miền Đông Nam Kỳ cho Pháp.",
+    "key_entities": [
+      "Hiệp ước Nhâm Tuất",
+      "nhà Nguyễn và Pháp"
+    ]
+  },
+  {
+    "id": "q_059",
+    "category": "factual",
+    "query": "Hiệp ước / Hiệp định nào được ký kết vào năm 1874?",
+    "reference_answer": "Hiệp định hoặc hiệp ước được ký kết năm 1874 là Hiệp ước Giáp Tuất.",
+    "key_entities": [
+      "Hiệp ước Giáp Tuất",
+      "1874"
+    ]
+  },
+  {
+    "id": "q_060",
+    "category": "factual",
+    "query": "Bên ký kết và hậu quả của Hiệp ước Giáp Tuất là gì?",
+    "reference_answer": "Hiệp ước Giáp Tuất được ký kết bởi nhà Nguyễn và Pháp dẫn đến hậu quả công nhận chủ quyền của Pháp trên toàn cõi Nam Kỳ.",
+    "key_entities": [
+      "Hiệp ước Giáp Tuất",
+      "nhà Nguyễn và Pháp"
+    ]
+  },
+  {
+    "id": "q_061",
+    "category": "factual",
+    "query": "Hiệp ước / Hiệp định nào được ký kết vào năm 1883?",
+    "reference_answer": "Hiệp định hoặc hiệp ước được ký kết năm 1883 là Hiệp ước Hài-măng (Harmand).",
+    "key_entities": [
+      "Hiệp ước Hài-măng (Harmand)",
+      "1883"
+    ]
+  },
+  {
+    "id": "q_062",
+    "category": "factual",
+    "query": "Bên ký kết và hậu quả của Hiệp ước Hài-măng (Harmand) là gì?",
+    "reference_answer": "Hiệp ước Hài-măng (Harmand) được ký kết bởi nhà Nguyễn và Pháp dẫn đến hậu quả chính thức thiết lập nền bảo hộ của Pháp lên Bắc Kỳ và Trung Kỳ.",
+    "key_entities": [
+      "Hiệp ước Hài-măng (Harmand)",
+      "nhà Nguyễn và Pháp"
+    ]
+  },
+  {
+    "id": "q_063",
+    "category": "factual",
+    "query": "Hiệp ước / Hiệp định nào được ký kết vào năm 1884?",
+    "reference_answer": "Hiệp định hoặc hiệp ước được ký kết năm 1884 là Hiệp ước Pa-tơ-nốt (Patenotre).",
+    "key_entities": [
+      "Hiệp ước Pa-tơ-nốt (Patenotre)",
+      "1884"
+    ]
+  },
+  {
+    "id": "q_064",
+    "category": "factual",
+    "query": "Bên ký kết và hậu quả của Hiệp ước Pa-tơ-nốt (Patenotre) là gì?",
+    "reference_answer": "Hiệp ước Pa-tơ-nốt (Patenotre) được ký kết bởi nhà Nguyễn và Pháp dẫn đến hậu quả khẳng định sự bảo hộ lâu dài của thực dân Pháp tại Việt Nam.",
+    "key_entities": [
+      "Hiệp ước Pa-tơ-nốt (Patenotre)",
+      "nhà Nguyễn và Pháp"
+    ]
+  },
+  {
+    "id": "q_065",
+    "category": "factual",
+    "query": "Hiệp ước / Hiệp định nào được ký kết vào năm 1946?",
+    "reference_answer": "Hiệp định hoặc hiệp ước được ký kết năm 1946 là Hiệp định Sơ bộ 6/3.",
+    "key_entities": [
+      "Hiệp định Sơ bộ 6/3",
+      "1946"
+    ]
+  },
+  {
+    "id": "q_066",
+    "category": "factual",
+    "query": "Bên ký kết và hậu quả của Hiệp định Sơ bộ 6/3 là gì?",
+    "reference_answer": "Hiệp định Sơ bộ 6/3 được ký kết bởi Chính phủ Việt Nam Dân chủ Cộng hòa và đại diện Pháp dẫn đến hậu quả Pháp công nhận Việt Nam tự do thuộc khối liên hiệp Pháp.",
+    "key_entities": [
+      "Hiệp định Sơ bộ 6/3",
+      "Chính phủ Việt Nam Dân chủ Cộng hòa và đại diện Pháp"
+    ]
+  },
+  {
+    "id": "q_067",
+    "category": "factual",
+    "query": "Hiệp ước / Hiệp định nào được ký kết vào năm 1954?",
+    "reference_answer": "Hiệp định hoặc hiệp ước được ký kết năm 1954 là Hiệp định Giơ-ne-vơ (Geneva).",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ (Geneva)",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_068",
+    "category": "factual",
+    "query": "Bên ký kết và hậu quả của Hiệp định Giơ-ne-vơ (Geneva) là gì?",
+    "reference_answer": "Hiệp định Giơ-ne-vơ (Geneva) được ký kết bởi Pháp, Việt Nam Dân chủ Cộng hòa và các nước liên quan dẫn đến hậu quả tạm thời chia cắt Việt Nam tại vĩ tuyến 17 chờ tổng tuyển cử.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ (Geneva)",
+      "Pháp, Việt Nam Dân chủ Cộng hòa và các nước liên quan"
+    ]
+  },
+  {
+    "id": "q_069",
+    "category": "factual",
+    "query": "Hiệp ước / Hiệp định nào được ký kết vào năm 1973?",
+    "reference_answer": "Hiệp định hoặc hiệp ước được ký kết năm 1973 là Hiệp định Pa-ri (Paris).",
+    "key_entities": [
+      "Hiệp định Pa-ri (Paris)",
+      "1973"
+    ]
+  },
+  {
+    "id": "q_070",
+    "category": "factual",
+    "query": "Bên ký kết và hậu quả của Hiệp định Pa-ri (Paris) là gì?",
+    "reference_answer": "Hiệp định Pa-ri (Paris) được ký kết bởi Việt Nam Dân chủ Cộng hòa, Chính phủ Cách mạng lâm thời Cộng hòa miền Nam Việt Nam, Mỹ và Việt Nam Cộng hòa dẫn đến hậu quả Mỹ rút quân hoàn toàn khỏi miền Nam Việt Nam.",
+    "key_entities": [
+      "Hiệp định Pa-ri (Paris)",
+      "Việt Nam Dân chủ Cộng hòa, Chính phủ Cách mạng lâm thời Cộng hòa miền Nam Việt Nam, Mỹ và Việt Nam Cộng hòa"
+    ]
+  },
+  {
+    "id": "q_071",
+    "category": "factual",
+    "query": "Nước Văn Lang là nhà nước đầu tiên của nước ta đúng không? (Biến thể số 71)",
+    "reference_answer": "Đúng, Văn Lang là nhà nước đầu tiên trong lịch sử Việt Nam, do các Hùng Vương đứng đầu.",
+    "key_entities": [
+      "Văn Lang",
+      "Hùng Vương"
+    ]
+  },
+  {
+    "id": "q_072",
+    "category": "factual",
+    "query": "Nước Vạn Xuân do ai thành lập? (Biến thể số 72)",
+    "reference_answer": "Nước Vạn Xuân do Lý Nam Đế (Lý Bí) thành lập sau khi đánh bại quân nhà Lương vào năm 544.",
+    "key_entities": [
+      "Vạn Xuân",
+      "Lý Nam Đế",
+      "nhà Lương"
+    ]
+  },
+  {
+    "id": "q_073",
+    "category": "factual",
+    "query": "Tác giả của Nam quốc sơn hà là ai? (Biến thể số 73)",
+    "reference_answer": "Mặc dù có nhiều giả thuyết, Nam quốc sơn hà thường được cho là của Lý Thường Kiệt đọc trên sông Như Nguyệt năm 1077.",
+    "key_entities": [
+      "Nam quốc sơn hà",
+      "Lý Thường Kiệt",
+      "Như Nguyệt"
+    ]
+  },
+  {
+    "id": "q_074",
+    "category": "factual",
+    "query": "Hịch tướng sĩ do ai viết? (Biến thể số 74)",
+    "reference_answer": "Hịch tướng sĩ do Hưng Đạo Đại Vương Trần Quốc Tuấn viết trước cuộc kháng chiến chống quân Nguyên Mông lần thứ hai.",
+    "key_entities": [
+      "Hịch tướng sĩ",
+      "Trần Quốc Tuấn"
+    ]
+  },
+  {
+    "id": "q_075",
+    "category": "factual",
+    "query": "Đại cáo bình Ngô do ai soạn thảo? (Biến thể số 75)",
+    "reference_answer": "Đại cáo bình Ngô do Nguyễn Trãi soạn thảo thay lời Lê Lợi để tuyên bố kết thúc cuộc khởi nghĩa Lam Sơn.",
+    "key_entities": [
+      "Đại cáo bình Ngô",
+      "Nguyễn Trãi",
+      "Lê Lợi"
+    ]
+  },
+  {
+    "id": "q_076",
+    "category": "factual",
+    "query": "Ai là vị vua cuối cùng của triều đại phong kiến Việt Nam? (Biến thể số 76)",
+    "reference_answer": "Bảo Đại (Nguyễn Phúc Vĩnh Thụy) là vị vua cuối cùng của triều đại nhà Nguyễn và chế độ phong kiến Việt Nam.",
+    "key_entities": [
+      "Bảo Đại",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_077",
+    "category": "factual",
+    "query": "Hội nghị Diên Hồng thể hiện điều gì? (Biến thể số 77)",
+    "reference_answer": "Hội nghị Diên Hồng năm 1284 thể hiện tinh thần đoàn kết, đồng lòng chiến đấu chống quân Nguyên Mông của toàn dân dưới thời nhà Trần.",
+    "key_entities": [
+      "Diên Hồng",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_078",
+    "category": "factual",
+    "query": "Bản Tuyên ngôn độc lập đầu tiên của nước ta do ai viết? (Biến thể số 78)",
+    "reference_answer": "Mặc dù Nam quốc sơn hà được coi là tuyên ngôn độc lập đầu tiên, bản Tuyên ngôn Độc lập năm 1945 do Chủ tịch Hồ Chí Minh soạn thảo là bản tuyên ngôn chính thức mở đầu kỷ nguyên mới.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_079",
+    "category": "factual",
+    "query": "Ai lãnh đạo khởi nghĩa Hương Khê? (Biến thể số 79)",
+    "reference_answer": "Phan Đình Phùng lãnh đạo cuộc khởi nghĩa Hương Khê, cuộc khởi nghĩa tiêu biểu nhất trong phong trào Cần Vương.",
+    "key_entities": [
+      "Phan Đình Phùng",
+      "Hương Khê",
+      "Cần Vương"
+    ]
+  },
+  {
+    "id": "q_080",
+    "category": "factual",
+    "query": "Đông Kinh Nghĩa Thục do ai thành lập? (Biến thể số 80)",
+    "reference_answer": "Đông Kinh Nghĩa Thục do các sĩ phu yêu nước đứng đầu là Lương Văn Can và Phan Chu Trinh thành lập năm 1907 tại Hà Nội.",
+    "key_entities": [
+      "Đông Kinh Nghĩa Thục",
+      "Lương Văn Can",
+      "Phan Chu Trinh"
+    ]
+  },
+  {
+    "id": "q_081",
+    "category": "factual",
+    "query": "Nước Văn Lang là nhà nước đầu tiên của nước ta đúng không? (Biến thể số 81)",
+    "reference_answer": "Đúng, Văn Lang là nhà nước đầu tiên trong lịch sử Việt Nam, do các Hùng Vương đứng đầu.",
+    "key_entities": [
+      "Văn Lang",
+      "Hùng Vương"
+    ]
+  },
+  {
+    "id": "q_082",
+    "category": "factual",
+    "query": "Nước Vạn Xuân do ai thành lập? (Biến thể số 82)",
+    "reference_answer": "Nước Vạn Xuân do Lý Nam Đế (Lý Bí) thành lập sau khi đánh bại quân nhà Lương vào năm 544.",
+    "key_entities": [
+      "Vạn Xuân",
+      "Lý Nam Đế",
+      "nhà Lương"
+    ]
+  },
+  {
+    "id": "q_083",
+    "category": "factual",
+    "query": "Tác giả của Nam quốc sơn hà là ai? (Biến thể số 83)",
+    "reference_answer": "Mặc dù có nhiều giả thuyết, Nam quốc sơn hà thường được cho là của Lý Thường Kiệt đọc trên sông Như Nguyệt năm 1077.",
+    "key_entities": [
+      "Nam quốc sơn hà",
+      "Lý Thường Kiệt",
+      "Như Nguyệt"
+    ]
+  },
+  {
+    "id": "q_084",
+    "category": "factual",
+    "query": "Hịch tướng sĩ do ai viết? (Biến thể số 84)",
+    "reference_answer": "Hịch tướng sĩ do Hưng Đạo Đại Vương Trần Quốc Tuấn viết trước cuộc kháng chiến chống quân Nguyên Mông lần thứ hai.",
+    "key_entities": [
+      "Hịch tướng sĩ",
+      "Trần Quốc Tuấn"
+    ]
+  },
+  {
+    "id": "q_085",
+    "category": "factual",
+    "query": "Đại cáo bình Ngô do ai soạn thảo? (Biến thể số 85)",
+    "reference_answer": "Đại cáo bình Ngô do Nguyễn Trãi soạn thảo thay lời Lê Lợi để tuyên bố kết thúc cuộc khởi nghĩa Lam Sơn.",
+    "key_entities": [
+      "Đại cáo bình Ngô",
+      "Nguyễn Trãi",
+      "Lê Lợi"
+    ]
+  },
+  {
+    "id": "q_086",
+    "category": "factual",
+    "query": "Ai là vị vua cuối cùng của triều đại phong kiến Việt Nam? (Biến thể số 86)",
+    "reference_answer": "Bảo Đại (Nguyễn Phúc Vĩnh Thụy) là vị vua cuối cùng của triều đại nhà Nguyễn và chế độ phong kiến Việt Nam.",
+    "key_entities": [
+      "Bảo Đại",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_087",
+    "category": "factual",
+    "query": "Hội nghị Diên Hồng thể hiện điều gì? (Biến thể số 87)",
+    "reference_answer": "Hội nghị Diên Hồng năm 1284 thể hiện tinh thần đoàn kết, đồng lòng chiến đấu chống quân Nguyên Mông của toàn dân dưới thời nhà Trần.",
+    "key_entities": [
+      "Diên Hồng",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_088",
+    "category": "factual",
+    "query": "Bản Tuyên ngôn độc lập đầu tiên của nước ta do ai viết? (Biến thể số 88)",
+    "reference_answer": "Mặc dù Nam quốc sơn hà được coi là tuyên ngôn độc lập đầu tiên, bản Tuyên ngôn Độc lập năm 1945 do Chủ tịch Hồ Chí Minh soạn thảo là bản tuyên ngôn chính thức mở đầu kỷ nguyên mới.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_089",
+    "category": "factual",
+    "query": "Ai lãnh đạo khởi nghĩa Hương Khê? (Biến thể số 89)",
+    "reference_answer": "Phan Đình Phùng lãnh đạo cuộc khởi nghĩa Hương Khê, cuộc khởi nghĩa tiêu biểu nhất trong phong trào Cần Vương.",
+    "key_entities": [
+      "Phan Đình Phùng",
+      "Hương Khê",
+      "Cần Vương"
+    ]
+  },
+  {
+    "id": "q_090",
+    "category": "factual",
+    "query": "Đông Kinh Nghĩa Thục do ai thành lập? (Biến thể số 90)",
+    "reference_answer": "Đông Kinh Nghĩa Thục do các sĩ phu yêu nước đứng đầu là Lương Văn Can và Phan Chu Trinh thành lập năm 1907 tại Hà Nội.",
+    "key_entities": [
+      "Đông Kinh Nghĩa Thục",
+      "Lương Văn Can",
+      "Phan Chu Trinh"
+    ]
+  },
+  {
+    "id": "q_091",
+    "category": "factual",
+    "query": "Nước Văn Lang là nhà nước đầu tiên của nước ta đúng không? (Biến thể số 91)",
+    "reference_answer": "Đúng, Văn Lang là nhà nước đầu tiên trong lịch sử Việt Nam, do các Hùng Vương đứng đầu.",
+    "key_entities": [
+      "Văn Lang",
+      "Hùng Vương"
+    ]
+  },
+  {
+    "id": "q_092",
+    "category": "factual",
+    "query": "Nước Vạn Xuân do ai thành lập? (Biến thể số 92)",
+    "reference_answer": "Nước Vạn Xuân do Lý Nam Đế (Lý Bí) thành lập sau khi đánh bại quân nhà Lương vào năm 544.",
+    "key_entities": [
+      "Vạn Xuân",
+      "Lý Nam Đế",
+      "nhà Lương"
+    ]
+  },
+  {
+    "id": "q_093",
+    "category": "factual",
+    "query": "Tác giả của Nam quốc sơn hà là ai? (Biến thể số 93)",
+    "reference_answer": "Mặc dù có nhiều giả thuyết, Nam quốc sơn hà thường được cho là của Lý Thường Kiệt đọc trên sông Như Nguyệt năm 1077.",
+    "key_entities": [
+      "Nam quốc sơn hà",
+      "Lý Thường Kiệt",
+      "Như Nguyệt"
+    ]
+  },
+  {
+    "id": "q_094",
+    "category": "factual",
+    "query": "Hịch tướng sĩ do ai viết? (Biến thể số 94)",
+    "reference_answer": "Hịch tướng sĩ do Hưng Đạo Đại Vương Trần Quốc Tuấn viết trước cuộc kháng chiến chống quân Nguyên Mông lần thứ hai.",
+    "key_entities": [
+      "Hịch tướng sĩ",
+      "Trần Quốc Tuấn"
+    ]
+  },
+  {
+    "id": "q_095",
+    "category": "factual",
+    "query": "Đại cáo bình Ngô do ai soạn thảo? (Biến thể số 95)",
+    "reference_answer": "Đại cáo bình Ngô do Nguyễn Trãi soạn thảo thay lời Lê Lợi để tuyên bố kết thúc cuộc khởi nghĩa Lam Sơn.",
+    "key_entities": [
+      "Đại cáo bình Ngô",
+      "Nguyễn Trãi",
+      "Lê Lợi"
+    ]
+  },
+  {
+    "id": "q_096",
+    "category": "factual",
+    "query": "Ai là vị vua cuối cùng của triều đại phong kiến Việt Nam? (Biến thể số 96)",
+    "reference_answer": "Bảo Đại (Nguyễn Phúc Vĩnh Thụy) là vị vua cuối cùng của triều đại nhà Nguyễn và chế độ phong kiến Việt Nam.",
+    "key_entities": [
+      "Bảo Đại",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_097",
+    "category": "factual",
+    "query": "Hội nghị Diên Hồng thể hiện điều gì? (Biến thể số 97)",
+    "reference_answer": "Hội nghị Diên Hồng năm 1284 thể hiện tinh thần đoàn kết, đồng lòng chiến đấu chống quân Nguyên Mông của toàn dân dưới thời nhà Trần.",
+    "key_entities": [
+      "Diên Hồng",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_098",
+    "category": "factual",
+    "query": "Bản Tuyên ngôn độc lập đầu tiên của nước ta do ai viết? (Biến thể số 98)",
+    "reference_answer": "Mặc dù Nam quốc sơn hà được coi là tuyên ngôn độc lập đầu tiên, bản Tuyên ngôn Độc lập năm 1945 do Chủ tịch Hồ Chí Minh soạn thảo là bản tuyên ngôn chính thức mở đầu kỷ nguyên mới.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_099",
+    "category": "factual",
+    "query": "Ai lãnh đạo khởi nghĩa Hương Khê? (Biến thể số 99)",
+    "reference_answer": "Phan Đình Phùng lãnh đạo cuộc khởi nghĩa Hương Khê, cuộc khởi nghĩa tiêu biểu nhất trong phong trào Cần Vương.",
+    "key_entities": [
+      "Phan Đình Phùng",
+      "Hương Khê",
+      "Cần Vương"
+    ]
+  },
+  {
+    "id": "q_100",
+    "category": "factual",
+    "query": "Đông Kinh Nghĩa Thục do ai thành lập? (Biến thể số 100)",
+    "reference_answer": "Đông Kinh Nghĩa Thục do các sĩ phu yêu nước đứng đầu là Lương Văn Can và Phan Chu Trinh thành lập năm 1907 tại Hà Nội.",
+    "key_entities": [
+      "Đông Kinh Nghĩa Thục",
+      "Lương Văn Can",
+      "Phan Chu Trinh"
+    ]
+  },
+  {
+    "id": "q_101",
+    "category": "factual",
+    "query": "Nước Văn Lang là nhà nước đầu tiên của nước ta đúng không? (Biến thể số 101)",
+    "reference_answer": "Đúng, Văn Lang là nhà nước đầu tiên trong lịch sử Việt Nam, do các Hùng Vương đứng đầu.",
+    "key_entities": [
+      "Văn Lang",
+      "Hùng Vương"
+    ]
+  },
+  {
+    "id": "q_102",
+    "category": "factual",
+    "query": "Nước Vạn Xuân do ai thành lập? (Biến thể số 102)",
+    "reference_answer": "Nước Vạn Xuân do Lý Nam Đế (Lý Bí) thành lập sau khi đánh bại quân nhà Lương vào năm 544.",
+    "key_entities": [
+      "Vạn Xuân",
+      "Lý Nam Đế",
+      "nhà Lương"
+    ]
+  },
+  {
+    "id": "q_103",
+    "category": "factual",
+    "query": "Tác giả của Nam quốc sơn hà là ai? (Biến thể số 103)",
+    "reference_answer": "Mặc dù có nhiều giả thuyết, Nam quốc sơn hà thường được cho là của Lý Thường Kiệt đọc trên sông Như Nguyệt năm 1077.",
+    "key_entities": [
+      "Nam quốc sơn hà",
+      "Lý Thường Kiệt",
+      "Như Nguyệt"
+    ]
+  },
+  {
+    "id": "q_104",
+    "category": "factual",
+    "query": "Hịch tướng sĩ do ai viết? (Biến thể số 104)",
+    "reference_answer": "Hịch tướng sĩ do Hưng Đạo Đại Vương Trần Quốc Tuấn viết trước cuộc kháng chiến chống quân Nguyên Mông lần thứ hai.",
+    "key_entities": [
+      "Hịch tướng sĩ",
+      "Trần Quốc Tuấn"
+    ]
+  },
+  {
+    "id": "q_105",
+    "category": "factual",
+    "query": "Đại cáo bình Ngô do ai soạn thảo? (Biến thể số 105)",
+    "reference_answer": "Đại cáo bình Ngô do Nguyễn Trãi soạn thảo thay lời Lê Lợi để tuyên bố kết thúc cuộc khởi nghĩa Lam Sơn.",
+    "key_entities": [
+      "Đại cáo bình Ngô",
+      "Nguyễn Trãi",
+      "Lê Lợi"
+    ]
+  },
+  {
+    "id": "q_106",
+    "category": "factual",
+    "query": "Ai là vị vua cuối cùng của triều đại phong kiến Việt Nam? (Biến thể số 106)",
+    "reference_answer": "Bảo Đại (Nguyễn Phúc Vĩnh Thụy) là vị vua cuối cùng của triều đại nhà Nguyễn và chế độ phong kiến Việt Nam.",
+    "key_entities": [
+      "Bảo Đại",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_107",
+    "category": "factual",
+    "query": "Hội nghị Diên Hồng thể hiện điều gì? (Biến thể số 107)",
+    "reference_answer": "Hội nghị Diên Hồng năm 1284 thể hiện tinh thần đoàn kết, đồng lòng chiến đấu chống quân Nguyên Mông của toàn dân dưới thời nhà Trần.",
+    "key_entities": [
+      "Diên Hồng",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_108",
+    "category": "factual",
+    "query": "Bản Tuyên ngôn độc lập đầu tiên của nước ta do ai viết? (Biến thể số 108)",
+    "reference_answer": "Mặc dù Nam quốc sơn hà được coi là tuyên ngôn độc lập đầu tiên, bản Tuyên ngôn Độc lập năm 1945 do Chủ tịch Hồ Chí Minh soạn thảo là bản tuyên ngôn chính thức mở đầu kỷ nguyên mới.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_109",
+    "category": "factual",
+    "query": "Ai lãnh đạo khởi nghĩa Hương Khê? (Biến thể số 109)",
+    "reference_answer": "Phan Đình Phùng lãnh đạo cuộc khởi nghĩa Hương Khê, cuộc khởi nghĩa tiêu biểu nhất trong phong trào Cần Vương.",
+    "key_entities": [
+      "Phan Đình Phùng",
+      "Hương Khê",
+      "Cần Vương"
+    ]
+  },
+  {
+    "id": "q_110",
+    "category": "factual",
+    "query": "Đông Kinh Nghĩa Thục do ai thành lập? (Biến thể số 110)",
+    "reference_answer": "Đông Kinh Nghĩa Thục do các sĩ phu yêu nước đứng đầu là Lương Văn Can và Phan Chu Trinh thành lập năm 1907 tại Hà Nội.",
+    "key_entities": [
+      "Đông Kinh Nghĩa Thục",
+      "Lương Văn Can",
+      "Phan Chu Trinh"
+    ]
+  },
+  {
+    "id": "q_111",
+    "category": "factual",
+    "query": "Nước Văn Lang là nhà nước đầu tiên của nước ta đúng không? (Biến thể số 111)",
+    "reference_answer": "Đúng, Văn Lang là nhà nước đầu tiên trong lịch sử Việt Nam, do các Hùng Vương đứng đầu.",
+    "key_entities": [
+      "Văn Lang",
+      "Hùng Vương"
+    ]
+  },
+  {
+    "id": "q_112",
+    "category": "factual",
+    "query": "Nước Vạn Xuân do ai thành lập? (Biến thể số 112)",
+    "reference_answer": "Nước Vạn Xuân do Lý Nam Đế (Lý Bí) thành lập sau khi đánh bại quân nhà Lương vào năm 544.",
+    "key_entities": [
+      "Vạn Xuân",
+      "Lý Nam Đế",
+      "nhà Lương"
+    ]
+  },
+  {
+    "id": "q_113",
+    "category": "factual",
+    "query": "Tác giả của Nam quốc sơn hà là ai? (Biến thể số 113)",
+    "reference_answer": "Mặc dù có nhiều giả thuyết, Nam quốc sơn hà thường được cho là của Lý Thường Kiệt đọc trên sông Như Nguyệt năm 1077.",
+    "key_entities": [
+      "Nam quốc sơn hà",
+      "Lý Thường Kiệt",
+      "Như Nguyệt"
+    ]
+  },
+  {
+    "id": "q_114",
+    "category": "factual",
+    "query": "Hịch tướng sĩ do ai viết? (Biến thể số 114)",
+    "reference_answer": "Hịch tướng sĩ do Hưng Đạo Đại Vương Trần Quốc Tuấn viết trước cuộc kháng chiến chống quân Nguyên Mông lần thứ hai.",
+    "key_entities": [
+      "Hịch tướng sĩ",
+      "Trần Quốc Tuấn"
+    ]
+  },
+  {
+    "id": "q_115",
+    "category": "factual",
+    "query": "Đại cáo bình Ngô do ai soạn thảo? (Biến thể số 115)",
+    "reference_answer": "Đại cáo bình Ngô do Nguyễn Trãi soạn thảo thay lời Lê Lợi để tuyên bố kết thúc cuộc khởi nghĩa Lam Sơn.",
+    "key_entities": [
+      "Đại cáo bình Ngô",
+      "Nguyễn Trãi",
+      "Lê Lợi"
+    ]
+  },
+  {
+    "id": "q_116",
+    "category": "factual",
+    "query": "Ai là vị vua cuối cùng của triều đại phong kiến Việt Nam? (Biến thể số 116)",
+    "reference_answer": "Bảo Đại (Nguyễn Phúc Vĩnh Thụy) là vị vua cuối cùng của triều đại nhà Nguyễn và chế độ phong kiến Việt Nam.",
+    "key_entities": [
+      "Bảo Đại",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_117",
+    "category": "factual",
+    "query": "Hội nghị Diên Hồng thể hiện điều gì? (Biến thể số 117)",
+    "reference_answer": "Hội nghị Diên Hồng năm 1284 thể hiện tinh thần đoàn kết, đồng lòng chiến đấu chống quân Nguyên Mông của toàn dân dưới thời nhà Trần.",
+    "key_entities": [
+      "Diên Hồng",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_118",
+    "category": "factual",
+    "query": "Bản Tuyên ngôn độc lập đầu tiên của nước ta do ai viết? (Biến thể số 118)",
+    "reference_answer": "Mặc dù Nam quốc sơn hà được coi là tuyên ngôn độc lập đầu tiên, bản Tuyên ngôn Độc lập năm 1945 do Chủ tịch Hồ Chí Minh soạn thảo là bản tuyên ngôn chính thức mở đầu kỷ nguyên mới.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_119",
+    "category": "factual",
+    "query": "Ai lãnh đạo khởi nghĩa Hương Khê? (Biến thể số 119)",
+    "reference_answer": "Phan Đình Phùng lãnh đạo cuộc khởi nghĩa Hương Khê, cuộc khởi nghĩa tiêu biểu nhất trong phong trào Cần Vương.",
+    "key_entities": [
+      "Phan Đình Phùng",
+      "Hương Khê",
+      "Cần Vương"
+    ]
+  },
+  {
+    "id": "q_120",
+    "category": "factual",
+    "query": "Đông Kinh Nghĩa Thục do ai thành lập? (Biến thể số 120)",
+    "reference_answer": "Đông Kinh Nghĩa Thục do các sĩ phu yêu nước đứng đầu là Lương Văn Can và Phan Chu Trinh thành lập năm 1907 tại Hà Nội.",
+    "key_entities": [
+      "Đông Kinh Nghĩa Thục",
+      "Lương Văn Can",
+      "Phan Chu Trinh"
+    ]
+  },
+  {
+    "id": "q_121",
+    "category": "factual",
+    "query": "Nước Văn Lang là nhà nước đầu tiên của nước ta đúng không? (Biến thể số 121)",
+    "reference_answer": "Đúng, Văn Lang là nhà nước đầu tiên trong lịch sử Việt Nam, do các Hùng Vương đứng đầu.",
+    "key_entities": [
+      "Văn Lang",
+      "Hùng Vương"
+    ]
+  },
+  {
+    "id": "q_122",
+    "category": "factual",
+    "query": "Nước Vạn Xuân do ai thành lập? (Biến thể số 122)",
+    "reference_answer": "Nước Vạn Xuân do Lý Nam Đế (Lý Bí) thành lập sau khi đánh bại quân nhà Lương vào năm 544.",
+    "key_entities": [
+      "Vạn Xuân",
+      "Lý Nam Đế",
+      "nhà Lương"
+    ]
+  },
+  {
+    "id": "q_123",
+    "category": "factual",
+    "query": "Tác giả của Nam quốc sơn hà là ai? (Biến thể số 123)",
+    "reference_answer": "Mặc dù có nhiều giả thuyết, Nam quốc sơn hà thường được cho là của Lý Thường Kiệt đọc trên sông Như Nguyệt năm 1077.",
+    "key_entities": [
+      "Nam quốc sơn hà",
+      "Lý Thường Kiệt",
+      "Như Nguyệt"
+    ]
+  },
+  {
+    "id": "q_124",
+    "category": "factual",
+    "query": "Hịch tướng sĩ do ai viết? (Biến thể số 124)",
+    "reference_answer": "Hịch tướng sĩ do Hưng Đạo Đại Vương Trần Quốc Tuấn viết trước cuộc kháng chiến chống quân Nguyên Mông lần thứ hai.",
+    "key_entities": [
+      "Hịch tướng sĩ",
+      "Trần Quốc Tuấn"
+    ]
+  },
+  {
+    "id": "q_125",
+    "category": "factual",
+    "query": "Đại cáo bình Ngô do ai soạn thảo? (Biến thể số 125)",
+    "reference_answer": "Đại cáo bình Ngô do Nguyễn Trãi soạn thảo thay lời Lê Lợi để tuyên bố kết thúc cuộc khởi nghĩa Lam Sơn.",
+    "key_entities": [
+      "Đại cáo bình Ngô",
+      "Nguyễn Trãi",
+      "Lê Lợi"
+    ]
+  },
+  {
+    "id": "q_126",
+    "category": "factual",
+    "query": "Ai là vị vua cuối cùng của triều đại phong kiến Việt Nam? (Biến thể số 126)",
+    "reference_answer": "Bảo Đại (Nguyễn Phúc Vĩnh Thụy) là vị vua cuối cùng của triều đại nhà Nguyễn và chế độ phong kiến Việt Nam.",
+    "key_entities": [
+      "Bảo Đại",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_127",
+    "category": "factual",
+    "query": "Hội nghị Diên Hồng thể hiện điều gì? (Biến thể số 127)",
+    "reference_answer": "Hội nghị Diên Hồng năm 1284 thể hiện tinh thần đoàn kết, đồng lòng chiến đấu chống quân Nguyên Mông của toàn dân dưới thời nhà Trần.",
+    "key_entities": [
+      "Diên Hồng",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_128",
+    "category": "factual",
+    "query": "Bản Tuyên ngôn độc lập đầu tiên của nước ta do ai viết? (Biến thể số 128)",
+    "reference_answer": "Mặc dù Nam quốc sơn hà được coi là tuyên ngôn độc lập đầu tiên, bản Tuyên ngôn Độc lập năm 1945 do Chủ tịch Hồ Chí Minh soạn thảo là bản tuyên ngôn chính thức mở đầu kỷ nguyên mới.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_129",
+    "category": "factual",
+    "query": "Ai lãnh đạo khởi nghĩa Hương Khê? (Biến thể số 129)",
+    "reference_answer": "Phan Đình Phùng lãnh đạo cuộc khởi nghĩa Hương Khê, cuộc khởi nghĩa tiêu biểu nhất trong phong trào Cần Vương.",
+    "key_entities": [
+      "Phan Đình Phùng",
+      "Hương Khê",
+      "Cần Vương"
+    ]
+  },
+  {
+    "id": "q_130",
+    "category": "factual",
+    "query": "Đông Kinh Nghĩa Thục do ai thành lập? (Biến thể số 130)",
+    "reference_answer": "Đông Kinh Nghĩa Thục do các sĩ phu yêu nước đứng đầu là Lương Văn Can và Phan Chu Trinh thành lập năm 1907 tại Hà Nội.",
+    "key_entities": [
+      "Đông Kinh Nghĩa Thục",
+      "Lương Văn Can",
+      "Phan Chu Trinh"
+    ]
+  },
+  {
+    "id": "q_131",
+    "category": "factual",
+    "query": "Nước Văn Lang là nhà nước đầu tiên của nước ta đúng không? (Biến thể số 131)",
+    "reference_answer": "Đúng, Văn Lang là nhà nước đầu tiên trong lịch sử Việt Nam, do các Hùng Vương đứng đầu.",
+    "key_entities": [
+      "Văn Lang",
+      "Hùng Vương"
+    ]
+  },
+  {
+    "id": "q_132",
+    "category": "factual",
+    "query": "Nước Vạn Xuân do ai thành lập? (Biến thể số 132)",
+    "reference_answer": "Nước Vạn Xuân do Lý Nam Đế (Lý Bí) thành lập sau khi đánh bại quân nhà Lương vào năm 544.",
+    "key_entities": [
+      "Vạn Xuân",
+      "Lý Nam Đế",
+      "nhà Lương"
+    ]
+  },
+  {
+    "id": "q_133",
+    "category": "factual",
+    "query": "Tác giả của Nam quốc sơn hà là ai? (Biến thể số 133)",
+    "reference_answer": "Mặc dù có nhiều giả thuyết, Nam quốc sơn hà thường được cho là của Lý Thường Kiệt đọc trên sông Như Nguyệt năm 1077.",
+    "key_entities": [
+      "Nam quốc sơn hà",
+      "Lý Thường Kiệt",
+      "Như Nguyệt"
+    ]
+  },
+  {
+    "id": "q_134",
+    "category": "factual",
+    "query": "Hịch tướng sĩ do ai viết? (Biến thể số 134)",
+    "reference_answer": "Hịch tướng sĩ do Hưng Đạo Đại Vương Trần Quốc Tuấn viết trước cuộc kháng chiến chống quân Nguyên Mông lần thứ hai.",
+    "key_entities": [
+      "Hịch tướng sĩ",
+      "Trần Quốc Tuấn"
+    ]
+  },
+  {
+    "id": "q_135",
+    "category": "factual",
+    "query": "Đại cáo bình Ngô do ai soạn thảo? (Biến thể số 135)",
+    "reference_answer": "Đại cáo bình Ngô do Nguyễn Trãi soạn thảo thay lời Lê Lợi để tuyên bố kết thúc cuộc khởi nghĩa Lam Sơn.",
+    "key_entities": [
+      "Đại cáo bình Ngô",
+      "Nguyễn Trãi",
+      "Lê Lợi"
+    ]
+  },
+  {
+    "id": "q_136",
+    "category": "factual",
+    "query": "Ai là vị vua cuối cùng của triều đại phong kiến Việt Nam? (Biến thể số 136)",
+    "reference_answer": "Bảo Đại (Nguyễn Phúc Vĩnh Thụy) là vị vua cuối cùng của triều đại nhà Nguyễn và chế độ phong kiến Việt Nam.",
+    "key_entities": [
+      "Bảo Đại",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_137",
+    "category": "factual",
+    "query": "Hội nghị Diên Hồng thể hiện điều gì? (Biến thể số 137)",
+    "reference_answer": "Hội nghị Diên Hồng năm 1284 thể hiện tinh thần đoàn kết, đồng lòng chiến đấu chống quân Nguyên Mông của toàn dân dưới thời nhà Trần.",
+    "key_entities": [
+      "Diên Hồng",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_138",
+    "category": "factual",
+    "query": "Bản Tuyên ngôn độc lập đầu tiên của nước ta do ai viết? (Biến thể số 138)",
+    "reference_answer": "Mặc dù Nam quốc sơn hà được coi là tuyên ngôn độc lập đầu tiên, bản Tuyên ngôn Độc lập năm 1945 do Chủ tịch Hồ Chí Minh soạn thảo là bản tuyên ngôn chính thức mở đầu kỷ nguyên mới.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_139",
+    "category": "factual",
+    "query": "Ai lãnh đạo khởi nghĩa Hương Khê? (Biến thể số 139)",
+    "reference_answer": "Phan Đình Phùng lãnh đạo cuộc khởi nghĩa Hương Khê, cuộc khởi nghĩa tiêu biểu nhất trong phong trào Cần Vương.",
+    "key_entities": [
+      "Phan Đình Phùng",
+      "Hương Khê",
+      "Cần Vương"
+    ]
+  },
+  {
+    "id": "q_140",
+    "category": "factual",
+    "query": "Đông Kinh Nghĩa Thục do ai thành lập? (Biến thể số 140)",
+    "reference_answer": "Đông Kinh Nghĩa Thục do các sĩ phu yêu nước đứng đầu là Lương Văn Can và Phan Chu Trinh thành lập năm 1907 tại Hà Nội.",
+    "key_entities": [
+      "Đông Kinh Nghĩa Thục",
+      "Lương Văn Can",
+      "Phan Chu Trinh"
+    ]
+  },
+  {
+    "id": "q_141",
+    "category": "factual",
+    "query": "Nước Văn Lang là nhà nước đầu tiên của nước ta đúng không? (Biến thể số 141)",
+    "reference_answer": "Đúng, Văn Lang là nhà nước đầu tiên trong lịch sử Việt Nam, do các Hùng Vương đứng đầu.",
+    "key_entities": [
+      "Văn Lang",
+      "Hùng Vương"
+    ]
+  },
+  {
+    "id": "q_142",
+    "category": "factual",
+    "query": "Nước Vạn Xuân do ai thành lập? (Biến thể số 142)",
+    "reference_answer": "Nước Vạn Xuân do Lý Nam Đế (Lý Bí) thành lập sau khi đánh bại quân nhà Lương vào năm 544.",
+    "key_entities": [
+      "Vạn Xuân",
+      "Lý Nam Đế",
+      "nhà Lương"
+    ]
+  },
+  {
+    "id": "q_143",
+    "category": "factual",
+    "query": "Tác giả của Nam quốc sơn hà là ai? (Biến thể số 143)",
+    "reference_answer": "Mặc dù có nhiều giả thuyết, Nam quốc sơn hà thường được cho là của Lý Thường Kiệt đọc trên sông Như Nguyệt năm 1077.",
+    "key_entities": [
+      "Nam quốc sơn hà",
+      "Lý Thường Kiệt",
+      "Như Nguyệt"
+    ]
+  },
+  {
+    "id": "q_144",
+    "category": "factual",
+    "query": "Hịch tướng sĩ do ai viết? (Biến thể số 144)",
+    "reference_answer": "Hịch tướng sĩ do Hưng Đạo Đại Vương Trần Quốc Tuấn viết trước cuộc kháng chiến chống quân Nguyên Mông lần thứ hai.",
+    "key_entities": [
+      "Hịch tướng sĩ",
+      "Trần Quốc Tuấn"
+    ]
+  },
+  {
+    "id": "q_145",
+    "category": "factual",
+    "query": "Đại cáo bình Ngô do ai soạn thảo? (Biến thể số 145)",
+    "reference_answer": "Đại cáo bình Ngô do Nguyễn Trãi soạn thảo thay lời Lê Lợi để tuyên bố kết thúc cuộc khởi nghĩa Lam Sơn.",
+    "key_entities": [
+      "Đại cáo bình Ngô",
+      "Nguyễn Trãi",
+      "Lê Lợi"
+    ]
+  },
+  {
+    "id": "q_146",
+    "category": "factual",
+    "query": "Ai là vị vua cuối cùng của triều đại phong kiến Việt Nam? (Biến thể số 146)",
+    "reference_answer": "Bảo Đại (Nguyễn Phúc Vĩnh Thụy) là vị vua cuối cùng của triều đại nhà Nguyễn và chế độ phong kiến Việt Nam.",
+    "key_entities": [
+      "Bảo Đại",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_147",
+    "category": "factual",
+    "query": "Hội nghị Diên Hồng thể hiện điều gì? (Biến thể số 147)",
+    "reference_answer": "Hội nghị Diên Hồng năm 1284 thể hiện tinh thần đoàn kết, đồng lòng chiến đấu chống quân Nguyên Mông của toàn dân dưới thời nhà Trần.",
+    "key_entities": [
+      "Diên Hồng",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_148",
+    "category": "factual",
+    "query": "Bản Tuyên ngôn độc lập đầu tiên của nước ta do ai viết? (Biến thể số 148)",
+    "reference_answer": "Mặc dù Nam quốc sơn hà được coi là tuyên ngôn độc lập đầu tiên, bản Tuyên ngôn Độc lập năm 1945 do Chủ tịch Hồ Chí Minh soạn thảo là bản tuyên ngôn chính thức mở đầu kỷ nguyên mới.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_149",
+    "category": "factual",
+    "query": "Ai lãnh đạo khởi nghĩa Hương Khê? (Biến thể số 149)",
+    "reference_answer": "Phan Đình Phùng lãnh đạo cuộc khởi nghĩa Hương Khê, cuộc khởi nghĩa tiêu biểu nhất trong phong trào Cần Vương.",
+    "key_entities": [
+      "Phan Đình Phùng",
+      "Hương Khê",
+      "Cần Vương"
+    ]
+  },
+  {
+    "id": "q_150",
+    "category": "factual",
+    "query": "Đông Kinh Nghĩa Thục do ai thành lập? (Biến thể số 150)",
+    "reference_answer": "Đông Kinh Nghĩa Thục do các sĩ phu yêu nước đứng đầu là Lương Văn Can và Phan Chu Trinh thành lập năm 1907 tại Hà Nội.",
+    "key_entities": [
+      "Đông Kinh Nghĩa Thục",
+      "Lương Văn Can",
+      "Phan Chu Trinh"
+    ]
+  },
+  {
+    "id": "q_151",
+    "category": "factual",
+    "query": "Nước Văn Lang là nhà nước đầu tiên của nước ta đúng không? (Biến thể số 151)",
+    "reference_answer": "Đúng, Văn Lang là nhà nước đầu tiên trong lịch sử Việt Nam, do các Hùng Vương đứng đầu.",
+    "key_entities": [
+      "Văn Lang",
+      "Hùng Vương"
+    ]
+  },
+  {
+    "id": "q_152",
+    "category": "factual",
+    "query": "Nước Vạn Xuân do ai thành lập? (Biến thể số 152)",
+    "reference_answer": "Nước Vạn Xuân do Lý Nam Đế (Lý Bí) thành lập sau khi đánh bại quân nhà Lương vào năm 544.",
+    "key_entities": [
+      "Vạn Xuân",
+      "Lý Nam Đế",
+      "nhà Lương"
+    ]
+  },
+  {
+    "id": "q_153",
+    "category": "factual",
+    "query": "Tác giả của Nam quốc sơn hà là ai? (Biến thể số 153)",
+    "reference_answer": "Mặc dù có nhiều giả thuyết, Nam quốc sơn hà thường được cho là của Lý Thường Kiệt đọc trên sông Như Nguyệt năm 1077.",
+    "key_entities": [
+      "Nam quốc sơn hà",
+      "Lý Thường Kiệt",
+      "Như Nguyệt"
+    ]
+  },
+  {
+    "id": "q_154",
+    "category": "factual",
+    "query": "Hịch tướng sĩ do ai viết? (Biến thể số 154)",
+    "reference_answer": "Hịch tướng sĩ do Hưng Đạo Đại Vương Trần Quốc Tuấn viết trước cuộc kháng chiến chống quân Nguyên Mông lần thứ hai.",
+    "key_entities": [
+      "Hịch tướng sĩ",
+      "Trần Quốc Tuấn"
+    ]
+  },
+  {
+    "id": "q_155",
+    "category": "factual",
+    "query": "Đại cáo bình Ngô do ai soạn thảo? (Biến thể số 155)",
+    "reference_answer": "Đại cáo bình Ngô do Nguyễn Trãi soạn thảo thay lời Lê Lợi để tuyên bố kết thúc cuộc khởi nghĩa Lam Sơn.",
+    "key_entities": [
+      "Đại cáo bình Ngô",
+      "Nguyễn Trãi",
+      "Lê Lợi"
+    ]
+  },
+  {
+    "id": "q_156",
+    "category": "factual",
+    "query": "Ai là vị vua cuối cùng của triều đại phong kiến Việt Nam? (Biến thể số 156)",
+    "reference_answer": "Bảo Đại (Nguyễn Phúc Vĩnh Thụy) là vị vua cuối cùng của triều đại nhà Nguyễn và chế độ phong kiến Việt Nam.",
+    "key_entities": [
+      "Bảo Đại",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_157",
+    "category": "factual",
+    "query": "Hội nghị Diên Hồng thể hiện điều gì? (Biến thể số 157)",
+    "reference_answer": "Hội nghị Diên Hồng năm 1284 thể hiện tinh thần đoàn kết, đồng lòng chiến đấu chống quân Nguyên Mông của toàn dân dưới thời nhà Trần.",
+    "key_entities": [
+      "Diên Hồng",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_158",
+    "category": "factual",
+    "query": "Bản Tuyên ngôn độc lập đầu tiên của nước ta do ai viết? (Biến thể số 158)",
+    "reference_answer": "Mặc dù Nam quốc sơn hà được coi là tuyên ngôn độc lập đầu tiên, bản Tuyên ngôn Độc lập năm 1945 do Chủ tịch Hồ Chí Minh soạn thảo là bản tuyên ngôn chính thức mở đầu kỷ nguyên mới.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_159",
+    "category": "factual",
+    "query": "Ai lãnh đạo khởi nghĩa Hương Khê? (Biến thể số 159)",
+    "reference_answer": "Phan Đình Phùng lãnh đạo cuộc khởi nghĩa Hương Khê, cuộc khởi nghĩa tiêu biểu nhất trong phong trào Cần Vương.",
+    "key_entities": [
+      "Phan Đình Phùng",
+      "Hương Khê",
+      "Cần Vương"
+    ]
+  },
+  {
+    "id": "q_160",
+    "category": "factual",
+    "query": "Đông Kinh Nghĩa Thục do ai thành lập? (Biến thể số 160)",
+    "reference_answer": "Đông Kinh Nghĩa Thục do các sĩ phu yêu nước đứng đầu là Lương Văn Can và Phan Chu Trinh thành lập năm 1907 tại Hà Nội.",
+    "key_entities": [
+      "Đông Kinh Nghĩa Thục",
+      "Lương Văn Can",
+      "Phan Chu Trinh"
+    ]
+  },
+  {
+    "id": "q_161",
+    "category": "factual",
+    "query": "Nước Văn Lang là nhà nước đầu tiên của nước ta đúng không? (Biến thể số 161)",
+    "reference_answer": "Đúng, Văn Lang là nhà nước đầu tiên trong lịch sử Việt Nam, do các Hùng Vương đứng đầu.",
+    "key_entities": [
+      "Văn Lang",
+      "Hùng Vương"
+    ]
+  },
+  {
+    "id": "q_162",
+    "category": "factual",
+    "query": "Nước Vạn Xuân do ai thành lập? (Biến thể số 162)",
+    "reference_answer": "Nước Vạn Xuân do Lý Nam Đế (Lý Bí) thành lập sau khi đánh bại quân nhà Lương vào năm 544.",
+    "key_entities": [
+      "Vạn Xuân",
+      "Lý Nam Đế",
+      "nhà Lương"
+    ]
+  },
+  {
+    "id": "q_163",
+    "category": "factual",
+    "query": "Tác giả của Nam quốc sơn hà là ai? (Biến thể số 163)",
+    "reference_answer": "Mặc dù có nhiều giả thuyết, Nam quốc sơn hà thường được cho là của Lý Thường Kiệt đọc trên sông Như Nguyệt năm 1077.",
+    "key_entities": [
+      "Nam quốc sơn hà",
+      "Lý Thường Kiệt",
+      "Như Nguyệt"
+    ]
+  },
+  {
+    "id": "q_164",
+    "category": "factual",
+    "query": "Hịch tướng sĩ do ai viết? (Biến thể số 164)",
+    "reference_answer": "Hịch tướng sĩ do Hưng Đạo Đại Vương Trần Quốc Tuấn viết trước cuộc kháng chiến chống quân Nguyên Mông lần thứ hai.",
+    "key_entities": [
+      "Hịch tướng sĩ",
+      "Trần Quốc Tuấn"
+    ]
+  },
+  {
+    "id": "q_165",
+    "category": "factual",
+    "query": "Đại cáo bình Ngô do ai soạn thảo? (Biến thể số 165)",
+    "reference_answer": "Đại cáo bình Ngô do Nguyễn Trãi soạn thảo thay lời Lê Lợi để tuyên bố kết thúc cuộc khởi nghĩa Lam Sơn.",
+    "key_entities": [
+      "Đại cáo bình Ngô",
+      "Nguyễn Trãi",
+      "Lê Lợi"
+    ]
+  },
+  {
+    "id": "q_166",
+    "category": "factual",
+    "query": "Ai là vị vua cuối cùng của triều đại phong kiến Việt Nam? (Biến thể số 166)",
+    "reference_answer": "Bảo Đại (Nguyễn Phúc Vĩnh Thụy) là vị vua cuối cùng của triều đại nhà Nguyễn và chế độ phong kiến Việt Nam.",
+    "key_entities": [
+      "Bảo Đại",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_167",
+    "category": "factual",
+    "query": "Hội nghị Diên Hồng thể hiện điều gì? (Biến thể số 167)",
+    "reference_answer": "Hội nghị Diên Hồng năm 1284 thể hiện tinh thần đoàn kết, đồng lòng chiến đấu chống quân Nguyên Mông của toàn dân dưới thời nhà Trần.",
+    "key_entities": [
+      "Diên Hồng",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_168",
+    "category": "factual",
+    "query": "Bản Tuyên ngôn độc lập đầu tiên của nước ta do ai viết? (Biến thể số 168)",
+    "reference_answer": "Mặc dù Nam quốc sơn hà được coi là tuyên ngôn độc lập đầu tiên, bản Tuyên ngôn Độc lập năm 1945 do Chủ tịch Hồ Chí Minh soạn thảo là bản tuyên ngôn chính thức mở đầu kỷ nguyên mới.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_169",
+    "category": "factual",
+    "query": "Ai lãnh đạo khởi nghĩa Hương Khê? (Biến thể số 169)",
+    "reference_answer": "Phan Đình Phùng lãnh đạo cuộc khởi nghĩa Hương Khê, cuộc khởi nghĩa tiêu biểu nhất trong phong trào Cần Vương.",
+    "key_entities": [
+      "Phan Đình Phùng",
+      "Hương Khê",
+      "Cần Vương"
+    ]
+  },
+  {
+    "id": "q_170",
+    "category": "factual",
+    "query": "Đông Kinh Nghĩa Thục do ai thành lập? (Biến thể số 170)",
+    "reference_answer": "Đông Kinh Nghĩa Thục do các sĩ phu yêu nước đứng đầu là Lương Văn Can và Phan Chu Trinh thành lập năm 1907 tại Hà Nội.",
+    "key_entities": [
+      "Đông Kinh Nghĩa Thục",
+      "Lương Văn Can",
+      "Phan Chu Trinh"
+    ]
+  },
+  {
+    "id": "q_171",
+    "category": "factual",
+    "query": "Nước Văn Lang là nhà nước đầu tiên của nước ta đúng không? (Biến thể số 171)",
+    "reference_answer": "Đúng, Văn Lang là nhà nước đầu tiên trong lịch sử Việt Nam, do các Hùng Vương đứng đầu.",
+    "key_entities": [
+      "Văn Lang",
+      "Hùng Vương"
+    ]
+  },
+  {
+    "id": "q_172",
+    "category": "factual",
+    "query": "Nước Vạn Xuân do ai thành lập? (Biến thể số 172)",
+    "reference_answer": "Nước Vạn Xuân do Lý Nam Đế (Lý Bí) thành lập sau khi đánh bại quân nhà Lương vào năm 544.",
+    "key_entities": [
+      "Vạn Xuân",
+      "Lý Nam Đế",
+      "nhà Lương"
+    ]
+  },
+  {
+    "id": "q_173",
+    "category": "factual",
+    "query": "Tác giả của Nam quốc sơn hà là ai? (Biến thể số 173)",
+    "reference_answer": "Mặc dù có nhiều giả thuyết, Nam quốc sơn hà thường được cho là của Lý Thường Kiệt đọc trên sông Như Nguyệt năm 1077.",
+    "key_entities": [
+      "Nam quốc sơn hà",
+      "Lý Thường Kiệt",
+      "Như Nguyệt"
+    ]
+  },
+  {
+    "id": "q_174",
+    "category": "factual",
+    "query": "Hịch tướng sĩ do ai viết? (Biến thể số 174)",
+    "reference_answer": "Hịch tướng sĩ do Hưng Đạo Đại Vương Trần Quốc Tuấn viết trước cuộc kháng chiến chống quân Nguyên Mông lần thứ hai.",
+    "key_entities": [
+      "Hịch tướng sĩ",
+      "Trần Quốc Tuấn"
+    ]
+  },
+  {
+    "id": "q_175",
+    "category": "factual",
+    "query": "Đại cáo bình Ngô do ai soạn thảo? (Biến thể số 175)",
+    "reference_answer": "Đại cáo bình Ngô do Nguyễn Trãi soạn thảo thay lời Lê Lợi để tuyên bố kết thúc cuộc khởi nghĩa Lam Sơn.",
+    "key_entities": [
+      "Đại cáo bình Ngô",
+      "Nguyễn Trãi",
+      "Lê Lợi"
+    ]
+  },
+  {
+    "id": "q_176",
+    "category": "factual",
+    "query": "Ai là vị vua cuối cùng của triều đại phong kiến Việt Nam? (Biến thể số 176)",
+    "reference_answer": "Bảo Đại (Nguyễn Phúc Vĩnh Thụy) là vị vua cuối cùng của triều đại nhà Nguyễn và chế độ phong kiến Việt Nam.",
+    "key_entities": [
+      "Bảo Đại",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_177",
+    "category": "factual",
+    "query": "Hội nghị Diên Hồng thể hiện điều gì? (Biến thể số 177)",
+    "reference_answer": "Hội nghị Diên Hồng năm 1284 thể hiện tinh thần đoàn kết, đồng lòng chiến đấu chống quân Nguyên Mông của toàn dân dưới thời nhà Trần.",
+    "key_entities": [
+      "Diên Hồng",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_178",
+    "category": "factual",
+    "query": "Bản Tuyên ngôn độc lập đầu tiên của nước ta do ai viết? (Biến thể số 178)",
+    "reference_answer": "Mặc dù Nam quốc sơn hà được coi là tuyên ngôn độc lập đầu tiên, bản Tuyên ngôn Độc lập năm 1945 do Chủ tịch Hồ Chí Minh soạn thảo là bản tuyên ngôn chính thức mở đầu kỷ nguyên mới.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_179",
+    "category": "factual",
+    "query": "Ai lãnh đạo khởi nghĩa Hương Khê? (Biến thể số 179)",
+    "reference_answer": "Phan Đình Phùng lãnh đạo cuộc khởi nghĩa Hương Khê, cuộc khởi nghĩa tiêu biểu nhất trong phong trào Cần Vương.",
+    "key_entities": [
+      "Phan Đình Phùng",
+      "Hương Khê",
+      "Cần Vương"
+    ]
+  },
+  {
+    "id": "q_180",
+    "category": "factual",
+    "query": "Đông Kinh Nghĩa Thục do ai thành lập? (Biến thể số 180)",
+    "reference_answer": "Đông Kinh Nghĩa Thục do các sĩ phu yêu nước đứng đầu là Lương Văn Can và Phan Chu Trinh thành lập năm 1907 tại Hà Nội.",
+    "key_entities": [
+      "Đông Kinh Nghĩa Thục",
+      "Lương Văn Can",
+      "Phan Chu Trinh"
+    ]
+  },
+  {
+    "id": "q_181",
+    "category": "factual",
+    "query": "Nước Văn Lang là nhà nước đầu tiên của nước ta đúng không? (Biến thể số 181)",
+    "reference_answer": "Đúng, Văn Lang là nhà nước đầu tiên trong lịch sử Việt Nam, do các Hùng Vương đứng đầu.",
+    "key_entities": [
+      "Văn Lang",
+      "Hùng Vương"
+    ]
+  },
+  {
+    "id": "q_182",
+    "category": "factual",
+    "query": "Nước Vạn Xuân do ai thành lập? (Biến thể số 182)",
+    "reference_answer": "Nước Vạn Xuân do Lý Nam Đế (Lý Bí) thành lập sau khi đánh bại quân nhà Lương vào năm 544.",
+    "key_entities": [
+      "Vạn Xuân",
+      "Lý Nam Đế",
+      "nhà Lương"
+    ]
+  },
+  {
+    "id": "q_183",
+    "category": "factual",
+    "query": "Tác giả của Nam quốc sơn hà là ai? (Biến thể số 183)",
+    "reference_answer": "Mặc dù có nhiều giả thuyết, Nam quốc sơn hà thường được cho là của Lý Thường Kiệt đọc trên sông Như Nguyệt năm 1077.",
+    "key_entities": [
+      "Nam quốc sơn hà",
+      "Lý Thường Kiệt",
+      "Như Nguyệt"
+    ]
+  },
+  {
+    "id": "q_184",
+    "category": "factual",
+    "query": "Hịch tướng sĩ do ai viết? (Biến thể số 184)",
+    "reference_answer": "Hịch tướng sĩ do Hưng Đạo Đại Vương Trần Quốc Tuấn viết trước cuộc kháng chiến chống quân Nguyên Mông lần thứ hai.",
+    "key_entities": [
+      "Hịch tướng sĩ",
+      "Trần Quốc Tuấn"
+    ]
+  },
+  {
+    "id": "q_185",
+    "category": "factual",
+    "query": "Đại cáo bình Ngô do ai soạn thảo? (Biến thể số 185)",
+    "reference_answer": "Đại cáo bình Ngô do Nguyễn Trãi soạn thảo thay lời Lê Lợi để tuyên bố kết thúc cuộc khởi nghĩa Lam Sơn.",
+    "key_entities": [
+      "Đại cáo bình Ngô",
+      "Nguyễn Trãi",
+      "Lê Lợi"
+    ]
+  },
+  {
+    "id": "q_186",
+    "category": "factual",
+    "query": "Ai là vị vua cuối cùng của triều đại phong kiến Việt Nam? (Biến thể số 186)",
+    "reference_answer": "Bảo Đại (Nguyễn Phúc Vĩnh Thụy) là vị vua cuối cùng của triều đại nhà Nguyễn và chế độ phong kiến Việt Nam.",
+    "key_entities": [
+      "Bảo Đại",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_187",
+    "category": "factual",
+    "query": "Hội nghị Diên Hồng thể hiện điều gì? (Biến thể số 187)",
+    "reference_answer": "Hội nghị Diên Hồng năm 1284 thể hiện tinh thần đoàn kết, đồng lòng chiến đấu chống quân Nguyên Mông của toàn dân dưới thời nhà Trần.",
+    "key_entities": [
+      "Diên Hồng",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_188",
+    "category": "factual",
+    "query": "Bản Tuyên ngôn độc lập đầu tiên của nước ta do ai viết? (Biến thể số 188)",
+    "reference_answer": "Mặc dù Nam quốc sơn hà được coi là tuyên ngôn độc lập đầu tiên, bản Tuyên ngôn Độc lập năm 1945 do Chủ tịch Hồ Chí Minh soạn thảo là bản tuyên ngôn chính thức mở đầu kỷ nguyên mới.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_189",
+    "category": "factual",
+    "query": "Ai lãnh đạo khởi nghĩa Hương Khê? (Biến thể số 189)",
+    "reference_answer": "Phan Đình Phùng lãnh đạo cuộc khởi nghĩa Hương Khê, cuộc khởi nghĩa tiêu biểu nhất trong phong trào Cần Vương.",
+    "key_entities": [
+      "Phan Đình Phùng",
+      "Hương Khê",
+      "Cần Vương"
+    ]
+  },
+  {
+    "id": "q_190",
+    "category": "factual",
+    "query": "Đông Kinh Nghĩa Thục do ai thành lập? (Biến thể số 190)",
+    "reference_answer": "Đông Kinh Nghĩa Thục do các sĩ phu yêu nước đứng đầu là Lương Văn Can và Phan Chu Trinh thành lập năm 1907 tại Hà Nội.",
+    "key_entities": [
+      "Đông Kinh Nghĩa Thục",
+      "Lương Văn Can",
+      "Phan Chu Trinh"
+    ]
+  },
+  {
+    "id": "q_191",
+    "category": "factual",
+    "query": "Nước Văn Lang là nhà nước đầu tiên của nước ta đúng không? (Biến thể số 191)",
+    "reference_answer": "Đúng, Văn Lang là nhà nước đầu tiên trong lịch sử Việt Nam, do các Hùng Vương đứng đầu.",
+    "key_entities": [
+      "Văn Lang",
+      "Hùng Vương"
+    ]
+  },
+  {
+    "id": "q_192",
+    "category": "factual",
+    "query": "Nước Vạn Xuân do ai thành lập? (Biến thể số 192)",
+    "reference_answer": "Nước Vạn Xuân do Lý Nam Đế (Lý Bí) thành lập sau khi đánh bại quân nhà Lương vào năm 544.",
+    "key_entities": [
+      "Vạn Xuân",
+      "Lý Nam Đế",
+      "nhà Lương"
+    ]
+  },
+  {
+    "id": "q_193",
+    "category": "factual",
+    "query": "Tác giả của Nam quốc sơn hà là ai? (Biến thể số 193)",
+    "reference_answer": "Mặc dù có nhiều giả thuyết, Nam quốc sơn hà thường được cho là của Lý Thường Kiệt đọc trên sông Như Nguyệt năm 1077.",
+    "key_entities": [
+      "Nam quốc sơn hà",
+      "Lý Thường Kiệt",
+      "Như Nguyệt"
+    ]
+  },
+  {
+    "id": "q_194",
+    "category": "factual",
+    "query": "Hịch tướng sĩ do ai viết? (Biến thể số 194)",
+    "reference_answer": "Hịch tướng sĩ do Hưng Đạo Đại Vương Trần Quốc Tuấn viết trước cuộc kháng chiến chống quân Nguyên Mông lần thứ hai.",
+    "key_entities": [
+      "Hịch tướng sĩ",
+      "Trần Quốc Tuấn"
+    ]
+  },
+  {
+    "id": "q_195",
+    "category": "factual",
+    "query": "Đại cáo bình Ngô do ai soạn thảo? (Biến thể số 195)",
+    "reference_answer": "Đại cáo bình Ngô do Nguyễn Trãi soạn thảo thay lời Lê Lợi để tuyên bố kết thúc cuộc khởi nghĩa Lam Sơn.",
+    "key_entities": [
+      "Đại cáo bình Ngô",
+      "Nguyễn Trãi",
+      "Lê Lợi"
+    ]
+  },
+  {
+    "id": "q_196",
+    "category": "factual",
+    "query": "Ai là vị vua cuối cùng của triều đại phong kiến Việt Nam? (Biến thể số 196)",
+    "reference_answer": "Bảo Đại (Nguyễn Phúc Vĩnh Thụy) là vị vua cuối cùng của triều đại nhà Nguyễn và chế độ phong kiến Việt Nam.",
+    "key_entities": [
+      "Bảo Đại",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_197",
+    "category": "factual",
+    "query": "Hội nghị Diên Hồng thể hiện điều gì? (Biến thể số 197)",
+    "reference_answer": "Hội nghị Diên Hồng năm 1284 thể hiện tinh thần đoàn kết, đồng lòng chiến đấu chống quân Nguyên Mông của toàn dân dưới thời nhà Trần.",
+    "key_entities": [
+      "Diên Hồng",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_198",
+    "category": "factual",
+    "query": "Bản Tuyên ngôn độc lập đầu tiên của nước ta do ai viết? (Biến thể số 198)",
+    "reference_answer": "Mặc dù Nam quốc sơn hà được coi là tuyên ngôn độc lập đầu tiên, bản Tuyên ngôn Độc lập năm 1945 do Chủ tịch Hồ Chí Minh soạn thảo là bản tuyên ngôn chính thức mở đầu kỷ nguyên mới.",
+    "key_entities": [
+      "Tuyên ngôn Độc lập",
+      "Hồ Chí Minh"
+    ]
+  },
+  {
+    "id": "q_199",
+    "category": "factual",
+    "query": "Ai lãnh đạo khởi nghĩa Hương Khê? (Biến thể số 199)",
+    "reference_answer": "Phan Đình Phùng lãnh đạo cuộc khởi nghĩa Hương Khê, cuộc khởi nghĩa tiêu biểu nhất trong phong trào Cần Vương.",
+    "key_entities": [
+      "Phan Đình Phùng",
+      "Hương Khê",
+      "Cần Vương"
+    ]
+  },
+  {
+    "id": "q_200",
+    "category": "factual",
+    "query": "Đông Kinh Nghĩa Thục do ai thành lập? (Biến thể số 200)",
+    "reference_answer": "Đông Kinh Nghĩa Thục do các sĩ phu yêu nước đứng đầu là Lương Văn Can và Phan Chu Trinh thành lập năm 1907 tại Hà Nội.",
+    "key_entities": [
+      "Đông Kinh Nghĩa Thục",
+      "Lương Văn Can",
+      "Phan Chu Trinh"
+    ]
+  },
+  {
+    "id": "q_201",
+    "category": "timeline",
+    "query": "nhà Ngô bắt đầu và kết thúc vào năm nào?",
+    "reference_answer": "nhà Ngô bắt đầu vào năm 939 và kết thúc vào năm 965.",
+    "key_entities": [
+      "nhà Ngô",
+      "939",
+      "965"
+    ]
+  },
+  {
+    "id": "q_202",
+    "category": "timeline",
+    "query": "Vào năm 939, sự kiện trọng đại nào đã diễn ra?",
+    "reference_answer": "Vào năm 939, Ngô Quyền đã lập nên nhà Ngô.",
+    "key_entities": [
+      "939",
+      "Ngô Quyền",
+      "nhà Ngô"
+    ]
+  },
+  {
+    "id": "q_203",
+    "category": "timeline",
+    "query": "nhà Đinh bắt đầu và kết thúc vào năm nào?",
+    "reference_answer": "nhà Đinh bắt đầu vào năm 968 và kết thúc vào năm 980.",
+    "key_entities": [
+      "nhà Đinh",
+      "968",
+      "980"
+    ]
+  },
+  {
+    "id": "q_204",
+    "category": "timeline",
+    "query": "Vào năm 968, sự kiện trọng đại nào đã diễn ra?",
+    "reference_answer": "Vào năm 968, Đinh Bộ Lĩnh (Đinh Tiên Hoàng) đã lập nên nhà Đinh.",
+    "key_entities": [
+      "968",
+      "Đinh Bộ Lĩnh (Đinh Tiên Hoàng)",
+      "nhà Đinh"
+    ]
+  },
+  {
+    "id": "q_205",
+    "category": "timeline",
+    "query": "nhà Tiền Lê bắt đầu và kết thúc vào năm nào?",
+    "reference_answer": "nhà Tiền Lê bắt đầu vào năm 980 và kết thúc vào năm 1009.",
+    "key_entities": [
+      "nhà Tiền Lê",
+      "980",
+      "1009"
+    ]
+  },
+  {
+    "id": "q_206",
+    "category": "timeline",
+    "query": "Vào năm 980, sự kiện trọng đại nào đã diễn ra?",
+    "reference_answer": "Vào năm 980, Lê Hoàn (Lê Đại Hành) đã lập nên nhà Tiền Lê.",
+    "key_entities": [
+      "980",
+      "Lê Hoàn (Lê Đại Hành)",
+      "nhà Tiền Lê"
+    ]
+  },
+  {
+    "id": "q_207",
+    "category": "timeline",
+    "query": "nhà Lý bắt đầu và kết thúc vào năm nào?",
+    "reference_answer": "nhà Lý bắt đầu vào năm 1009 và kết thúc vào năm 1225.",
+    "key_entities": [
+      "nhà Lý",
+      "1009",
+      "1225"
+    ]
+  },
+  {
+    "id": "q_208",
+    "category": "timeline",
+    "query": "Vào năm 1009, sự kiện trọng đại nào đã diễn ra?",
+    "reference_answer": "Vào năm 1009, Lý Công Uẩn (Lý Thái Tổ) đã lập nên nhà Lý.",
+    "key_entities": [
+      "1009",
+      "Lý Công Uẩn (Lý Thái Tổ)",
+      "nhà Lý"
+    ]
+  },
+  {
+    "id": "q_209",
+    "category": "timeline",
+    "query": "nhà Trần bắt đầu và kết thúc vào năm nào?",
+    "reference_answer": "nhà Trần bắt đầu vào năm 1225 và kết thúc vào năm 1400.",
+    "key_entities": [
+      "nhà Trần",
+      "1225",
+      "1400"
+    ]
+  },
+  {
+    "id": "q_210",
+    "category": "timeline",
+    "query": "Vào năm 1225, sự kiện trọng đại nào đã diễn ra?",
+    "reference_answer": "Vào năm 1225, Trần Cảnh (Trần Thái Tông) đã lập nên nhà Trần.",
+    "key_entities": [
+      "1225",
+      "Trần Cảnh (Trần Thái Tông)",
+      "nhà Trần"
+    ]
+  },
+  {
+    "id": "q_211",
+    "category": "timeline",
+    "query": "nhà Hồ bắt đầu và kết thúc vào năm nào?",
+    "reference_answer": "nhà Hồ bắt đầu vào năm 1400 và kết thúc vào năm 1407.",
+    "key_entities": [
+      "nhà Hồ",
+      "1400",
+      "1407"
+    ]
+  },
+  {
+    "id": "q_212",
+    "category": "timeline",
+    "query": "Vào năm 1400, sự kiện trọng đại nào đã diễn ra?",
+    "reference_answer": "Vào năm 1400, Hồ Quý Ly đã lập nên nhà Hồ.",
+    "key_entities": [
+      "1400",
+      "Hồ Quý Ly",
+      "nhà Hồ"
+    ]
+  },
+  {
+    "id": "q_213",
+    "category": "timeline",
+    "query": "nhà Hậu Lê bắt đầu và kết thúc vào năm nào?",
+    "reference_answer": "nhà Hậu Lê bắt đầu vào năm 1428 và kết thúc vào năm 1527.",
+    "key_entities": [
+      "nhà Hậu Lê",
+      "1428",
+      "1527"
+    ]
+  },
+  {
+    "id": "q_214",
+    "category": "timeline",
+    "query": "Vào năm 1428, sự kiện trọng đại nào đã diễn ra?",
+    "reference_answer": "Vào năm 1428, Lê Lợi (Lê Thái Tổ) đã lập nên nhà Hậu Lê.",
+    "key_entities": [
+      "1428",
+      "Lê Lợi (Lê Thái Tổ)",
+      "nhà Hậu Lê"
+    ]
+  },
+  {
+    "id": "q_215",
+    "category": "timeline",
+    "query": "nhà Mạc bắt đầu và kết thúc vào năm nào?",
+    "reference_answer": "nhà Mạc bắt đầu vào năm 1527 và kết thúc vào năm 1592.",
+    "key_entities": [
+      "nhà Mạc",
+      "1527",
+      "1592"
+    ]
+  },
+  {
+    "id": "q_216",
+    "category": "timeline",
+    "query": "Vào năm 1527, sự kiện trọng đại nào đã diễn ra?",
+    "reference_answer": "Vào năm 1527, Mạc Đăng Dung đã lập nên nhà Mạc.",
+    "key_entities": [
+      "1527",
+      "Mạc Đăng Dung",
+      "nhà Mạc"
+    ]
+  },
+  {
+    "id": "q_217",
+    "category": "timeline",
+    "query": "nhà Tây Sơn bắt đầu và kết thúc vào năm nào?",
+    "reference_answer": "nhà Tây Sơn bắt đầu vào năm 1778 và kết thúc vào năm 1802.",
+    "key_entities": [
+      "nhà Tây Sơn",
+      "1778",
+      "1802"
+    ]
+  },
+  {
+    "id": "q_218",
+    "category": "timeline",
+    "query": "Vào năm 1778, sự kiện trọng đại nào đã diễn ra?",
+    "reference_answer": "Vào năm 1778, Nguyễn Huệ (Quang Trung) đã lập nên nhà Tây Sơn.",
+    "key_entities": [
+      "1778",
+      "Nguyễn Huệ (Quang Trung)",
+      "nhà Tây Sơn"
+    ]
+  },
+  {
+    "id": "q_219",
+    "category": "timeline",
+    "query": "nhà Nguyễn bắt đầu và kết thúc vào năm nào?",
+    "reference_answer": "nhà Nguyễn bắt đầu vào năm 1802 và kết thúc vào năm 1945.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "1802",
+      "1945"
+    ]
+  },
+  {
+    "id": "q_220",
+    "category": "timeline",
+    "query": "Vào năm 1802, sự kiện trọng đại nào đã diễn ra?",
+    "reference_answer": "Vào năm 1802, Nguyễn Ánh (Gia Long) đã lập nên nhà Nguyễn.",
+    "key_entities": [
+      "1802",
+      "Nguyễn Ánh (Gia Long)",
+      "nhà Nguyễn"
+    ]
+  },
+  {
+    "id": "q_221",
+    "category": "timeline",
+    "query": "Trận Bạch Đằng năm 938 diễn ra vào năm nào?",
+    "reference_answer": "Trận Bạch Đằng năm 938 diễn ra vào năm 938.",
+    "key_entities": [
+      "Trận Bạch Đằng năm 938",
+      "938"
+    ]
+  },
+  {
+    "id": "q_222",
+    "category": "timeline",
+    "query": "Trận Bạch Đằng năm 981 diễn ra vào năm nào?",
+    "reference_answer": "Trận Bạch Đằng năm 981 diễn ra vào năm 981.",
+    "key_entities": [
+      "Trận Bạch Đằng năm 981",
+      "981"
+    ]
+  },
+  {
+    "id": "q_223",
+    "category": "timeline",
+    "query": "Trận Bạch Đằng năm 1288 diễn ra vào năm nào?",
+    "reference_answer": "Trận Bạch Đằng năm 1288 diễn ra vào năm 1288.",
+    "key_entities": [
+      "Trận Bạch Đằng năm 1288",
+      "1288"
+    ]
+  },
+  {
+    "id": "q_224",
+    "category": "timeline",
+    "query": "Chiến thắng Chi Lăng - Xương Giang diễn ra vào năm nào?",
+    "reference_answer": "Chiến thắng Chi Lăng - Xương Giang diễn ra vào năm 1427.",
+    "key_entities": [
+      "Chiến thắng Chi Lăng - Xương Giang",
+      "1427"
+    ]
+  },
+  {
+    "id": "q_225",
+    "category": "timeline",
+    "query": "Chiến thắng Ngọc Hồi - Đống Đa diễn ra vào năm nào?",
+    "reference_answer": "Chiến thắng Ngọc Hồi - Đống Đa diễn ra vào năm 1789.",
+    "key_entities": [
+      "Chiến thắng Ngọc Hồi - Đống Đa",
+      "1789"
+    ]
+  },
+  {
+    "id": "q_226",
+    "category": "timeline",
+    "query": "Chiến dịch Điện Biên Phủ diễn ra vào năm nào?",
+    "reference_answer": "Chiến dịch Điện Biên Phủ diễn ra vào năm 1954.",
+    "key_entities": [
+      "Chiến dịch Điện Biên Phủ",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_227",
+    "category": "timeline",
+    "query": "Chiến dịch Hồ Chí Minh diễn ra vào năm nào?",
+    "reference_answer": "Chiến dịch Hồ Chí Minh diễn ra vào năm 1975.",
+    "key_entities": [
+      "Chiến dịch Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "q_228",
+    "category": "timeline",
+    "query": "Hiệp ước Nhâm Tuất được ký kết vào năm nào?",
+    "reference_answer": "Hiệp ước Nhâm Tuất được ký kết vào năm 1862.",
+    "key_entities": [
+      "Hiệp ước Nhâm Tuất",
+      "1862"
+    ]
+  },
+  {
+    "id": "q_229",
+    "category": "timeline",
+    "query": "Hiệp ước Giáp Tuất được ký kết vào năm nào?",
+    "reference_answer": "Hiệp ước Giáp Tuất được ký kết vào năm 1874.",
+    "key_entities": [
+      "Hiệp ước Giáp Tuất",
+      "1874"
+    ]
+  },
+  {
+    "id": "q_230",
+    "category": "timeline",
+    "query": "Hiệp ước Hài-măng (Harmand) được ký kết vào năm nào?",
+    "reference_answer": "Hiệp ước Hài-măng (Harmand) được ký kết vào năm 1883.",
+    "key_entities": [
+      "Hiệp ước Hài-măng (Harmand)",
+      "1883"
+    ]
+  },
+  {
+    "id": "q_231",
+    "category": "timeline",
+    "query": "Hiệp ước Pa-tơ-nốt (Patenotre) được ký kết vào năm nào?",
+    "reference_answer": "Hiệp ước Pa-tơ-nốt (Patenotre) được ký kết vào năm 1884.",
+    "key_entities": [
+      "Hiệp ước Pa-tơ-nốt (Patenotre)",
+      "1884"
+    ]
+  },
+  {
+    "id": "q_232",
+    "category": "timeline",
+    "query": "Hiệp định Sơ bộ 6/3 được ký kết vào năm nào?",
+    "reference_answer": "Hiệp định Sơ bộ 6/3 được ký kết vào năm 1946.",
+    "key_entities": [
+      "Hiệp định Sơ bộ 6/3",
+      "1946"
+    ]
+  },
+  {
+    "id": "q_233",
+    "category": "timeline",
+    "query": "Hiệp định Giơ-ne-vơ (Geneva) được ký kết vào năm nào?",
+    "reference_answer": "Hiệp định Giơ-ne-vơ (Geneva) được ký kết vào năm 1954.",
+    "key_entities": [
+      "Hiệp định Giơ-ne-vơ (Geneva)",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_234",
+    "category": "timeline",
+    "query": "Hiệp định Pa-ri (Paris) được ký kết vào năm nào?",
+    "reference_answer": "Hiệp định Pa-ri (Paris) được ký kết vào năm 1973.",
+    "key_entities": [
+      "Hiệp định Pa-ri (Paris)",
+      "1973"
+    ]
+  },
+  {
+    "id": "q_235",
+    "category": "timeline",
+    "query": "Khởi nghĩa Hai Bà Trưng diễn ra năm nào? (Yêu cầu timeline biến thể 235)",
+    "reference_answer": "Khởi nghĩa Hai Bà Trưng nổ ra vào năm 40 sau Công nguyên.",
+    "key_entities": [
+      "Hai Bà Trưng",
+      "năm 40"
+    ]
+  },
+  {
+    "id": "q_236",
+    "category": "timeline",
+    "query": "Khởi nghĩa Bà Triệu bùng nổ vào năm nào? (Yêu cầu timeline biến thể 236)",
+    "reference_answer": "Khởi nghĩa Bà Triệu bùng nổ vào năm 248.",
+    "key_entities": [
+      "Bà Triệu",
+      "248"
+    ]
+  },
+  {
+    "id": "q_237",
+    "category": "timeline",
+    "query": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân năm nào? (Yêu cầu timeline biến thể 237)",
+    "reference_answer": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân và lên ngôi hoàng đế vào năm 968.",
+    "key_entities": [
+      "Đinh Bộ Lĩnh",
+      "968"
+    ]
+  },
+  {
+    "id": "q_238",
+    "category": "timeline",
+    "query": "Lý Thái Tổ dời đô về Thăng Long năm nào? (Yêu cầu timeline biến thể 238)",
+    "reference_answer": "Lý Thái Tổ dời đô từ Hoa Lư về Thăng Long vào năm 1010.",
+    "key_entities": [
+      "Lý Thái Tổ",
+      "Thăng Long",
+      "1010"
+    ]
+  },
+  {
+    "id": "q_239",
+    "category": "timeline",
+    "query": "Chiến dịch Điện Biên Phủ kết thúc vào ngày tháng năm nào? (Yêu cầu timeline biến thể 239)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ kết thúc thắng lợi vào ngày 7 tháng 5 năm 1954.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_240",
+    "category": "timeline",
+    "query": "Cách mạng tháng Tám diễn ra vào năm nào? (Yêu cầu timeline biến thể 240)",
+    "reference_answer": "Cách mạng tháng Tám nổ ra và giành thắng lợi vào tháng 8 năm 1945.",
+    "key_entities": [
+      "Cách mạng tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "q_241",
+    "category": "timeline",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng Sài Gòn kết thúc năm nào? (Yêu cầu timeline biến thể 241)",
+    "reference_answer": "Chiến dịch Hồ Chí Minh kết thúc thắng lợi vào ngày 30 tháng 4 năm 1975.",
+    "key_entities": [
+      "Chiến dịch Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "q_242",
+    "category": "timeline",
+    "query": "Đại hội VI của Đảng đề ra đường lối Đổi mới năm nào? (Yêu cầu timeline biến thể 242)",
+    "reference_answer": "Đại hội đại biểu toàn quốc lần thứ VI đề ra đường lối Đổi mới vào tháng 12 năm 1986.",
+    "key_entities": [
+      "Đổi mới",
+      "1986"
+    ]
+  },
+  {
+    "id": "q_243",
+    "category": "timeline",
+    "query": "Chiến thắng Bạch Đằng của Ngô Quyền diễn ra năm nào? (Yêu cầu timeline biến thể 243)",
+    "reference_answer": "Chiến thắng Bạch Đằng lịch sử của Ngô Quyền diễn ra vào năm 938.",
+    "key_entities": [
+      "Bạch Đằng",
+      "938"
+    ]
+  },
+  {
+    "id": "q_244",
+    "category": "timeline",
+    "query": "Nhà Hồ sụp đổ vào năm nào? (Yêu cầu timeline biến thể 244)",
+    "reference_answer": "Nhà Hồ sụp đổ vào năm 1407 sau cuộc tấn công của quân Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "1407"
+    ]
+  },
+  {
+    "id": "q_245",
+    "category": "timeline",
+    "query": "Khởi nghĩa Hai Bà Trưng diễn ra năm nào? (Yêu cầu timeline biến thể 245)",
+    "reference_answer": "Khởi nghĩa Hai Bà Trưng nổ ra vào năm 40 sau Công nguyên.",
+    "key_entities": [
+      "Hai Bà Trưng",
+      "năm 40"
+    ]
+  },
+  {
+    "id": "q_246",
+    "category": "timeline",
+    "query": "Khởi nghĩa Bà Triệu bùng nổ vào năm nào? (Yêu cầu timeline biến thể 246)",
+    "reference_answer": "Khởi nghĩa Bà Triệu bùng nổ vào năm 248.",
+    "key_entities": [
+      "Bà Triệu",
+      "248"
+    ]
+  },
+  {
+    "id": "q_247",
+    "category": "timeline",
+    "query": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân năm nào? (Yêu cầu timeline biến thể 247)",
+    "reference_answer": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân và lên ngôi hoàng đế vào năm 968.",
+    "key_entities": [
+      "Đinh Bộ Lĩnh",
+      "968"
+    ]
+  },
+  {
+    "id": "q_248",
+    "category": "timeline",
+    "query": "Lý Thái Tổ dời đô về Thăng Long năm nào? (Yêu cầu timeline biến thể 248)",
+    "reference_answer": "Lý Thái Tổ dời đô từ Hoa Lư về Thăng Long vào năm 1010.",
+    "key_entities": [
+      "Lý Thái Tổ",
+      "Thăng Long",
+      "1010"
+    ]
+  },
+  {
+    "id": "q_249",
+    "category": "timeline",
+    "query": "Chiến dịch Điện Biên Phủ kết thúc vào ngày tháng năm nào? (Yêu cầu timeline biến thể 249)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ kết thúc thắng lợi vào ngày 7 tháng 5 năm 1954.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_250",
+    "category": "timeline",
+    "query": "Cách mạng tháng Tám diễn ra vào năm nào? (Yêu cầu timeline biến thể 250)",
+    "reference_answer": "Cách mạng tháng Tám nổ ra và giành thắng lợi vào tháng 8 năm 1945.",
+    "key_entities": [
+      "Cách mạng tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "q_251",
+    "category": "timeline",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng Sài Gòn kết thúc năm nào? (Yêu cầu timeline biến thể 251)",
+    "reference_answer": "Chiến dịch Hồ Chí Minh kết thúc thắng lợi vào ngày 30 tháng 4 năm 1975.",
+    "key_entities": [
+      "Chiến dịch Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "q_252",
+    "category": "timeline",
+    "query": "Đại hội VI của Đảng đề ra đường lối Đổi mới năm nào? (Yêu cầu timeline biến thể 252)",
+    "reference_answer": "Đại hội đại biểu toàn quốc lần thứ VI đề ra đường lối Đổi mới vào tháng 12 năm 1986.",
+    "key_entities": [
+      "Đổi mới",
+      "1986"
+    ]
+  },
+  {
+    "id": "q_253",
+    "category": "timeline",
+    "query": "Chiến thắng Bạch Đằng của Ngô Quyền diễn ra năm nào? (Yêu cầu timeline biến thể 253)",
+    "reference_answer": "Chiến thắng Bạch Đằng lịch sử của Ngô Quyền diễn ra vào năm 938.",
+    "key_entities": [
+      "Bạch Đằng",
+      "938"
+    ]
+  },
+  {
+    "id": "q_254",
+    "category": "timeline",
+    "query": "Nhà Hồ sụp đổ vào năm nào? (Yêu cầu timeline biến thể 254)",
+    "reference_answer": "Nhà Hồ sụp đổ vào năm 1407 sau cuộc tấn công của quân Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "1407"
+    ]
+  },
+  {
+    "id": "q_255",
+    "category": "timeline",
+    "query": "Khởi nghĩa Hai Bà Trưng diễn ra năm nào? (Yêu cầu timeline biến thể 255)",
+    "reference_answer": "Khởi nghĩa Hai Bà Trưng nổ ra vào năm 40 sau Công nguyên.",
+    "key_entities": [
+      "Hai Bà Trưng",
+      "năm 40"
+    ]
+  },
+  {
+    "id": "q_256",
+    "category": "timeline",
+    "query": "Khởi nghĩa Bà Triệu bùng nổ vào năm nào? (Yêu cầu timeline biến thể 256)",
+    "reference_answer": "Khởi nghĩa Bà Triệu bùng nổ vào năm 248.",
+    "key_entities": [
+      "Bà Triệu",
+      "248"
+    ]
+  },
+  {
+    "id": "q_257",
+    "category": "timeline",
+    "query": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân năm nào? (Yêu cầu timeline biến thể 257)",
+    "reference_answer": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân và lên ngôi hoàng đế vào năm 968.",
+    "key_entities": [
+      "Đinh Bộ Lĩnh",
+      "968"
+    ]
+  },
+  {
+    "id": "q_258",
+    "category": "timeline",
+    "query": "Lý Thái Tổ dời đô về Thăng Long năm nào? (Yêu cầu timeline biến thể 258)",
+    "reference_answer": "Lý Thái Tổ dời đô từ Hoa Lư về Thăng Long vào năm 1010.",
+    "key_entities": [
+      "Lý Thái Tổ",
+      "Thăng Long",
+      "1010"
+    ]
+  },
+  {
+    "id": "q_259",
+    "category": "timeline",
+    "query": "Chiến dịch Điện Biên Phủ kết thúc vào ngày tháng năm nào? (Yêu cầu timeline biến thể 259)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ kết thúc thắng lợi vào ngày 7 tháng 5 năm 1954.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_260",
+    "category": "timeline",
+    "query": "Cách mạng tháng Tám diễn ra vào năm nào? (Yêu cầu timeline biến thể 260)",
+    "reference_answer": "Cách mạng tháng Tám nổ ra và giành thắng lợi vào tháng 8 năm 1945.",
+    "key_entities": [
+      "Cách mạng tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "q_261",
+    "category": "timeline",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng Sài Gòn kết thúc năm nào? (Yêu cầu timeline biến thể 261)",
+    "reference_answer": "Chiến dịch Hồ Chí Minh kết thúc thắng lợi vào ngày 30 tháng 4 năm 1975.",
+    "key_entities": [
+      "Chiến dịch Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "q_262",
+    "category": "timeline",
+    "query": "Đại hội VI của Đảng đề ra đường lối Đổi mới năm nào? (Yêu cầu timeline biến thể 262)",
+    "reference_answer": "Đại hội đại biểu toàn quốc lần thứ VI đề ra đường lối Đổi mới vào tháng 12 năm 1986.",
+    "key_entities": [
+      "Đổi mới",
+      "1986"
+    ]
+  },
+  {
+    "id": "q_263",
+    "category": "timeline",
+    "query": "Chiến thắng Bạch Đằng của Ngô Quyền diễn ra năm nào? (Yêu cầu timeline biến thể 263)",
+    "reference_answer": "Chiến thắng Bạch Đằng lịch sử của Ngô Quyền diễn ra vào năm 938.",
+    "key_entities": [
+      "Bạch Đằng",
+      "938"
+    ]
+  },
+  {
+    "id": "q_264",
+    "category": "timeline",
+    "query": "Nhà Hồ sụp đổ vào năm nào? (Yêu cầu timeline biến thể 264)",
+    "reference_answer": "Nhà Hồ sụp đổ vào năm 1407 sau cuộc tấn công của quân Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "1407"
+    ]
+  },
+  {
+    "id": "q_265",
+    "category": "timeline",
+    "query": "Khởi nghĩa Hai Bà Trưng diễn ra năm nào? (Yêu cầu timeline biến thể 265)",
+    "reference_answer": "Khởi nghĩa Hai Bà Trưng nổ ra vào năm 40 sau Công nguyên.",
+    "key_entities": [
+      "Hai Bà Trưng",
+      "năm 40"
+    ]
+  },
+  {
+    "id": "q_266",
+    "category": "timeline",
+    "query": "Khởi nghĩa Bà Triệu bùng nổ vào năm nào? (Yêu cầu timeline biến thể 266)",
+    "reference_answer": "Khởi nghĩa Bà Triệu bùng nổ vào năm 248.",
+    "key_entities": [
+      "Bà Triệu",
+      "248"
+    ]
+  },
+  {
+    "id": "q_267",
+    "category": "timeline",
+    "query": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân năm nào? (Yêu cầu timeline biến thể 267)",
+    "reference_answer": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân và lên ngôi hoàng đế vào năm 968.",
+    "key_entities": [
+      "Đinh Bộ Lĩnh",
+      "968"
+    ]
+  },
+  {
+    "id": "q_268",
+    "category": "timeline",
+    "query": "Lý Thái Tổ dời đô về Thăng Long năm nào? (Yêu cầu timeline biến thể 268)",
+    "reference_answer": "Lý Thái Tổ dời đô từ Hoa Lư về Thăng Long vào năm 1010.",
+    "key_entities": [
+      "Lý Thái Tổ",
+      "Thăng Long",
+      "1010"
+    ]
+  },
+  {
+    "id": "q_269",
+    "category": "timeline",
+    "query": "Chiến dịch Điện Biên Phủ kết thúc vào ngày tháng năm nào? (Yêu cầu timeline biến thể 269)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ kết thúc thắng lợi vào ngày 7 tháng 5 năm 1954.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_270",
+    "category": "timeline",
+    "query": "Cách mạng tháng Tám diễn ra vào năm nào? (Yêu cầu timeline biến thể 270)",
+    "reference_answer": "Cách mạng tháng Tám nổ ra và giành thắng lợi vào tháng 8 năm 1945.",
+    "key_entities": [
+      "Cách mạng tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "q_271",
+    "category": "timeline",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng Sài Gòn kết thúc năm nào? (Yêu cầu timeline biến thể 271)",
+    "reference_answer": "Chiến dịch Hồ Chí Minh kết thúc thắng lợi vào ngày 30 tháng 4 năm 1975.",
+    "key_entities": [
+      "Chiến dịch Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "q_272",
+    "category": "timeline",
+    "query": "Đại hội VI của Đảng đề ra đường lối Đổi mới năm nào? (Yêu cầu timeline biến thể 272)",
+    "reference_answer": "Đại hội đại biểu toàn quốc lần thứ VI đề ra đường lối Đổi mới vào tháng 12 năm 1986.",
+    "key_entities": [
+      "Đổi mới",
+      "1986"
+    ]
+  },
+  {
+    "id": "q_273",
+    "category": "timeline",
+    "query": "Chiến thắng Bạch Đằng của Ngô Quyền diễn ra năm nào? (Yêu cầu timeline biến thể 273)",
+    "reference_answer": "Chiến thắng Bạch Đằng lịch sử của Ngô Quyền diễn ra vào năm 938.",
+    "key_entities": [
+      "Bạch Đằng",
+      "938"
+    ]
+  },
+  {
+    "id": "q_274",
+    "category": "timeline",
+    "query": "Nhà Hồ sụp đổ vào năm nào? (Yêu cầu timeline biến thể 274)",
+    "reference_answer": "Nhà Hồ sụp đổ vào năm 1407 sau cuộc tấn công của quân Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "1407"
+    ]
+  },
+  {
+    "id": "q_275",
+    "category": "timeline",
+    "query": "Khởi nghĩa Hai Bà Trưng diễn ra năm nào? (Yêu cầu timeline biến thể 275)",
+    "reference_answer": "Khởi nghĩa Hai Bà Trưng nổ ra vào năm 40 sau Công nguyên.",
+    "key_entities": [
+      "Hai Bà Trưng",
+      "năm 40"
+    ]
+  },
+  {
+    "id": "q_276",
+    "category": "timeline",
+    "query": "Khởi nghĩa Bà Triệu bùng nổ vào năm nào? (Yêu cầu timeline biến thể 276)",
+    "reference_answer": "Khởi nghĩa Bà Triệu bùng nổ vào năm 248.",
+    "key_entities": [
+      "Bà Triệu",
+      "248"
+    ]
+  },
+  {
+    "id": "q_277",
+    "category": "timeline",
+    "query": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân năm nào? (Yêu cầu timeline biến thể 277)",
+    "reference_answer": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân và lên ngôi hoàng đế vào năm 968.",
+    "key_entities": [
+      "Đinh Bộ Lĩnh",
+      "968"
+    ]
+  },
+  {
+    "id": "q_278",
+    "category": "timeline",
+    "query": "Lý Thái Tổ dời đô về Thăng Long năm nào? (Yêu cầu timeline biến thể 278)",
+    "reference_answer": "Lý Thái Tổ dời đô từ Hoa Lư về Thăng Long vào năm 1010.",
+    "key_entities": [
+      "Lý Thái Tổ",
+      "Thăng Long",
+      "1010"
+    ]
+  },
+  {
+    "id": "q_279",
+    "category": "timeline",
+    "query": "Chiến dịch Điện Biên Phủ kết thúc vào ngày tháng năm nào? (Yêu cầu timeline biến thể 279)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ kết thúc thắng lợi vào ngày 7 tháng 5 năm 1954.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_280",
+    "category": "timeline",
+    "query": "Cách mạng tháng Tám diễn ra vào năm nào? (Yêu cầu timeline biến thể 280)",
+    "reference_answer": "Cách mạng tháng Tám nổ ra và giành thắng lợi vào tháng 8 năm 1945.",
+    "key_entities": [
+      "Cách mạng tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "q_281",
+    "category": "timeline",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng Sài Gòn kết thúc năm nào? (Yêu cầu timeline biến thể 281)",
+    "reference_answer": "Chiến dịch Hồ Chí Minh kết thúc thắng lợi vào ngày 30 tháng 4 năm 1975.",
+    "key_entities": [
+      "Chiến dịch Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "q_282",
+    "category": "timeline",
+    "query": "Đại hội VI của Đảng đề ra đường lối Đổi mới năm nào? (Yêu cầu timeline biến thể 282)",
+    "reference_answer": "Đại hội đại biểu toàn quốc lần thứ VI đề ra đường lối Đổi mới vào tháng 12 năm 1986.",
+    "key_entities": [
+      "Đổi mới",
+      "1986"
+    ]
+  },
+  {
+    "id": "q_283",
+    "category": "timeline",
+    "query": "Chiến thắng Bạch Đằng của Ngô Quyền diễn ra năm nào? (Yêu cầu timeline biến thể 283)",
+    "reference_answer": "Chiến thắng Bạch Đằng lịch sử của Ngô Quyền diễn ra vào năm 938.",
+    "key_entities": [
+      "Bạch Đằng",
+      "938"
+    ]
+  },
+  {
+    "id": "q_284",
+    "category": "timeline",
+    "query": "Nhà Hồ sụp đổ vào năm nào? (Yêu cầu timeline biến thể 284)",
+    "reference_answer": "Nhà Hồ sụp đổ vào năm 1407 sau cuộc tấn công của quân Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "1407"
+    ]
+  },
+  {
+    "id": "q_285",
+    "category": "timeline",
+    "query": "Khởi nghĩa Hai Bà Trưng diễn ra năm nào? (Yêu cầu timeline biến thể 285)",
+    "reference_answer": "Khởi nghĩa Hai Bà Trưng nổ ra vào năm 40 sau Công nguyên.",
+    "key_entities": [
+      "Hai Bà Trưng",
+      "năm 40"
+    ]
+  },
+  {
+    "id": "q_286",
+    "category": "timeline",
+    "query": "Khởi nghĩa Bà Triệu bùng nổ vào năm nào? (Yêu cầu timeline biến thể 286)",
+    "reference_answer": "Khởi nghĩa Bà Triệu bùng nổ vào năm 248.",
+    "key_entities": [
+      "Bà Triệu",
+      "248"
+    ]
+  },
+  {
+    "id": "q_287",
+    "category": "timeline",
+    "query": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân năm nào? (Yêu cầu timeline biến thể 287)",
+    "reference_answer": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân và lên ngôi hoàng đế vào năm 968.",
+    "key_entities": [
+      "Đinh Bộ Lĩnh",
+      "968"
+    ]
+  },
+  {
+    "id": "q_288",
+    "category": "timeline",
+    "query": "Lý Thái Tổ dời đô về Thăng Long năm nào? (Yêu cầu timeline biến thể 288)",
+    "reference_answer": "Lý Thái Tổ dời đô từ Hoa Lư về Thăng Long vào năm 1010.",
+    "key_entities": [
+      "Lý Thái Tổ",
+      "Thăng Long",
+      "1010"
+    ]
+  },
+  {
+    "id": "q_289",
+    "category": "timeline",
+    "query": "Chiến dịch Điện Biên Phủ kết thúc vào ngày tháng năm nào? (Yêu cầu timeline biến thể 289)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ kết thúc thắng lợi vào ngày 7 tháng 5 năm 1954.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_290",
+    "category": "timeline",
+    "query": "Cách mạng tháng Tám diễn ra vào năm nào? (Yêu cầu timeline biến thể 290)",
+    "reference_answer": "Cách mạng tháng Tám nổ ra và giành thắng lợi vào tháng 8 năm 1945.",
+    "key_entities": [
+      "Cách mạng tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "q_291",
+    "category": "timeline",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng Sài Gòn kết thúc năm nào? (Yêu cầu timeline biến thể 291)",
+    "reference_answer": "Chiến dịch Hồ Chí Minh kết thúc thắng lợi vào ngày 30 tháng 4 năm 1975.",
+    "key_entities": [
+      "Chiến dịch Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "q_292",
+    "category": "timeline",
+    "query": "Đại hội VI của Đảng đề ra đường lối Đổi mới năm nào? (Yêu cầu timeline biến thể 292)",
+    "reference_answer": "Đại hội đại biểu toàn quốc lần thứ VI đề ra đường lối Đổi mới vào tháng 12 năm 1986.",
+    "key_entities": [
+      "Đổi mới",
+      "1986"
+    ]
+  },
+  {
+    "id": "q_293",
+    "category": "timeline",
+    "query": "Chiến thắng Bạch Đằng của Ngô Quyền diễn ra năm nào? (Yêu cầu timeline biến thể 293)",
+    "reference_answer": "Chiến thắng Bạch Đằng lịch sử của Ngô Quyền diễn ra vào năm 938.",
+    "key_entities": [
+      "Bạch Đằng",
+      "938"
+    ]
+  },
+  {
+    "id": "q_294",
+    "category": "timeline",
+    "query": "Nhà Hồ sụp đổ vào năm nào? (Yêu cầu timeline biến thể 294)",
+    "reference_answer": "Nhà Hồ sụp đổ vào năm 1407 sau cuộc tấn công của quân Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "1407"
+    ]
+  },
+  {
+    "id": "q_295",
+    "category": "timeline",
+    "query": "Khởi nghĩa Hai Bà Trưng diễn ra năm nào? (Yêu cầu timeline biến thể 295)",
+    "reference_answer": "Khởi nghĩa Hai Bà Trưng nổ ra vào năm 40 sau Công nguyên.",
+    "key_entities": [
+      "Hai Bà Trưng",
+      "năm 40"
+    ]
+  },
+  {
+    "id": "q_296",
+    "category": "timeline",
+    "query": "Khởi nghĩa Bà Triệu bùng nổ vào năm nào? (Yêu cầu timeline biến thể 296)",
+    "reference_answer": "Khởi nghĩa Bà Triệu bùng nổ vào năm 248.",
+    "key_entities": [
+      "Bà Triệu",
+      "248"
+    ]
+  },
+  {
+    "id": "q_297",
+    "category": "timeline",
+    "query": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân năm nào? (Yêu cầu timeline biến thể 297)",
+    "reference_answer": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân và lên ngôi hoàng đế vào năm 968.",
+    "key_entities": [
+      "Đinh Bộ Lĩnh",
+      "968"
+    ]
+  },
+  {
+    "id": "q_298",
+    "category": "timeline",
+    "query": "Lý Thái Tổ dời đô về Thăng Long năm nào? (Yêu cầu timeline biến thể 298)",
+    "reference_answer": "Lý Thái Tổ dời đô từ Hoa Lư về Thăng Long vào năm 1010.",
+    "key_entities": [
+      "Lý Thái Tổ",
+      "Thăng Long",
+      "1010"
+    ]
+  },
+  {
+    "id": "q_299",
+    "category": "timeline",
+    "query": "Chiến dịch Điện Biên Phủ kết thúc vào ngày tháng năm nào? (Yêu cầu timeline biến thể 299)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ kết thúc thắng lợi vào ngày 7 tháng 5 năm 1954.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_300",
+    "category": "timeline",
+    "query": "Cách mạng tháng Tám diễn ra vào năm nào? (Yêu cầu timeline biến thể 300)",
+    "reference_answer": "Cách mạng tháng Tám nổ ra và giành thắng lợi vào tháng 8 năm 1945.",
+    "key_entities": [
+      "Cách mạng tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "q_301",
+    "category": "timeline",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng Sài Gòn kết thúc năm nào? (Yêu cầu timeline biến thể 301)",
+    "reference_answer": "Chiến dịch Hồ Chí Minh kết thúc thắng lợi vào ngày 30 tháng 4 năm 1975.",
+    "key_entities": [
+      "Chiến dịch Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "q_302",
+    "category": "timeline",
+    "query": "Đại hội VI của Đảng đề ra đường lối Đổi mới năm nào? (Yêu cầu timeline biến thể 302)",
+    "reference_answer": "Đại hội đại biểu toàn quốc lần thứ VI đề ra đường lối Đổi mới vào tháng 12 năm 1986.",
+    "key_entities": [
+      "Đổi mới",
+      "1986"
+    ]
+  },
+  {
+    "id": "q_303",
+    "category": "timeline",
+    "query": "Chiến thắng Bạch Đằng của Ngô Quyền diễn ra năm nào? (Yêu cầu timeline biến thể 303)",
+    "reference_answer": "Chiến thắng Bạch Đằng lịch sử của Ngô Quyền diễn ra vào năm 938.",
+    "key_entities": [
+      "Bạch Đằng",
+      "938"
+    ]
+  },
+  {
+    "id": "q_304",
+    "category": "timeline",
+    "query": "Nhà Hồ sụp đổ vào năm nào? (Yêu cầu timeline biến thể 304)",
+    "reference_answer": "Nhà Hồ sụp đổ vào năm 1407 sau cuộc tấn công của quân Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "1407"
+    ]
+  },
+  {
+    "id": "q_305",
+    "category": "timeline",
+    "query": "Khởi nghĩa Hai Bà Trưng diễn ra năm nào? (Yêu cầu timeline biến thể 305)",
+    "reference_answer": "Khởi nghĩa Hai Bà Trưng nổ ra vào năm 40 sau Công nguyên.",
+    "key_entities": [
+      "Hai Bà Trưng",
+      "năm 40"
+    ]
+  },
+  {
+    "id": "q_306",
+    "category": "timeline",
+    "query": "Khởi nghĩa Bà Triệu bùng nổ vào năm nào? (Yêu cầu timeline biến thể 306)",
+    "reference_answer": "Khởi nghĩa Bà Triệu bùng nổ vào năm 248.",
+    "key_entities": [
+      "Bà Triệu",
+      "248"
+    ]
+  },
+  {
+    "id": "q_307",
+    "category": "timeline",
+    "query": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân năm nào? (Yêu cầu timeline biến thể 307)",
+    "reference_answer": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân và lên ngôi hoàng đế vào năm 968.",
+    "key_entities": [
+      "Đinh Bộ Lĩnh",
+      "968"
+    ]
+  },
+  {
+    "id": "q_308",
+    "category": "timeline",
+    "query": "Lý Thái Tổ dời đô về Thăng Long năm nào? (Yêu cầu timeline biến thể 308)",
+    "reference_answer": "Lý Thái Tổ dời đô từ Hoa Lư về Thăng Long vào năm 1010.",
+    "key_entities": [
+      "Lý Thái Tổ",
+      "Thăng Long",
+      "1010"
+    ]
+  },
+  {
+    "id": "q_309",
+    "category": "timeline",
+    "query": "Chiến dịch Điện Biên Phủ kết thúc vào ngày tháng năm nào? (Yêu cầu timeline biến thể 309)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ kết thúc thắng lợi vào ngày 7 tháng 5 năm 1954.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_310",
+    "category": "timeline",
+    "query": "Cách mạng tháng Tám diễn ra vào năm nào? (Yêu cầu timeline biến thể 310)",
+    "reference_answer": "Cách mạng tháng Tám nổ ra và giành thắng lợi vào tháng 8 năm 1945.",
+    "key_entities": [
+      "Cách mạng tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "q_311",
+    "category": "timeline",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng Sài Gòn kết thúc năm nào? (Yêu cầu timeline biến thể 311)",
+    "reference_answer": "Chiến dịch Hồ Chí Minh kết thúc thắng lợi vào ngày 30 tháng 4 năm 1975.",
+    "key_entities": [
+      "Chiến dịch Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "q_312",
+    "category": "timeline",
+    "query": "Đại hội VI của Đảng đề ra đường lối Đổi mới năm nào? (Yêu cầu timeline biến thể 312)",
+    "reference_answer": "Đại hội đại biểu toàn quốc lần thứ VI đề ra đường lối Đổi mới vào tháng 12 năm 1986.",
+    "key_entities": [
+      "Đổi mới",
+      "1986"
+    ]
+  },
+  {
+    "id": "q_313",
+    "category": "timeline",
+    "query": "Chiến thắng Bạch Đằng của Ngô Quyền diễn ra năm nào? (Yêu cầu timeline biến thể 313)",
+    "reference_answer": "Chiến thắng Bạch Đằng lịch sử của Ngô Quyền diễn ra vào năm 938.",
+    "key_entities": [
+      "Bạch Đằng",
+      "938"
+    ]
+  },
+  {
+    "id": "q_314",
+    "category": "timeline",
+    "query": "Nhà Hồ sụp đổ vào năm nào? (Yêu cầu timeline biến thể 314)",
+    "reference_answer": "Nhà Hồ sụp đổ vào năm 1407 sau cuộc tấn công của quân Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "1407"
+    ]
+  },
+  {
+    "id": "q_315",
+    "category": "timeline",
+    "query": "Khởi nghĩa Hai Bà Trưng diễn ra năm nào? (Yêu cầu timeline biến thể 315)",
+    "reference_answer": "Khởi nghĩa Hai Bà Trưng nổ ra vào năm 40 sau Công nguyên.",
+    "key_entities": [
+      "Hai Bà Trưng",
+      "năm 40"
+    ]
+  },
+  {
+    "id": "q_316",
+    "category": "timeline",
+    "query": "Khởi nghĩa Bà Triệu bùng nổ vào năm nào? (Yêu cầu timeline biến thể 316)",
+    "reference_answer": "Khởi nghĩa Bà Triệu bùng nổ vào năm 248.",
+    "key_entities": [
+      "Bà Triệu",
+      "248"
+    ]
+  },
+  {
+    "id": "q_317",
+    "category": "timeline",
+    "query": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân năm nào? (Yêu cầu timeline biến thể 317)",
+    "reference_answer": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân và lên ngôi hoàng đế vào năm 968.",
+    "key_entities": [
+      "Đinh Bộ Lĩnh",
+      "968"
+    ]
+  },
+  {
+    "id": "q_318",
+    "category": "timeline",
+    "query": "Lý Thái Tổ dời đô về Thăng Long năm nào? (Yêu cầu timeline biến thể 318)",
+    "reference_answer": "Lý Thái Tổ dời đô từ Hoa Lư về Thăng Long vào năm 1010.",
+    "key_entities": [
+      "Lý Thái Tổ",
+      "Thăng Long",
+      "1010"
+    ]
+  },
+  {
+    "id": "q_319",
+    "category": "timeline",
+    "query": "Chiến dịch Điện Biên Phủ kết thúc vào ngày tháng năm nào? (Yêu cầu timeline biến thể 319)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ kết thúc thắng lợi vào ngày 7 tháng 5 năm 1954.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_320",
+    "category": "timeline",
+    "query": "Cách mạng tháng Tám diễn ra vào năm nào? (Yêu cầu timeline biến thể 320)",
+    "reference_answer": "Cách mạng tháng Tám nổ ra và giành thắng lợi vào tháng 8 năm 1945.",
+    "key_entities": [
+      "Cách mạng tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "q_321",
+    "category": "timeline",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng Sài Gòn kết thúc năm nào? (Yêu cầu timeline biến thể 321)",
+    "reference_answer": "Chiến dịch Hồ Chí Minh kết thúc thắng lợi vào ngày 30 tháng 4 năm 1975.",
+    "key_entities": [
+      "Chiến dịch Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "q_322",
+    "category": "timeline",
+    "query": "Đại hội VI của Đảng đề ra đường lối Đổi mới năm nào? (Yêu cầu timeline biến thể 322)",
+    "reference_answer": "Đại hội đại biểu toàn quốc lần thứ VI đề ra đường lối Đổi mới vào tháng 12 năm 1986.",
+    "key_entities": [
+      "Đổi mới",
+      "1986"
+    ]
+  },
+  {
+    "id": "q_323",
+    "category": "timeline",
+    "query": "Chiến thắng Bạch Đằng của Ngô Quyền diễn ra năm nào? (Yêu cầu timeline biến thể 323)",
+    "reference_answer": "Chiến thắng Bạch Đằng lịch sử của Ngô Quyền diễn ra vào năm 938.",
+    "key_entities": [
+      "Bạch Đằng",
+      "938"
+    ]
+  },
+  {
+    "id": "q_324",
+    "category": "timeline",
+    "query": "Nhà Hồ sụp đổ vào năm nào? (Yêu cầu timeline biến thể 324)",
+    "reference_answer": "Nhà Hồ sụp đổ vào năm 1407 sau cuộc tấn công của quân Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "1407"
+    ]
+  },
+  {
+    "id": "q_325",
+    "category": "timeline",
+    "query": "Khởi nghĩa Hai Bà Trưng diễn ra năm nào? (Yêu cầu timeline biến thể 325)",
+    "reference_answer": "Khởi nghĩa Hai Bà Trưng nổ ra vào năm 40 sau Công nguyên.",
+    "key_entities": [
+      "Hai Bà Trưng",
+      "năm 40"
+    ]
+  },
+  {
+    "id": "q_326",
+    "category": "timeline",
+    "query": "Khởi nghĩa Bà Triệu bùng nổ vào năm nào? (Yêu cầu timeline biến thể 326)",
+    "reference_answer": "Khởi nghĩa Bà Triệu bùng nổ vào năm 248.",
+    "key_entities": [
+      "Bà Triệu",
+      "248"
+    ]
+  },
+  {
+    "id": "q_327",
+    "category": "timeline",
+    "query": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân năm nào? (Yêu cầu timeline biến thể 327)",
+    "reference_answer": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân và lên ngôi hoàng đế vào năm 968.",
+    "key_entities": [
+      "Đinh Bộ Lĩnh",
+      "968"
+    ]
+  },
+  {
+    "id": "q_328",
+    "category": "timeline",
+    "query": "Lý Thái Tổ dời đô về Thăng Long năm nào? (Yêu cầu timeline biến thể 328)",
+    "reference_answer": "Lý Thái Tổ dời đô từ Hoa Lư về Thăng Long vào năm 1010.",
+    "key_entities": [
+      "Lý Thái Tổ",
+      "Thăng Long",
+      "1010"
+    ]
+  },
+  {
+    "id": "q_329",
+    "category": "timeline",
+    "query": "Chiến dịch Điện Biên Phủ kết thúc vào ngày tháng năm nào? (Yêu cầu timeline biến thể 329)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ kết thúc thắng lợi vào ngày 7 tháng 5 năm 1954.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_330",
+    "category": "timeline",
+    "query": "Cách mạng tháng Tám diễn ra vào năm nào? (Yêu cầu timeline biến thể 330)",
+    "reference_answer": "Cách mạng tháng Tám nổ ra và giành thắng lợi vào tháng 8 năm 1945.",
+    "key_entities": [
+      "Cách mạng tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "q_331",
+    "category": "timeline",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng Sài Gòn kết thúc năm nào? (Yêu cầu timeline biến thể 331)",
+    "reference_answer": "Chiến dịch Hồ Chí Minh kết thúc thắng lợi vào ngày 30 tháng 4 năm 1975.",
+    "key_entities": [
+      "Chiến dịch Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "q_332",
+    "category": "timeline",
+    "query": "Đại hội VI của Đảng đề ra đường lối Đổi mới năm nào? (Yêu cầu timeline biến thể 332)",
+    "reference_answer": "Đại hội đại biểu toàn quốc lần thứ VI đề ra đường lối Đổi mới vào tháng 12 năm 1986.",
+    "key_entities": [
+      "Đổi mới",
+      "1986"
+    ]
+  },
+  {
+    "id": "q_333",
+    "category": "timeline",
+    "query": "Chiến thắng Bạch Đằng của Ngô Quyền diễn ra năm nào? (Yêu cầu timeline biến thể 333)",
+    "reference_answer": "Chiến thắng Bạch Đằng lịch sử của Ngô Quyền diễn ra vào năm 938.",
+    "key_entities": [
+      "Bạch Đằng",
+      "938"
+    ]
+  },
+  {
+    "id": "q_334",
+    "category": "timeline",
+    "query": "Nhà Hồ sụp đổ vào năm nào? (Yêu cầu timeline biến thể 334)",
+    "reference_answer": "Nhà Hồ sụp đổ vào năm 1407 sau cuộc tấn công của quân Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "1407"
+    ]
+  },
+  {
+    "id": "q_335",
+    "category": "timeline",
+    "query": "Khởi nghĩa Hai Bà Trưng diễn ra năm nào? (Yêu cầu timeline biến thể 335)",
+    "reference_answer": "Khởi nghĩa Hai Bà Trưng nổ ra vào năm 40 sau Công nguyên.",
+    "key_entities": [
+      "Hai Bà Trưng",
+      "năm 40"
+    ]
+  },
+  {
+    "id": "q_336",
+    "category": "timeline",
+    "query": "Khởi nghĩa Bà Triệu bùng nổ vào năm nào? (Yêu cầu timeline biến thể 336)",
+    "reference_answer": "Khởi nghĩa Bà Triệu bùng nổ vào năm 248.",
+    "key_entities": [
+      "Bà Triệu",
+      "248"
+    ]
+  },
+  {
+    "id": "q_337",
+    "category": "timeline",
+    "query": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân năm nào? (Yêu cầu timeline biến thể 337)",
+    "reference_answer": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân và lên ngôi hoàng đế vào năm 968.",
+    "key_entities": [
+      "Đinh Bộ Lĩnh",
+      "968"
+    ]
+  },
+  {
+    "id": "q_338",
+    "category": "timeline",
+    "query": "Lý Thái Tổ dời đô về Thăng Long năm nào? (Yêu cầu timeline biến thể 338)",
+    "reference_answer": "Lý Thái Tổ dời đô từ Hoa Lư về Thăng Long vào năm 1010.",
+    "key_entities": [
+      "Lý Thái Tổ",
+      "Thăng Long",
+      "1010"
+    ]
+  },
+  {
+    "id": "q_339",
+    "category": "timeline",
+    "query": "Chiến dịch Điện Biên Phủ kết thúc vào ngày tháng năm nào? (Yêu cầu timeline biến thể 339)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ kết thúc thắng lợi vào ngày 7 tháng 5 năm 1954.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_340",
+    "category": "timeline",
+    "query": "Cách mạng tháng Tám diễn ra vào năm nào? (Yêu cầu timeline biến thể 340)",
+    "reference_answer": "Cách mạng tháng Tám nổ ra và giành thắng lợi vào tháng 8 năm 1945.",
+    "key_entities": [
+      "Cách mạng tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "q_341",
+    "category": "timeline",
+    "query": "Chiến dịch Hồ Chí Minh giải phóng Sài Gòn kết thúc năm nào? (Yêu cầu timeline biến thể 341)",
+    "reference_answer": "Chiến dịch Hồ Chí Minh kết thúc thắng lợi vào ngày 30 tháng 4 năm 1975.",
+    "key_entities": [
+      "Chiến dịch Hồ Chí Minh",
+      "1975"
+    ]
+  },
+  {
+    "id": "q_342",
+    "category": "timeline",
+    "query": "Đại hội VI của Đảng đề ra đường lối Đổi mới năm nào? (Yêu cầu timeline biến thể 342)",
+    "reference_answer": "Đại hội đại biểu toàn quốc lần thứ VI đề ra đường lối Đổi mới vào tháng 12 năm 1986.",
+    "key_entities": [
+      "Đổi mới",
+      "1986"
+    ]
+  },
+  {
+    "id": "q_343",
+    "category": "timeline",
+    "query": "Chiến thắng Bạch Đằng của Ngô Quyền diễn ra năm nào? (Yêu cầu timeline biến thể 343)",
+    "reference_answer": "Chiến thắng Bạch Đằng lịch sử của Ngô Quyền diễn ra vào năm 938.",
+    "key_entities": [
+      "Bạch Đằng",
+      "938"
+    ]
+  },
+  {
+    "id": "q_344",
+    "category": "timeline",
+    "query": "Nhà Hồ sụp đổ vào năm nào? (Yêu cầu timeline biến thể 344)",
+    "reference_answer": "Nhà Hồ sụp đổ vào năm 1407 sau cuộc tấn công của quân Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "1407"
+    ]
+  },
+  {
+    "id": "q_345",
+    "category": "timeline",
+    "query": "Khởi nghĩa Hai Bà Trưng diễn ra năm nào? (Yêu cầu timeline biến thể 345)",
+    "reference_answer": "Khởi nghĩa Hai Bà Trưng nổ ra vào năm 40 sau Công nguyên.",
+    "key_entities": [
+      "Hai Bà Trưng",
+      "năm 40"
+    ]
+  },
+  {
+    "id": "q_346",
+    "category": "timeline",
+    "query": "Khởi nghĩa Bà Triệu bùng nổ vào năm nào? (Yêu cầu timeline biến thể 346)",
+    "reference_answer": "Khởi nghĩa Bà Triệu bùng nổ vào năm 248.",
+    "key_entities": [
+      "Bà Triệu",
+      "248"
+    ]
+  },
+  {
+    "id": "q_347",
+    "category": "timeline",
+    "query": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân năm nào? (Yêu cầu timeline biến thể 347)",
+    "reference_answer": "Đinh Bộ Lĩnh dẹp loạn 12 sứ quân và lên ngôi hoàng đế vào năm 968.",
+    "key_entities": [
+      "Đinh Bộ Lĩnh",
+      "968"
+    ]
+  },
+  {
+    "id": "q_348",
+    "category": "timeline",
+    "query": "Lý Thái Tổ dời đô về Thăng Long năm nào? (Yêu cầu timeline biến thể 348)",
+    "reference_answer": "Lý Thái Tổ dời đô từ Hoa Lư về Thăng Long vào năm 1010.",
+    "key_entities": [
+      "Lý Thái Tổ",
+      "Thăng Long",
+      "1010"
+    ]
+  },
+  {
+    "id": "q_349",
+    "category": "timeline",
+    "query": "Chiến dịch Điện Biên Phủ kết thúc vào ngày tháng năm nào? (Yêu cầu timeline biến thể 349)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ kết thúc thắng lợi vào ngày 7 tháng 5 năm 1954.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "1954"
+    ]
+  },
+  {
+    "id": "q_350",
+    "category": "timeline",
+    "query": "Cách mạng tháng Tám diễn ra vào năm nào? (Yêu cầu timeline biến thể 350)",
+    "reference_answer": "Cách mạng tháng Tám nổ ra và giành thắng lợi vào tháng 8 năm 1945.",
+    "key_entities": [
+      "Cách mạng tháng Tám",
+      "1945"
+    ]
+  },
+  {
+    "id": "q_351",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 351)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_352",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 352)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_353",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 353)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_354",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 354)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_355",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 355)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_356",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 356)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_357",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 357)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_358",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 358)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_359",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 359)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_360",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 360)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_361",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 361)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_362",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 362)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_363",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 363)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_364",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 364)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_365",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 365)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_366",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 366)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_367",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 367)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_368",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 368)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_369",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 369)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_370",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 370)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_371",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 371)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_372",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 372)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_373",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 373)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_374",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 374)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_375",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 375)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_376",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 376)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_377",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 377)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_378",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 378)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_379",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 379)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_380",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 380)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_381",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 381)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_382",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 382)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_383",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 383)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_384",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 384)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_385",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 385)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_386",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 386)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_387",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 387)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_388",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 388)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_389",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 389)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_390",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 390)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_391",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 391)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_392",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 392)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_393",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 393)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_394",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 394)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_395",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 395)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_396",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 396)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_397",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 397)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_398",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 398)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_399",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 399)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_400",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 400)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_401",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 401)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_402",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 402)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_403",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 403)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_404",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 404)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_405",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 405)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_406",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 406)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_407",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 407)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_408",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 408)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_409",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 409)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_410",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 410)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_411",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 411)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_412",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 412)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_413",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 413)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_414",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 414)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_415",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 415)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_416",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 416)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_417",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 417)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_418",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 418)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_419",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 419)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_420",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 420)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_421",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 421)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_422",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 422)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_423",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 423)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_424",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 424)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_425",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 425)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_426",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 426)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_427",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 427)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_428",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 428)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_429",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 429)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_430",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 430)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_431",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 431)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_432",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 432)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_433",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 433)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_434",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 434)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_435",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 435)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_436",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 436)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_437",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 437)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_438",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 438)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_439",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 439)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_440",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 440)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_441",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 441)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_442",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 442)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_443",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 443)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_444",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 444)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_445",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 445)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_446",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 446)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_447",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 447)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_448",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 448)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_449",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 449)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_450",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 450)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_451",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 451)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_452",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 452)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_453",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 453)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_454",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 454)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_455",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 455)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_456",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 456)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_457",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 457)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_458",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 458)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_459",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 459)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_460",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 460)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_461",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 461)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_462",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 462)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_463",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 463)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_464",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 464)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_465",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 465)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_466",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 466)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_467",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 467)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_468",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 468)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_469",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 469)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_470",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 470)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_471",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 471)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_472",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 472)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_473",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 473)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_474",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 474)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_475",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 475)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_476",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 476)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_477",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 477)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_478",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 478)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_479",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 479)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_480",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 480)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_481",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 481)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_482",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 482)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_483",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 483)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_484",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 484)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_485",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 485)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_486",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 486)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_487",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 487)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_488",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 488)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_489",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 489)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_490",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 490)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_491",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 491)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_492",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 492)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  },
+  {
+    "id": "q_493",
+    "category": "compare",
+    "query": "So sánh khởi nghĩa Lam Sơn và khởi nghĩa Tây Sơn? (Góc nhìn so sánh phiên bản 493)",
+    "reference_answer": "Khởi nghĩa Lam Sơn do Lê Lợi lãnh đạo chống ngoại xâm phương Bắc (quân Minh), còn khởi nghĩa Tây Sơn do ba anh em nhà Tây Sơn lãnh đạo ban đầu là khởi nghĩa nông dân chống tập đoàn phong kiến Trịnh - Nguyễn trước khi đánh ngoại xâm Xiêm và Thanh.",
+    "key_entities": [
+      "Lam Sơn",
+      "Tây Sơn",
+      "phong kiến"
+    ]
+  },
+  {
+    "id": "q_494",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Hồ và nhà Trần về mặt kinh tế xã hội? (Góc nhìn so sánh phiên bản 494)",
+    "reference_answer": "Nhà Trần duy trì chế độ điền trang thái ấp và sở hữu tư nhân phát triển ổn định, trong khi nhà Hồ (Hồ Quý Ly) tiến hành cải cách táo bạo phát hành tiền giấy, hạn điền, hạn nô nhằm củng cố ngân khố quốc gia trước khi mất nước vào tay nhà Minh.",
+    "key_entities": [
+      "nhà Hồ",
+      "nhà Trần",
+      "cải cách"
+    ]
+  },
+  {
+    "id": "q_495",
+    "category": "compare",
+    "query": "So sánh triều đại nhà Lý và nhà Trần về cách tổ chức quân đội? (Góc nhìn so sánh phiên bản 495)",
+    "reference_answer": "Nhà Lý xây dựng quân đội theo chính sách 'ngụ binh ư nông' với vệ binh hoàng gia, trong khi nhà Trần phát triển quân đội chuyên nghiệp hơn, tuyển chọn tinh nhuệ và chú trọng giáo dục quân sự với danh tướng Trần Hưng Đạo.",
+    "key_entities": [
+      "nhà Lý",
+      "nhà Trần",
+      "quân đội"
+    ]
+  },
+  {
+    "id": "q_496",
+    "category": "compare",
+    "query": "So sánh chiến thắng Bạch Đằng năm 938 và năm 1288? (Góc nhìn so sánh phiên bản 496)",
+    "reference_answer": "Trận Bạch Đằng năm 938 do Ngô Quyền chỉ huy đánh bại quân Nam Hán kết thúc 1000 năm Bắc thuộc, còn trận Bạch Đằng năm 1288 do Trần Hưng Đạo chỉ huy đánh bại quân Nguyên Mông lần thứ 3 để bảo vệ độc lập nhà Trần. Cả hai đều dùng chiến thuật cọc gỗ.",
+    "key_entities": [
+      "Bạch Đằng năm 938",
+      "Bạch Đằng năm 1288",
+      "cọc gỗ"
+    ]
+  },
+  {
+    "id": "q_497",
+    "category": "compare",
+    "query": "So sánh vai trò của Lê Lợi và Nguyễn Huệ trong việc đánh đuổi giặc ngoại xâm? (Góc nhìn so sánh phiên bản 497)",
+    "reference_answer": "Lê Lợi lãnh đạo khởi nghĩa Lam Sơn 10 năm ròng rã đánh bại quân Minh cứu nước, còn Nguyễn Huệ chỉ huy hành quân thần tốc đánh tan 29 vạn quân Thanh chỉ trong vài ngày Tết Kỷ Dậu 1789.",
+    "key_entities": [
+      "Lê Lợi",
+      "Nguyễn Huệ",
+      "quân Minh",
+      "quân Thanh"
+    ]
+  },
+  {
+    "id": "q_498",
+    "category": "compare",
+    "query": "So sánh Hiệp định Geneva 1954 và Hiệp định Paris 1973? (Góc nhìn so sánh phiên bản 498)",
+    "reference_answer": "Hiệp định Geneva 1954 chia cắt Việt Nam theo vĩ tuyến 17 sau chiến thắng Điện Biên Phủ, còn Hiệp định Paris 1973 buộc Mỹ rút quân hoàn toàn khỏi miền Nam tạo điều kiện giải phóng đất nước năm 1975.",
+    "key_entities": [
+      "Hiệp định Geneva",
+      "Hiệp định Paris",
+      "vĩ tuyến 17"
+    ]
+  },
+  {
+    "id": "q_499",
+    "category": "compare",
+    "query": "So sánh chính sách đối ngoại của nhà Nguyễn và nhà Hậu Lê? (Góc nhìn so sánh phiên bản 499)",
+    "reference_answer": "Nhà Hậu Lê giữ chính sách bang giao mềm dẻo nhưng kiên quyết bảo vệ chủ quyền biên giới trước phương Bắc, trong khi nhà Nguyễn thực thi chính sách 'bế quan tỏa cảng' hạn chế giao thương với phương Tây, dẫn đến lạc hậu và bị Pháp xâm lược.",
+    "key_entities": [
+      "nhà Nguyễn",
+      "nhà Hậu Lê",
+      "đối ngoại"
+    ]
+  },
+  {
+    "id": "q_500",
+    "category": "compare",
+    "query": "So sánh chiến dịch Điện Biên Phủ và chiến dịch Điện Biên Phủ trên không? (Góc nhìn so sánh phiên bản 500)",
+    "reference_answer": "Chiến dịch Điện Biên Phủ năm 1954 diễn ra trên mặt đất ở thung lũng Mường Thanh tiêu diệt tập đoàn cứ điểm Pháp, còn Điện Biên Phủ trên không 12 ngày đêm năm 1972 diễn ra trên bầu trời Hà Nội - Hải Phòng đánh bại máy bay B-52 của Mỹ.",
+    "key_entities": [
+      "Điện Biên Phủ",
+      "Điện Biên Phủ trên không",
+      "B-52"
+    ]
+  }
+]
