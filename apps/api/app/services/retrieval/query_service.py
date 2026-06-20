@@ -135,6 +135,17 @@ class QueryService:
     # Public API
     # ──────────────────────────────────────────────────────────────
 
+    def calculate_dynamic_weights(self, query: str) -> dict[str, float]:
+        q = query.lower()
+        # Entity-based, year-specific keyword queries
+        if any(char.isdigit() for char in q) or any(w in q for w in ["địa điểm", "ai là", "tên gì", "ngày tháng", "năm nào", "khi nào", "bao nhiêu"]):
+            return {"vector": 0.3, "bm25": 0.7}
+        # Conceptual / Comparative query
+        if any(w in q for w in ["so sánh", "tại sao", "khác nhau", "bài học"]):
+            return {"vector": 0.8, "bm25": 0.2}
+        # Default balanced configuration
+        return {"vector": 0.5, "bm25": 0.5}
+
     async def hybrid_search(
         self,
         query: str,
@@ -204,12 +215,17 @@ class QueryService:
             hyde_info=hyde_info,
         )
 
+        # Calculate dynamic weights based on the original query
+        dynamic_weights = self.calculate_dynamic_weights(query)
+        effective_vector_weight = vector_weight * dynamic_weights["vector"]
+        effective_bm25_weight = bm25_weight * dynamic_weights["bm25"]
+
         # ── Stage 2: RRF Fusion ───────────────────────────────────
         fused = self.fusion.fuse(
             vector_results=vector_results,
             bm25_results=bm25_results,
-            boost_vector=vector_weight,
-            boost_bm25=bm25_weight,
+            boost_vector=effective_vector_weight,
+            boost_bm25=effective_bm25_weight,
         )
 
         if not fused:
