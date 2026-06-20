@@ -25,6 +25,9 @@ async def test_citation_verifier_supported_claim(monkeypatch) -> None:
 
     mock_embed.embed_async = mock_embed_async
     
+    from app.services.citation.nli_verifier import NLIVerifier
+    monkeypatch.setattr(NLIVerifier, "verify_entailment", lambda self, claim, premise: "1954" in claim)
+
     verifier = CitationVerifier(embedder=mock_embed)
     
     # 1. Test supported claim
