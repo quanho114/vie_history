@@ -59,7 +59,7 @@ function NodeMesh({
   });
 
   // Opacity based on connection state
-  const opacity = isConnected || isSelected ? 1 : selectedNodeId ? 0.15 : 0.7;
+  const opacity = isConnected || isSelected ? 1 : selectedNodeId ? 0.35 : 0.95;
 
   // Render label condition matching 2D behavior
   const showLabels = settings?.showLabels ?? true;
@@ -89,8 +89,10 @@ function NodeMesh({
       >
         <meshStandardMaterial
           color={color}
-          metalness={0.4}
-          roughness={0.4}
+          emissive={color}
+          emissiveIntensity={0.45} // Prevents 3D shadows from darkening/blackening the node colors
+          metalness={0.1}
+          roughness={0.2}
           transparent
           opacity={opacity}
         />
