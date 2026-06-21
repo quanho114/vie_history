@@ -212,18 +212,18 @@ const PERIODS = [
   { value: "thong-nhat", label: "Thống nhất" },
 ]
 
-// Dynamic palette — each unique period slug gets a stable color from this list
-const PALETTE: { badge: string; bar: string }[] = [
-  { badge: "bg-blue-50   text-blue-700  border-blue-200",    bar: "#3b82f6" },
-  { badge: "bg-red-50    text-red-700   border-red-200",     bar: "#ef4444" },
-  { badge: "bg-emerald-50 text-emerald-700 border-emerald-200", bar: "#10b981" },
-  { badge: "bg-amber-50  text-amber-700  border-amber-200",   bar: "#f59e0b" },
-  { badge: "bg-violet-50 text-violet-700 border-violet-200",  bar: "#8b5cf6" },
-  { badge: "bg-cyan-50   text-cyan-700   border-cyan-200",    bar: "#06b6d4" },
-  { badge: "bg-rose-50   text-rose-700   border-rose-200",    bar: "#f43f5e" },
-  { badge: "bg-teal-50   text-teal-700   border-teal-200",    bar: "#14b8a6" },
-  { badge: "bg-orange-50 text-orange-700 border-orange-200",  bar: "#f97316" },
-  { badge: "bg-lime-50   text-lime-700   border-lime-200",    bar: "#84cc16" },
+// Dynamic palette — all colors via inline hex styles (avoids Tailwind JIT purge)
+const PALETTE: { bg: string; text: string; border: string; bar: string }[] = [
+  { bg: "#eff6ff", text: "#1d4ed8", border: "#bfdbfe", bar: "#3b82f6" }, // blue
+  { bg: "#fef2f2", text: "#b91c1c", border: "#fecaca", bar: "#ef4444" }, // red
+  { bg: "#ecfdf5", text: "#047857", border: "#a7f3d0", bar: "#10b981" }, // emerald
+  { bg: "#fffbeb", text: "#b45309", border: "#fde68a", bar: "#f59e0b" }, // amber
+  { bg: "#f5f3ff", text: "#6d28d9", border: "#ddd6fe", bar: "#8b5cf6" }, // violet
+  { bg: "#ecfeff", text: "#0e7490", border: "#a5f3fc", bar: "#06b6d4" }, // cyan
+  { bg: "#fff1f2", text: "#be123c", border: "#fecdd3", bar: "#f43f5e" }, // rose
+  { bg: "#f0fdfa", text: "#0f766e", border: "#99f6e4", bar: "#14b8a6" }, // teal
+  { bg: "#fff7ed", text: "#c2410c", border: "#fed7aa", bar: "#f97316" }, // orange
+  { bg: "#f7fee7", text: "#3f6212", border: "#d9f99d", bar: "#84cc16" }, // lime
 ]
 
 const _periodColorCache: Record<string, number> = {}
@@ -237,11 +237,14 @@ function getPeriodPaletteIndex(period: string): number {
   return _periodColorCache[period]
 }
 
-function getPeriodColor(period: string): string {
-  if (!period) return "bg-[#f5f0e8] text-[#6c6a64] border-[#e6dfd8]"
-  return PALETTE[getPeriodPaletteIndex(period)].badge
+/** Returns inline React style object for period badge (bg, text, border). */
+function getPeriodBadgeStyle(period: string): React.CSSProperties {
+  if (!period) return { backgroundColor: "#f5f0e8", color: "#6c6a64", borderColor: "#e6dfd8" }
+  const p = PALETTE[getPeriodPaletteIndex(period)]
+  return { backgroundColor: p.bg, color: p.text, borderColor: p.border }
 }
 
+/** Returns hex bar color for the ratio chart. */
 function getPeriodBarColor(period: string): string {
   if (!period) return "#c0bab4"
   return PALETTE[getPeriodPaletteIndex(period)].bar
@@ -882,7 +885,10 @@ export function WikiBrowserPage() {
               <div>
                 <div className="flex flex-wrap gap-1.5 mb-2">
                   {selectedWikiPage.period && (
-                    <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full border", getPeriodColor(selectedWikiPage.period))}>
+                    <span
+                      className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full border"
+                      style={getPeriodBadgeStyle(selectedWikiPage.period)}
+                    >
                       {selectedWikiPage.period.replace(/-/g, " ")}
                     </span>
                   )}
@@ -1343,7 +1349,10 @@ function WikiTableRow({
       {/* Giai đoạn (màu) */}
       <td className="px-4 py-3 hidden md:table-cell">
         {page.period ? (
-          <span className={cn("inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full border truncate max-w-[110px]", getPeriodColor(page.period))}>
+          <span
+            className="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full border truncate max-w-[110px]"
+            style={getPeriodBadgeStyle(page.period)}
+          >
             {page.period.replace(/-/g, " ")}
           </span>
         ) : (
