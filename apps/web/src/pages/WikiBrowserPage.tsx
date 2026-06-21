@@ -212,15 +212,39 @@ const PERIODS = [
   { value: "thong-nhat", label: "Thống nhất" },
 ]
 
-const PERIOD_COLORS: Record<string, string> = {
-  "khang-chien-chong-phap": "bg-blue-50 text-blue-700 border-blue-100",
-  "khang-chien-chong-my": "bg-red-50 text-red-700 border-red-100",
-  "thong-nhat": "bg-emerald-50 text-emerald-700 border-emerald-100",
-  default: "bg-[#f5f0e8] text-[#6c6a64] border-[#e6dfd8]",
+// Dynamic palette — each unique period slug gets a stable color from this list
+const PALETTE: { badge: string; bar: string }[] = [
+  { badge: "bg-blue-50   text-blue-700  border-blue-200",    bar: "#3b82f6" },
+  { badge: "bg-red-50    text-red-700   border-red-200",     bar: "#ef4444" },
+  { badge: "bg-emerald-50 text-emerald-700 border-emerald-200", bar: "#10b981" },
+  { badge: "bg-amber-50  text-amber-700  border-amber-200",   bar: "#f59e0b" },
+  { badge: "bg-violet-50 text-violet-700 border-violet-200",  bar: "#8b5cf6" },
+  { badge: "bg-cyan-50   text-cyan-700   border-cyan-200",    bar: "#06b6d4" },
+  { badge: "bg-rose-50   text-rose-700   border-rose-200",    bar: "#f43f5e" },
+  { badge: "bg-teal-50   text-teal-700   border-teal-200",    bar: "#14b8a6" },
+  { badge: "bg-orange-50 text-orange-700 border-orange-200",  bar: "#f97316" },
+  { badge: "bg-lime-50   text-lime-700   border-lime-200",    bar: "#84cc16" },
+]
+
+const _periodColorCache: Record<string, number> = {}
+let _paletteIdx = 0
+
+function getPeriodPaletteIndex(period: string): number {
+  if (!(period in _periodColorCache)) {
+    _periodColorCache[period] = _paletteIdx % PALETTE.length
+    _paletteIdx++
+  }
+  return _periodColorCache[period]
 }
 
-function getPeriodColor(period: string) {
-  return PERIOD_COLORS[period] || PERIOD_COLORS.default
+function getPeriodColor(period: string): string {
+  if (!period) return "bg-[#f5f0e8] text-[#6c6a64] border-[#e6dfd8]"
+  return PALETTE[getPeriodPaletteIndex(period)].badge
+}
+
+function getPeriodBarColor(period: string): string {
+  if (!period) return "#c0bab4"
+  return PALETTE[getPeriodPaletteIndex(period)].bar
 }
 
 // ── Skeleton row ───────────────────────────────────────
@@ -601,19 +625,43 @@ export function WikiBrowserPage() {
               <IconBrain className="w-5 h-5" />
             </div>
           </div>
-          <div className="bg-white border border-[#e6dfd8] rounded-xl p-4 shadow-sm flex flex-col justify-between">
+          <div className="bg-white border border-[#e6dfd8] rounded-xl p-4 shadow-sm flex flex-col gap-3">
             <p className="text-[10px] text-[#8e8b82] uppercase tracking-wider font-semibold">Tỷ lệ theo Thời kỳ lịch sử</p>
-            <div className="flex gap-1 mt-3 h-2 bg-[#f5f0e8] rounded-full overflow-hidden">
-              {Object.entries(stats.periodCounts).map(([periodKey, count], idx) => (
-                <div 
-                  key={periodKey} 
-                  style={{ width: `${(count / (stats.totalPages || 1)) * 100}%` }}
-                  className={cn(
-                    "h-full transition-all duration-300",
-                    idx % 3 === 0 ? "bg-[#cc785c]" : idx % 3 === 1 ? "bg-blue-400" : "bg-emerald-400"
-                  )}
-                  title={`${periodKey}: ${count}`}
+            {/* Ratio bar */}
+            <div className="flex h-2.5 bg-[#f5f0e8] rounded-full overflow-hidden gap-px">
+              {Object.entries(stats.periodCounts).map(([periodKey, count]) => (
+                <div
+                  key={periodKey}
+                  style={{ 
+                    width: `${(count / (stats.totalPages || 1)) * 100}%`,
+                    backgroundColor: getPeriodBarColor(periodKey),
+                  }}
+                  className="h-full transition-all duration-500 first:rounded-l-full last:rounded-r-full"
+                  title={`${periodKey.replace(/-/g, ' ')}: ${count} trang`}
                 />
+              ))}
+              {stats.totalPages === 0 && <div className="h-full w-full bg-[#e6dfd8] rounded-full" />}
+            </div>
+            {/* Legend */}
+            <div className="flex flex-wrap gap-x-3 gap-y-1.5">
+              {Object.entries(stats.periodCounts).map(([periodKey, count]) => (
+                <button
+                  key={periodKey}
+                  onClick={() => setPeriod(period === periodKey ? "" : periodKey)}
+                  className={cn(
+                    "flex items-center gap-1.5 text-[10px] font-medium transition-opacity cursor-pointer",
+                    period && period !== periodKey ? "opacity-40" : "opacity-100"
+                  )}
+                >
+                  <span
+                    className="w-2 h-2 rounded-full flex-shrink-0"
+                    style={{ backgroundColor: getPeriodBarColor(periodKey) }}
+                  />
+                  <span className="text-[#6c6a64] capitalize">
+                    {periodKey.replace(/-/g, " ")}
+                  </span>
+                  <span className="text-[#8e8b82]">({count})</span>
+                </button>
               ))}
             </div>
           </div>
