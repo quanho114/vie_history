@@ -454,6 +454,29 @@ export function WikiBrowserPage() {
     reader.readAsText(file)
   }
 
+  const handleModalDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDraggingFile(false)
+    const file = e.dataTransfer.files?.[0]
+    if (!file) return
+    if (!file.name.endsWith(".md") && !file.name.endsWith(".txt")) {
+      showToast("Chỉ hỗ trợ file .md hoặc .txt", "error")
+      return
+    }
+    const reader = new FileReader()
+    reader.onload = (event) => {
+      const text = event.target?.result as string
+      if (!text) return
+      const h1Match = text.match(/^#\s+(.+)$/m)
+      if (h1Match && h1Match[1]) setDraftTitle(h1Match[1].trim())
+      const parsed = parseMarkdownToSections(text)
+      setDraftSections(parsed)
+      showToast(`Đã nhập "${file.name}" thành công!`, "success")
+    }
+    reader.readAsText(file)
+  }
+
   const handleCreateDraft = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!draftTitle.trim()) {
@@ -926,11 +949,26 @@ export function WikiBrowserPage() {
       {/* Modal: Propose New Page Draft */}
       {isCreateModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="bg-white border border-[#e6dfd8] rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-xl animate-fade-in mx-4">
+          <div
+            className="bg-white border border-[#e6dfd8] rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-xl animate-fade-in mx-4 relative overflow-hidden"
+            onDragOver={(e) => { e.preventDefault(); setIsDraggingFile(true) }}
+            onDragLeave={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setIsDraggingFile(false) }}
+            onDrop={handleModalDrop}
+          >
+            {/* Drag overlay */}
+            {isDraggingFile && (
+              <div className="absolute inset-0 z-20 bg-[#cc785c]/5 border-2 border-dashed border-[#cc785c] rounded-2xl flex flex-col items-center justify-center pointer-events-none">
+                <IconUpload className="w-10 h-10 text-[#cc785c] mb-3" />
+                <p className="text-[#cc785c] font-semibold text-base">Thả file .md vào đây</p>
+                <p className="text-[#cc785c]/70 text-xs mt-1">Nội dung sẽ được tự động điền vào form</p>
+              </div>
+            )}
             <div className="flex justify-between items-center p-6 border-b border-[#e6dfd8] flex-shrink-0">
               <div>
                 <h3 className="text-lg font-display font-semibold text-[#141413]">Đề xuất trang wiki mới</h3>
-                <p className="text-xs text-[#8e8b82] mt-0.5">Bản thảo của bạn sẽ được gửi tới Admin/Biên tập viên phê duyệt trước khi xuất bản</p>
+                <p className="text-xs text-[#8e8b82] mt-0.5">
+                  Bản thảo sẽ được gửi duyệt · Kéo thả file <kbd className="px-1 py-0.5 bg-[#f5f0e8] border border-[#e6dfd8] rounded text-[9px]">.md</kbd> vào đây để tự động điền
+                </p>
               </div>
               <div className="flex items-center gap-3">
                 <label className="flex items-center gap-1.5 px-3 py-1.5 border border-[#cc785c]/30 text-[#cc785c] hover:bg-[#cc785c]/5 text-xs font-semibold rounded-xl cursor-pointer transition-all shadow-sm">
