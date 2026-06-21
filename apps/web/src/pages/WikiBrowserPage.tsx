@@ -5,6 +5,7 @@ import { useAuthStore } from "@/stores/authStore"
 import { cn } from "@/lib/utils/cn"
 import { useUIStore } from "@/stores/uiStore"
 import { MarkdownEditor } from "@/components/UI/MarkdownEditor"
+import { MarkdownRenderer } from "@/components/UI/MarkdownRenderer"
 
 // ── Infinite Scroll Hook ─────────────────────────────────
 function useInfiniteScroll(fetchMore: () => void, hasMore: boolean) {
@@ -294,8 +295,65 @@ export function WikiBrowserPage() {
   const [draftSubmitting, setDraftSubmitting] = useState(false)
 
   const [selectedWikiPage, setSelectedWikiPage] = useState<WikiPage | null>(null)
+  const [selectedWikiPageDetails, setSelectedWikiPageDetails] = useState<WikiPage | null>(null)
+  const drawerContentRef = useRef<HTMLDivElement>(null)
+
+  const processedDrawerSections = useMemo(() => {
+    if (!selectedWikiPageDetails) return []
+    if (selectedWikiPageDetails.sections && selectedWikiPageDetails.sections.length > 0) {
+      return selectedWikiPageDetails.sections
+    }
+    const content = selectedWikiPageDetails.content || ""
+    const SECTION_KEYS = [
+      "Bối cảnh",
+      "Nguyên nhân",
+      "Diễn biến chính",
+      "Kết quả",
+      "Ý nghĩa lịch sử",
+      "Nhân vật liên quan",
+      "Mốc thời gian",
+      "Nguồn tham khảo",
+    ]
+    const extracted: { title: string; content: string }[] = []
+    SECTION_KEYS.forEach((title) => {
+      const regex = new RegExp(`(?:^|\\n)#+\\s*${title}[^\\n]*\\n([\\s\\S]*?)(?=\\n#+|$)`, "i")
+      const match = content.match(regex)
+      if (match && match[1].trim()) {
+        extracted.push({ title, content: match[1].trim() })
+      }
+    })
+    if (extracted.length > 0) return extracted
+    if (content.trim()) {
+      return [{ title: "Nội dung", content: content.trim() }]
+    }
+    return []
+  }, [selectedWikiPageDetails])
+
+  const scrollToDrawerSection = (title: string) => {
+    const id = `drawer-sec-${title.toLowerCase().replace(/[^a-z0-9]/g, "-")}`
+    const el = document.getElementById(id)
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+  }
   const [isStatsVisible, setIsStatsVisible] = useState(true)
   const [isDraggingFile, setIsDraggingFile] = useState(false)
+
+  // Fetch full wiki page details when selected wiki page changes
+  useEffect(() => {
+    if (!selectedWikiPage?.slug) {
+      setSelectedWikiPageDetails(null)
+      return
+    }
+    wikiApi.getPage(selectedWikiPage.slug)
+      .then((fullPage) => {
+        setSelectedWikiPageDetails(fullPage)
+      })
+      .catch((e) => {
+        console.error("Không thể tải chi tiết trang wiki", e)
+        setSelectedWikiPageDetails(selectedWikiPage)
+      })
+  }, [selectedWikiPage?.slug])
 
   const selectedProject = projects.find(p => p.id === selectedProjectId)
   const selectedDraftProject = projects.find(p => p.id === draftProjectId)
@@ -651,54 +709,157 @@ export function WikiBrowserPage() {
       </div>
 
       {/* Content area */}
-      <div className="flex-1 overflow-y-auto px-8 pb-8">
-        {error && (
-          <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3 text-sm text-red-600 mb-6">
-            {error}
-          </div>
-        )}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Main Grid Section */}
+        <div className="flex-1 overflow-y-auto px-8 pb-8">
+          {error && (
+            <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3 text-sm text-red-600 mb-6">
+              {error}
+            </div>
+          )}
 
-        {loading && page === 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
-          </div>
-        ) : allPages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-[#f5f0e8] flex items-center justify-center mb-4">
-              <IconBook className="w-8 h-8 text-[#8e8b82]" />
-            </div>
-            <p className="text-[#3d3d3a] font-medium text-base">Chưa có wiki page nào</p>
-            <p className="text-[#8e8b82] text-sm mt-1">
-              {debouncedSearch || period
-                ? "Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm"
-                : "Các trang wiki sẽ xuất hiện ở đây sau khi xây dựng"}
-            </p>
-          </div>
-        ) : (
-          <>
-            <p className="text-xs text-[#8e8b82] mb-4">
-              {allPages.length} trang wiki{debouncedSearch ? ` cho "${debouncedSearch}"` : ""}
-            </p>
+          {loading && page === 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {allPages.map((page) => (
-                <WikiCard 
-                  key={page.id} 
-                  page={page} 
-                  onClick={() => setSelectedWikiPage(page)} 
-                  onAskAI={(e) => {
-                    e.stopPropagation()
-                    navigate(`/chat?q=Hãy tóm tắt sự kiện lịch sử: ${page.title}`)
-                  }} 
-                />
-              ))}
+              {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
             </div>
-            {hasMore && !loading && <div ref={scrollRef} className="h-4" aria-hidden="true" />}
-            {loading && page > 0 && (
-              <div className="flex justify-center py-4">
-                <div className="w-6 h-6 border-2 border-[#cc785c] border-t-transparent rounded-full animate-spin" />
+          ) : allPages.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-24 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#f5f0e8] flex items-center justify-center mb-4">
+                <IconBook className="w-8 h-8 text-[#8e8b82]" />
               </div>
-            )}
-          </>
+              <p className="text-[#3d3d3a] font-medium text-base">Chưa có wiki page nào</p>
+              <p className="text-[#8e8b82] text-sm mt-1">
+                {debouncedSearch || period
+                  ? "Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm"
+                  : "Các trang wiki sẽ xuất hiện ở đây sau khi xây dựng"}
+              </p>
+            </div>
+          ) : (
+            <>
+              <p className="text-xs text-[#8e8b82] mb-4">
+                {allPages.length} trang wiki{debouncedSearch ? ` cho "${debouncedSearch}"` : ""}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {allPages.map((page) => (
+                  <WikiCard 
+                    key={page.id} 
+                    page={page} 
+                    onClick={() => setSelectedWikiPage(page)} 
+                    onAskAI={(e) => {
+                      e.stopPropagation()
+                      navigate(`/chat?q=Hãy tóm tắt sự kiện lịch sử: ${page.title}`)
+                    }} 
+                  />
+                ))}
+              </div>
+              {hasMore && !loading && <div ref={scrollRef} className="h-4" aria-hidden="true" />}
+              {loading && page > 0 && (
+                <div className="flex justify-center py-4">
+                  <div className="w-6 h-6 border-2 border-[#cc785c] border-t-transparent rounded-full animate-spin" />
+                </div>
+              )}
+            </>
+          )}
+        </div>
+
+        {/* Slide-out Preview Drawer */}
+        {selectedWikiPage && (
+          <div className="w-[320px] sm:w-[400px] md:w-[480px] lg:w-[560px] border-l border-[#e6dfd8] bg-white flex flex-col h-full overflow-hidden flex-shrink-0 animate-fade-in relative shadow-[-4px_0_12px_rgba(0,0,0,0.03)]">
+            {/* Drawer Header */}
+            <div className="p-5 border-b border-[#e6dfd8] flex justify-between items-start gap-4">
+              <div>
+                <div className="flex flex-wrap gap-1.5 mb-2">
+                  {selectedWikiPage.period && (
+                    <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full border", getPeriodColor(selectedWikiPage.period))}>
+                      {selectedWikiPage.period.replace(/-/g, " ")}
+                    </span>
+                  )}
+                  {selectedWikiPage.event_type && (
+                    <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[#f5f0e8] text-[#6c6a64] border border-[#e6dfd8]">
+                      {selectedWikiPage.event_type}
+                    </span>
+                  )}
+                </div>
+                <h3 className="font-display font-semibold text-base text-[#141413] leading-snug">
+                  {selectedWikiPage.title}
+                </h3>
+              </div>
+              <button 
+                onClick={() => setSelectedWikiPage(null)}
+                className="p-1.5 rounded-lg hover:bg-[#f5f0e8] text-[#8e8b82] hover:text-[#141413] transition-colors cursor-pointer flex-shrink-0"
+              >
+                <IconClose className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Drawer Body */}
+            <div className="flex-1 flex overflow-hidden">
+              {/* ToC Sidebar */}
+              <div className="w-36 border-r border-[#f5f0e8] p-4 text-[10px] space-y-1 select-none hidden md:block overflow-y-auto">
+                <p className="font-semibold text-[#8e8b82] uppercase tracking-wider mb-2">Mục lục</p>
+                {processedDrawerSections.map((sec) => (
+                  <button
+                    key={sec.title}
+                    onClick={() => scrollToDrawerSection(sec.title)}
+                    className="w-full text-left font-medium text-[#6c6a64] hover:text-[#cc785c] hover:bg-[#f5f0e8] p-1.5 rounded transition-all truncate block cursor-pointer"
+                  >
+                    {sec.title}
+                  </button>
+                ))}
+              </div>
+
+              {/* Main Content Area */}
+              <div ref={drawerContentRef} className="flex-1 p-5 space-y-6 overflow-y-auto scroll-smooth">
+                {selectedWikiPage.summary && (
+                  <div className="bg-[#faf9f5] border border-[#e6dfd8] rounded-xl p-4 text-xs text-[#3d3d3a] leading-relaxed">
+                    <p className="font-semibold text-[#8e8b82] uppercase tracking-wider mb-1">Tóm tắt</p>
+                    <p>{selectedWikiPage.summary}</p>
+                  </div>
+                )}
+
+                {processedDrawerSections.length > 0 ? (
+                  <div className="space-y-6">
+                    {processedDrawerSections.map((sec) => (
+                      <div 
+                        key={sec.title} 
+                        id={`drawer-sec-${sec.title.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
+                        className="scroll-mt-4"
+                      >
+                        <h4 className="font-display font-semibold text-xs text-[#141413] border-b border-[#f5f0e8] pb-1.5 mb-2">
+                          {sec.title}
+                        </h4>
+                        <div className="text-xs text-[#3d3d3a] leading-relaxed prose prose-sm max-w-none">
+                          <MarkdownRenderer content={sec.content} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-xs text-[#8e8b82] italic text-center py-8">
+                    Đang tải nội dung chi tiết...
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Drawer Footer */}
+            <div className="p-4 border-t border-[#e6dfd8] bg-[#faf9f5] flex items-center justify-between gap-2">
+              <button
+                onClick={() => navigate(`/chat?context_type=wiki&context_id=${selectedWikiPage.slug}`)}
+                className="flex items-center justify-center gap-1.5 px-3.5 py-2 border border-[#e6dfd8] text-xs font-semibold text-[#6c6a64] hover:text-[#cc785c] hover:border-[#cc785c]/40 rounded-xl transition-all bg-white flex-1 cursor-pointer"
+              >
+                <IconMessageSquare className="w-3.5 h-3.5" />
+                Hỏi AI
+              </button>
+              <button
+                onClick={() => navigate(`/wiki/${selectedWikiPage.slug}`)}
+                className="flex items-center justify-center gap-1.5 px-3.5 py-2 bg-[#cc785c] text-white text-xs font-semibold rounded-xl hover:bg-[#a9583e] transition-all flex-1 cursor-pointer"
+              >
+                Xem chi tiết
+                <IconExternalLink className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
         )}
       </div>
 
