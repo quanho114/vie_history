@@ -1,0 +1,7 @@
+experiment_id: "agentic_historiai"
+name: "Agentic HistoriAI (Full Pipeline)"
+settings:
+  ENABLE_HYBRID: true
+  ENABLE_RERANKER: true
+  ENABLE_GRAPH: true
+  ENABLE_VERIFICATION: true

@@ -1,0 +1,277 @@
+{
+  "optimal_threshold": 0.85,
+  "optimal_partial_threshold": 0.7,
+  "max_macro_f1": 0.6296296296296297,
+  "all_runs": [
+    {
+      "threshold": 0.5,
+      "partial_threshold": 0.4,
+      "macro_f1": 0.4230769230769231
+    },
+    {
+      "threshold": 0.5,
+      "partial_threshold": 0.45,
+      "macro_f1": 0.4230769230769231
+    },
+    {
+      "threshold": 0.55,
+      "partial_threshold": 0.4,
+      "macro_f1": 0.4230769230769231
+    },
+    {
+      "threshold": 0.55,
+      "partial_threshold": 0.45,
+      "macro_f1": 0.4230769230769231
+    },
+    {
+      "threshold": 0.55,
+      "partial_threshold": 0.5,
+      "macro_f1": 0.4230769230769231
+    },
+    {
+      "threshold": 0.6,
+      "partial_threshold": 0.4,
+      "macro_f1": 0.4230769230769231
+    },
+    {
+      "threshold": 0.6,
+      "partial_threshold": 0.45,
+      "macro_f1": 0.4230769230769231
+    },
+    {
+      "threshold": 0.6,
+      "partial_threshold": 0.5,
+      "macro_f1": 0.4230769230769231
+    },
+    {
+      "threshold": 0.6,
+      "partial_threshold": 0.55,
+      "macro_f1": 0.4230769230769231
+    },
+    {
+      "threshold": 0.65,
+      "partial_threshold": 0.4,
+      "macro_f1": 0.4230769230769231
+    },
+    {
+      "threshold": 0.65,
+      "partial_threshold": 0.45,
+      "macro_f1": 0.4230769230769231
+    },
+    {
+      "threshold": 0.65,
+      "partial_threshold": 0.5,
+      "macro_f1": 0.4230769230769231
+    },
+    {
+      "threshold": 0.65,
+      "partial_threshold": 0.55,
+      "macro_f1": 0.4230769230769231
+    },
+    {
+      "threshold": 0.65,
+      "partial_threshold": 0.6,
+      "macro_f1": 0.4230769230769231
+    },
+    {
+      "threshold": 0.7,
+      "partial_threshold": 0.4,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.7,
+      "partial_threshold": 0.45,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.7,
+      "partial_threshold": 0.5,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.7,
+      "partial_threshold": 0.55,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.7,
+      "partial_threshold": 0.6,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.7,
+      "partial_threshold": 0.65,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.75,
+      "partial_threshold": 0.4,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.75,
+      "partial_threshold": 0.45,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.75,
+      "partial_threshold": 0.5,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.75,
+      "partial_threshold": 0.55,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.75,
+      "partial_threshold": 0.6,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.75,
+      "partial_threshold": 0.65,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.75,
+      "partial_threshold": 0.7,
+      "macro_f1": 0.49999999999999994
+    },
+    {
+      "threshold": 0.8,
+      "partial_threshold": 0.4,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.8,
+      "partial_threshold": 0.45,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.8,
+      "partial_threshold": 0.5,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.8,
+      "partial_threshold": 0.55,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.8,
+      "partial_threshold": 0.6,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.8,
+      "partial_threshold": 0.65,
+      "macro_f1": 0.4444444444444444
+    },
+    {
+      "threshold": 0.8,
+      "partial_threshold": 0.7,
+      "macro_f1": 0.49999999999999994
+    },
+    {
+      "threshold": 0.8,
+      "partial_threshold": 0.75,
+      "macro_f1": 0.49999999999999994
+    },
+    {
+      "threshold": 0.85,
+      "partial_threshold": 0.4,
+      "macro_f1": 0.5582010582010583
+    },
+    {
+      "threshold": 0.85,
+      "partial_threshold": 0.45,
+      "macro_f1": 0.5582010582010583
+    },
+    {
+      "threshold": 0.85,
+      "partial_threshold": 0.5,
+      "macro_f1": 0.5582010582010583
+    },
+    {
+      "threshold": 0.85,
+      "partial_threshold": 0.55,
+      "macro_f1": 0.5582010582010583
+    },
+    {
+      "threshold": 0.85,
+      "partial_threshold": 0.6,
+      "macro_f1": 0.5582010582010583
+    },
+    {
+      "threshold": 0.85,
+      "partial_threshold": 0.65,
+      "macro_f1": 0.5582010582010583
+    },
+    {
+      "threshold": 0.85,
+      "partial_threshold": 0.7,
+      "macro_f1": 0.6296296296296297
+    },
+    {
+      "threshold": 0.85,
+      "partial_threshold": 0.75,
+      "macro_f1": 0.6296296296296297
+    },
+    {
+      "threshold": 0.85,
+      "partial_threshold": 0.8,
+      "macro_f1": 0.6296296296296297
+    },
+    {
+      "threshold": 0.9,
+      "partial_threshold": 0.4,
+      "macro_f1": 0.5582010582010583
+    },
+    {
+      "threshold": 0.9,
+      "partial_threshold": 0.45,
+      "macro_f1": 0.5582010582010583
+    },
+    {
+      "threshold": 0.9,
+      "partial_threshold": 0.5,
+      "macro_f1": 0.5582010582010583
+    },
+    {
+      "threshold": 0.9,
+      "partial_threshold": 0.55,
+      "macro_f1": 0.5582010582010583
+    },
+    {
+      "threshold": 0.9,
+      "partial_threshold": 0.6,
+      "macro_f1": 0.5582010582010583
+    },
+    {
+      "threshold": 0.9,
+      "partial_threshold": 0.65,
+      "macro_f1": 0.5582010582010583
+    },
+    {
+      "threshold": 0.9,
+      "partial_threshold": 0.7,
+      "macro_f1": 0.6296296296296297
+    },
+    {
+      "threshold": 0.9,
+      "partial_threshold": 0.75,
+      "macro_f1": 0.6296296296296297
+    },
+    {
+      "threshold": 0.9,
+      "partial_threshold": 0.8,
+      "macro_f1": 0.6296296296296297
+    },
+    {
+      "threshold": 0.9,
+      "partial_threshold": 0.85,
+      "macro_f1": 0.5185185185185185
+    }
+  ]
+}

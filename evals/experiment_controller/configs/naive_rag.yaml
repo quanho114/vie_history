@@ -1,0 +1,7 @@
+experiment_id: "naive_rag"
+name: "Naive RAG Baseline"
+settings:
+  ENABLE_HYBRID: false
+  ENABLE_RERANKER: false
+  ENABLE_GRAPH: false
+  ENABLE_VERIFICATION: false

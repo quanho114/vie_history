@@ -268,6 +268,10 @@ export const wikiApi = {
       sources: Array<{ title: string; page?: number }>;
     }>(`/wiki/pages/${slug}/context`);
   },
+
+  deletePage: async (slug: string) => {
+    return request<void>(`/wiki/pages/${slug}`, { method: "DELETE" });
+  },
 };
 
 // ========================

@@ -1,0 +1,166 @@
+{
+  "dataset_size": 520,
+  "evaluated_subset_size": 5,
+  "configurations": {
+    "naive_rag": {
+      "metrics": {
+        "retrieval_recall": 0.4,
+        "faithfulness": 0.954,
+        "citation_accuracy": 0.0,
+        "avg_latency_seconds": 1.839
+      },
+      "by_category": {
+        "factual": {
+          "retrieval_recall": 1.0,
+          "faithfulness": 0.98,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 8.694
+        },
+        "comparison": {
+          "retrieval_recall": 0.0,
+          "faithfulness": 0.96,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.077
+        },
+        "timeline": {
+          "retrieval_recall": 0.0,
+          "faithfulness": 0.97,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.139
+        },
+        "causal": {
+          "retrieval_recall": 1.0,
+          "faithfulness": 0.92,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.215
+        },
+        "multihop": {
+          "retrieval_recall": 0.0,
+          "faithfulness": 0.94,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.072
+        }
+      }
+    },
+    "hybrid_rag": {
+      "metrics": {
+        "retrieval_recall": 0.4,
+        "faithfulness": 0.89,
+        "citation_accuracy": 0.0,
+        "avg_latency_seconds": 0.101
+      },
+      "by_category": {
+        "factual": {
+          "retrieval_recall": 1.0,
+          "faithfulness": 0.86,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.129
+        },
+        "comparison": {
+          "retrieval_recall": 0.0,
+          "faithfulness": 0.95,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.089
+        },
+        "timeline": {
+          "retrieval_recall": 0.0,
+          "faithfulness": 0.88,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.082
+        },
+        "causal": {
+          "retrieval_recall": 1.0,
+          "faithfulness": 0.88,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.104
+        },
+        "multihop": {
+          "retrieval_recall": 0.0,
+          "faithfulness": 0.88,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.102
+        }
+      }
+    },
+    "graph_rag": {
+      "metrics": {
+        "retrieval_recall": 0.4,
+        "faithfulness": 0.89,
+        "citation_accuracy": 0.0,
+        "avg_latency_seconds": 0.154
+      },
+      "by_category": {
+        "factual": {
+          "retrieval_recall": 1.0,
+          "faithfulness": 0.86,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.08
+        },
+        "comparison": {
+          "retrieval_recall": 0.0,
+          "faithfulness": 0.95,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.128
+        },
+        "timeline": {
+          "retrieval_recall": 0.0,
+          "faithfulness": 0.88,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.251
+        },
+        "causal": {
+          "retrieval_recall": 1.0,
+          "faithfulness": 0.88,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.133
+        },
+        "multihop": {
+          "retrieval_recall": 0.0,
+          "faithfulness": 0.88,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.176
+        }
+      }
+    },
+    "agentic_historiai": {
+      "metrics": {
+        "retrieval_recall": 0.4,
+        "faithfulness": 0.89,
+        "citation_accuracy": 0.0,
+        "avg_latency_seconds": 0.144
+      },
+      "by_category": {
+        "factual": {
+          "retrieval_recall": 1.0,
+          "faithfulness": 0.86,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.08
+        },
+        "comparison": {
+          "retrieval_recall": 0.0,
+          "faithfulness": 0.95,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.125
+        },
+        "timeline": {
+          "retrieval_recall": 0.0,
+          "faithfulness": 0.88,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.242
+        },
+        "causal": {
+          "retrieval_recall": 1.0,
+          "faithfulness": 0.88,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.136
+        },
+        "multihop": {
+          "retrieval_recall": 0.0,
+          "faithfulness": 0.88,
+          "citation_accuracy": 0.0,
+          "avg_latency_seconds": 0.136
+        }
+      }
+    }
+  }
+}

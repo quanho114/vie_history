@@ -1,0 +1,109 @@
+{
+  "results": [
+    {
+      "id": "vhrag_001",
+      "category": "factual",
+      "query": "Ai là chủ tịch nước việt nam dân chủ cộng hòa?",
+      "generated_answer": "Cách mạng tháng Tám năm 1945 nổ ra vào ngày 14/8, nhân dân Việt Nam đồng loạt nổi dậy tại Hà Nội, Huế và Sài Gòn. Tổng khởi nghĩa diễn ra tại nhiều tỉnh, thành. Ngày 2/9/1945, Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập tại Quảng trường Ba Đình, khai sinh nước Việt Nam Dân chủ Cộng hòa.",
+      "retrieved_chunks_count": 5,
+      "metrics": {
+        "retrieval_recall": 1.0,
+        "faithfulness": 0.86,
+        "citation_accuracy": 0.0,
+        "latency_seconds": 0.08
+      }
+    },
+    {
+      "id": "vhrag_201",
+      "category": "timeline",
+      "query": "Sắp xếp diễn biến hoặc mốc thời gian của: Cách mạng Tháng Tám",
+      "generated_answer": "Ngô Quyền đánh bại quân Nam Hán trên sông Bạch Đằng năm 938 bằng chiến thuật cắm cọc gỗ nhọn đầu bịt sắt dưới lòng sông, kết thúc hơn 1000 năm Bắc thuộc, mở ra kỷ nguyên độc lập lâu dài.",
+      "retrieved_chunks_count": 5,
+      "metrics": {
+        "retrieval_recall": 0.0,
+        "faithfulness": 0.88,
+        "citation_accuracy": 0.0,
+        "latency_seconds": 0.242
+      }
+    },
+    {
+      "id": "vhrag_301",
+      "category": "comparison",
+      "query": "So sánh quy mô và ý nghĩa của Chiến dịch Điện Biên Phủ 1954 và Chiến dịch Hồ Chí Minh 1975.",
+      "generated_answer": "0.90",
+      "retrieved_chunks_count": 5,
+      "metrics": {
+        "retrieval_recall": 0.0,
+        "faithfulness": 0.95,
+        "citation_accuracy": 0.0,
+        "latency_seconds": 0.125
+      }
+    },
+    {
+      "id": "vhrag_401",
+      "category": "multihop",
+      "query": "Làm thế nào việc Mỹ rút quân sau Hiệp định Pa-ri dẫn đến sự sụp đổ của chính quyền Sài Gòn năm 1975?",
+      "generated_answer": "Hiệp định Paris (27/1/1973) gồm các điều khoản chính: (1) Chấm dứt chiến sự tại Việt Nam; (2) Quân Mỹ rút khỏi Việt Nam trong vòng 60 ngày; (3) Thả tù binh Mỹ và bắc Việt; (4) Việt Nam tạm thời bị chia cắt theo vĩ tuyến 17; (5) Cam kết thống nhất bằng hòa bình.",
+      "retrieved_chunks_count": 5,
+      "metrics": {
+        "retrieval_recall": 0.0,
+        "faithfulness": 0.88,
+        "citation_accuracy": 0.0,
+        "latency_seconds": 0.136
+      }
+    },
+    {
+      "id": "ce001",
+      "category": "causal",
+      "query": "Chiến thắng Điện Biên Phủ dẫn đến Hiệp định Genève như thế nào?",
+      "generated_answer": "Chiến dịch Điện Biên Phủ (13/3 – 7/5/1954) là đại thắng của quân dân Việt Nam, buộc Pháp ký Hiệp định Genève (21/7/1954), công nhận độc lập, chủ quyền của Việt Nam, Lào và Campuchia. Chiến thắng này chấm dứt ách đô hộ của thực dân Pháp tại Đông Dương.",
+      "retrieved_chunks_count": 5,
+      "metrics": {
+        "retrieval_recall": 1.0,
+        "faithfulness": 0.88,
+        "citation_accuracy": 0.0,
+        "latency_seconds": 0.136
+      }
+    }
+  ],
+  "summary": {
+    "metrics": {
+      "retrieval_recall": 0.4,
+      "faithfulness": 0.89,
+      "citation_accuracy": 0.0,
+      "avg_latency_seconds": 0.144
+    },
+    "by_category": {
+      "factual": {
+        "retrieval_recall": 1.0,
+        "faithfulness": 0.86,
+        "citation_accuracy": 0.0,
+        "avg_latency_seconds": 0.08
+      },
+      "comparison": {
+        "retrieval_recall": 0.0,
+        "faithfulness": 0.95,
+        "citation_accuracy": 0.0,
+        "avg_latency_seconds": 0.125
+      },
+      "timeline": {
+        "retrieval_recall": 0.0,
+        "faithfulness": 0.88,
+        "citation_accuracy": 0.0,
+        "avg_latency_seconds": 0.242
+      },
+      "causal": {
+        "retrieval_recall": 1.0,
+        "faithfulness": 0.88,
+        "citation_accuracy": 0.0,
+        "avg_latency_seconds": 0.136
+      },
+      "multihop": {
+        "retrieval_recall": 0.0,
+        "faithfulness": 0.88,
+        "citation_accuracy": 0.0,
+        "avg_latency_seconds": 0.136
+      }
+    }
+  }
+}

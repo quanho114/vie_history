@@ -1,0 +1,7 @@
+experiment_id: "hybrid_rag"
+name: "Hybrid RAG with Reranking"
+settings:
+  ENABLE_HYBRID: true
+  ENABLE_RERANKER: true
+  ENABLE_GRAPH: false
+  ENABLE_VERIFICATION: false

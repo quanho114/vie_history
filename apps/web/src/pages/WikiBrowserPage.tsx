@@ -192,6 +192,17 @@ function IconExternalLink({ className = "" }: { className?: string }) {
   )
 }
 
+function IconTrash({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <polyline points="3 6 5 6 21 6" />
+      <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+      <path d="M10 11v6M14 11v6" />
+      <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+    </svg>
+  )
+}
 
 // ── Period config ──────────────────────────────────────
 const PERIODS = [
@@ -212,18 +223,17 @@ function getPeriodColor(period: string) {
   return PERIOD_COLORS[period] || PERIOD_COLORS.default
 }
 
-// ── Skeleton ───────────────────────────────────────────
-function SkeletonCard() {
+// ── Skeleton row ───────────────────────────────────────
+function SkeletonRow() {
   return (
-    <div className="bg-white border border-[#e6dfd8] rounded-xl shadow-sm p-5 animate-pulse">
-      <div className="flex gap-2 mb-3">
-        <div className="h-5 w-24 rounded-full bg-[#e8e0d2]" />
-        <div className="h-5 w-16 rounded-full bg-[#e8e0d2]" />
-      </div>
-      <div className="h-5 w-3/4 rounded bg-[#e8e0d2] mb-2" />
-      <div className="h-4 w-full rounded bg-[#ebe6df] mb-1" />
-      <div className="h-4 w-5/6 rounded bg-[#ebe6df]" />
-    </div>
+    <tr className="border-b border-[#f5f0e8] animate-pulse">
+      <td className="px-4 py-3"><div className="h-3 w-5 rounded bg-[#e8e0d2]" /></td>
+      <td className="px-4 py-3"><div className="h-4 w-40 rounded bg-[#e8e0d2]" /></td>
+      <td className="px-4 py-3 hidden lg:table-cell"><div className="h-3 w-64 rounded bg-[#ebe6df]" /></td>
+      <td className="px-4 py-3 hidden md:table-cell"><div className="h-5 w-20 rounded-full bg-[#e8e0d2]" /></td>
+      <td className="px-4 py-3 hidden md:table-cell"><div className="h-5 w-24 rounded-full bg-[#e8e0d2]" /></td>
+      <td className="px-4 py-3"><div className="h-4 w-16 rounded bg-[#e8e0d2] ml-auto" /></td>
+    </tr>
   )
 }
 
@@ -742,8 +752,8 @@ export function WikiBrowserPage() {
           )}
 
           {loading && page === 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
+            <div className="space-y-2">
+              {Array.from({ length: 6 }).map((_, i) => <SkeletonRow key={i} />)}
             </div>
           ) : allPages.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-24 text-center">
@@ -759,22 +769,53 @@ export function WikiBrowserPage() {
             </div>
           ) : (
             <>
-              <p className="text-xs text-[#8e8b82] mb-4">
+              <p className="text-xs text-[#8e8b82] mb-3">
                 {allPages.length} trang wiki{debouncedSearch ? ` cho "${debouncedSearch}"` : ""}
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {allPages.map((page) => (
-                  <WikiCard 
-                    key={page.id} 
-                    page={page} 
-                    onClick={() => setSelectedWikiPage(page)} 
-                    onAskAI={(e) => {
-                      e.stopPropagation()
-                      navigate(`/chat?q=Hãy tóm tắt sự kiện lịch sử: ${page.title}`)
-                    }} 
-                  />
-                ))}
+
+              {/* Table */}
+              <div className="rounded-xl border border-[#e6dfd8] overflow-hidden">
+                <table className="w-full text-sm border-collapse">
+                  <thead>
+                    <tr className="bg-[#f5f0e8] border-b border-[#e6dfd8]">
+                      <th className="text-left px-4 py-3 text-[10px] font-semibold text-[#8e8b82] uppercase tracking-wider w-10">#</th>
+                      <th className="text-left px-4 py-3 text-[10px] font-semibold text-[#8e8b82] uppercase tracking-wider">Tên trang</th>
+                      <th className="text-left px-4 py-3 text-[10px] font-semibold text-[#8e8b82] uppercase tracking-wider hidden lg:table-cell">Mô tả</th>
+                      <th className="text-left px-4 py-3 text-[10px] font-semibold text-[#8e8b82] uppercase tracking-wider hidden md:table-cell w-36">Phân loại</th>
+                      <th className="text-left px-4 py-3 text-[10px] font-semibold text-[#8e8b82] uppercase tracking-wider hidden md:table-cell w-28">Giai đoạn</th>
+                      <th className="text-right px-4 py-3 text-[10px] font-semibold text-[#8e8b82] uppercase tracking-wider w-28">Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {allPages.map((p, idx) => (
+                      <WikiTableRow
+                        key={p.id}
+                        index={idx + 1}
+                        page={p}
+                        isSelected={selectedWikiPage?.id === p.id}
+                        canDelete={user?.role === "admin" || user?.role === "editor"}
+                        onClick={() => setSelectedWikiPage(p)}
+                        onAskAI={(e) => {
+                          e.stopPropagation()
+                          navigate(`/chat?q=Hãy tóm tắt sự kiện lịch sử: ${p.title}`)
+                        }}
+                        onDelete={async () => {
+                          if (!confirm(`Xóa trang "${p.title}"? Hành động này không thể hoàn tác.`)) return
+                          try {
+                            await wikiApi.deletePage(p.slug)
+                            setAllPages(prev => prev.filter(x => x.id !== p.id))
+                            if (selectedWikiPage?.id === p.id) setSelectedWikiPage(null)
+                            showToast("Đã xóa trang wiki.", "success")
+                          } catch (err) {
+                            showToast(err instanceof Error ? err.message : "Không thể xóa trang", "error")
+                          }
+                        }}
+                      />
+                    ))}
+                  </tbody>
+                </table>
               </div>
+
               {hasMore && !loading && <div ref={scrollRef} className="h-4" aria-hidden="true" />}
               {loading && page > 0 && (
                 <div className="flex justify-center py-4">
@@ -1190,76 +1231,106 @@ export function WikiBrowserPage() {
   )
 }
 
-// ── Card subcomponent ──────────────────────────────────
-function WikiCard({ 
+// ── Table Row subcomponent ─────────────────────────────
+function WikiTableRow({ 
+  index,
   page, 
+  isSelected,
+  canDelete,
   onClick, 
-  onAskAI 
+  onAskAI,
+  onDelete,
 }: { 
+  index: number
   page: WikiPage 
+  isSelected: boolean
+  canDelete: boolean
   onClick: () => void 
   onAskAI: (e: React.MouseEvent) => void 
+  onDelete: () => void
 }) {
-  const wordCount = useMemo(() => {
-    if (!page.content) return 0
-    return page.content.split(/\s+/).filter(Boolean).length
-  }, [page.content])
-
   return (
-    <div
+    <tr
       onClick={onClick}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault()
-          onClick()
-        }
-      }}
-      className="group bg-white border border-[#e6dfd8] rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.02)] p-5 text-left hover:shadow-md hover:border-[#cc785c]/40 transition-all duration-200 animate-fade-in flex flex-col justify-between cursor-pointer"
+      className={cn(
+        "border-b border-[#f5f0e8] group cursor-pointer transition-colors duration-100",
+        isSelected
+          ? "bg-[#cc785c]/5"
+          : "hover:bg-[#faf9f5] even:bg-[#fcfbf9]"
+      )}
     >
-      <div>
-        {/* Badges */}
-        <div className="flex flex-wrap gap-1.5 mb-3">
-          {page.period && (
-            <span className={cn("text-[10px] font-semibold px-2 py-0.5 rounded-full border", getPeriodColor(page.period))}>
-              {page.period.replace(/-/g, " ")}
-            </span>
-          )}
-          {page.event_type && (
-            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#f5f0e8] text-[#6c6a64] border border-[#e6dfd8]">
-              {page.event_type}
-            </span>
-          )}
-        </div>
+      {/* # */}
+      <td className="px-4 py-3 text-[11px] text-[#c0bab4] font-mono select-none">
+        {index}
+      </td>
 
-        {/* Title */}
-        <h3 className="font-display text-[15px] font-semibold text-[#141413] mb-2 group-hover:text-[#cc785c] transition-colors line-clamp-2 leading-snug">
+      {/* Tên */}
+      <td className="px-4 py-3">
+        <p className={cn(
+          "font-display font-semibold text-sm leading-snug line-clamp-1 transition-colors",
+          isSelected ? "text-[#cc785c]" : "text-[#141413] group-hover:text-[#cc785c]"
+        )}>
           {page.title}
-        </h3>
-
-        {/* Summary preview */}
-        <p className="text-xs text-[#6c6a64] line-clamp-3 leading-relaxed">
-          {page.summary || "Chưa có tóm tắt."}
         </p>
-      </div>
+      </td>
 
-      {/* Footer */}
-      <div className="mt-4 pt-3 border-t border-[#f5f0e8] flex items-center justify-between">
-        <span className="text-[10px] text-[#8e8b82]">Độ dài: {wordCount} từ</span>
-        <div className="flex items-center gap-2">
+      {/* Mô tả */}
+      <td className="px-4 py-3 hidden lg:table-cell">
+        <p className="text-xs text-[#6c6a64] line-clamp-1 leading-relaxed max-w-sm">
+          {page.summary || <span className="text-[#c0bab4] italic">Chưa có mô tả</span>}
+        </p>
+      </td>
+
+      {/* Phân loại */}
+      <td className="px-4 py-3 hidden md:table-cell">
+        {page.event_type ? (
+          <span className="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#f5f0e8] text-[#6c6a64] border border-[#e6dfd8] truncate max-w-[120px]">
+            {page.event_type}
+          </span>
+        ) : (
+          <span className="text-[#c0bab4] text-[11px]">—</span>
+        )}
+      </td>
+
+      {/* Giai đoạn (màu) */}
+      <td className="px-4 py-3 hidden md:table-cell">
+        {page.period ? (
+          <span className={cn("inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full border truncate max-w-[110px]", getPeriodColor(page.period))}>
+            {page.period.replace(/-/g, " ")}
+          </span>
+        ) : (
+          <span className="text-[#c0bab4] text-[11px]">—</span>
+        )}
+      </td>
+
+      {/* Thao tác */}
+      <td className="px-4 py-3">
+        <div className="flex items-center justify-end gap-1" onClick={(e) => e.stopPropagation()}>
           <button
             onClick={onAskAI}
-            className="p-1.5 text-[#6c6a64] hover:text-[#cc785c] hover:bg-[#f5f0e8] rounded-lg transition-colors cursor-pointer"
-            title="Hỏi AI về trang này"
+            title="Hỏi AI"
+            className="p-1.5 rounded-lg text-[#8e8b82] hover:text-[#cc785c] hover:bg-[#f5f0e8] transition-colors cursor-pointer"
           >
             <IconMessageSquare className="w-3.5 h-3.5" />
           </button>
-          <span className="flex items-center gap-0.5 text-[#cc785c] text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-            Đọc nhanh <IconChevronRight className="w-3 h-3" />
-          </span>
+          <button
+            onClick={(e) => { e.stopPropagation(); onClick() }}
+            title="Xem nhanh"
+            className="p-1.5 rounded-lg text-[#8e8b82] hover:text-[#cc785c] hover:bg-[#f5f0e8] transition-colors cursor-pointer"
+          >
+            <IconChevronRight className="w-3.5 h-3.5" />
+          </button>
+          {canDelete && (
+            <button
+              onClick={(e) => { e.stopPropagation(); onDelete() }}
+              title="Xóa trang"
+              className="p-1.5 rounded-lg text-[#8e8b82] hover:text-red-500 hover:bg-red-50 transition-colors cursor-pointer"
+            >
+              <IconTrash className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
-      </div>
-    </div>
+      </td>
+    </tr>
   )
 }

@@ -1,0 +1,62 @@
+[
+  {
+    "claim": "Nguyễn Huệ lên ngôi Hoàng đế năm 1788",
+    "source": "Tháng 12 năm 1788, Nguyễn Huệ lên ngôi Hoàng đế tại Phú Xuân lấy niên hiệu Quang Trung.",
+    "expected_status": "supported"
+  },
+  {
+    "claim": "Chiến thắng Ngọc Hồi - Đống Đa diễn ra vào mùa xuân năm 1789",
+    "source": "Mùa xuân năm Kỷ Dậu 1789, quân Tây Sơn dưới sự chỉ huy của Quang Trung đại phá quân Thanh ở Ngọc Hồi Đống Đa.",
+    "expected_status": "supported"
+  },
+  {
+    "claim": "Nhà Tây Sơn bị lật đổ hoàn toàn vào năm 1802",
+    "source": "Đến năm 1802, Nguyễn Ánh đánh bại triều Tây Sơn hoàn toàn, lập ra nhà Nguyễn.",
+    "expected_status": "supported"
+  },
+  {
+    "claim": "Quang Trung qua đời vào năm 1792",
+    "source": "Vua Quang Trung đột ngột qua đời vào ngày 29 tháng 7 năm Nhâm Tý 1792.",
+    "expected_status": "supported"
+  },
+  {
+    "claim": "Hiệp định Giơ-ne-vơ về Đông Dương được ký kết năm 1954",
+    "source": "Hiệp định Giơ-ne-vơ ký kết vào ngày 21 tháng 7 năm 1954 chấm dứt chiến tranh Đông Dương.",
+    "expected_status": "supported"
+  },
+  {
+    "claim": "Nguyễn Huệ lên ngôi Hoàng đế năm 1789",
+    "source": "Tháng 12 năm 1788, Nguyễn Huệ lên ngôi Hoàng đế tại Phú Xuân lấy niên hiệu Quang Trung.",
+    "expected_status": "unsupported"
+  },
+  {
+    "claim": "Chiến dịch Điện Biên Phủ kết thúc vào năm 1975",
+    "source": "Chiến dịch Điện Biên Phủ toàn thắng ngày 7 tháng 5 năm 1954.",
+    "expected_status": "unsupported"
+  },
+  {
+    "claim": "Gia Long lên ngôi hoàng đế vào thế kỷ 20",
+    "source": "Gia Long lên ngôi hoàng đế năm 1802 mở đầu triều Nguyễn.",
+    "expected_status": "unsupported"
+  },
+  {
+    "claim": "Trần Hưng Đạo đại phá quân Nguyên Mông trên sông Bạch Đằng năm 938",
+    "source": "Năm 938 Ngô Quyền đại phá quân Nam Hán trên sông Bạch Đằng. Trần Hưng Đạo chiến thắng quân Nguyên trên sông Bạch Đằng năm 1288.",
+    "expected_status": "unsupported"
+  },
+  {
+    "claim": "Lý Thường Kiệt viết Nam quốc sơn hà để cổ vũ quân sĩ năm 1077",
+    "source": "Bài thơ Nam quốc sơn hà vang lên trên sông Như Nguyệt năm 1077 thời nhà Lý.",
+    "expected_status": "partially_supported"
+  },
+  {
+    "claim": "Chiến dịch Hồ Chí Minh giải phóng Sài Gòn diễn ra vào ngày 30 tháng 4 năm 1975",
+    "source": "Trưa ngày 30 tháng 4 năm 1975, xe tăng quân giải phóng tiến vào Dinh Độc Lập.",
+    "expected_status": "partially_supported"
+  },
+  {
+    "claim": "Nhà Trần ba lần chiến thắng quân Nguyên Mông",
+    "source": "Quân dân nhà Trần đã đánh bại các cuộc xâm lược của quân Mông Cổ và nhà Nguyên.",
+    "expected_status": "partially_supported"
+  }
+]
