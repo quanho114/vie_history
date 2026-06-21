@@ -373,7 +373,9 @@ export function WikiBrowserPage() {
       el.scrollIntoView({ behavior: "smooth", block: "start" })
     }
   }
-  const [isStatsVisible, setIsStatsVisible] = useState(true)
+  const [isStatsVisible, setIsStatsVisible] = useState<boolean>(
+    () => localStorage.getItem("wiki_stats_visible") !== "false"
+  )
   const [isDraggingFile, setIsDraggingFile] = useState(false)
 
   // Fetch full wiki page details when selected wiki page changes
@@ -586,7 +588,11 @@ export function WikiBrowserPage() {
         </div>
         <div className="flex gap-2">
           <button
-            onClick={() => setIsStatsVisible(!isStatsVisible)}
+            onClick={() => {
+              const next = !isStatsVisible
+              setIsStatsVisible(next)
+              localStorage.setItem("wiki_stats_visible", String(next))
+            }}
             className="flex items-center gap-2 px-4 py-2 border border-[#e6dfd8] text-[#6c6a64] hover:text-[#cc785c] hover:border-[#cc785c]/40 text-sm font-medium rounded-xl transition-all bg-white"
           >
             {isStatsVisible ? "Ẩn Thống kê" : "Hiện Thống kê"}
