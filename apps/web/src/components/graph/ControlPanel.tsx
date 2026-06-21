@@ -21,6 +21,7 @@ import {
   Box,
   Circle,
   AlignLeft,
+  ChevronLeft,
 } from 'lucide-react';
 import { useGraphStore, NODE_LABELS, getNodeColor, type NodeType } from './graphStore';
 
@@ -46,6 +47,7 @@ export function ControlPanel({ onFitView }: ControlPanelProps) {
     setViewMode,
   } = useGraphStore();
 
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [expandedSection, setExpandedSection] = useState<string | null>('filters');
   const [localSearch, setLocalSearch] = useState('');
 
@@ -60,8 +62,29 @@ export function ControlPanel({ onFitView }: ControlPanelProps) {
 
   const nodeTypes = Object.entries(NODE_LABELS).filter(([key]) => key !== 'default');
 
+  if (isCollapsed) {
+    return (
+      <motion.button
+        layoutId="control-panel-container"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        onClick={() => setIsCollapsed(false)}
+        className="absolute top-4 left-4 z-20 w-11 h-11 bg-white/95 backdrop-blur-md border border-[#e7e1d8] rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] flex items-center justify-center hover:bg-[#faf9f5] hover:text-[var(--coral)] transition-all cursor-pointer text-[#8a8175]"
+        title="Mở bảng điều khiển"
+      >
+        <Filter className="w-5 h-5" />
+      </motion.button>
+    );
+  }
+
   return (
-    <div className="absolute top-4 left-4 z-20 w-80 max-h-[calc(100%-2rem)] overflow-hidden flex flex-col">
+    <motion.div
+      layoutId="control-panel-container"
+      initial={{ x: -20, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: -20, opacity: 0 }}
+      className="absolute top-4 left-4 z-20 w-80 max-h-[calc(100%-2rem)] overflow-hidden flex flex-col"
+    >
       {/* Main Panel */}
       <div className="bg-white/95 backdrop-blur-md border border-[#e7e1d8] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col max-h-full">
         
@@ -72,13 +95,22 @@ export function ControlPanel({ onFitView }: ControlPanelProps) {
               <Box className="w-4 h-4 text-[var(--coral)]" />
               <h2 className="font-bold text-sm text-[#2d2a26]">Bản đồ tri thức</h2>
             </div>
-            <button
-              onClick={resetFilters}
-              className="p-1.5 hover:bg-[#f5f1ea] rounded-lg transition-colors"
-              title="Đặt lại bộ lọc"
-            >
-              <RotateCcw className="w-3.5 h-3.5 text-[#8a8175]" />
-            </button>
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={resetFilters}
+                className="p-1.5 hover:bg-[#f5f1ea] rounded-lg transition-colors border-none bg-transparent cursor-pointer"
+                title="Đặt lại bộ lọc"
+              >
+                <RotateCcw className="w-3.5 h-3.5 text-[#8a8175]" />
+              </button>
+              <button
+                onClick={() => setIsCollapsed(true)}
+                className="p-1.5 hover:bg-[#f5f1ea] rounded-lg transition-colors border-none bg-transparent cursor-pointer"
+                title="Thu gọn bảng điều khiển"
+              >
+                <ChevronLeft className="w-4 h-4 text-[#8a8175]" />
+              </button>
+            </div>
           </div>
 
           {/* Search */}
@@ -404,6 +436,6 @@ export function ControlPanel({ onFitView }: ControlPanelProps) {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
