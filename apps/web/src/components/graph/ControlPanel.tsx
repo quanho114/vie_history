@@ -47,7 +47,24 @@ export function ControlPanel({ onFitView }: ControlPanelProps) {
     setViewMode,
   } = useGraphStore();
 
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem('historiai-graph-control-panel-collapsed');
+      return saved ? JSON.parse(saved) === true : false;
+    } catch {
+      return false;
+    }
+  });
+
+  const handleSetCollapsed = useCallback((collapsed: boolean) => {
+    setIsCollapsed(collapsed);
+    try {
+      localStorage.setItem('historiai-graph-control-panel-collapsed', JSON.stringify(collapsed));
+    } catch (err) {
+      console.error('Failed to save control panel state:', err);
+    }
+  }, []);
+
   const [expandedSection, setExpandedSection] = useState<string | null>('filters');
   const [localSearch, setLocalSearch] = useState('');
 
@@ -69,7 +86,7 @@ export function ControlPanel({ onFitView }: ControlPanelProps) {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
         transition={{ duration: 0.2 }}
-        onClick={() => setIsCollapsed(false)}
+        onClick={() => handleSetCollapsed(false)}
         className="absolute top-4 left-4 z-20 w-11 h-11 bg-white/95 backdrop-blur-md border border-[#e7e1d8] rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] flex items-center justify-center hover:bg-[#faf9f5] hover:text-[var(--coral)] transition-all cursor-pointer text-[#8a8175]"
         title="Mở bảng điều khiển"
       >
@@ -105,7 +122,7 @@ export function ControlPanel({ onFitView }: ControlPanelProps) {
                 <RotateCcw className="w-3.5 h-3.5 text-[#8a8175]" />
               </button>
               <button
-                onClick={() => setIsCollapsed(true)}
+                onClick={() => handleSetCollapsed(true)}
                 className="p-1.5 hover:bg-[#f5f1ea] rounded-lg transition-colors border-none bg-transparent cursor-pointer"
                 title="Thu gọn bảng điều khiển"
               >
