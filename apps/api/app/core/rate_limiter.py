@@ -62,21 +62,21 @@ class RateLimiter:
             return True  # Fail-open on unexpected errors
 
 
-class RateLimitMiddleware(BaseHTTPMiddleware):
+class RateLimitMiddleware:
     """
-    FastAPI Middleware to enforce rate limits per user + per IP.
+    Pure ASGI Middleware to enforce rate limits per user + per IP.
 
     Authenticated requests: rate limit by user_id (from JWT).
     Unauthenticated requests: rate limit by client IP.
     """
 
     def __init__(self, app, limit: int = 60, window: int = 60):
-        super().__init__(app)
+        self.app = app
         self.limiter = RateLimiter(limit=limit, window=window)
 
-    def _get_user_id_from_request(self, request: Request) -> str | None:
+    def _get_user_id_from_headers(self, headers: dict[bytes, bytes]) -> str | None:
         """Extract user_id from JWT Bearer token if present."""
-        auth_header = request.headers.get("Authorization", "")
+        auth_header = headers.get(b"authorization", b"").decode("latin-1")
         if not auth_header.startswith("Bearer "):
             return None
         token = auth_header[7:]
@@ -93,32 +93,53 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         except Exception:
             return None
 
-    async def dispatch(self, request: Request, call_next):
-        path = request.url.path
-        if path in ["/health", "/api/v1/health", "/docs", "/redoc", "/metrics"]:
-            return await call_next(request)
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http":
+            await self.app(scope, receive, send)
+            return
 
-        if settings.APP_ENV in ("development", "testing") and request.headers.get("x-bypass-rate-limit") == "true":
-            return await call_next(request)
+        path = scope.get("path", "")
+        if path in ["/health", "/api/v1/health", "/docs", "/redoc", "/metrics"]:
+            await self.app(scope, receive, send)
+            return
+
+        headers = dict(scope.get("headers", []))
+        
+        # Check bypass
+        if settings.APP_ENV in ("development", "testing") and headers.get(b"x-bypass-rate-limit") == b"true":
+            await self.app(scope, receive, send)
+            return
 
         # Determine rate limit key: user_id if authenticated, else IP
-        user_id = self._get_user_id_from_request(request)
+        user_id = self._get_user_id_from_headers(headers)
         if user_id:
             key = f"user:{user_id}"
         else:
-            key = f"ip:{request.client.host if request.client else 'unknown'}"
+            client = scope.get("client")
+            key = f"ip:{client[0] if client else 'unknown'}"
 
         allowed = await self.limiter.is_allowed(key)
         if not allowed:
+            client_ip = scope.get("client", ["unknown"])[0] if scope.get("client") else "unknown"
             get_audit_logger().log_rate_limit_exceeded(
-                ip_address=request.client.host if request.client else "unknown",
+                ip_address=client_ip,
                 path=path,
                 user_id=user_id,
             )
-            return JSONResponse(
-                status_code=429,
-                content={"detail": "Too many requests. Please try again later."},
-                headers={"Retry-After": str(self.limiter.window)}
-            )
+            await send({
+                "type": "http.response.start",
+                "status": 429,
+                "headers": [
+                    (b"content-type", b"application/json"),
+                    (b"retry-after", str(self.limiter.window).encode("latin-1")),
+                ],
+            })
+            await send({
+                "type": "http.response.body",
+                "body": b'{"detail": "Too many requests. Please try again later."}',
+                "more_body": False,
+            })
+            return
 
-        return await call_next(request)
+        await self.app(scope, receive, send)
+

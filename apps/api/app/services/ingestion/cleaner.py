@@ -131,23 +131,27 @@ class ContentCleaner:
         """Apply all cleaning steps to markdown."""
         # 1. Strip all images ![alt](url) -> ""
         markdown = re.sub(r'!\[.*?\]\(.*?\)', '', markdown)
-        
+
         # 2. Strip links but keep labels: [Label](url "title") -> Label
-        # This handles nested parentheses inside URLs up to 2 levels.
         markdown = re.sub(r'\[([^\]]+)\]\((?:[^)(]+|\((?:[^)(]+|\([^)(]*\))*\))*\)', r'\1', markdown)
         markdown = re.sub(r'\[\]\((?:[^)(]+|\((?:[^)(]+|\([^)(]*\))*\))*\)', '', markdown)
 
-        # 3. Remove Wikipedia specific boilerplate lines
+        # 3. Aggressive Wikipedia boilerplate block removal
+        markdown = self._remove_wiki_boilerplate_blocks(markdown)
+
+        # 4. Line-by-line filter
         lines = markdown.split("\n")
         filtered_lines = []
-        skip_mode = False  # for truncating bibliography sections
+        skip_mode = False
         for line in lines:
             trimmed = line.strip()
             lower = trimmed.lower()
 
-            # Truncate at bibliography/references sections
-            if trimmed.upper() in ("THƯ MỤC", "ĐỌC THÊM", "LIÊN KẾT NGOÀI",
-                                    "XEM THÊM", "THAM KHẢO", "CHÚ THÍCH", "NGUỒN"):
+            # Truncate at trailing non-content sections
+            if re.match(
+                r'^#{1,3}\s*(Xem thêm|Tham khảo|Chú thích|Thư mục|Đọc thêm|Liên kết ngoài|Nguồn|Ghi chú|References|Notes|Bibliography|External links)',
+                trimmed, re.IGNORECASE
+            ):
                 skip_mode = True
             if skip_mode:
                 continue
@@ -156,95 +160,215 @@ class ContentCleaner:
                 filtered_lines.append(line)
                 continue
 
-            # Skip common wiki navigation/boilerplate lines
-            if "bước tới nội dung" in lower:
-                continue
-            if "bách khoa toàn thư mở wikipedia" in lower:
-                continue
-            if "trang bài viết này đang bị hạn chế" in lower:
-                continue
-            if "thay đổi gần đây" in lower and len(trimmed) < 30:
-                continue
-            if "phá hoại" in lower and "hạn chế sửa đổi" in lower:
+            # Navigation / boilerplate single-line patterns
+            skip_patterns = [
+                r'^-\s*x\s*-\s*t\s*-\s*s\s*$',            # navbox footer
+                r'^icon\s+Cổng thông tin',                   # portal icon line
+                r'^flag\s+Cổng thông tin',
+                r'Cổng thông tin\s+\w',
+                r'^\*\s*icon\b',
+                r'Sửa dữ liệu tại Wikidata',
+                r'Lấy từ\s+\"https?://',                     # "Retrieved from" link
+                r'Thể loại ẩn:',
+                r'^Thể loại:',
+                r'^Cổng thông tin:',
+                r'–\s*Wikipedia\s+tiếng\s+Việt\s*$',
+                r'Bách khoa toàn thư mở Wikipedia',
+                r'Bước tới nội dung',
+                r'Trang bài viết này đang bị hạn chế',
+                r'^\s*Sách:\s*',                              # "Sách: Lịch sử Việt Nam"
+                r'^\s*Bài chi tiết:',                        # "Bài chi tiết: ..."
+                r'^\s*Xem thêm:',
+                r'^\s*\d+\s*↑',                              # footnote entries
+                r'^↑\s*',
+            ]
+            if any(re.search(p, trimmed, re.IGNORECASE) for p in skip_patterns):
                 continue
 
-            # Skip Wikipedia warning banners
+            # Wikipedia warning banners
             if any(kw in lower for kw in [
                 "chú thích nguồn gốc", "kiểm chứng thông tin",
                 "bổ sung chú thích", "không có nguồn", "nguồn đáng tin cậy",
                 "bị nghi ngờ và xóa bỏ", "xóa thông báo này",
-                "bài viết này cần",
+                "bài viết này cần", "bài này cần được wiki hóa",
+                "cần được wiki hóa", "wiki hóa để đáp ứng",
+                "tháng năm", "cuối tháng",   # wiki maintenance date stamps
             ]):
                 continue
 
-            # Skip table separator lines (only pipes, dashes, colons, spaces)
+            # Table separator lines
             if re.match(r'^[\s|:\-]+$', trimmed):
                 continue
 
-            # Skip infobox/navbox pipe lines with short content (table row artifacts)
+            # Infobox pipe lines with very short content
             if trimmed.startswith("|") and len(trimmed) < 5:
-                continue
-
-            # Skip Wikipedia page title lines: "<anything> – Wikipedia tiếng Việt"
-            if re.search(r'–\s*Wikipedia\s+tiếng\s+Việt\s*$', trimmed):
-                continue
-
-            # Skip category / portal lines
-            if trimmed.startswith("Thể loại:") or trimmed.startswith("Cổng thông tin:"):
                 continue
 
             filtered_lines.append(line)
 
         markdown = "\n".join(filtered_lines)
 
-        # 4. Remove wiki templates
+        # 5. Remove wiki templates
         markdown = self.remove_wiki_templates(markdown)
-        
-        # 5. Remove citation markers (like [1], [citation needed])
+
+        # 6. Remove citation markers
         markdown = self.remove_citation_markers(markdown)
 
-        # 6. Remove residuals like (#cite_note-...) or loose parenthesized links
+        # 7. Remove residual link artifacts
         markdown = re.sub(r'\s*\(\s*#cite_note-[^)]+\)', '', markdown)
         markdown = re.sub(r'\s*\(\s*#cite_ref-[^)]+\)', '', markdown)
         markdown = re.sub(r'\s*\(\s*//[^)]+\)', '', markdown)
         markdown = re.sub(r'\s*\(\s*https?://[^)]+\)', '', markdown)
 
-        # 7. Strip Wikipedia inline artifacts
-        # "Chú ý" annotation glued to text
+        # 8. Strip miscellaneous Wikipedia inline artifacts
         markdown = re.sub(r'Chú\s*ý', '', markdown)
-        # "(en)" interwiki markers
         markdown = re.sub(r'\s*\(en\)', '', markdown, flags=re.IGNORECASE)
-        # Blank date templates: "ngày tháng năm" / standalone "tháng năm"
         markdown = re.sub(r'\bngày\s+tháng\s+năm\b', '', markdown)
         markdown = re.sub(r'(?<!\w)tháng\s+năm(?!\s+\d)', '', markdown)
-        # Table pipe/dash artifacts: ||--|| |||---||| etc.
+        markdown = re.sub(r'\*\s*cần dẫn nguồn\s*\*', '', markdown, flags=re.IGNORECASE)
+
+        # 9. Table/pipe/dash artifacts
         markdown = re.sub(r'[|\-]+([|:\-]+[|:\-]+)+', ' ', markdown)
-        # Remaining pipe characters
         markdown = re.sub(r'\|+', ' ', markdown)
-        # Double-dash table fillers
         markdown = re.sub(r'--+', ' ', markdown)
-        # Bare citation number sequences at sentence boundaries (not years 1000-2100)
+
+        # 10. Bare citation numbers (not years 1000-2100)
         def _drop_non_year_nums(m: re.Match) -> str:
             n = int(m.group(0))
             return m.group(0) if 1000 <= n <= 2100 else ''
         markdown = re.sub(r'(?<=[\s,.:;!?"])\d{2,}(?=[\s]|$)', _drop_non_year_nums, markdown)
-        # Trailing digits glued to Vietnamese words
+
+        # 11. Trailing digits glued to Vietnamese words
         markdown = re.sub(
             r'([a-zA-ZáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđĐ])'
             r'\s+(\d+)(?=\s|$)',
             r'\1', markdown
         )
 
-        # 8. Normalize whitespace
+        # 12. Normalize whitespace, unicode, CJK
         markdown = self.normalize_whitespace(markdown)
-
-        # 9. Normalize unicode
         markdown = self.normalize_unicode(markdown)
-
-        # 10. Remove stray CJK characters (Chinese/Japanese/Korean ideographs)
         markdown = self.remove_cjk_characters(markdown)
 
         return markdown
+
+    def _remove_wiki_boilerplate_blocks(self, markdown: str) -> str:
+        """
+        Remove multi-line Wikipedia boilerplate blocks before line-by-line filtering.
+
+        Targets:
+        - Navigation boxes (lines containing '- x - t - s' or similar)
+        - Sidebar/infobox blocks that are essentially flat lists of wiki links
+        - Trailing sections: Xem thêm, Chú thích, Thư mục, Đọc thêm, Liên kết ngoài
+        - Footnote/reference list blocks
+        """
+        lines = markdown.split("\n")
+        result: list[str] = []
+
+        # State: we track consecutive "navbox-like" short lines to drop entire block
+        i = 0
+        while i < len(lines):
+            line = lines[i]
+            stripped = line.strip()
+
+            # --- Drop navbox footer marker blocks ---
+            # Pattern: lines that are exactly "- x - t - s" or similar edit markers
+            if re.match(r'^[-•*]\s*x\s*[-•*]\s*t\s*[-•*]\s*s\s*$', stripped, re.IGNORECASE):
+                i += 1
+                continue
+
+            # --- Drop portal/icon lines ---
+            if re.match(r'^(icon|flag)\s+Cổng thông tin', stripped, re.IGNORECASE):
+                i += 1
+                continue
+
+            # --- Drop Lấy từ (Retrieved from) lines ---
+            if re.match(r'^Lấy từ\s+"https?://', stripped):
+                i += 1
+                continue
+
+            # --- Drop footnote reference blocks ---
+            # Pattern: lines starting with number↑ or ↑
+            if re.match(r'^\d+\s*↑', stripped) or re.match(r'^↑', stripped):
+                i += 1
+                continue
+
+            # --- Drop trailing sections entirely ---
+            # When we hit a heading that is a trailing section, skip everything after
+            if re.match(
+                r'^#{1,3}\s*(Xem thêm|Tham khảo|Chú thích|Thư mục|Đọc thêm'
+                r'|Liên kết ngoài|Nguồn|Ghi chú|Dân số|Các cuộc chiến)',
+                stripped, re.IGNORECASE
+            ):
+                # Skip the rest entirely
+                break
+
+            # --- Detect and skip navbox/sidebar blocks ---
+            # A "navbox block" is a cluster of very short lines (< 60 chars) that are
+            # mostly link-like content (contain • · - or look like navigation lists)
+            # separated from real content by empty lines.
+            # We look ahead: if the next N lines are all short nav-like content, skip block.
+            if self._is_navbox_block_start(lines, i):
+                i = self._skip_navbox_block(lines, i)
+                continue
+
+            result.append(line)
+            i += 1
+
+        return "\n".join(result)
+
+    def _is_navbox_block_start(self, lines: list[str], start: int) -> bool:
+        """
+        Detect if the current position is the start of a Wikipedia navbox/sidebar block.
+
+        Heuristics:
+        - Block contains 4+ consecutive short lines (< 80 chars)
+        - Many lines begin with - or • or contain only link-like fragments
+        - Block does NOT contain long prose sentences (> 120 chars)
+        - Navbox markers: "Một phần của loạt bài", "Chuyên đề", "Loạt bài"
+        """
+        line = lines[start].strip()
+
+        navbox_triggers = [
+            r'^Một phần của loạt bài',
+            r'^Chuyên đề\b',
+            r'^Loạt bài\b',
+            r'^Các nền văn hóa khảo cổ',
+            r'^Lịch sử kinh tế Việt Nam',
+            r'^Lịch sử Châu Á',
+            r'^Lịch sử các nước Đông Nam Á',
+            r'^Tổng quan về Việt Nam',
+            r'^ *Cơ sở dữ liệu tiêu đề chuẩn',
+            r'^\s*\*\s*x\s*\*',
+        ]
+        return any(re.match(p, line, re.IGNORECASE) for p in navbox_triggers)
+
+    def _skip_navbox_block(self, lines: list[str], start: int) -> int:
+        """
+        Skip forward past a navbox block. A navbox block ends at:
+        - Two consecutive empty lines
+        - A line starting with ## (a real heading)
+        - End of file
+        Returns the index of the first line AFTER the block.
+        """
+        i = start + 1
+        consecutive_empty = 0
+        while i < len(lines):
+            stripped = lines[i].strip()
+
+            # Real heading = end of navbox
+            if re.match(r'^#{1,3}\s+\S', stripped):
+                return i
+
+            if not stripped:
+                consecutive_empty += 1
+                if consecutive_empty >= 2:
+                    return i + 1
+            else:
+                consecutive_empty = 0
+
+            i += 1
+        return i
 
 
     def calculate_boilerplate_ratio(self, text: str) -> float:

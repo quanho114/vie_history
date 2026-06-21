@@ -1,15 +1,10 @@
+"""NLIVerifier wrapping the cached NLIModel singleton for backwards compatibility."""
+
 import re
 from app.core.logging import get_logger
+from app.services.citation.nli_model import NLIModel, HAS_TRANSFORMERS
 
 logger = get_logger("nli_verifier")
-
-try:
-    import torch
-    from transformers import AutoTokenizer, AutoModelForSequenceClassification
-    HAS_TRANSFORMERS = True
-except ImportError:
-    HAS_TRANSFORMERS = False
-    logger.warning("transformers_or_torch_missing_nli_uses_heuristic")
 
 try:
     import underthesea
@@ -20,35 +15,16 @@ except ImportError:
 
 
 class NLIVerifier:
-    """
-    Verifies factual entailment of LLM-generated claims against search source texts
-    using a multilingual Cross-Encoder NLI model (mDeBERTa-v3-base-mnli-xnli)
-    with a heuristic-based fallback mechanism.
-    """
+    """Verifies factual entailment using the cached NLIModel singleton."""
 
-    def __init__(self, use_model: bool = True, model_name: str = "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli", device: str = "cpu"):
+    def __init__(self, use_model: bool = True, model_name: str = "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli", device: str = "cpu") -> None:
         self.use_model = use_model and HAS_TRANSFORMERS
         self.model_name = model_name
         self.device = device
-        self._tokenizer = None
-        self._model = None
-        self._model_loaded = False
-
-        if self.use_model:
-            try:
-                self._tokenizer = AutoTokenizer.from_pretrained(self.model_name)
-                self._model = AutoModelForSequenceClassification.from_pretrained(self.model_name).to(self.device)
-                self._model_loaded = True
-                logger.info("nli_model_loaded", model=self.model_name, device=self.device)
-            except Exception as e:
-                logger.warning("nli_model_load_failed_falling_back_to_heuristic", error=str(e))
-                self.use_model = False
+        self.model = NLIModel(model_name=self.model_name, device=self.device)
 
     def verify_entailment(self, claim: str, source: str) -> bool:
-        """
-        Verifies if the claim is entailed by the source text.
-        Returns True if entailment is found, False otherwise.
-        """
+        """Verifies if the claim is entailed by the source text."""
         # Clean citation markers like [S1], [S2]
         claim_clean = re.sub(r"\[S\d+\]", "", claim).strip()
         source_clean = re.sub(r"\[S\d+\]", "", source).strip()
@@ -56,28 +32,15 @@ class NLIVerifier:
         if not claim_clean or not source_clean:
             return False
 
-        if self.use_model and self._model_loaded:
+        if self.use_model and self.model._model_loaded:
             try:
-                # Tokenize premise and hypothesis pair
-                inputs = self._tokenizer(source_clean, claim_clean, truncation=True, max_length=512, return_tensors="pt").to(self.device)
-                with torch.no_grad():
-                    outputs = self._model(**inputs)
-                
-                # Label indices: 0 = entailment, 1 = neutral, 2 = contradiction
-                logits = outputs.logits
-                predicted_class = torch.argmax(logits, dim=1).item()
-                
-                # We also consider strength of classification
-                probs = torch.softmax(logits, dim=1)
-                entailment_prob = probs[0][0].item()
-                
-                logger.info("nli_inference_complete", predicted_class=predicted_class, entailment_prob=entailment_prob)
-                
-                # Return True only if entailment is the top predicted label
-                return predicted_class == 0
+                scores = self.model.verify_batch([source_clean], [claim_clean])
+                if scores:
+                    entailment_prob = scores[0]
+                    logger.info("nli_inference_complete", entailment_prob=entailment_prob)
+                    return entailment_prob >= 0.5  # Standard threshold
             except Exception as exc:
                 logger.error("nli_inference_failed_using_heuristic", error=str(exc))
-                # Fall through to heuristic fallback
 
         return self._verify_heuristic(claim_clean, source_clean)
 
@@ -132,6 +95,5 @@ class NLIVerifier:
                 logger.warning("underthesea_tokenization_failed_using_regex", error=str(exc))
         
         # Safe Regex Splitter protecting common abbreviations like "V.v", "Tp.HCM", "NXB"
-        # Split on periods followed by space and uppercase character
         sentences = re.split(r'(?<![A-ZĐ])\.\s+(?=[A-ZĐÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸY])', text)
         return [s.strip() for s in sentences if s.strip()]

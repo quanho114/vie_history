@@ -26,8 +26,8 @@ async def test_nli_verifier_model_flow(mocker):
     mock_outputs.logits = torch.tensor([[5.0, -2.0, -3.0]]) # Label 0 has highest logit
     mock_model.return_value = mock_outputs
     
-    mocker.patch("app.services.citation.nli_verifier.AutoTokenizer.from_pretrained", return_value=mock_tokenizer)
-    mocker.patch("app.services.citation.nli_verifier.AutoModelForSequenceClassification.from_pretrained", return_value=mock_model)
+    mocker.patch("app.services.citation.nli_model.AutoTokenizer.from_pretrained", return_value=mock_tokenizer)
+    mocker.patch("app.services.citation.nli_model.AutoModelForSequenceClassification.from_pretrained", return_value=mock_model)
     
     verifier = NLIVerifier(use_model=True)
     assert verifier.verify_entailment("Hồ Chí Minh sinh năm 1890", "Hồ Chí Minh sinh ngày 19/5/1890") == True

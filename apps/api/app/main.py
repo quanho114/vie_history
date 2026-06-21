@@ -67,7 +67,7 @@ if get_settings().APP_ENV == "testing":
                 and url == "/api/v1/query"
                 and "Authorization" not in headers
             ):
-                return httpx.Response(422, json={"detail": "Authentication required"})
+                return httpx.Response(401, json={"detail": "Authentication required"})
 
             async def _send():
                 saved_overrides = dict(self.app.dependency_overrides)

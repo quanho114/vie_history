@@ -22,6 +22,19 @@ class QueryAnalyzer:
             logger.warning("failed_to_initialize_llm_client", error=str(e))
             self.llm = None
 
+    def is_simple_query(self, query: str) -> bool:
+        """Classify if the query can be resolved directly without timeline/graph analytics."""
+        q_lower = query.strip().lower()
+        greetings = {"chào", "hello", "hi", "chào bạn", "xin chào", "hey"}
+        if q_lower in greetings or any(q_lower.startswith(g + " ") for g in greetings):
+            return True
+
+        complexity_keywords = ["tại sao", "vì sao", "nguyên nhân", "so sánh", "khác nhau", "bài học", "chuỗi", "liên hệ", "tiến trình"]
+        if any(kw in q_lower for kw in complexity_keywords):
+            return False
+
+        return len(q_lower.split()) <= 10
+
     async def analyze(self, query: str) -> Dict[str, Any]:
         """
         Parses query using LLM and extracts semantic tokens and bounds.

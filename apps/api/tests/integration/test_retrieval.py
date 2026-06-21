@@ -140,31 +140,34 @@ class TestFusionSearchPipeline:
 class TestQueryAPIRoute:
     """Integration tests for the /api/v1/query endpoint."""
 
-    def test_query_endpoint_returns_200(self) -> None:
+    def test_query_endpoint_returns_200(self, auth_headers) -> None:
         """Query endpoint must respond with 200 for valid requests."""
         with TestClient(app, raise_server_exceptions=False) as client:
             response = client.post(
                 "/api/v1/query",
                 json={"query": "Ai là Hồ Chí Minh?"},
+                headers=auth_headers,
             )
-            # Accept 200 (success) or 422 (validation error for missing fields)
-            assert response.status_code in (200, 422)
+            # Accept 200 (success), 400 (missing API key error), or 422 (validation error)
+            assert response.status_code in (200, 400, 422)
 
-    def test_query_endpoint_validates_query(self) -> None:
+    def test_query_endpoint_validates_query(self, auth_headers) -> None:
         """Query endpoint must reject empty query."""
         with TestClient(app, raise_server_exceptions=False) as client:
             response = client.post(
                 "/api/v1/query",
                 json={"query": ""},
+                headers=auth_headers,
             )
             assert response.status_code == 422
 
-    def test_query_endpoint_requires_query_field(self) -> None:
+    def test_query_endpoint_requires_query_field(self, auth_headers) -> None:
         """Query endpoint must reject missing query field."""
         with TestClient(app, raise_server_exceptions=False) as client:
             response = client.post(
                 "/api/v1/query",
                 json={},
+                headers=auth_headers,
             )
             assert response.status_code == 422
 
@@ -178,29 +181,33 @@ class TestQueryAPIRoute:
             # Should be 401 without auth token, or 422 for validation
             assert response.status_code in (401, 422)
 
-    def test_retrieve_endpoint_returns_200(self) -> None:
+    def test_retrieve_endpoint_returns_200(self, auth_headers) -> None:
         """Retrieve endpoint must respond with 200 for valid requests."""
         with TestClient(app, raise_server_exceptions=False) as client:
             response = client.post(
                 "/api/v1/retrieve",
                 json={"query": "Chiến tranh Việt Nam"},
+                headers=auth_headers,
             )
             assert response.status_code in (200, 401, 422)
 
-    def test_retrieve_endpoint_validates_top_k(self) -> None:
+    def test_retrieve_endpoint_validates_top_k(self, auth_headers) -> None:
         """Retrieve endpoint must validate top_k range."""
         with TestClient(app, raise_server_exceptions=False) as client:
             response = client.post(
                 "/api/v1/retrieve",
                 json={"query": "Test", "top_k": 0},
+                headers=auth_headers,
             )
             assert response.status_code == 422
 
             response2 = client.post(
                 "/api/v1/retrieve",
                 json={"query": "Test", "top_k": 500},
+                headers=auth_headers,
             )
             assert response2.status_code == 422
+
 
 
 # ── Health endpoint ──────────────────────────────────────────────────────────

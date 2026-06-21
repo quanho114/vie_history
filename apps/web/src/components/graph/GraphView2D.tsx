@@ -111,6 +111,15 @@ export function GraphView2D({ width, height }: GraphView2DProps) {
     return null;
   }, [edges, nodes, transform]);
 
+  // Helper to parse hex colors to rgba
+  const hexToRgba = useCallback((hex: string, alpha: number) => {
+    if (!hex.startsWith('#') || hex.length !== 7) return `rgba(180, 180, 180, ${alpha})`;
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }, []);
+
   // Stable direct canvas draw function (Completely eliminates 60fps React re-renders!)
   const drawGraph = useCallback((ctx: CanvasRenderingContext2D, displayNodes: GraphNode[]) => {
     const canvas = canvasRef.current;
@@ -124,6 +133,22 @@ export function GraphView2D({ width, height }: GraphView2DProps) {
     ctx.clearRect(0, 0, width, height);
 
     const { x: tx, y: ty, scale } = transform;
+
+    // Draw dot-grid background aligned with zoom & pan!
+    const gridGap = 40; // spacing between dots in graph units
+    const startX = Math.floor((-tx) / scale / gridGap) * gridGap - gridGap;
+    const endX = startX + (width / scale) + gridGap * 2;
+    const startY = Math.floor((-ty) / scale / gridGap) * gridGap - gridGap;
+    const endY = startY + (height / scale) + gridGap * 2;
+
+    ctx.fillStyle = 'rgba(180, 180, 180, 0.12)';
+    for (let gx = startX; gx <= endX; gx += gridGap) {
+      for (let gy = startY; gy <= endY; gy += gridGap) {
+        ctx.beginPath();
+        ctx.arc(gx, gy, 1.2 / Math.max(0.5, scale), 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
 
     ctx.save();
     ctx.translate(tx, ty);
@@ -141,7 +166,7 @@ export function GraphView2D({ width, height }: GraphView2DProps) {
       const isEdgeHovered = hoveredEdgeIndex === i;
       const isEdgeConnected = isFiltered && (edge.source === selectedNodeId || edge.target === selectedNodeId);
 
-      let opacity = isFiltered ? (isEdgeConnected ? 0.8 : 0.08) : 0.35;
+      let opacity = isFiltered ? (isEdgeConnected ? 0.85 : 0.08) : 0.35;
       let strokeWidth = settings.linkThickness;
 
       if (isEdgeHovered) {
@@ -149,45 +174,101 @@ export function GraphView2D({ width, height }: GraphView2DProps) {
         strokeWidth = settings.linkThickness * 2;
       }
 
+      const dx = target.x - source.x;
+      const dy = target.y - source.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 0.1) return;
+
+      const sourceColorHex = getNodeColor(source.type);
+      const targetColorHex = getNodeColor(target.type);
+
+      // Gradient edge line
+      let edgeStyle: string | CanvasGradient;
+      if (isEdgeConnected || isEdgeHovered) {
+        const gradient = ctx.createLinearGradient(source.x, source.y, target.x, target.y);
+        gradient.addColorStop(0, hexToRgba(sourceColorHex, opacity));
+        gradient.addColorStop(1, hexToRgba(targetColorHex, opacity));
+        edgeStyle = gradient;
+      } else {
+        edgeStyle = `rgba(180, 180, 180, ${opacity})`;
+      }
+
       ctx.beginPath();
       ctx.moveTo(source.x, source.y);
       
       if (settings.showArrows) {
-        const dx = target.x - source.x;
-        const dy = target.y - source.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist > 0.1) {
-          const targetRadius = (settings.nodeSize / 2) * (selectedNodeId === target.id ? 1.4 : 1.0) + 2;
-          const endX = target.x - (dx / dist) * (targetRadius + 4);
-          const endY = target.y - (dy / dist) * (targetRadius + 4);
+        const targetRadius = (settings.nodeSize / 2) * (selectedNodeId === target.id ? 1.4 : 1.0) + 2;
+        const endX = target.x - (dx / dist) * (targetRadius + 4);
+        const endY = target.y - (dy / dist) * (targetRadius + 4);
 
-          ctx.lineTo(endX, endY);
-          ctx.strokeStyle = `rgba(180, 180, 180, ${opacity})`;
-          ctx.lineWidth = strokeWidth;
+        ctx.lineTo(endX, endY);
+        
+        // Draw wider glowing halo beneath active links
+        if (isEdgeConnected || isEdgeHovered) {
+          ctx.save();
+          const glowGradient = ctx.createLinearGradient(source.x, source.y, target.x, target.y);
+          glowGradient.addColorStop(0, hexToRgba(sourceColorHex, opacity * 0.2));
+          glowGradient.addColorStop(1, hexToRgba(targetColorHex, opacity * 0.2));
+          ctx.strokeStyle = glowGradient;
+          ctx.lineWidth = strokeWidth * 4;
           ctx.stroke();
-
-          // Arrowhead
-          const angle = Math.atan2(dy, dx);
-          const arrowSize = 6;
-          ctx.beginPath();
-          ctx.moveTo(endX, endY);
-          ctx.lineTo(
-            endX - arrowSize * Math.cos(angle - Math.PI / 6),
-            endY - arrowSize * Math.sin(angle - Math.PI / 6)
-          );
-          ctx.lineTo(
-            endX - arrowSize * Math.cos(angle + Math.PI / 6),
-            endY - arrowSize * Math.sin(angle + Math.PI / 6)
-          );
-          ctx.closePath();
-          ctx.fillStyle = `rgba(180, 180, 180, ${opacity})`;
-          ctx.fill();
+          ctx.restore();
         }
-      } else {
-        ctx.lineTo(target.x, target.y);
-        ctx.strokeStyle = `rgba(180, 180, 180, ${opacity})`;
+
+        ctx.strokeStyle = edgeStyle;
         ctx.lineWidth = strokeWidth;
         ctx.stroke();
+
+        // Arrowhead
+        const angle = Math.atan2(dy, dx);
+        const arrowSize = 6;
+        ctx.beginPath();
+        ctx.moveTo(endX, endY);
+        ctx.lineTo(
+          endX - arrowSize * Math.cos(angle - Math.PI / 6),
+          endY - arrowSize * Math.sin(angle - Math.PI / 6)
+        );
+        ctx.lineTo(
+          endX - arrowSize * Math.cos(angle + Math.PI / 6),
+          endY - arrowSize * Math.sin(angle + Math.PI / 6)
+        );
+        ctx.closePath();
+        ctx.fillStyle = isEdgeConnected || isEdgeHovered ? hexToRgba(targetColorHex, opacity) : `rgba(180, 180, 180, ${opacity})`;
+        ctx.fill();
+      } else {
+        ctx.lineTo(target.x, target.y);
+
+        // Draw wider glowing halo beneath active links
+        if (isEdgeConnected || isEdgeHovered) {
+          ctx.save();
+          const glowGradient = ctx.createLinearGradient(source.x, source.y, target.x, target.y);
+          glowGradient.addColorStop(0, hexToRgba(sourceColorHex, opacity * 0.2));
+          glowGradient.addColorStop(1, hexToRgba(targetColorHex, opacity * 0.2));
+          ctx.strokeStyle = glowGradient;
+          ctx.lineWidth = strokeWidth * 4;
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        ctx.strokeStyle = edgeStyle;
+        ctx.lineWidth = strokeWidth;
+        ctx.stroke();
+      }
+
+      // Draw light particle flow along active edges
+      if (isEdgeConnected || isEdgeHovered) {
+        const time = (performance.now() * 0.0008) % 1;
+        const particleCount = 1;
+        ctx.fillStyle = hexToRgba(sourceColorHex, opacity * 0.95);
+        for (let p = 0; p < particleCount; p++) {
+          const t = (time + p / particleCount) % 1;
+          const px = source.x + (target.x - source.x) * t;
+          const py = source.y + (target.y - source.y) * t;
+          ctx.beginPath();
+          ctx.arc(px, py, 2.2 / scale, 0, Math.PI * 2);
+          ctx.fill();
+        }
       }
     });
 
@@ -216,74 +297,97 @@ export function GraphView2D({ width, height }: GraphView2DProps) {
 
       ctx.globalAlpha = opacity;
 
-      // Outer glowing halo for selected node
-      if (isSelected) {
+      // Outer glowing halo for selected or hovered node
+      if (isSelected || isHovered) {
+        const haloOpacity = isSelected ? 0.25 : 0.15;
         ctx.beginPath();
-        ctx.arc(node.x, node.y, radius + 7, 0, Math.PI * 2);
-        ctx.fillStyle = `${color}25`;
+        ctx.arc(node.x, node.y, radius + 8, 0, Math.PI * 2);
+        ctx.fillStyle = hexToRgba(color, haloOpacity);
         ctx.fill();
         
         ctx.beginPath();
-        ctx.arc(node.x, node.y, radius + 3, 0, Math.PI * 2);
-        ctx.fillStyle = `${color}40`;
+        ctx.arc(node.x, node.y, radius + 4, 0, Math.PI * 2);
+        ctx.fillStyle = hexToRgba(color, haloOpacity * 1.5);
         ctx.fill();
       }
 
-      // Main node body
+      // Main node body with a subtle radial gradient (holographic/3D effect)
       ctx.beginPath();
       ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
-      ctx.fillStyle = color;
+      
+      const radGrad = ctx.createRadialGradient(
+        node.x - radius * 0.2, 
+        node.y - radius * 0.2, 
+        radius * 0.1, 
+        node.x, 
+        node.y, 
+        radius
+      );
+      radGrad.addColorStop(0, '#ffffff'); // bright highlight
+      radGrad.addColorStop(0.3, color);   // core color
+      radGrad.addColorStop(1, hexToRgba(color, 0.85)); // darker edge
+      ctx.fillStyle = radGrad;
       ctx.fill();
 
       // Border highlight for hover or select
       if (isHovered || isSelected) {
         ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = isSelected ? 2.5 : 1.5;
+        ctx.lineWidth = isSelected ? 2.0 : 1.2;
         ctx.stroke();
       }
 
-      // Node text labels
+      // Node text labels with beautiful rounded capsules
       if (settings.showLabels && (isSelected || isHovered || isConnected || scale > settings.labelThreshold)) {
-        ctx.font = `${isSelected ? 'bold ' : ''}11px Inter, sans-serif`;
+        ctx.font = `${isSelected || isHovered ? 'bold ' : ''}10px Inter, sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
-        
-        // Premium drop shadow effect for labels to guarantee readability
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-        ctx.fillText(
-          node.name.length > 25 ? node.name.slice(0, 23) + '...' : node.name,
-          node.x,
-          node.y + radius + 7
-        );
-        ctx.fillText(
-          node.name.length > 25 ? node.name.slice(0, 23) + '...' : node.name,
-          node.x,
-          node.y + radius + 5
-        );
-        ctx.fillText(
-          node.name.length > 25 ? node.name.slice(0, 23) + '...' : node.name,
-          node.x - 1,
-          node.y + radius + 6
-        );
-        ctx.fillText(
-          node.name.length > 25 ? node.name.slice(0, 23) + '...' : node.name,
-          node.x + 1,
-          node.y + radius + 6
-        );
 
-        ctx.fillStyle = isSelected ? '#cc785c' : '#2d2a26';
-        ctx.fillText(
-          node.name.length > 25 ? node.name.slice(0, 23) + '...' : node.name,
-          node.x,
-          node.y + radius + 6
-        );
+        const labelText = node.name.length > 25 ? node.name.slice(0, 23) + '...' : node.name;
+        const textWidth = ctx.measureText(labelText).width;
+        
+        const padX = 6;
+        const padY = 3;
+        const rectW = textWidth + padX * 2;
+        const rectH = 10 + padY * 2;
+        const rectX = node.x - rectW / 2;
+        const rectY = node.y + radius + 5;
+
+        // Background capsule
+        ctx.beginPath();
+        if (typeof ctx.roundRect === 'function') {
+          ctx.roundRect(rectX, rectY, rectW, rectH, 6);
+        } else {
+          ctx.rect(rectX, rectY, rectW, rectH);
+        }
+        
+        if (isSelected) {
+          ctx.fillStyle = '#cc785c';
+          ctx.fill();
+          ctx.fillStyle = '#ffffff';
+        } else if (isHovered) {
+          ctx.fillStyle = '#f5f1ea';
+          ctx.fill();
+          ctx.strokeStyle = '#cc785c';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = '#cc785c';
+        } else {
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.92)';
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(231, 225, 216, 0.85)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = '#4a4a4a';
+        }
+
+        ctx.fillText(labelText, node.x, rectY + padY);
       }
 
       ctx.globalAlpha = 1;
     });
 
     ctx.restore();
-  }, [width, height, transform, selectedNodeId, hoveredNodeId, hoveredEdgeIndex, settings, edges]);
+  }, [width, height, transform, selectedNodeId, hoveredNodeId, hoveredEdgeIndex, settings, edges, hexToRgba]);
 
   // Physics simulation loop (Runs directly on HTML5 canvas context for 60fps buttery performance)
   useEffect(() => {
@@ -399,8 +503,9 @@ export function GraphView2D({ width, height }: GraphView2DProps) {
         }
       }
 
-      // If stable and not dragging, pause animation loop to save CPU
-      if (!draggedNodeIdRef.current && totalEnergy < 0.008) {
+      // If stable and not dragging, and no selected/hovered nodes (which require particle animation), pause animation loop to save CPU
+      const latestState = useGraphStore.getState();
+      if (!draggedNodeIdRef.current && totalEnergy < 0.008 && !latestState.selectedNodeId && !latestState.hoveredNodeId) {
         setNodes(nextNodes);
         animationRef.current = undefined;
         return;
@@ -426,6 +531,11 @@ export function GraphView2D({ width, height }: GraphView2DProps) {
 
     const displayNodes = physicsNodesRef.current.length > 0 ? physicsNodesRef.current : nodes;
     drawGraph(ctx, displayNodes);
+
+    // Wake up physics simulation/animation loop if we have active interactions to run particle flow
+    if (!animationRef.current && (selectedNodeId !== null || hoveredNodeId !== null)) {
+      setSimulationTrigger(prev => prev + 1);
+    }
   }, [nodes, edges, transform, selectedNodeId, hoveredNodeId, hoveredEdgeIndex, settings, drawGraph]);
 
   // Mouse handlers

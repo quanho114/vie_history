@@ -118,14 +118,10 @@ def _configure_middleware(app: FastAPI, settings: Settings) -> None:
     from app.core.security_headers import SecurityHeadersMiddleware
     app.add_middleware(SecurityHeadersMiddleware)
 
-    # Compression — custom middleware for fine-grained control
-    try:
-        from app.middleware.compression import GZipCompressionMiddleware
-        app.add_middleware(GZipCompressionMiddleware, minimum_size=500, compress_level=6)
-    except ImportError:
-        # Fallback to Starlette's built-in GZipMiddleware
-        from starlette.middleware.gzip import GZipMiddleware
-        app.add_middleware(GZipMiddleware, minimum_size=500)
+    # Compression using Starlette's built-in Gzip middleware (a pure ASGI middleware)
+    from starlette.middleware.gzip import GZipMiddleware
+    app.add_middleware(GZipMiddleware, minimum_size=500)
+
 
     # Rate limiting
     from app.core.rate_limiter import RateLimitMiddleware

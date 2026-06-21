@@ -19,6 +19,15 @@ def _make_mock_db():
     return AsyncMock()
 
 
+class MockNode:
+    def __init__(self, slug, id_, name, node_type):
+        self.slug = slug
+        self.id = id_
+        self.name = name
+        self.node_type = node_type
+        self.description = ""
+
+
 def _build_simple_graph() -> nx.DiGraph:
     """
     A → B (LED_TO)
@@ -33,7 +42,11 @@ def _build_simple_graph() -> nx.DiGraph:
     g.add_edge("id-b", "id-c", id="e2", edge_type="CAUSED_BY", weight=1.0, description="")
 
     g.graph["slug_to_id"] = {"node-a": "id-a", "node-b": "id-b", "node-c": "id-c"}
-    g.graph["id_to_node"] = {}
+    g.graph["id_to_node"] = {
+        "id-a": MockNode("node-a", "id-a", "Node A", "Event"),
+        "id-b": MockNode("node-b", "id-b", "Node B", "Event"),
+        "id-c": MockNode("node-c", "id-c", "Node C", "Event"),
+    }
     return g
 
 
@@ -147,3 +160,49 @@ def test_parse_llm_json_raises_on_no_json():
 
     with pytest.raises(ValueError, match="No JSON found"):
         parse_llm_json("Xin lỗi, tôi không thể trả lời câu hỏi này.")
+
+
+# ---------------------------------------------------------------------------
+# Test: NetworkX Graph Analytics (PageRank, Centrality, Stats)
+# ---------------------------------------------------------------------------
+
+@pytest.mark.asyncio
+async def test_graph_reasoner_analytics(monkeypatch):
+    """Test get_graph_stats, get_node_degree, get_pagerank, get_degree_centrality, get_node_metrics."""
+    reasoner = GraphReasoner()
+    graph = _build_simple_graph()
+    monkeypatch.setattr(reasoner, "_get_cached_graph", AsyncMock(return_value=graph))
+
+    db = _make_mock_db()
+
+    # 1. get_graph_stats
+    stats = await reasoner.get_graph_stats(db)
+    assert stats["node_count"] == 3
+    assert stats["relationship_count"] == 2
+
+    # 2. get_node_degree
+    deg_b = await reasoner.get_node_degree(db, "node-b")
+    deg_a = await reasoner.get_node_degree(db, "node-a")
+    deg_c = await reasoner.get_node_degree(db, "node-c")
+    assert deg_b == 2
+    assert deg_a == 1
+    assert deg_c == 1
+
+    # 3. get_pagerank
+    pagerank = await reasoner.get_pagerank(db)
+    assert "node-a" in pagerank
+    assert "node-b" in pagerank
+    assert "node-c" in pagerank
+    assert sum(pagerank.values()) == pytest.approx(1.0)
+
+    # 4. get_degree_centrality
+    centrality = await reasoner.get_degree_centrality(db)
+    assert centrality["node-b"] > centrality["node-a"]
+
+    # 5. get_node_metrics
+    metrics = await reasoner.get_node_metrics(db, "node-b")
+    assert metrics["degree"] == 2
+    assert "pagerank" in metrics
+    assert "degree_centrality" in metrics
+
+

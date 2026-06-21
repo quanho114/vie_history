@@ -1,31 +1,31 @@
 {
   "dataset_size": 500,
-  "evaluated_subset_size": 20,
+  "evaluated_subset_size": 4,
   "metrics": {
-    "retrieval_recall": 0.57,
-    "faithfulness": 0.6,
-    "citation_accuracy": 0.47
+    "retrieval_recall": 0.25,
+    "faithfulness": 0.962,
+    "citation_accuracy": 0.0
   },
   "by_category": {
     "factual": {
-      "retrieval_recall": 0.8,
-      "faithfulness": 0.75,
-      "citation_accuracy": 0.7
+      "retrieval_recall": 1.0,
+      "faithfulness": 0.98,
+      "citation_accuracy": 0.0
     },
     "timeline": {
-      "retrieval_recall": 0.6,
-      "faithfulness": 0.65,
-      "citation_accuracy": 0.5
+      "retrieval_recall": 0.0,
+      "faithfulness": 0.97,
+      "citation_accuracy": 0.0
     },
     "comparison": {
-      "retrieval_recall": 0.5,
-      "faithfulness": 0.55,
-      "citation_accuracy": 0.4
+      "retrieval_recall": 0.0,
+      "faithfulness": 0.96,
+      "citation_accuracy": 0.0
     },
     "multihop": {
-      "retrieval_recall": 0.4,
-      "faithfulness": 0.45,
-      "citation_accuracy": 0.3
+      "retrieval_recall": 0.0,
+      "faithfulness": 0.94,
+      "citation_accuracy": 0.0
     }
   }
 }

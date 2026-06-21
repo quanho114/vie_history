@@ -2,7 +2,9 @@
 
 import pytest
 from unittest.mock import MagicMock
+import numpy as np
 from app.services.citation.verifier import CitationVerifier
+from app.services.citation.nli_model import NLIModel
 
 @pytest.mark.asyncio
 async def test_citation_verifier_supported_claim(monkeypatch) -> None:
@@ -10,13 +12,9 @@ async def test_citation_verifier_supported_claim(monkeypatch) -> None:
     mock_embed = MagicMock()
     
     # Mock embedder.embed_async to return simulated normalized vectors
-    # Sentence 0, Source 0: dot product should be high (supported)
-    import numpy as np
     async def mock_embed_async(texts):
-        # Return 2D array of embeddings
         arr = np.zeros((len(texts), 128))
         for idx, text in enumerate(texts):
-            # Same text or similar context will share vector properties
             if "1954" in text:
                 arr[idx][0] = 1.0
             else:
@@ -25,8 +23,12 @@ async def test_citation_verifier_supported_claim(monkeypatch) -> None:
 
     mock_embed.embed_async = mock_embed_async
     
-    from app.services.citation.nli_verifier import NLIVerifier
-    monkeypatch.setattr(NLIVerifier, "verify_entailment", lambda self, claim, premise: "1954" in claim)
+    # Patch NLIModel.verify_batch to simulate entailment
+    monkeypatch.setattr(
+        NLIModel, 
+        "verify_batch", 
+        lambda self, premises, hypotheses: [1.0 if "1954" in hyp else 0.0 for hyp in hypotheses]
+    )
 
     verifier = CitationVerifier(embedder=mock_embed)
     

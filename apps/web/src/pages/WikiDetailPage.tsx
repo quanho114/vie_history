@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, useLocation } from "react-router-dom"
 import { wikiApi, projectsApi, draftsApi, graphApi, type WikiPage, type Project } from "@/lib/api/brain"
 import { cn } from "@/lib/utils/cn"
 import { useUIStore } from "@/stores/uiStore"
@@ -136,6 +136,7 @@ export function WikiDetailPage() {
   const showToast = useUIStore((s) => s.showToast)
   const { slug } = useParams<{ slug: string }>()
   const navigate = useNavigate()
+  const location = useLocation()
   const [page, setPage] = useState<WikiPage | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -204,6 +205,14 @@ export function WikiDetailPage() {
       .then((res) => setProjects(res.projects || []))
       .catch((e) => console.error("Không thể tải danh sách dự án", e))
   }, [])
+
+  // Auto-open edit modal if navigated with edit=true parameter or state
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search)
+    if (location.state?.openEdit || searchParams.get("edit") === "true") {
+      setIsEditModalOpen(true)
+    }
+  }, [location])
 
   const handleAskChatbot = () => {
     if (!slug) return

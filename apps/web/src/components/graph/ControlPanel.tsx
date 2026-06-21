@@ -61,9 +61,9 @@ export function ControlPanel({ onFitView }: ControlPanelProps) {
   const nodeTypes = Object.entries(NODE_LABELS).filter(([key]) => key !== 'default');
 
   return (
-    <div className="absolute top-4 left-4 z-20 w-80 max-h-[calc(100vh-2rem)] overflow-hidden flex flex-col">
+    <div className="absolute top-4 left-4 z-20 w-80 max-h-[calc(100%-2rem)] overflow-hidden flex flex-col">
       {/* Main Panel */}
-      <div className="bg-white/95 backdrop-blur-md border border-[#e7e1d8] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col max-h-[calc(100vh-2rem)]">
+      <div className="bg-white/95 backdrop-blur-md border border-[#e7e1d8] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col max-h-full">
         
         {/* Header */}
         <div className="p-4 border-b border-[#f0ebe3]">

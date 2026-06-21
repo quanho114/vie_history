@@ -212,20 +212,23 @@ async def supervisor_node(state: AgentState) -> dict[str, Any]:
             from app.services.agent.planner import HistoricalPlanner, AVAILABLE_TOOLS
             
             analyzer = QueryAnalyzer()
-            analysis = await analyzer.analyze(query)
+            is_simple = analyzer.is_simple_query(query)
             
-            planner = HistoricalPlanner()
-            raw_plan = await planner.create_plan(query)
-            
-            # Map tools to nodes using Tool Registry validation mapping
-            plan = [AVAILABLE_TOOLS[task["tool"]] for task in raw_plan.get("tasks", []) if task["tool"] in AVAILABLE_TOOLS]
-            
-            # Use analysis for query boosting and entity tracking
-            graph_slugs = analysis.get("entities", [])
-            retrieval_queries = [query] + [e for e in analysis.get("entities", []) if e != query]
-            timeline_queries = [query]
-            
-            logger.info("planner_dynamic_plan_generated", plan=plan, analysis=analysis)
+            if is_simple:
+                plan = ["retrieval_node"]
+                graph_slugs = []
+                retrieval_queries = [query]
+                timeline_queries = []
+                logger.info("planner_routed_simple_query", plan=plan)
+            else:
+                analysis = await analyzer.analyze(query)
+                planner = HistoricalPlanner()
+                raw_plan = await planner.create_plan(query)
+                plan = [AVAILABLE_TOOLS[task["tool"]] for task in raw_plan.get("tasks", []) if task["tool"] in AVAILABLE_TOOLS]
+                graph_slugs = analysis.get("entities", [])
+                retrieval_queries = [query] + [e for e in analysis.get("entities", []) if e != query]
+                timeline_queries = [query]
+                logger.info("planner_dynamic_plan_generated", plan=plan, analysis=analysis)
         except Exception as exc:
             logger.error("agentic_planning_failed_defaulting_to_fallback", error=str(exc))
             plan = ["retrieval_node", "graph_node", "timeline_node"]
@@ -257,6 +260,8 @@ async def supervisor_node(state: AgentState) -> dict[str, Any]:
 
 async def retrieval_node(state: AgentState) -> dict[str, Any]:
     """Dense & Lexical text search agent."""
+    import time
+    start_time = time.perf_counter()
     query = state["query"]
     queries = state.get("retrieval_queries") or [query]
     trace = list(state.get("agent_trace", []))
@@ -315,10 +320,13 @@ async def retrieval_node(state: AgentState) -> dict[str, Any]:
         logger.error("agent_retrieval_failed", error=str(exc))
         status = "failed"
 
+    duration = int((time.perf_counter() - start_time) * 1000)
     trace.append(
         {
             "agent": "Retrieval Agent",
             "action": f"Tìm kiếm văn bản song song hoàn tất. Thu thập {len(retrieved)} phân đoạn văn bản phù hợp." if status == "success" else "Lỗi tìm kiếm cơ sở dữ liệu phân đoạn văn bản.",
+            "action_reason": "Truy xuất phân đoạn văn bản có độ liên quan ngữ nghĩa và từ khóa cao nhất để làm cơ sở chứng cứ lịch sử.",
+            "duration_ms": duration,
             "status": status,
         }
     )
@@ -383,9 +391,25 @@ async def timeline_node(state: AgentState) -> dict[str, Any]:
 
 async def graph_node(state: AgentState) -> dict[str, Any]:
     """Entity relationship graph traversal agent using Neo4j with GraphReasoner fallback."""
+    from app.core.config import settings
     query = state["query"]
     slugs = state.get("graph_slugs") or []
     trace = list(state.get("agent_trace", []))
+
+    if not settings.ENABLE_GRAPH:
+        trace.append(
+            {
+                "agent": "Graph Agent",
+                "action": "Duyệt đồ thị Neo4j/NetworkX bị vô hiệu hóa (ENABLE_GRAPH = False).",
+                "status": "success",
+            }
+        )
+        return {
+            "graph_entities": [],
+            "current_step": state["current_step"] + 1,
+            "agent_trace": trace,
+        }
+
     logger.info("agent_graph_node_running", slugs=slugs)
 
     # Fallback if slugs are completely empty
@@ -567,14 +591,27 @@ async def reasoning_node(state: AgentState) -> dict[str, Any]:
         if not context_blocks:
             has_retrieval_runs = bool(state.get("retrieval_queries")) or len(state.get("plan", [])) > 0
             if not has_retrieval_runs:
-                prompt = (
-                    f"Người dùng nói: \"{query}\"\n\n"
-                    f"Đây là câu chào hỏi hoặc câu hỏi xã giao không liên quan đến lịch sử cụ thể.\n"
-                    f"Hãy trả lời thân thiện, ngắn gọn (2-3 câu), giới thiệu bản thân là HistoriAI — "
-                    f"trợ lý nghiên cứu lịch sử Việt Nam giai đoạn 1945–1975. "
-                    f"Mời người dùng đặt câu hỏi lịch sử."
-                )
-                answer_text = await llm.generate(prompt, system="Bạn là HistoriAI, trợ lý nghiên cứu lịch sử Việt Nam thân thiện.", max_tokens=300)
+                # Phân biệt câu hỏi "bạn là ai / you are" vs câu chào khác
+                query_lower_g = query.lower().strip()
+                is_identity_question = any(kw in query_lower_g for kw in [
+                    "bạn là ai", "who are you", "what is your name", "tên gì",
+                    "bạn tên gì", "mày là ai", "historiai là gì", "giới thiệu bản thân",
+                ])
+                if is_identity_question:
+                    answer_text = (
+                        "Mình là **HistoriAI** — trợ lý nghiên cứu Lịch sử Việt Nam giai đoạn 1945–1975, "
+                        "được xây dựng trên nền tảng Agentic RAG kết hợp Knowledge Graph.\n\n"
+                        "Mình có thể giúp bạn:\n"
+                        "- Tra cứu sự kiện, nhân vật, chiến dịch lịch sử từ kho tài liệu gốc\n"
+                        "- Xây dựng dòng thời gian và so sánh các giai đoạn lịch sử\n"
+                        "- Trích dẫn nguồn minh bạch với xác thực NLI tự động\n\n"
+                        "Bạn muốn tìm hiểu sự kiện hay nhân vật lịch sử nào?"
+                    )
+                else:
+                    answer_text = (
+                        "Xin chào! Mình là **HistoriAI**, trợ lý nghiên cứu Lịch sử Việt Nam 1945–1975.\n\n"
+                        "Bạn muốn tìm hiểu về sự kiện hay nhân vật lịch sử nào hôm nay?"
+                    )
             else:
                 prompt = (
                     f"Người dùng hỏi về lịch sử Việt Nam: \"{query}\"\n\n"

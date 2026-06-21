@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo, useCallback, memo } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useDocumentStore } from "@/stores/documentStore"
 import { formatDate } from "@/lib/utils/format"
@@ -15,6 +15,8 @@ import {
   Globe,
   Sparkles,
   Trash2,
+  Copy,
+  Check,
 } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 
@@ -47,6 +49,58 @@ function getTagClass(tag: string): string {
     return "bg-amber-50 text-amber-700 border border-amber-200"
   }
   return "bg-[#f5f1ea] text-[#6f675d] border border-[#e7e1d8]"
+}
+
+const MemoizedReactMarkdown = memo(
+  ({ content, components }: { content: string; components?: any }) => {
+    return <ReactMarkdown components={components}>{content}</ReactMarkdown>
+  },
+  (prevProps, nextProps) => prevProps.content === nextProps.content
+)
+
+const latexMarkdownComponents = {
+  h1: ({ children }: any) => (
+    <h1 className="font-display text-2xl font-normal text-stone-900 mt-10 mb-4 pb-1 border-b border-stone-200">
+      {children}
+    </h1>
+  ),
+  h2: ({ children }: any) => (
+    <h2 className="font-display text-xl font-normal text-stone-900 mt-8 mb-3">
+      {children}
+    </h2>
+  ),
+  h3: ({ children }: any) => (
+    <h3 className="font-display text-lg font-medium text-stone-850 mt-6 mb-2">
+      {children}
+    </h3>
+  ),
+  p: ({ children }: any) => (
+    <p className="text-[15px] leading-relaxed text-stone-850 text-justify my-4 first-line:indent-8 font-serif">
+      {children}
+    </p>
+  ),
+  table: ({ children }: any) => (
+    <div className="overflow-x-auto my-6 select-text">
+      <table className="w-full font-serif text-[13.5px] text-stone-850 border-t-2 border-b-2 border-stone-900 border-collapse">
+        {children}
+      </table>
+    </div>
+  ),
+  thead: ({ children }: any) => (
+    <thead className="border-b border-stone-900 bg-stone-50/50">
+      {children}
+    </thead>
+  ),
+  th: ({ children }: any) => (
+    <th className="py-2.5 px-3 font-bold text-stone-950 text-left">
+      {children}
+    </th>
+  ),
+  td: ({ children }: any) => (
+    <td className="py-2.5 px-3 border-b border-stone-100">
+      {children}
+    </td>
+  ),
 }
 
 // Preprocess to filter out messy Wikipedia navigation sidebars, quality warnings, metadata, and bibliographies
@@ -289,12 +343,293 @@ export function DocumentDetailPage() {
   const [isLatexMode, setIsLatexMode] = useState(true)
   const [isDeleting, setIsDeleting] = useState(false)
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
+  const [copiedRaw, setCopiedRaw] = useState(false)
+  const [copiedLatex, setCopiedLatex] = useState(false)
 
   useEffect(() => {
     if (id) {
       getDocument(id).then(setDocument).finally(() => setIsLoading(false))
     }
   }, [id, getDocument])
+
+  const prettyTitle = useMemo(() => {
+    return document ? decodeTitle(document.title) : ""
+  }, [document?.title])
+
+  const cleanedLatexMarkdown = useMemo(() => {
+    return parseAndCleanToLatex(document?.markdown_content || "")
+  }, [document?.markdown_content])
+
+  const handleCopyRaw = useCallback(async () => {
+    if (!document?.markdown_content) return
+    try {
+      await navigator.clipboard.writeText(document.markdown_content)
+      setCopiedRaw(true)
+      setTimeout(() => setCopiedRaw(false), 2000)
+    } catch (err) {
+      console.error("Failed to copy raw text: ", err)
+    }
+  }, [document?.markdown_content])
+
+  const handleCopyLatex = useCallback(async () => {
+    if (!cleanedLatexMarkdown) return
+    try {
+      await navigator.clipboard.writeText(cleanedLatexMarkdown)
+      setCopiedLatex(true)
+      setTimeout(() => setCopiedLatex(false), 2000)
+    } catch (err) {
+      console.error("Failed to copy LaTeX text: ", err)
+    }
+  }, [cleanedLatexMarkdown])
+
+  const academicLatexView = useMemo(() => {
+    if (!document) return null
+    return (
+      <div className="bg-white rounded-2xl border border-[#e7e1d8] shadow-md px-10 py-16 md:px-14 md:py-20 latex-paper relative overflow-hidden">
+        {/* Copy Button */}
+        <div className="absolute top-4 right-4 z-10">
+          <button
+            onClick={handleCopyLatex}
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-xl transition-all duration-200 border shadow-sm active:scale-95 bg-white",
+              copiedLatex
+                ? "text-emerald-700 bg-emerald-50 border-emerald-200"
+                : "text-stone-500 border-stone-200 hover:text-stone-850 hover:bg-stone-50"
+            )}
+            title="Sao chép nội dung học thuật đã làm sạch"
+          >
+            {copiedLatex ? (
+              <>
+                <Check className="w-3.5 h-3.5" />
+                Đã sao chép
+              </>
+            ) : (
+              <>
+                <Copy className="w-3.5 h-3.5" />
+                Sao chép bản sạch
+              </>
+            )}
+          </button>
+        </div>
+        {/* Visual A4 paper corner marker */}
+        <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none border-t border-r border-[#e7e1d8]/40" />
+
+        {/* Paper Header Title */}
+        <div className="text-center mb-10">
+          <h1 className="font-display text-3.5xl md:text-4xl text-stone-900 font-normal tracking-tight leading-tight max-w-2xl mx-auto my-3">
+            {prettyTitle}
+          </h1>
+          <div className="text-stone-600 text-sm font-serif italic mt-3.5 flex items-center justify-center gap-1.5">
+            <span>{document.author || "Hệ thống Tri thức Lịch sử Việt"}</span>
+            {document.source_domain && (
+              <>
+                <span>•</span>
+                <span>{document.source_domain}</span>
+              </>
+            )}
+          </div>
+          <div className="text-stone-500 text-xs font-serif mt-1">
+            {formatDate(document.created_at)}
+          </div>
+          <div className="w-24 h-[1px] bg-stone-300 mx-auto mt-7" />
+        </div>
+
+        {/* Abstract Section */}
+        {document.summary && (
+          <div className="mx-4 md:mx-10 my-8 text-justify border-y border-stone-100 py-6">
+            <div className="text-center font-bold text-stone-950 uppercase tracking-widest text-[11px] mb-2.5 font-serif">
+              Abstract
+            </div>
+            <p className="italic text-stone-700 text-sm leading-relaxed font-serif indent-0">
+              {document.summary}
+            </p>
+          </div>
+        )}
+
+        {/* Main Body Text Content */}
+        <div className="latex-compiled-body prose prose-stone max-w-none text-stone-900 leading-relaxed font-serif text-[15px]">
+          {cleanedLatexMarkdown ? (
+            <MemoizedReactMarkdown
+              content={cleanedLatexMarkdown}
+              components={latexMarkdownComponents}
+            />
+          ) : (
+            <div className="text-center text-stone-400 py-10 font-serif italic">
+              Nội dung văn kiện trống
+            </div>
+          )}
+        </div>
+
+        {/* Final End Of Paper Document Tag */}
+        <div className="text-center font-mono text-[10px] text-[#cc785c] tracking-widest mt-16 pt-6 border-t border-stone-100 select-none">
+          \end{'{'}document{'}'}
+        </div>
+      </div>
+    )
+  }, [prettyTitle, cleanedLatexMarkdown, document, copiedLatex, handleCopyLatex])
+
+  const rawMarkdownView = useMemo(() => {
+    if (!document) return null
+    return (
+      <div className="space-y-6">
+        {/* Metadata Attributes Card */}
+        <div className="bg-white rounded-2xl p-6 border border-[#e7e1d8] shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-[4px] bg-[var(--coral)]" />
+          <h3 className="font-bold text-[#2d2a26] mb-5 text-sm flex items-center gap-2.5 border-b border-[#f5f1ea] pb-3">
+            <FileText className="w-4 h-4 text-[#8a8175]" />
+            Thuộc tính tư liệu RAG
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {document.author && (
+              <div className="flex items-center gap-2.5 text-sm bg-stone-50/50 p-2.5 rounded-xl border border-[#f5f1ea]">
+                <User className="w-4 h-4 text-[#8a8175] flex-shrink-0" />
+                <span className="text-[#8a8175] font-medium">Tác giả:</span>
+                <span className="text-[#2d2a26] font-bold">{document.author}</span>
+              </div>
+            )}
+            {document.source_type && (
+              <div className="flex items-center gap-2.5 text-sm bg-stone-50/50 p-2.5 rounded-xl border border-[#f5f1ea]">
+                <BookOpen className="w-4 h-4 text-[#8a8175] flex-shrink-0" />
+                <span className="text-[#8a8175] font-medium">Loại tệp:</span>
+                <span className="text-[#2d2a26] font-bold capitalize">{document.source_type}</span>
+              </div>
+            )}
+            {document.detected_years && document.detected_years.length > 0 && (
+              <div className="flex items-center gap-2.5 text-sm bg-stone-50/50 p-2.5 rounded-xl border border-[#f5f1ea]">
+                <Calendar className="w-4 h-4 text-[#8a8175] flex-shrink-0" />
+                <span className="text-[#8a8175] font-medium">Năm phát hiện:</span>
+                <span className="text-[#2d2a26] font-bold">{document.detected_years.join(", ")}</span>
+              </div>
+            )}
+            {document.quality_score > 0 && (
+              <div className="flex items-center gap-2.5 text-sm bg-stone-50/50 p-2.5 rounded-xl border border-[#f5f1ea]">
+                <Award className="w-4 h-4 text-[#8a8175] flex-shrink-0" />
+                <span className="text-[#8a8175] font-medium">Chất lượng tệp:</span>
+                <span className="text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">
+                  {(document.quality_score * 100).toFixed(0)}%
+                </span>
+              </div>
+            )}
+          </div>
+
+          {document.tags && document.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-5 pt-4 border-t border-[#f5f1ea]">
+              {document.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className={cn(
+                    "px-3 py-1 text-xs rounded-md font-medium transition-all shadow-sm",
+                    getTagClass(tag)
+                  )}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Entities Card */}
+        {(document.entity_persons?.length || document.entity_places?.length || document.entity_organizations?.length) && (
+          <div className="bg-white rounded-2xl p-6 border border-[#e7e1d8] shadow-sm">
+            <h3 className="font-bold text-[#2d2a26] mb-4 text-sm flex items-center gap-2 border-b border-[#f5f1ea] pb-3">
+              <Sparkles className="w-4 h-4 text-[#8a8175]" />
+              Thực thể Lịch sử nhận diện tự động
+            </h3>
+            <div className="space-y-4">
+              {document.entity_persons && document.entity_persons.length > 0 && (
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <User className="w-3.5 h-3.5 text-[#8a8175]" />
+                    <span className="text-[10px] font-bold text-[#aaa39a] uppercase tracking-wider">Nhân vật lịch sử</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {document.entity_persons.map((p) => (
+                      <span key={p} className="px-3 py-1 text-xs bg-[#eefcf7] text-[#0f7652] rounded-lg border border-[#d2f3e8] shadow-sm font-medium">
+                        {p}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {document.entity_places && document.entity_places.length > 0 && (
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <MapPin className="w-3.5 h-3.5 text-[#8a8175]" />
+                    <span className="text-[10px] font-bold text-[#aaa39a] uppercase tracking-wider">Địa danh lịch sử</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {document.entity_places.map((p) => (
+                      <span key={p} className="px-3 py-1 text-xs bg-[#fdf6e2] text-[#b28b2a] rounded-lg border border-[#f5ebcd] shadow-sm font-medium">
+                        {p}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {document.entity_organizations && document.entity_organizations.length > 0 && (
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Globe className="w-3.5 h-3.5 text-[#8a8175]" />
+                    <span className="text-[10px] font-bold text-[#aaa39a] uppercase tracking-wider">Tổ chức liên quan</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {document.entity_organizations.map((p) => (
+                      <span key={p} className="px-3 py-1 text-xs bg-stone-50 text-stone-600 rounded-lg border border-[#e7e1d8] shadow-sm font-medium">
+                        {p}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Summary */}
+        {document.summary && (
+          <div className="bg-white rounded-2xl p-6 border border-[#e7e1d8] shadow-sm">
+            <h3 className="font-bold text-[#2d2a26] mb-3.5 text-sm border-b border-[#f5f1ea] pb-2">Tóm lược tư liệu</h3>
+            <p className="text-[#6f675d] leading-relaxed text-sm">{document.summary}</p>
+          </div>
+        )}
+
+        {/* Raw Markdown */}
+        {document.markdown_content && (
+          <div className="bg-white rounded-2xl p-7 border border-[#e7e1d8] shadow-sm">
+            <div className="flex justify-between items-center mb-5 border-b border-[#f5f1ea] pb-3">
+              <h3 className="font-bold text-[#2d2a26] text-sm">Nội dung văn kiện (Raw Markdown)</h3>
+              <button
+                onClick={handleCopyRaw}
+                className={cn(
+                  "flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-xl transition-all duration-200 border shadow-sm active:scale-95",
+                  copiedRaw
+                    ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                    : "bg-white text-stone-700 border-[#e7e1d8] hover:bg-[#FAF9F5] hover:text-[#2d2a26]"
+                )}
+                title="Sao chép toàn bộ nội dung"
+              >
+                {copiedRaw ? (
+                  <>
+                    <Check className="w-3.5 h-3.5" />
+                    Đã sao chép
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" />
+                    Sao chép dữ liệu
+                  </>
+                )}
+              </button>
+            </div>
+            <div className="prose prose-stone prose-sm max-w-none prose-headings:text-[#2d2a26] prose-p:text-[#6f675d] prose-a:text-[var(--coral)] prose-strong:text-stone-900 leading-relaxed text-sm">
+              <MemoizedReactMarkdown content={document.markdown_content} />
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }, [document, copiedRaw, handleCopyRaw])
 
   if (isLoading) {
     return (
@@ -322,9 +657,6 @@ export function DocumentDetailPage() {
       </div>
     )
   }
-
-  const prettyTitle = decodeTitle(document.title)
-  const cleanedLatexMarkdown = parseAndCleanToLatex(document.markdown_content || "")
 
   return (
     <div className="h-full flex flex-col bg-[#FAF9F5]">
@@ -405,250 +737,19 @@ export function DocumentDetailPage() {
             </div>
           </div>
 
-          {isLatexMode ? (
-            /* ========================================
-               ACADEMIC LATEX COMPILED SHEET VIEW
-               ======================================== */
-            <div className="space-y-6">
-              {/* The Compiled Sheet Paper */}
-              <div className="bg-white rounded-2xl border border-[#e7e1d8] shadow-md px-10 py-16 md:px-14 md:py-20 latex-paper relative overflow-hidden">
-                {/* Visual A4 paper corner marker */}
-                <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none border-t border-r border-[#e7e1d8]/40" />
+          {/* ========================================
+             ACADEMIC LATEX COMPILED SHEET VIEW
+             ======================================== */}
+          <div style={{ display: isLatexMode ? "block" : "none" }} className="space-y-6">
+            {academicLatexView}
+          </div>
 
-                {/* Paper Header Title */}
-                <div className="text-center mb-10">
-                  <h1 className="font-display text-3.5xl md:text-4xl text-stone-900 font-normal tracking-tight leading-tight max-w-2xl mx-auto my-3">
-                    {prettyTitle}
-                  </h1>
-                  <div className="text-stone-600 text-sm font-serif italic mt-3.5 flex items-center justify-center gap-1.5">
-                    <span>{document.author || "Hệ thống Tri thức Lịch sử Việt"}</span>
-                    {document.source_domain && (
-                      <>
-                        <span>•</span>
-                        <span>{document.source_domain}</span>
-                      </>
-                    )}
-                  </div>
-                  <div className="text-stone-500 text-xs font-serif mt-1">
-                    {formatDate(document.created_at)}
-                  </div>
-                  <div className="w-24 h-[1px] bg-stone-300 mx-auto mt-7" />
-                </div>
-
-                {/* Abstract Section */}
-                {document.summary && (
-                  <div className="mx-4 md:mx-10 my-8 text-justify border-y border-stone-100 py-6">
-                    <div className="text-center font-bold text-stone-950 uppercase tracking-widest text-[11px] mb-2.5 font-serif">
-                      Abstract
-                    </div>
-                    <p className="italic text-stone-700 text-sm leading-relaxed font-serif indent-0">
-                      {document.summary}
-                    </p>
-                  </div>
-                )}
-
-                {/* Main Body Text Content */}
-                <div className="latex-compiled-body prose prose-stone max-w-none text-stone-900 leading-relaxed font-serif text-[15px]">
-                  {cleanedLatexMarkdown ? (
-                    <ReactMarkdown
-                      components={{
-                        h1: ({ children }) => (
-                          <h1 className="font-display text-2xl font-normal text-stone-900 mt-10 mb-4 pb-1 border-b border-stone-200">
-                            {children}
-                          </h1>
-                        ),
-                        h2: ({ children }) => (
-                          <h2 className="font-display text-xl font-normal text-stone-900 mt-8 mb-3">
-                            {children}
-                          </h2>
-                        ),
-                        h3: ({ children }) => (
-                          <h3 className="font-display text-lg font-medium text-stone-850 mt-6 mb-2">
-                            {children}
-                          </h3>
-                        ),
-                        p: ({ children }) => (
-                          <p className="text-[15px] leading-relaxed text-stone-850 text-justify my-4 first-line:indent-8 font-serif">
-                            {children}
-                          </p>
-                        ),
-                        table: ({ children }) => (
-                          <div className="overflow-x-auto my-6 select-text">
-                            <table className="w-full font-serif text-[13.5px] text-stone-850 border-t-2 border-b-2 border-stone-900 border-collapse">
-                              {children}
-                            </table>
-                          </div>
-                        ),
-                        thead: ({ children }) => (
-                          <thead className="border-b border-stone-900 bg-stone-50/50">
-                            {children}
-                          </thead>
-                        ),
-                        th: ({ children }) => (
-                          <th className="py-2.5 px-3 font-bold text-stone-950 text-left">
-                            {children}
-                          </th>
-                        ),
-                        td: ({ children }) => (
-                          <td className="py-2.5 px-3 border-b border-stone-100">
-                            {children}
-                          </td>
-                        ),
-                      }}
-                    >
-                      {cleanedLatexMarkdown}
-                    </ReactMarkdown>
-                  ) : (
-                    <div className="text-center text-stone-400 py-10 font-serif italic">
-                      Nội dung văn kiện trống
-                    </div>
-                  )}
-                </div>
-
-                {/* Final End Of Paper Document Tag */}
-                <div className="text-center font-mono text-[10px] text-[#cc785c] tracking-widest mt-16 pt-6 border-t border-stone-100 select-none">
-                  \end{'{'}document{'}'}
-                </div>
-              </div>
-            </div>
-          ) : (
-            /* ========================================
-               RAW STANDARD MARKDOWN DEVELOPER VIEW
-               ======================================== */
-            <div className="space-y-6">
-              {/* Metadata Attributes Card */}
-              <div className="bg-white rounded-2xl p-6 border border-[#e7e1d8] shadow-sm relative overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-[4px] bg-[var(--coral)]" />
-                <h3 className="font-bold text-[#2d2a26] mb-5 text-sm flex items-center gap-2.5 border-b border-[#f5f1ea] pb-3">
-                  <FileText className="w-4 h-4 text-[#8a8175]" />
-                  Thuộc tính tư liệu RAG
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {document.author && (
-                    <div className="flex items-center gap-2.5 text-sm bg-stone-50/50 p-2.5 rounded-xl border border-[#f5f1ea]">
-                      <User className="w-4 h-4 text-[#8a8175] flex-shrink-0" />
-                      <span className="text-[#8a8175] font-medium">Tác giả:</span>
-                      <span className="text-[#2d2a26] font-bold">{document.author}</span>
-                    </div>
-                  )}
-                  {document.source_type && (
-                    <div className="flex items-center gap-2.5 text-sm bg-stone-50/50 p-2.5 rounded-xl border border-[#f5f1ea]">
-                      <BookOpen className="w-4 h-4 text-[#8a8175] flex-shrink-0" />
-                      <span className="text-[#8a8175] font-medium">Loại tệp:</span>
-                      <span className="text-[#2d2a26] font-bold capitalize">{document.source_type}</span>
-                    </div>
-                  )}
-                  {document.detected_years && document.detected_years.length > 0 && (
-                    <div className="flex items-center gap-2.5 text-sm bg-stone-50/50 p-2.5 rounded-xl border border-[#f5f1ea]">
-                      <Calendar className="w-4 h-4 text-[#8a8175] flex-shrink-0" />
-                      <span className="text-[#8a8175] font-medium">Năm phát hiện:</span>
-                      <span className="text-[#2d2a26] font-bold">{document.detected_years.join(", ")}</span>
-                    </div>
-                  )}
-                  {document.quality_score > 0 && (
-                    <div className="flex items-center gap-2.5 text-sm bg-stone-50/50 p-2.5 rounded-xl border border-[#f5f1ea]">
-                      <Award className="w-4 h-4 text-[#8a8175] flex-shrink-0" />
-                      <span className="text-[#8a8175] font-medium">Chất lượng tệp:</span>
-                      <span className="text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">
-                        {(document.quality_score * 100).toFixed(0)}%
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {document.tags && document.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-5 pt-4 border-t border-[#f5f1ea]">
-                    {document.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className={cn(
-                          "px-3 py-1 text-xs rounded-md font-medium transition-all shadow-sm",
-                          getTagClass(tag)
-                        )}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Entities Card */}
-              {(document.entity_persons?.length || document.entity_places?.length || document.entity_organizations?.length) && (
-                <div className="bg-white rounded-2xl p-6 border border-[#e7e1d8] shadow-sm">
-                  <h3 className="font-bold text-[#2d2a26] mb-4 text-sm flex items-center gap-2 border-b border-[#f5f1ea] pb-3">
-                    <Sparkles className="w-4 h-4 text-[#8a8175]" />
-                    Thực thể Lịch sử nhận diện tự động
-                  </h3>
-                  <div className="space-y-4">
-                    {document.entity_persons && document.entity_persons.length > 0 && (
-                      <div>
-                        <div className="flex items-center gap-2 mb-2">
-                          <User className="w-3.5 h-3.5 text-[#8a8175]" />
-                          <span className="text-[10px] font-bold text-[#aaa39a] uppercase tracking-wider">Nhân vật lịch sử</span>
-                        </div>
-                        <div className="flex flex-wrap gap-1.5">
-                          {document.entity_persons.map((p) => (
-                            <span key={p} className="px-3 py-1 text-xs bg-[#eefcf7] text-[#0f7652] rounded-lg border border-[#d2f3e8] shadow-sm font-medium">
-                              {p}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {document.entity_places && document.entity_places.length > 0 && (
-                      <div>
-                        <div className="flex items-center gap-2 mb-2">
-                          <MapPin className="w-3.5 h-3.5 text-[#8a8175]" />
-                          <span className="text-[10px] font-bold text-[#aaa39a] uppercase tracking-wider">Địa danh lịch sử</span>
-                        </div>
-                        <div className="flex flex-wrap gap-1.5">
-                          {document.entity_places.map((p) => (
-                            <span key={p} className="px-3 py-1 text-xs bg-[#fdf6e2] text-[#b28b2a] rounded-lg border border-[#f5ebcd] shadow-sm font-medium">
-                              {p}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {document.entity_organizations && document.entity_organizations.length > 0 && (
-                      <div>
-                        <div className="flex items-center gap-2 mb-2">
-                          <Globe className="w-3.5 h-3.5 text-[#8a8175]" />
-                          <span className="text-[10px] font-bold text-[#aaa39a] uppercase tracking-wider">Tổ chức liên quan</span>
-                        </div>
-                        <div className="flex flex-wrap gap-1.5">
-                          {document.entity_organizations.map((p) => (
-                            <span key={p} className="px-3 py-1 text-xs bg-stone-50 text-stone-600 rounded-lg border border-[#e7e1d8] shadow-sm font-medium">
-                              {p}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {/* Summary */}
-              {document.summary && (
-                <div className="bg-white rounded-2xl p-6 border border-[#e7e1d8] shadow-sm">
-                  <h3 className="font-bold text-[#2d2a26] mb-3.5 text-sm border-b border-[#f5f1ea] pb-2">Tóm lược tư liệu</h3>
-                  <p className="text-[#6f675d] leading-relaxed text-sm">{document.summary}</p>
-                </div>
-              )}
-
-              {/* Raw Markdown */}
-              {document.markdown_content && (
-                <div className="bg-white rounded-2xl p-7 border border-[#e7e1d8] shadow-sm">
-                  <h3 className="font-bold text-[#2d2a26] mb-5 text-sm border-b border-[#f5f1ea] pb-3">Nội dung văn kiện (Raw Markdown)</h3>
-                  <div className="prose prose-stone prose-sm max-w-none prose-headings:text-[#2d2a26] prose-p:text-[#6f675d] prose-a:text-[var(--coral)] prose-strong:text-stone-900 leading-relaxed text-sm">
-                    <ReactMarkdown>{document.markdown_content}</ReactMarkdown>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
+          {/* ========================================
+             RAW STANDARD MARKDOWN DEVELOPER VIEW
+             ======================================== */}
+          <div style={{ display: !isLatexMode ? "block" : "none" }} className="space-y-6">
+            {rawMarkdownView}
+          </div>
         </div>
       </div>
 

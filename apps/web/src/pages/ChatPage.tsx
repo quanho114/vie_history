@@ -226,11 +226,13 @@ function formatCitationTitle(title: string) {
 function CitationCard({ citation, index }: { citation: Citation; index: number }) {
   let domain = "";
   let pageTitle = citation.section_title || citation.document_title || "Tài liệu tham khảo";
+  let faviconUrl = "";
 
   if (citation.source_url && (citation.source_url.startsWith("http://") || citation.source_url.startsWith("https://"))) {
     try {
       const url = new URL(citation.source_url);
       domain = url.hostname.replace("www.", "");
+      faviconUrl = `https://www.google.com/s2/favicons?domain=${url.hostname}&sz=16`;
     } catch {
       domain = "Tài liệu";
     }
@@ -238,43 +240,74 @@ function CitationCard({ citation, index }: { citation: Citation; index: number }
     domain = "Cơ sở dữ liệu";
   }
 
+  // Shorten pageTitle if it looks like a URL path
+  const displayTitle = (() => {
+    if (pageTitle.startsWith("http")) {
+      try {
+        const u = new URL(pageTitle);
+        const parts = u.pathname.split("/").filter(Boolean);
+        return parts.length > 0 ? decodeURIComponent(parts[parts.length - 1]).replace(/_/g, " ") : u.hostname;
+      } catch { return pageTitle; }
+    }
+    return pageTitle.length > 48 ? pageTitle.slice(0, 48) + "…" : pageTitle;
+  })();
+
   return (
     <a
       href={citation.source_url || "#"}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center gap-3 p-2 rounded-lg border transition-all duration-150 hover:bg-[#f5f1ea] hover:border-[#cc785c] group"
+      title={pageTitle}
+      className="inline-flex items-center gap-1.5 group"
       style={{
-        backgroundColor: "rgba(250, 249, 245, 0.5)",
-        borderColor: "var(--hairline-soft)",
+        padding: "4px 10px 4px 7px",
+        borderRadius: 20,
+        border: "1px solid var(--hairline-soft)",
+        backgroundColor: "var(--surface-card)",
+        textDecoration: "none",
+        transition: "border-color 0.15s, background 0.15s",
+        maxWidth: 260,
+      }}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLElement).style.borderColor = "var(--coral)";
+        (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(204,120,92,0.06)";
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLElement).style.borderColor = "var(--hairline-soft)";
+        (e.currentTarget as HTMLElement).style.backgroundColor = "var(--surface-card)";
       }}
     >
-      <div
-        className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-semibold flex-shrink-0"
+      {/* Index badge */}
+      <span
+        className="flex-shrink-0 flex items-center justify-center font-semibold"
         style={{
+          width: 16, height: 16, borderRadius: "50%",
           backgroundColor: "var(--surface-soft)",
           color: "var(--soft)",
-          border: "1px solid var(--hairline-soft)",
+          fontSize: 9,
         }}
       >
         {index}
-      </div>
+      </span>
 
-      <div className="flex-1 min-w-0">
-        <span
-          className="font-medium text-[11.5px] truncate block group-hover:text-[#cc785c] transition-colors"
-          style={{ color: "var(--body-strong)" }}
-          title={pageTitle}
-        >
-          {pageTitle}
-        </span>
-        <span
-          className="text-[9.5px] block font-mono uppercase tracking-wider opacity-60 mt-0.5 truncate"
-          style={{ color: "var(--soft)" }}
-        >
-          {domain}
-        </span>
-      </div>
+      {/* Favicon */}
+      {faviconUrl && (
+        <img
+          src={faviconUrl}
+          alt=""
+          width={12} height={12}
+          className="flex-shrink-0 opacity-70"
+          onError={e => { (e.target as HTMLImageElement).style.display = "none"; }}
+        />
+      )}
+
+      {/* Title */}
+      <span
+        className="truncate group-hover:text-[#cc785c] transition-colors"
+        style={{ fontSize: 11.5, fontWeight: 500, color: "var(--body-strong)", lineHeight: 1.3 }}
+      >
+        {displayTitle}
+      </span>
     </a>
   );
 }
@@ -582,7 +615,9 @@ function MessageRow({
                           color: "var(--coral)",
                           fontWeight: "bold",
                           fontSize: "11px",
-                          verticalAlign: "super",
+                          verticalAlign: "baseline",
+                          position: "relative",
+                          top: "-0.25em",
                           marginLeft: "2px",
                           marginRight: "2px",
                           textDecoration: "none",
@@ -639,27 +674,31 @@ function MessageRow({
         {/* Citations */}
         {!isUser &&
           message.citations &&
-          message.citations.length > 0 && (
-            <div
-              className="mt-4 pt-4 w-full"
-              style={{
-                borderTop: "1px solid var(--hairline-soft)",
-                maxWidth: "100%",
-              }}
-            >
-              <p
-                className="mb-3 text-[11px] font-medium uppercase tracking-wider"
-                style={{ color: "var(--soft)" }}
-              >
-                Nguồn tham khảo
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-                {message.citations.map((citation, i) => (
-                  <CitationCard key={i} citation={citation} index={i + 1} />
-                ))}
+          message.citations.length > 0 && (() => {
+            // Deduplicate by source_url — keep first occurrence of each unique URL
+            const seen = new Set<string>();
+            const unique = message.citations.filter((c) => {
+              const key = c.source_url || c.document_title || Math.random().toString();
+              if (seen.has(key)) return false;
+              seen.add(key);
+              return true;
+            });
+            return (
+              <div className="mt-3 pt-3 w-full" style={{ borderTop: "1px solid var(--hairline-soft)" }}>
+                <p
+                  className="mb-2 text-[10px] font-semibold uppercase tracking-widest"
+                  style={{ color: "var(--muted)" }}
+                >
+                  Nguồn
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {unique.map((citation, i) => (
+                    <CitationCard key={i} citation={citation} index={i + 1} />
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
       </div>
     </div>
   );
@@ -1003,34 +1042,6 @@ export function ChatPage() {
     summary: string;
   } | null>(null);
 
-  useEffect(() => {
-    const contextType = searchParams.get("context_type");
-    const contextId = searchParams.get("context_id");
-
-    if (contextType === "wiki" && contextId) {
-      const fetchContext = async () => {
-        try {
-          const res = await wikiApi.getContext(contextId);
-          setActiveContext({
-            type: "wiki",
-            id: contextId,
-            title: res.context.title,
-            summary: res.context.summary,
-          });
-          setQuery(`Hãy cho tôi biết thêm về ${res.context.title}`);
-        } catch (err) {
-          console.error("Failed to fetch wiki context:", err);
-        }
-      };
-      fetchContext();
-
-      const newParams = new URLSearchParams(searchParams);
-      newParams.delete("context_type");
-      newParams.delete("context_id");
-      setSearchParams(newParams, { replace: true });
-    }
-  }, [searchParams, setSearchParams]);
-
   const {
     messages,
     activeSessionId,
@@ -1042,6 +1053,64 @@ export function ChatPage() {
     sendMessage,
     abortStreaming,
   } = useChatStore();
+
+  const processedParamsRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    const q = searchParams.get("q") || searchParams.get("query");
+    const contextType = searchParams.get("context_type");
+    const contextId = searchParams.get("context_id");
+
+    if (q || (contextType === "wiki" && contextId)) {
+      const paramKey = `${q || ''}_${contextId || ''}`;
+      if (processedParamsRef.current === paramKey) return;
+      processedParamsRef.current = paramKey;
+
+      const handleIncomingParams = async () => {
+        let finalQuery = q || "";
+        let finalFilters: Record<string, any> | undefined = undefined;
+
+        if (contextType === "wiki" && contextId) {
+          try {
+            const res = await wikiApi.getContext(contextId);
+            setActiveContext({
+              type: "wiki",
+              id: contextId,
+              title: res.context.title,
+              summary: res.context.summary,
+            });
+            if (!finalQuery) {
+              finalQuery = `Hãy cho tôi biết thêm về ${res.context.title}`;
+            }
+            finalFilters = { context_type: "wiki", context_id: contextId };
+          } catch (err) {
+            console.error("Failed to fetch wiki context:", err);
+          }
+        }
+
+        if (finalQuery.trim()) {
+          const provider = localStorage.getItem("active_provider") || "gemini";
+          const hasKey = provider === "ollama" || !!(localStorage.getItem(`${provider}_key`)?.trim());
+          
+          if (hasKey) {
+            sendMessage(finalQuery, finalFilters);
+            setActiveContext(null);
+          } else {
+            setQuery(finalQuery);
+          }
+        }
+      };
+
+      handleIncomingParams();
+
+      const newParams = new URLSearchParams(searchParams);
+      newParams.delete("q");
+      newParams.delete("query");
+      newParams.delete("context_type");
+      newParams.delete("context_id");
+      setSearchParams(newParams, { replace: true });
+    }
+  }, [searchParams, setSearchParams, sendMessage]);
 
   const [activeProvider, setActiveProvider] = useState(() => localStorage.getItem("active_provider") || "gemini");
   const [activeModel, setActiveModel] = useState(() => {
@@ -1079,10 +1148,28 @@ export function ChatPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const lastSessionIdRef = useRef<string | null>(null);
+  const initialScrollDoneRef = useRef<Record<string, boolean>>({});
+
   // Auto-scroll to bottom
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [currentMessages, isStreaming]);
+    if (!activeSessionId) return;
+
+    const hasScrolledBefore = initialScrollDoneRef.current[activeSessionId];
+
+    if (currentMessages.length > 0) {
+      if (!hasScrolledBefore) {
+        // First scroll for this session should be instant (auto)
+        messagesEndRef.current?.scrollIntoView({ behavior: "auto" });
+        initialScrollDoneRef.current[activeSessionId] = true;
+      } else {
+        // Subsequent scrolls (e.g. streaming or new user message) should be smooth
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    lastSessionIdRef.current = activeSessionId;
+  }, [currentMessages, isStreaming, activeSessionId]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -1099,6 +1186,7 @@ export function ChatPage() {
       ? { context_type: activeContext.type, context_id: activeContext.id }
       : undefined;
 
+    setActiveContext(null);
     await sendMessage(trimmedQuery, filters);
   };
 

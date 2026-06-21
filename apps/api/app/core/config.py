@@ -105,6 +105,12 @@ class Settings(BaseSettings):
     # === RATE LIMITING ===
     RATE_LIMIT_PER_MINUTE: int = Field(default=60, ge=1, le=10000)
 
+    # === PIPELINE FEATURE FLAGS ===
+    ENABLE_HYBRID: bool = True
+    ENABLE_RERANKER: bool = True
+    ENABLE_GRAPH: bool = True
+    ENABLE_VERIFICATION: bool = True
+
     # === MEILISEARCH (BM25) ===
     MEILISEARCH_URL: str = "http://localhost:12707"
     MEILISEARCH_MASTER_KEY: str = "meili_master_key_secret"

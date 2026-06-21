@@ -78,7 +78,7 @@ export function AppShell() {
   }, [location.pathname, activeSessionId, sessions, deleteSession]);
 
   return (
-    <div className="flex h-screen bg-[#EBE7E0] text-[#1C2120] p-0 md:p-6 md:gap-6 overflow-hidden select-none">
+    <div className="flex h-screen bg-[#faf9f5] text-[#1C2120] overflow-hidden select-none">
       {/* Sidebar */}
       <Sidebar
         isOpen={sidebarOpen}
@@ -87,13 +87,13 @@ export function AppShell() {
         onToggleCollapse={toggleSidebarCollapse}
       />
 
-      {/* Main Content */}
-      <main className="flex-1 flex flex-col overflow-hidden bg-[#faf9f5] md:bg-[#faf9f5]/90 md:backdrop-blur-md md:rounded-[24px] md:border md:border-white/40 md:shadow-[0_20px_40px_rgba(11,48,48,0.04)]">
+      {/* Main Content — flush, no rounding, no gap */}
+      <main className="flex-1 flex flex-col overflow-hidden bg-[#faf9f5]">
         {/* Mobile Topbar */}
-        <header className="md:hidden flex items-center gap-3 px-4 py-3 border-b border-hairline bg-[#faf9f5]">
+        <header className="md:hidden flex items-center gap-3 px-4 py-3 border-b border-[#e8e2d9] bg-[#faf9f5]">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-2 hover:bg-[#f5f0e8] rounded-md transition-colors"
+            className="p-2 hover:bg-[#f0ebe3] rounded-md transition-colors"
             aria-label="Mở menu"
           >
             <Menu className="w-5 h-5 text-[#737A77]" />
@@ -112,7 +112,7 @@ export function AppShell() {
         </header>
 
         {/* Page Content */}
-        <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 flex flex-col overflow-y-auto">
           <Outlet />
         </div>
       </main>

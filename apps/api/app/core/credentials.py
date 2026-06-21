@@ -10,6 +10,8 @@ class CredentialValidator:
         Raises APIKeyMissingError if the key is missing or is set to placeholders.
         """
         provider = active_provider_var.get() or "gemini"
+        if provider == "mock":
+            return
         key = None
         if provider == "gemini":
             key = gemini_key_var.get()

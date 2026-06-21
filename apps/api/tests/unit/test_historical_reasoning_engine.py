@@ -33,3 +33,23 @@ async def test_historical_reasoning_engine(mocker):
     assert "consequences" in analysis
     assert "long_term_impacts" in analysis
     assert "Lời kêu gọi" in analysis["turning_points"][0]
+
+
+@pytest.mark.asyncio
+async def test_causal_reasoning_returns_rich_payload():
+    """Verify that even when LLM calls fail or fallback is triggered, standard keys always exist."""
+    engine = HistoricalReasoningEngine()
+    
+    # We verify structure output mapping
+    result = await engine.analyze_causality(
+        query="Tại sao nhà Hồ thất bại?",
+        chunks=[{"content": "Nhà Hồ mất lòng dân nên bại trận."}]
+    )
+    
+    # Even if LLM fails, standard keys must exist
+    assert "causes" in result
+    assert "triggers" in result
+    assert "turning_points" in result
+    assert "consequences" in result
+    assert "long_term_impacts" in result
+

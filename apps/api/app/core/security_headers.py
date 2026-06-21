@@ -37,20 +37,46 @@ SECURITY_HEADERS: dict[str, str] = {
 }
 
 
-class SecurityHeadersMiddleware(BaseHTTPMiddleware):
-    """Add security headers to all HTTP responses."""
+class SecurityHeadersMiddleware:
+    """Pure ASGI Middleware to add security headers to all HTTP responses."""
 
-    async def dispatch(self, request: Request, call_next):
-        response = await call_next(request)
+    def __init__(self, app):
+        self.app = app
 
-        if hasattr(response, "headers"):
-            for header, value in SECURITY_HEADERS.items():
-                response.headers[header] = value
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http":
+            await self.app(scope, receive, send)
+            return
 
-            # Cache control: no-store for API responses, short max-age for static
-            path = request.url.path
-            if path.startswith("/api/") or path.startswith("/mcp"):
-                response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, private"
-                response.headers["Pragma"] = "no-cache"
+        async def send_wrapper(message):
+            if message["type"] == "http.response.start":
+                headers = list(message.get("headers", []))
+                
+                # Filter out any duplicate security headers
+                security_header_names = {h.lower() for h in SECURITY_HEADERS.keys()}
+                headers = [
+                    (name, val) for name, val in headers 
+                    if name.decode("latin-1").lower() not in security_header_names
+                ]
+                
+                # Append the security headers
+                for header, value in SECURITY_HEADERS.items():
+                    headers.append((header.encode("latin-1"), value.encode("latin-1")))
 
-        return response
+                # Cache control: no-store for API responses, short max-age for static
+                path = scope.get("path", "")
+                if path.startswith("/api/") or path.startswith("/mcp"):
+                    # Remove existing Cache-Control or Pragma
+                    headers = [
+                        (name, val) for name, val in headers
+                        if name.lower() not in (b"cache-control", b"pragma")
+                    ]
+                    headers.append((b"cache-control", b"no-store, no-cache, must-revalidate, private"))
+                    headers.append((b"pragma", b"no-cache"))
+
+                message["headers"] = headers
+
+            await send(message)
+
+        await self.app(scope, receive, send_wrapper)
+

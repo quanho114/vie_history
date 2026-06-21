@@ -991,14 +991,14 @@ export function LoginPage() {
       `}</style>
 
       {isTransitioning && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#FAF9F6] text-[#2D2A26] p-6 overflow-hidden select-none font-sans">
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#131110] text-[#E5E3DF] p-6 overflow-hidden select-none font-sans">
           {/* Dong Son Bronze Drum Background Watermark - Spinning extremely slowly */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.06] overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.08] overflow-hidden">
             <img
               src="/trong_dong.svg"
               alt="Trong Dong Dong Son"
               className="w-[102vh] h-[102vh] max-w-none animate-spin-slow object-contain"
-              style={{ filter: "sepia(0.8) hue-rotate(340deg) saturate(1.2)" }}
+              style={{ filter: "invert(1)" }}
             />
           </div>
 
@@ -1013,19 +1013,19 @@ export function LoginPage() {
           </div>
 
           {/* Ambient Glows */}
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-[#cc785c]/5 blur-[140px] pointer-events-none" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-red-600/3 blur-[140px] pointer-events-none" />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-[#cc785c]/10 blur-[140px] pointer-events-none" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-[#da251d]/5 blur-[140px] pointer-events-none" />
 
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-center w-full h-full gap-8 md:gap-16 px-4">
 
             {/* Glowing Map of Vietnam with Sacred Imperial borders */}
-            <div className="relative w-full md:w-[600px] h-[50vh] md:h-[85vh] max-w-[65vw] bg-white border border-[#E5E3DF] rounded-2xl p-5 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.03)] backdrop-blur-md flex-shrink-0 overflow-hidden">
+            <div className="relative w-full md:w-[600px] h-[50vh] md:h-[85vh] max-w-[65vw] bg-[#1C1A19]/60 border border-white/[0.08] rounded-2xl p-5 flex items-center justify-center shadow-[0_24px_50px_rgba(0,0,0,0.4)] backdrop-blur-lg flex-shrink-0 overflow-hidden">
 
               {/* Imperial Corner Borders */}
-              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#cc785c]/60 rounded-tl-xl" />
-              <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#cc785c]/60 rounded-tr-xl" />
-              <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#cc785c]/60 rounded-bl-xl" />
-              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#cc785c]/60 rounded-br-xl" />
+              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#cc785c]/80 rounded-tl-xl" />
+              <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#cc785c]/80 rounded-tr-xl" />
+              <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#cc785c]/80 rounded-bl-xl" />
+              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#cc785c]/80 rounded-br-xl" />
 
               <VietnamMap className="w-full h-full text-[#cc785c]" />
             </div>
@@ -1035,7 +1035,7 @@ export function LoginPage() {
 
               {/* Vietnam Flag Emblem with glowing shadow */}
               <div className="relative flex flex-col items-center">
-                <div className="flag-emblem relative rounded shadow-[0_4px_25px_rgba(218,37,29,0.15)] border border-[#E5E3DF] overflow-hidden" style={{ width: "120px", height: "80px" }}>
+                <div className="flag-emblem relative rounded shadow-[0_8px_30px_rgba(218,37,29,0.3)] border border-white/10 overflow-hidden" style={{ width: "120px", height: "80px" }}>
                   <div className="absolute inset-0 bg-[#da251d]" />
                   <svg className="absolute inset-0 w-full h-full drop-shadow-lg" viewBox="0 0 30 20">
                     <polygon
@@ -1048,7 +1048,7 @@ export function LoginPage() {
                 </div>
 
                 {/* Gold Gradient Typo */}
-                <span className="text-[12px] uppercase tracking-[0.25em] font-bold bg-gradient-to-r from-[#2D2A26] via-[#cc785c] to-[#2D2A26] bg-clip-text text-transparent mt-4 font-serif italic">
+                <span className="text-[12px] uppercase tracking-[0.25em] font-bold bg-gradient-to-r from-[#E5E3DF] via-[#cc785c] to-[#E5E3DF] bg-clip-text text-transparent mt-4 font-serif italic">
                   Lịch sử Việt Nam
                 </span>
               </div>
@@ -1058,7 +1058,7 @@ export function LoginPage() {
                 <div className="h-12 overflow-hidden relative flex items-center justify-center">
                   <div
                     key={loadingTextIndex}
-                    className="text-xs md:text-sm font-semibold text-[#2D2A26] tracking-wide animate-slideUp font-serif italic text-center"
+                    className="text-xs md:text-sm font-semibold text-[#E5E3DF] tracking-wide animate-slideUp font-serif italic text-center"
                   >
                     {loadingTexts[loadingTextIndex]}
                   </div>
@@ -1067,7 +1067,7 @@ export function LoginPage() {
                 {/* Continue button to proceed to the main chatbot */}
                 <button
                   onClick={handleContinue}
-                  className="mt-6 px-6 py-2.5 rounded-xl border border-[#cc785c]/30 bg-[#cc785c]/5 hover:bg-[#cc785c]/10 text-[#cc785c] text-xs font-semibold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_2px_10px_rgba(204,120,92,0.05)] flex items-center gap-2 mx-auto cursor-pointer outline-none"
+                  className="mt-6 px-6 py-2.5 rounded-xl border border-[#cc785c]/40 bg-[#cc785c]/10 hover:bg-[#cc785c]/20 text-[#cc785c] hover:text-[#e28b6c] text-xs font-semibold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_4px_20px_rgba(204,120,92,0.15)] flex items-center gap-2 mx-auto cursor-pointer outline-none"
                 >
                   <span>Tiếp tục tiến vào hệ thống</span>
                   <ArrowRight size={14} className="animate-pulse" />

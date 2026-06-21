@@ -25,3 +25,12 @@ class TestQueryEndpoint:
             headers=auth_headers,
         )
         assert response.status_code in (200, 400, 422)
+
+    def test_get_latest_trace_endpoint(self, client: TestClient, auth_headers):
+        response = client.get(
+            "/api/v1/query/trace/latest",
+            headers=auth_headers,
+        )
+        assert response.status_code == 200
+        assert "trace" in response.json()
+

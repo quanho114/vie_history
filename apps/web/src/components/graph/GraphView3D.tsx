@@ -15,6 +15,7 @@ import { useGraphStore, getNodeColor, type GraphNode, type GraphEdge } from './g
 
 interface NodeMeshProps {
   node: GraphNode;
+  position: [number, number, number];
   isSelected: boolean;
   isHovered: boolean;
   isConnected: boolean;
@@ -25,6 +26,7 @@ interface NodeMeshProps {
 
 function NodeMesh({
   node,
+  position,
   isSelected,
   isHovered,
   isConnected,
@@ -51,7 +53,7 @@ function NodeMesh({
   const opacity = isConnected || isSelected ? 1 : 0.25;
 
   return (
-    <group position={[node.x, 0, node.y]}>
+    <group position={position}>
       {/* Glow effect for selected */}
       {isSelected && (
         <Sphere args={[0.8, 16, 16]}>
@@ -144,17 +146,67 @@ function GraphScene() {
 
   const connectedIds = selectedNodeId ? getConnectedNodeIds(selectedNodeId) : new Set<string>();
 
+  // Center and scale metrics to adapt raw pixel values to Three.js coordinates
+  const { centerX, centerY, maxR, targetRadius } = useMemo(() => {
+    if (nodes.length === 0) return { centerX: 0, centerY: 0, maxR: 1, targetRadius: 18 };
+    
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    nodes.forEach(n => {
+      minX = Math.min(minX, n.x);
+      maxX = Math.max(maxX, n.x);
+      minY = Math.min(minY, n.y);
+      maxY = Math.max(maxY, n.y);
+    });
+
+    const cX = (minX + maxX) / 2;
+    const cY = (minY + maxY) / 2;
+
+    // Calculate maximum radius in 2D space
+    let mR = 1;
+    nodes.forEach(n => {
+      const dx = n.x - cX;
+      const dy = n.y - cY;
+      const r = Math.sqrt(dx * dx + dy * dy);
+      if (r > mR) mR = r;
+    });
+
+    return { centerX: cX, centerY: cY, maxR: mR, targetRadius: 16 };
+  }, [nodes]);
+
+  // Stable, deterministic mapping from 2D coordinates to 3D Sphere Constellation
+  const getNode3DPosition = useCallback((node: GraphNode, index: number): THREE.Vector3 => {
+    const dx = node.x - centerX;
+    const dy = node.y - centerY;
+    const theta = Math.atan2(dy, dx);
+    const r = Math.sqrt(dx * dx + dy * dy);
+    
+    // Polar angle phi maps 2D radius to 3D latitude (0 is North Pole, PI is South Pole)
+    const phi = (r / maxR) * Math.PI * 0.9;
+    
+    // Add deterministic depth layers based on node index to make the sphere feel rich and voluminous
+    const depthLayer = 0.85 + (index % 4) * 0.1; 
+    const R = targetRadius * depthLayer;
+
+    // Calculate spherical coordinates
+    const x3d = R * Math.sin(phi) * Math.cos(theta);
+    const y3d = R * Math.cos(phi); // Elevates nodes in the Y axis!
+    const z3d = R * Math.sin(phi) * Math.sin(theta);
+
+    return new THREE.Vector3(x3d, y3d, z3d);
+  }, [centerX, centerY, maxR, targetRadius]);
+
   // Create node map for quick lookup
   const nodeMap = useMemo(() => {
     return new Map(nodes.map(n => [n.id, n]));
   }, [nodes]);
 
-  // Get 3D position for a node
+  // Get normalized 3D position for a node ID
   const getNodePosition = useCallback((nodeId: string): THREE.Vector3 => {
+    const nodeIndex = nodes.findIndex(n => n.id === nodeId);
     const node = nodeMap.get(nodeId);
-    if (!node) return new THREE.Vector3(0, 0, 0);
-    return new THREE.Vector3(node.x, 0, node.y);
-  }, [nodeMap]);
+    if (!node || nodeIndex === -1) return new THREE.Vector3(0, 0, 0);
+    return getNode3DPosition(node, nodeIndex);
+  }, [nodeMap, nodes, getNode3DPosition]);
 
   return (
     <>
@@ -163,8 +215,8 @@ function GraphScene() {
       <pointLight position={[10, 10, 10]} intensity={0.8} />
       <pointLight position={[-10, 10, -10]} intensity={0.4} />
 
-      {/* Grid helper */}
-      <gridHelper args={[100, 20, '#e7e1d8', '#f5f1ea']} position={[0, -0.1, 0]} />
+      {/* Grid helper positioned below the sphere */}
+      <gridHelper args={[100, 20, '#e7e1d8', '#f5f1ea']} position={[0, -22, 0]} />
 
       {/* Edges */}
       {edges.map(edge => {
@@ -188,18 +240,22 @@ function GraphScene() {
       })}
 
       {/* Nodes */}
-      {nodes.map(node => (
-        <NodeMesh
-          key={node.id}
-          node={node}
-          isSelected={selectedNodeId === node.id}
-          isHovered={hoveredNodeId === node.id}
-          isConnected={connectedIds.has(node.id)}
-          onClick={() => setSelectedNodeId(node.id)}
-          onPointerEnter={() => setHoveredNodeId(node.id)}
-          onPointerLeave={() => setHoveredNodeId(null)}
-        />
-      ))}
+      {nodes.map((node, index) => {
+        const pos = getNode3DPosition(node, index);
+        return (
+          <NodeMesh
+            key={node.id}
+            node={node}
+            position={[pos.x, pos.y, pos.z]}
+            isSelected={selectedNodeId === node.id}
+            isHovered={hoveredNodeId === node.id}
+            isConnected={connectedIds.has(node.id)}
+            onClick={() => setSelectedNodeId(node.id)}
+            onPointerEnter={() => setHoveredNodeId(node.id)}
+            onPointerLeave={() => setHoveredNodeId(null)}
+          />
+        );
+      })}
 
       {/* Camera controls */}
       <OrbitControls

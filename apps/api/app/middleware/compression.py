@@ -92,6 +92,9 @@ class GZipCompressionMiddleware(BaseHTTPMiddleware):
 
         # Check content type
         content_type = response.headers.get("Content-Type", "")
+        if "text/event-stream" in content_type:
+            return response
+
         compressible = any(
             ct in content_type
             for ct in ("text/", "application/json", "application/xml")

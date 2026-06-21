@@ -125,6 +125,7 @@ class IngestService:
         try:
             text = await self.file_extractor.extract(file_path=file_path, content_type=content_type)
             markdown = self.pipeline.cleaner.clean_markdown(text)
+            markdown = await self.pipeline.restructure_markdown_with_llm(filename, markdown)
             is_valid, error = self.pipeline.cleaner.validate_content(markdown)
             if not is_valid:
                 await self._mark_failed(db, job, "quality_validation", error)

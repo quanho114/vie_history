@@ -40,6 +40,13 @@ export const useChatStore = create<ChatState>()((set, get) => ({
     try {
       const response = await sessionsApi.list()
       set({ sessions: response.sessions })
+      // Restore last active session after page reload
+      const lastId = localStorage.getItem("last_active_session_id")
+      if (lastId && response.sessions.find((s) => s.id === lastId)) {
+        get().setActiveSession(lastId)
+      } else if (response.sessions.length > 0 && !get().activeSessionId) {
+        get().setActiveSession(response.sessions[0].id)
+      }
     } catch (error) {
       console.error("Failed to load sessions:", error)
     }
@@ -60,7 +67,10 @@ export const useChatStore = create<ChatState>()((set, get) => ({
   setActiveSession: (id: string | null) => {
     set({ activeSessionId: id })
     if (id) {
+      localStorage.setItem("last_active_session_id", id)
       get().loadMessages(id)
+    } else {
+      localStorage.removeItem("last_active_session_id")
     }
   },
 

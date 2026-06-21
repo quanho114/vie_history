@@ -97,6 +97,7 @@ class AppContainer:
 
     def get_query_service(self) -> QueryService:
         if self._query_service is None:
+            from app.services.retrieval.query_service import QueryService
             self._query_service = QueryService(
                 embedder=self.get_embedder(),
                 vector_search=self.get_vector_search(),

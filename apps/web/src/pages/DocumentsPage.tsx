@@ -297,21 +297,22 @@ export function DocumentsPage() {
     <div className="flex-1 flex flex-col h-full bg-[#FAF9F5] transition-all">
       
       {/* Executive Page Header Dashboard - Beautifully integrated with brand clay-orange colors */}
-      <header className="px-8 py-6 border-b border-[#e7e1d8] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] flex-shrink-0">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <header className="px-6 py-6 md:py-8 border-b border-[#e7e1d8] bg-white shadow-[0_2px_12px_rgba(20,20,19,0.01)] flex-shrink-0">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center border border-orange-100 shadow-sm text-[var(--coral)]">
-              <FileBadge className="w-6 h-6" />
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#fdfaf5] to-[#f5f0e8] flex items-center justify-center border border-orange-100/60 shadow-[inset_0_1px_2px_rgba(255,255,255,0.6),0_4px_12px_rgba(204,120,92,0.05)] text-[var(--coral)] relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/5 to-transparent" />
+              <FileBadge className="w-6 h-6 relative z-10" />
             </div>
             <div className="text-left">
-              <div className="flex items-center gap-2.5">
-                <h2 className="text-xl font-extrabold text-[#2d2a26] tracking-tight">Kho tư liệu lịch sử</h2>
-                <span className="flex items-center gap-1 px-2.5 py-0.5 text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-255 rounded-full shadow-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="flex flex-wrap items-center gap-2.5">
+                <h2 className="text-2xl font-display font-bold text-[#2d2a26] tracking-tight leading-none">Kho tư liệu lịch sử</h2>
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-100 rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.01)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_4px_rgba(16,185,129,0.5)]" />
                   RAG Linked
                 </span>
               </div>
-              <p className="text-xs text-[#8a8175] font-medium mt-1">
+              <p className="text-xs text-[#8a8175] mt-1 font-sans">
                 Quản lý các tài liệu nghiên cứu đã được nhúng vector tri thức ngầm ({total} tài liệu)
               </p>
             </div>
@@ -319,23 +320,23 @@ export function DocumentsPage() {
 
           <button
             onClick={() => setIsIngestOpen(true)}
-            className="flex items-center justify-center gap-2 px-5 py-2.5 bg-[var(--coral)] hover:bg-orange-600 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-orange-200/50 hover:shadow-lg active:scale-[0.98] self-start md:self-center"
+            className="group flex items-center justify-center gap-2 px-5 py-2.5 bg-[var(--coral)] hover:bg-[#b85b40] text-white text-xs font-bold rounded-xl transition-all shadow-[0_4px_12px_rgba(204,120,92,0.2)] hover:shadow-[0_6px_20px_rgba(204,120,92,0.35)] active:scale-[0.97] self-start md:self-center font-sans"
           >
-            <PlusCircle className="w-4 h-4" />
+            <PlusCircle className="w-4 h-4 transition-transform group-hover:rotate-90 duration-300" />
             Nhập tài liệu mới
           </button>
         </div>
 
         {/* Tab & Filter bar row */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mt-6 pt-2">
+        <div className="max-w-5xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-4 mt-6 pt-4 border-t border-[#f5f1ea]">
           {/* Custom Warm Clay-themed Segmented Tab Bar */}
-          <div className="flex p-1 bg-[#f5f1ea] rounded-xl max-w-md border border-[#e7e1d8] self-start">
+          <div className="flex p-1 bg-[#f5f0e8] rounded-xl max-w-md border border-[#e7e1d8] self-start shadow-inner">
             <button
               onClick={() => setActiveTab("library")}
               className={cn(
                 "px-4 py-2 text-xs font-bold rounded-lg transition-all flex items-center gap-2",
                 activeTab === "library"
-                  ? "bg-white text-[var(--coral)] shadow-sm"
+                  ? "bg-white text-[var(--coral)] shadow-sm font-semibold"
                   : "text-[#8a8175] hover:text-[#2d2a26]"
               )}
             >
@@ -347,7 +348,7 @@ export function DocumentsPage() {
               className={cn(
                 "px-4 py-2 text-xs font-bold rounded-lg transition-all flex items-center gap-2 relative",
                 activeTab === "jobs"
-                  ? "bg-white text-[var(--coral)] shadow-sm"
+                  ? "bg-white text-[var(--coral)] shadow-sm font-semibold"
                   : "text-[#8a8175] hover:text-[#2d2a26]"
               )}
             >
@@ -362,14 +363,14 @@ export function DocumentsPage() {
           {/* Inline filters for Library Tab */}
           {activeTab === "library" && (
             <div className="flex flex-col sm:flex-row gap-2.5 w-full lg:w-auto">
-              <div className="relative flex-1 sm:w-80">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#aaa39a]" />
+              <div className="relative flex-1 sm:w-80 group">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#aaa39a] group-focus-within:text-[var(--coral)] transition-colors duration-250" />
                 <input
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Tìm kiếm tiêu đề, thẻ tài liệu..."
-                  className="w-full pl-10 pr-4 py-2 bg-white border border-[#e7e1d8] rounded-xl text-xs text-[#2d2a26] placeholder-[#aaa39a] focus:outline-none focus:ring-2 focus:ring-orange-100 focus:border-[var(--coral)] transition-all shadow-sm"
+                  className="w-full pl-10 pr-4 py-2 bg-[#FAF9F5]/80 border border-[#e7e1d8] rounded-xl text-xs text-[#2d2a26] placeholder-[#aaa39a] focus:outline-none focus:bg-white focus:ring-4 focus:ring-orange-100/30 focus:border-[var(--coral)] transition-all shadow-sm"
                 />
               </div>
 
@@ -387,7 +388,7 @@ export function DocumentsPage() {
                     <button
                       type="button"
                       onClick={() => setIsOpenStatus(!isOpenStatus)}
-                      className="w-full sm:w-52 px-4 py-2 bg-white border border-[#e7e1d8] rounded-xl text-xs text-[#6f675d] hover:bg-[#FAF9F5] focus:outline-none focus:ring-2 focus:ring-orange-100 focus:border-[var(--coral)] transition-all flex items-center justify-between gap-3 shadow-sm font-bold active:scale-[0.98]"
+                      className="w-full sm:w-52 px-4 py-2 bg-white border border-[#e7e1d8] rounded-xl text-xs text-[#6f675d] hover:bg-[#FAF9F5] focus:outline-none focus:ring-4 focus:ring-orange-100/30 focus:border-[var(--coral)] transition-all flex items-center justify-between gap-3 shadow-sm font-bold active:scale-[0.98]"
                     >
                       <div className="flex items-center gap-2 truncate">
                         <span className={cn("w-1.5 h-1.5 rounded-full", currentOption.dotColor)} />
@@ -444,7 +445,7 @@ export function DocumentsPage() {
               </p>
             </div>
           ) : (
-            <div className="grid gap-4 max-w-5xl mx-auto animate-fade-in">
+            <div className="grid gap-5 max-w-5xl mx-auto animate-fade-in font-sans">
               {documents.map((doc) => {
                 const prettyTitle = decodeTitle(doc.title)
                 const cleanSummaryText = cleanSummary(doc.summary || "")
@@ -458,26 +459,26 @@ export function DocumentsPage() {
                   <div
                     key={doc.id}
                     onClick={() => navigate(`/documents/${doc.id}`)}
-                    className="text-left bg-white rounded-2xl p-5 border border-[#e7e1d8] hover:border-[var(--coral)] hover:shadow-[0_12px_40px_rgba(224,86,56,0.03)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer relative overflow-hidden"
+                    className="text-left bg-white rounded-2xl p-6 border border-[#e7e1d8] hover:border-[var(--coral)]/80 hover:shadow-[0_8px_30px_rgba(204,120,92,0.06),0_1px_2px_rgba(204,120,92,0.02)] hover:-translate-y-0.5 transition-all duration-300 ease-out group cursor-pointer relative overflow-hidden"
                   >
                     {/* Left Accent Color bar */}
                     <div className={cn("absolute left-0 top-0 bottom-0 w-[4px] opacity-75 group-hover:opacity-100 transition-opacity", leftAccentColor)} />
 
-                    <div className="flex items-start justify-between gap-4 pl-1">
+                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 pl-1">
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2.5 mb-2.5">
-                          <div className="w-8 h-8 rounded-lg bg-stone-50 border border-[#e7e1d8] flex items-center justify-center group-hover:bg-orange-50 group-hover:border-orange-100 transition-colors">
+                        <div className="flex items-center gap-3 mb-2.5">
+                          <div className="w-9 h-9 rounded-xl bg-stone-50 border border-[#e7e1d8] flex items-center justify-center group-hover:bg-orange-50/50 group-hover:border-orange-150 transition-colors duration-250 flex-shrink-0">
                             {getDocumentIcon(doc)}
                           </div>
-                          <h3 className="font-extrabold text-[#2d2a26] text-[15px] leading-tight truncate group-hover:text-[var(--coral)] transition-colors">
+                          <h3 className="font-display text-lg font-bold text-[#2d2a26] leading-tight tracking-tight group-hover:text-[var(--coral)] transition-colors duration-200 truncate pr-4">
                             {prettyTitle}
                           </h3>
                         </div>
 
-                        <div className="flex items-center gap-2 text-[10px] text-[#aaa39a] font-bold mb-3 pl-0.5">
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-[#aaa39a] font-bold mb-3 pl-0.5">
                           {doc.source_domain && (
                             <>
-                              <span className="text-[#8a8175]">{doc.source_domain}</span>
+                              <span className="text-[#8a8175]/90">{doc.source_domain}</span>
                               <span className="text-stone-300">•</span>
                             </>
                           )}
@@ -485,7 +486,8 @@ export function DocumentsPage() {
                           {doc.quality_score > 0 && (
                             <>
                               <span className="text-stone-300">•</span>
-                              <span className="text-emerald-700 font-extrabold bg-emerald-50 border border-emerald-100 px-1.5 py-0.5 rounded shadow-sm">
+                              <span className="inline-flex items-center gap-1 text-emerald-800 font-bold bg-emerald-50/50 border border-emerald-100/60 px-2 py-0.5 rounded shadow-[0_1px_2px_rgba(0,0,0,0.01)]">
+                                <Sparkles className="w-3 h-3 text-emerald-600 animate-pulse" />
                                 Chất lượng: {(doc.quality_score * 100).toFixed(0)}%
                               </span>
                             </>
@@ -493,13 +495,13 @@ export function DocumentsPage() {
                         </div>
 
                         {cleanSummaryText && (
-                          <p className="text-xs text-[#6f675d] leading-relaxed line-clamp-2 pl-0.5 group-hover:text-[#4d463d] transition-colors">
+                          <p className="text-xs text-[#6c6a64] leading-relaxed line-clamp-2 pl-0.5 group-hover:text-[#3d3d3a] transition-colors text-wrap-pretty mt-1 max-w-[75ch]">
                             {cleanSummaryText}
                           </p>
                         )}
                       </div>
 
-                      <div className="flex flex-col items-end gap-3.5 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
+                      <div className="flex md:flex-col items-center md:items-end justify-between md:justify-start gap-4 md:gap-3.5 flex-shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-[#f5f1ea] mt-3 md:mt-0" onClick={(e) => e.stopPropagation()}>
                         <div className="flex items-center gap-2">
                           <button
                             onClick={(e) => {
@@ -508,46 +510,46 @@ export function DocumentsPage() {
                               setConfirmDeleteTitle(prettyTitle)
                             }}
                             disabled={deletingId !== null}
-                            className="p-1.5 rounded-lg text-stone-300 hover:text-red-600 hover:bg-red-50 border border-transparent hover:border-red-100 transition-all disabled:opacity-40"
+                            className="p-2 rounded-xl text-stone-300 hover:text-red-600 hover:bg-red-50 border border-transparent hover:border-red-100 transition-all disabled:opacity-40 active:scale-90"
                             title="Xóa tài liệu"
                           >
                             {deletingId === doc.id ? (
-                              <Loader2 size={13} className="animate-spin text-red-600" />
+                              <Loader2 size={14} className="animate-spin text-red-600" />
                             ) : (
-                              <Trash2 size={13} />
+                              <Trash2 size={14} />
                             )}
                           </button>
                           
                           <span
                             className={cn(
-                              "px-2.5 py-0.5 text-[10px] rounded-full font-bold border flex-shrink-0 shadow-sm",
-                              doc.status === "approved" && "bg-emerald-50 text-emerald-700 border-emerald-100",
-                              doc.status === "pending" && "bg-amber-50 text-amber-700 border-amber-100",
-                              doc.status === "rejected" && "bg-rose-50 text-rose-700 border-rose-100",
+                              "px-3 py-1 text-[10px] rounded-xl font-bold border flex-shrink-0 shadow-sm",
+                              doc.status === "approved" && "bg-emerald-50 text-emerald-700 border-emerald-100/70",
+                              doc.status === "pending" && "bg-amber-50 text-amber-700 border-amber-100/70",
+                              doc.status === "rejected" && "bg-rose-50 text-rose-700 border-rose-100/70",
                               doc.status === "archived" && "bg-[#f5f1ea] text-[#6f675d] border-[#e7e1d8]"
                             )}
                           >
                             {doc.status === "approved" && "✓ Đã duyệt"}
-                            {doc.status === "pending" && "⏱ Chờ duyệt"}
+                            {doc.status === "pending" && "⏳ Chờ duyệt"}
                             {doc.status === "rejected" && "✕ Từ chối"}
                             {doc.status === "archived" && "Lưu trữ"}
                           </span>
                         </div>
 
-                        <span className="text-stone-300 group-hover:text-[var(--coral)] group-hover:translate-x-1 transition-all duration-300 pointer-events-none">
-                          <ArrowRight size={15} />
-                        </span>
+                        <div className="hidden md:flex w-7 h-7 rounded-full bg-stone-50 border border-[#e7e1d8] items-center justify-center text-stone-400 group-hover:text-white group-hover:bg-[var(--coral)] group-hover:border-transparent group-hover:translate-x-0.5 transition-all duration-300 active:scale-95 shadow-sm">
+                          <ArrowRight size={14} />
+                        </div>
                       </div>
                     </div>
 
                     {/* Metadata tags */}
                     {doc.tags && doc.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 mt-4 pt-3.5 border-t border-[#f5f1ea] pl-1">
+                      <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-[#f5f1ea] pl-1">
                         {doc.tags.slice(0, 8).map((tag) => (
                           <span
                             key={tag}
                             className={cn(
-                              "px-2.5 py-0.5 text-[10px] rounded-md font-bold transition-colors border shadow-sm",
+                              "px-2.5 py-0.5 text-[10px] rounded-md font-bold transition-colors border shadow-sm hover:scale-[1.03] transition-transform duration-200",
                               getTagClass(tag)
                             )}
                           >
@@ -555,7 +557,7 @@ export function DocumentsPage() {
                           </span>
                         ))}
                         {doc.tags.length > 8 && (
-                          <span className="px-2 py-0.5 text-[10px] text-stone-400 font-extrabold">
+                          <span className="px-2 py-0.5 text-[10px] text-stone-400 font-extrabold self-center">
                             +{doc.tags.length - 8}
                           </span>
                         )}
@@ -582,7 +584,7 @@ export function DocumentsPage() {
                 {jobs.length > 0 && (
                   <button
                     onClick={() => setConfirmDeleteAllJobs(true)}
-                    className="flex items-center gap-1 px-3 py-1.5 text-[10px] font-bold border border-red-100 text-red-650 hover:text-white bg-red-50/30 hover:bg-red-600 rounded-xl transition-all duration-150 active:scale-95 shadow-sm"
+                    className="flex items-center gap-1 px-3 py-1.5 text-[10px] font-bold border border-red-100 text-red-600 hover:text-white bg-red-50/30 hover:bg-red-600 rounded-xl transition-all duration-150 active:scale-95 shadow-sm"
                   >
                     <Trash2 className="w-3 h-3" />
                     Xóa tất cả
@@ -670,7 +672,7 @@ export function DocumentsPage() {
                           title="Xóa tác vụ"
                         >
                           {deletingJobId === job.id ? (
-                            <Loader2 className="w-3.5 h-3.5 animate-spin text-red-550" />
+                            <Loader2 className="w-3.5 h-3.5 animate-spin text-red-500" />
                           ) : (
                             <Trash2 className="w-3.5 h-3.5" />
                           )}
@@ -709,7 +711,7 @@ export function DocumentsPage() {
           >
             <div className="absolute top-0 left-0 right-0 h-[5px] bg-red-600" />
             
-            <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center text-red-650 mb-4 mx-auto shadow-sm">
+            <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center text-red-600 mb-4 mx-auto shadow-sm">
               <Trash2 className="w-5 h-5 animate-pulse" />
             </div>
 
@@ -746,7 +748,7 @@ export function DocumentsPage() {
                     setDeletingId(null)
                   }
                 }}
-                className="flex-1 px-4 py-2 bg-red-650 hover:bg-red-700 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-md shadow-red-200/50 disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-md shadow-red-200/50 disabled:opacity-50"
               >
                 {deletingId !== null ? (
                   <>
@@ -774,7 +776,7 @@ export function DocumentsPage() {
           >
             <div className="absolute top-0 left-0 right-0 h-[5px] bg-red-600" />
             
-            <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center text-red-650 mb-4 mx-auto shadow-sm">
+            <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center text-red-600 mb-4 mx-auto shadow-sm">
               <Trash2 className="w-5 h-5 animate-pulse" />
             </div>
 
@@ -784,7 +786,7 @@ export function DocumentsPage() {
             
             <p className="text-xs text-[#8a8175] font-semibold px-1 mb-5">
               Xóa bản ghi tiến trình ra khỏi danh sách theo dõi:
-              <span className="block font-bold text-red-650 my-2.5 text-[12px] bg-red-50 border border-red-100 py-2 px-3 rounded-xl italic break-words">
+              <span className="block font-bold text-red-600 my-2.5 text-[12px] bg-red-50 border border-red-100 py-2 px-3 rounded-xl italic break-words">
                 "{confirmDeleteJobInput}"
               </span>
             </p>
@@ -810,7 +812,7 @@ export function DocumentsPage() {
                     setDeletingJobId(null)
                   }
                 }}
-                className="flex-1 px-4 py-2 bg-red-650 hover:bg-red-700 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-md shadow-red-200/50 disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-md shadow-red-200/50 disabled:opacity-50"
               >
                 {deletingJobId !== null ? (
                   <>
@@ -838,7 +840,7 @@ export function DocumentsPage() {
           >
             <div className="absolute top-0 left-0 right-0 h-[5px] bg-red-600" />
             
-            <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center text-red-650 mb-4 mx-auto shadow-sm">
+            <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center text-red-600 mb-4 mx-auto shadow-sm">
               <Trash2 className="w-5 h-5 animate-pulse" />
             </div>
 
@@ -875,7 +877,7 @@ export function DocumentsPage() {
                     setIsDeletingAllJobs(false)
                   }
                 }}
-                className="flex-1 px-4 py-2 bg-red-650 hover:bg-red-700 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-md shadow-red-200/50 disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-md shadow-red-200/50 disabled:opacity-50"
               >
                 {isDeletingAllJobs ? (
                   <>

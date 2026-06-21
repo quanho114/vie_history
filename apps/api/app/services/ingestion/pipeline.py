@@ -85,7 +85,7 @@ class IngestionPipeline:
 
         # Stage 3: Content Extraction
         extracted_text = None
-        source_title = ""
+        source_title = fetched.get("title", "") or ""
         try:
             # Clean HTML first
             cleaned_html = self.cleaner.clean_html(raw_html)
@@ -96,8 +96,10 @@ class IngestionPipeline:
             # Clean markdown
             markdown = self.cleaner.clean_markdown(markdown)
 
+            # Restructure using LLM if available
+            markdown = await self.restructure_markdown_with_llm(source_title, markdown)
+
             extracted_text = markdown
-            source_title = fetched.get("title", "")
             stages.append("extraction")
         except Exception as e:
             logger.error("extraction_error", error=str(e))
@@ -275,3 +277,56 @@ class IngestionPipeline:
             sections.append(current_section)
 
         return sections
+
+    async def restructure_markdown_with_llm(self, title: str, markdown: str) -> str:
+        """
+        Restructure already-cleaned markdown into polished academic prose using LLM.
+
+        The pre-filtering stage in ContentCleaner.clean_markdown() handles boilerplate
+        removal. This step focuses purely on:
+          - Academic tone and prose quality
+          - Logical section ordering  
+          - Converting raw data clusters into Markdown tables
+          - Filling any remaining structural gaps
+        """
+        try:
+            from app.services.llm.client import get_llm_client, MockLLMClient
+            llm = get_llm_client()
+            if isinstance(llm, MockLLMClient) or len(markdown) <= 100:
+                return markdown
+
+            logger.info("llm_restructuring_start", title=title[:50])
+
+            system_prompt = (
+                "Bạn là một học giả lịch sử chuyên biên soạn tài liệu học thuật chuẩn.\n\n"
+                "NHIỆM VỤ: Tái cấu trúc văn bản lịch sử đã được tiền xử lý thành bài viết học thuật hoàn chỉnh.\n\n"
+                "QUY TẮC BẮT BUỘC:\n"
+                "1. GIỮ NGUYÊN mọi sự kiện, ngày tháng, tên người, địa danh — không thêm, không bịa.\n"
+                "2. CẤU TRÚC TIÊU ĐỀ: Dùng # cho tiêu đề bài, ## cho chương, ### cho mục.\n"
+                "3. VĂN PHONG: Học thuật, trang trọng, trôi chảy. Không dùng từ thông tục.\n"
+                "4. BẢNG BIỂU: Chuyển mọi dữ liệu so sánh (lực lượng, thương vong, niên đại) thành bảng Markdown.\n"
+                "   Ví dụ: | Bên | Quân số | Tổn thất |\n"
+                "5. LOẠI BỎ tàn dư boilerplate nếu còn: dòng '- x - t - s', 'Bài chi tiết:', 'Xem thêm:', icon portal.\n"
+                "6. GỘP đoạn văn rời rạc cùng chủ đề thành đoạn mạch lạc.\n"
+                "7. KHÔNG thêm lời dẫn, tiêu đề phụ 'Kết luận', hay bất kỳ nội dung nào ngoài bài.\n"
+                "8. ĐẦU RA: Chỉ trả về nội dung Markdown thuần túy, bắt đầu bằng # Tiêu đề.\n"
+            )
+
+            prompt = (
+                f"Tái cấu trúc tài liệu lịch sử sau thành bài học thuật chuẩn:\n\n"
+                f"**Tiêu đề:** {title}\n\n"
+                f"---\n\n"
+                f"{markdown}"
+            )
+
+            structured_markdown = await llm.generate(
+                prompt=prompt,
+                system=system_prompt,
+                max_tokens=8000,
+            )
+            if structured_markdown and len(structured_markdown.strip()) > 100:
+                logger.info("llm_restructuring_success", title=title[:50])
+                return structured_markdown.strip()
+        except Exception as e:
+            logger.warning("llm_restructuring_failed", error=str(e))
+        return markdown

@@ -18,25 +18,10 @@ class TestOpenAPICompliance:
 
     @pytest.fixture(scope="class")
     def client(self):
-        import httpx
-        for port in [12701, 8000]:
-            for host in ["127.0.0.1", "localhost"]:
-                try:
-                    base_url = f"http://{host}:{port}"
-                    response = httpx.get(f"{base_url}/health", timeout=2)
-                    if response.status_code == 200:
-                        return httpx.Client(
-                            base_url=base_url,
-                            headers={"x-bypass-rate-limit": "true"},
-                            timeout=30,
-                        )
-                except Exception:
-                    continue
-        return httpx.Client(
-            base_url="http://localhost:8000",
-            headers={"x-bypass-rate-limit": "true"},
-            timeout=30,
-        )
+        from fastapi.testclient import TestClient
+        from app.main import app
+        with TestClient(app, raise_server_exceptions=False, headers={"x-bypass-rate-limit": "true"}) as c:
+            yield c
 
     @pytest.fixture(scope="class")
     def openapi_spec(self, client):

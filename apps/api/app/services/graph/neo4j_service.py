@@ -372,3 +372,48 @@ class Neo4jService:
                 "nodes": list(nodes.values()),
                 "edges": edges,
             }
+
+    async def get_graph_stats(self) -> dict[str, Any]:
+        """Fetch basic graph statistics using Cypher."""
+        self.connect()
+        try:
+            async with self._driver.session() as session:
+                node_res = await session.run("MATCH (n:KnowledgeNode) RETURN count(n) as count")
+                node_record = await node_res.single()
+                node_count = node_record["count"] if node_record else 0
+
+                rel_res = await session.run("MATCH ()-[r]->() RETURN count(r) as count")
+                rel_record = await rel_res.single()
+                rel_count = rel_record["count"] if rel_record else 0
+
+                avg_deg = (rel_count * 2.0 / node_count) if node_count > 0 else 0.0
+
+                return {
+                    "node_count": node_count,
+                    "relationship_count": rel_count,
+                    "average_degree": avg_deg,
+                    "provider": "neo4j"
+                }
+        except Exception as exc:
+            logger.error("neo4j_get_graph_stats_failed", error=str(exc))
+            return {
+                "node_count": 0,
+                "relationship_count": 0,
+                "average_degree": 0.0,
+                "provider": "neo4j",
+                "error": str(exc)
+            }
+
+    async def get_node_degree(self, slug: str) -> int:
+        """Fetch degree of a specific node."""
+        self.connect()
+        query = "MATCH (n:KnowledgeNode {slug: $slug}) RETURN size((n)--()) as degree"
+        try:
+            async with self._driver.session() as session:
+                res = await session.run(query, slug=slug)
+                record = await res.single()
+                return record["degree"] if record else 0
+        except Exception as exc:
+            logger.error("neo4j_get_node_degree_failed", slug=slug, error=str(exc))
+            return 0
+

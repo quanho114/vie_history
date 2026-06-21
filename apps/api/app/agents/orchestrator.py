@@ -8,6 +8,8 @@ All pipeline logic lives in agent_graph.py. This class:
 
 from __future__ import annotations
 
+import os
+
 from dataclasses import dataclass, field
 from time import perf_counter
 from typing import Any, AsyncIterator
@@ -37,6 +39,8 @@ STATIC_OUT_OF_SCOPE_ANSWER = (
 )
 
 STATIC_CAPABILITY_ANSWER = (
+    "Mình là **HistoriAI** — trợ lý nghiên cứu Lịch sử Việt Nam giai đoạn 1945–1975, "
+    "được xây dựng trên nền tảng Agentic RAG kết hợp Knowledge Graph.\n\n"
     "Mình có thể hỗ trợ bạn trong việc nghiên cứu và tìm hiểu lịch sử Việt Nam, bao gồm:\n\n"
     "* 📚 **Tra cứu sự kiện**: Cung cấp thông tin chi tiết về các sự kiện lịch sử quan trọng.\n"
     "* 👑 **Nhân vật lịch sử**: Tìm hiểu về tiểu sử, đóng góp của các vị vua, tướng lĩnh và anh hùng dân tộc.\n"
@@ -227,6 +231,8 @@ class AgentOrchestrator:
         filters: dict | None,
     ) -> dict | None:
         """Look up a cached result, evicting stale poisoned entries."""
+        if settings.APP_ENV == "testing" or os.environ.get("EVAL_BYPASS_CACHE") == "true":
+            return None
         try:
             from app.services.cache import get_query_cache
             cached = await get_query_cache().get(query, filters)
@@ -449,13 +455,27 @@ class AgentOrchestrator:
                     prompt = (
                         f"Người dùng nói: \"{query}\"\n\n"
                         f"Đây là câu chào hỏi hoặc câu hỏi xã giao không liên quan đến lịch sử cụ thể.\n"
-                        f"Hãy trả lời thân thiện, ngắn gọn (2-3 câu), giới thiệu bản thân là HistoriAI — "
-                        f"trợ lý nghiên cứu lịch sử Việt Nam qua các thời kỳ. Mời người dùng đặt câu hỏi lịch sử."
+                        f"Hãy trả lời thân thiện, ngắn gọn (2-3 câu), giới thiệu bản thân bạn tên là HistoriAI — "
+                        f"trợ lý nghiên cứu lịch sử Việt Nam qua các thời kỳ (đặc biệt là 1945-1975) dựa trên Agentic RAG và Knowledge Graph. "
+                        f"Mời người dùng đặt câu hỏi lịch sử."
                     )
-                    system = "Bạn là HistoriAI, trợ lý nghiên cứu lịch sử Việt Nam thân thiện."
+                    system = "Bạn là HistoriAI, trợ lý nghiên cứu lịch sử Việt Nam thân thiện, lịch sự."
                     answer_text = await llm.generate(prompt, system=system, max_tokens=300)
                 elif intent == "capability":
-                    answer_text = STATIC_CAPABILITY_ANSWER
+                    prompt = (
+                        f"Người dùng hỏi về khả năng hoặc danh tính của bạn: \"{query}\"\n\n"
+                        f"Hãy giới thiệu bản thân là HistoriAI — trợ lý nghiên cứu lịch sử Việt Nam (1945–1975) "
+                        f"được xây dựng trên nền tảng Agentic RAG kết hợp Knowledge Graph. "
+                        f"Mô tả các khả năng của bạn một cách tự nhiên, hấp dẫn, dễ đọc (sử dụng gạch đầu dòng ngắn gọn nếu cần):\n"
+                        f"- Tra cứu tài liệu lịch sử gốc chính xác từ kho tài liệu gốc\n"
+                        f"- Lập dòng thời gian niên biểu sự kiện lịch sử\n"
+                        f"- Phân tích nhân quả lịch sử vĩ mô (Causal World Model)\n"
+                        f"- So sánh đối chiếu các sự kiện/nhân vật lịch sử\n"
+                        f"- Kiểm chứng nguồn trích dẫn bằng mô hình NLI\n\n"
+                        f"Hãy viết câu trả lời sinh động, tự nhiên, mang phong cách đối thoại thân thiện."
+                    )
+                    system = "Bạn là HistoriAI, trợ lý nghiên cứu lịch sử Việt Nam, tự giới thiệu năng lực của mình một cách sinh động, tự nhiên."
+                    answer_text = await llm.generate(prompt, system=system, max_tokens=400)
                 else:
                     prompt = (
                         f"Người dùng hỏi: \"{query}\"\n\n"
@@ -474,7 +494,7 @@ class AgentOrchestrator:
                     else:
                         answer_text = STATIC_OUT_OF_SCOPE_ANSWER
             except Exception as exc:
-                logger.warning("early_routing_llm_failed_using_static", error=str(exc))
+                logger.exception("early_routing_llm_failed_using_static")
                 if intent == "greeting":
                     answer_text = STATIC_GREETING_ANSWER
                 elif intent == "capability":
@@ -721,19 +741,33 @@ class AgentOrchestrator:
                     prompt = (
                         f"Người dùng nói: \"{query}\"\n\n"
                         f"Đây là câu chào hỏi hoặc câu hỏi xã giao không liên quan đến lịch sử cụ thể.\n"
-                        f"Hãy trả lời thân thiện, ngắn gọn (2-3 câu), giới thiệu bản thân là HistoriAI — "
-                        f"trợ lý nghiên cứu lịch sử Việt Nam qua các thời kỳ. Mời người dùng đặt câu hỏi lịch sử."
+                        f"Hãy trả lời thân thiện, ngắn gọn (2-3 câu), giới thiệu bản thân bạn tên là HistoriAI — "
+                        f"trợ lý nghiên cứu lịch sử Việt Nam qua các thời kỳ (đặc biệt là 1945-1975) dựa trên Agentic RAG và Knowledge Graph. "
+                        f"Mời người dùng đặt câu hỏi lịch sử."
                     )
-                    system = "Bạn là HistoriAI, trợ lý nghiên cứu lịch sử Việt Nam thân thiện."
+                    system = "Bạn là HistoriAI, trợ lý nghiên cứu lịch sử Việt Nam thân thiện, lịch sự."
                     async for token_obj in llm.astream(prompt, system=system, max_tokens=300):
                         token = token_obj.text
                         answer_text += token
                         yield {"type": "token", "token": token}
                 elif intent == "capability":
-                    static_ans = STATIC_CAPABILITY_ANSWER
-                    answer_text = static_ans
-                    async for token in self._stream_static_text(static_ans, delay=0.01):
-                        yield token
+                    prompt = (
+                        f"Người dùng hỏi về khả năng hoặc danh tính của bạn: \"{query}\"\n\n"
+                        f"Hãy giới thiệu bản thân là HistoriAI — trợ lý nghiên cứu lịch sử Việt Nam (1945–1975) "
+                        f"được xây dựng trên nền tảng Agentic RAG kết hợp Knowledge Graph. "
+                        f"Mô tả các khả năng của bạn một cách tự nhiên, hấp dẫn, dễ đọc (sử dụng gạch đầu dòng ngắn gọn nếu cần):\n"
+                        f"- Tra cứu tài liệu lịch sử gốc chính xác từ kho tài liệu gốc\n"
+                        f"- Lập dòng thời gian niên biểu sự kiện lịch sử\n"
+                        f"- Phân tích nhân quả lịch sử vĩ mô (Causal World Model)\n"
+                        f"- So sánh đối chiếu các sự kiện/nhân vật lịch sử\n"
+                        f"- Kiểm chứng nguồn trích dẫn bằng mô hình NLI\n\n"
+                        f"Hãy viết câu trả lời sinh động, tự nhiên, mang phong cách đối thoại thân thiện."
+                    )
+                    system = "Bạn là HistoriAI, trợ lý nghiên cứu lịch sử Việt Nam, tự giới thiệu năng lực của mình một cách sinh động, tự nhiên."
+                    async for token_obj in llm.astream(prompt, system=system, max_tokens=400):
+                        token = token_obj.text
+                        answer_text += token
+                        yield {"type": "token", "token": token}
                 else:
                     prompt = (
                         f"Người dùng hỏi: \"{query}\"\n\n"
@@ -747,7 +781,7 @@ class AgentOrchestrator:
                         answer_text += token
                         yield {"type": "token", "token": token}
             except Exception as exc:
-                logger.warning("early_routing_llm_failed_using_static", error=str(exc))
+                logger.exception("early_routing_llm_failed_using_static")
                 if intent == "greeting":
                     static_ans = STATIC_GREETING_ANSWER
                 elif intent == "capability":

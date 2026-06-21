@@ -23,6 +23,9 @@ from app.services.graph.neo4j_service import Neo4jService
 logger = get_logger("graphrag")
 
 
+from sqlalchemy.ext.asyncio import AsyncSession
+from app.core.database import get_db_context
+
 @dataclass
 class GraphRAGResult:
     """Result of a GraphRAG retrieval operation."""
@@ -73,12 +76,23 @@ class GraphRAGService:
             self._query_service = QueryService()
         return self._query_service
 
+    async def _is_neo4j_active(self) -> bool:
+        """Check if Neo4j is configured, enabled, and reachable."""
+        from app.core.config import settings
+        if not getattr(settings, "ENABLE_GRAPH", True):
+            return False
+        try:
+            return await self.neo4j.check_connection()
+        except Exception:
+            return False
+
     async def local_search(
         self,
         query: str,
         entities: list[str] | None = None,
         depth: int = 2,
         top_k: int = 5,
+        db: AsyncSession | None = None,
     ) -> GraphRAGResult:
         """
         Local GraphRAG search — entity-centric.
@@ -86,7 +100,7 @@ class GraphRAGService:
         1. Extract/find entities from query
         2. Get entity neighborhoods (multi-hop)
         3. Get documents containing these entities
-        4. Synthesize with graph context
+        4. Synthesize with graph context (weighted by PageRank)
         """
         # 1. Find entities if not provided
         if not entities:
@@ -110,25 +124,30 @@ class GraphRAGService:
         visited: set[str] = set()
 
         for entity in entities:
+            from app.services.graph.graph_service import _slugify
+            slug = _slugify(entity)
             neighborhood = await self._traverse_entity(
-                entity,
+                slug,
                 depth=depth,
                 visited=visited,
+                db=db,
             )
             all_entities.extend(neighborhood.get("entities", []))
             all_relationships.extend(neighborhood.get("relationships", []))
 
         # 3. Get documents containing these entities
-        entity_slugs = [e.get("slug") for e in all_entities if e.get("slug")]
-        doc_ids = await self._get_documents_for_entities(entity_slugs)
+        entity_slugs = [e.get("slug") or e.get("node_slug") for e in all_entities]
+        entity_slugs = [s for s in entity_slugs if s]
+        doc_ids = await self._get_documents_for_entities(entity_slugs, db=db)
 
-        # 4. Score documents by graph relevance
+        # 4. Score documents by graph relevance (with PageRank weighting)
         chunks = await self._get_graph_boosted_chunks(
             query=query,
             entity_slugs=entity_slugs,
             graph_entities=all_entities,
             graph_relationships=all_relationships,
             top_k=top_k,
+            db=db,
         )
 
         # 5. Generate reasoning chain
@@ -161,6 +180,7 @@ class GraphRAGService:
         self,
         query: str,
         top_k_communities: int = 3,
+        db: AsyncSession | None = None,
     ) -> GraphRAGResult:
         """
         Global GraphRAG search — community-based summarization.
@@ -173,12 +193,12 @@ class GraphRAGService:
         3. Generate meta-answer from community context
         """
         # 1. Get community statistics
-        communities = await self._get_communities()
+        communities = await self._get_communities(db=db)
 
         # 2. Score communities by relevance to query
         scored_communities = []
         for community in communities:
-            community_entities = await self._get_community_entities(community["id"])
+            community_entities = await self._get_community_entities(community["id"], db=db)
 
             # Score based on entity name match with query
             entity_names = " ".join([e.get("name", "") for e in community_entities])
@@ -216,7 +236,8 @@ Mô tả: {community.get('description', '')}"""
         all_doc_ids: set[str] = set()
         for sc in top_communities:
             doc_ids = await self._get_documents_for_entities(
-                [e.get("slug") for e in sc["entities"] if e.get("slug")]
+                [e.get("slug") for e in sc["entities"] if e.get("slug")],
+                db=db
             )
             all_doc_ids.update(doc_ids)
 
@@ -248,6 +269,7 @@ Mô tả: {community.get('description', '')}"""
         query: str,
         top_k: int = 5,
         filters: dict | None = None,
+        db: AsyncSession | None = None,
     ) -> GraphRAGResult:
         """
         Hybrid GraphRAG: combine graph context with vector search.
@@ -255,11 +277,11 @@ Mô tả: {community.get('description', '')}"""
         1. Extract entities from query
         2. Get graph context (entities, relationships)
         3. Run vector search
-        4. Score by graph relevance
+        4. Score by graph relevance (weighted by PageRank)
         5. Return enriched results
         """
         # Get graph context
-        graph_context = await self._get_graph_context(query)
+        graph_context = await self._get_graph_context(query, db=db)
 
         # Run hybrid vector search
         try:
@@ -271,10 +293,24 @@ Mô tả: {community.get('description', '')}"""
         except Exception:
             chunks = []
 
+        # Get PageRank scores for boosting
+        pagerank_scores = {}
+        try:
+            from app.services.graph.graph_reasoner import GraphReasoner
+            reasoner = GraphReasoner()
+            if db is not None:
+                pagerank_scores = await reasoner.get_pagerank(db)
+            else:
+                async with get_db_context() as local_db:
+                    pagerank_scores = await reasoner.get_pagerank(local_db)
+        except Exception as e:
+            logger.warning("failed_to_get_pagerank_for_hybrid_boosting", error=str(e))
+
         # Score documents by graph relevance
         scored_chunks = self._score_by_graph_relevance(
             chunks=chunks,
             graph_context=graph_context,
+            pagerank_scores=pagerank_scores,
         )
 
         return GraphRAGResult(
@@ -285,7 +321,7 @@ Mô tả: {community.get('description', '')}"""
                 f"Found {len(graph_context.get('entities', []))} related entities",
                 f"Found {len(graph_context.get('relationships', []))} relationships",
                 f"Retrieved {len(chunks)} document chunks",
-                f"Scored by graph relevance",
+                f"Scored by PageRank-weighted graph relevance",
             ],
             chunks=scored_chunks,
         )
@@ -316,8 +352,9 @@ Trả về danh sách tên thực thể, mỗi tên trên một dòng. Nếu kh�
         entity_slug: str,
         depth: int,
         visited: set[str],
+        db: AsyncSession | None = None,
     ) -> dict[str, Any]:
-        """Multi-hop entity traversal from Neo4j."""
+        """Multi-hop entity traversal from Neo4j or NetworkX (fallback)."""
         if depth == 0 or entity_slug in visited:
             return {"entities": [], "relationships": []}
 
@@ -325,17 +362,46 @@ Trả về danh sách tên thực thể, mỗi tên trên một dòng. Nếu kh�
         entities = []
         relationships = []
 
+        neo4j_active = await self._is_neo4j_active()
+
         # Get current entity
         try:
-            current = await self.neo4j.get_node_by_slug(entity_slug)
+            if neo4j_active:
+                current = await self.neo4j.get_node_by_slug(entity_slug)
+            else:
+                from app.services.graph.graph_service import GraphService
+                if db is not None:
+                    current_node = await GraphService.get_node_by_slug(db, entity_slug)
+                else:
+                    async with get_db_context() as local_db:
+                        current_node = await GraphService.get_node_by_slug(local_db, entity_slug)
+                current = {
+                    "slug": current_node.slug,
+                    "name": current_node.name,
+                    "node_type": current_node.node_type,
+                    "description": current_node.description,
+                    "wiki_page_id": current_node.wiki_page_id,
+                    "event_id": current_node.event_id,
+                } if current_node else None
+
             if current:
                 entities.append(current)
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("graphrag_get_node_failed", slug=entity_slug, error=str(e))
 
         # Get neighbors
         try:
-            neighbors_result = await self.neo4j.get_neighbors(entity_slug, depth=1)
+            if neo4j_active:
+                neighbors_result = await self.neo4j.get_neighbors(entity_slug, depth=1)
+            else:
+                from app.services.graph.graph_reasoner import GraphReasoner
+                reasoner = GraphReasoner()
+                if db is not None:
+                    neighbors_result = await reasoner.get_neighbors(db, entity_slug, depth=1)
+                else:
+                    async with get_db_context() as local_db:
+                        neighbors_result = await reasoner.get_neighbors(local_db, entity_slug, depth=1)
+            
             neighbors = neighbors_result.get("neighbors", [])
 
             for neighbor in neighbors:
@@ -351,16 +417,16 @@ Trả về danh sách tên thực thể, mỗi tên trên một dòng. Nếu kh�
                     if depth > 1:
                         # Recurse
                         sub = await self._traverse_entity(
-                            neighbor_slug, depth - 1, visited
+                            neighbor_slug, depth - 1, visited, db=db
                         )
                         entities.extend(sub.get("entities", []))
                         relationships.extend(sub.get("relationships", []))
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("graphrag_get_neighbors_failed", slug=entity_slug, error=str(e))
 
         return {"entities": entities, "relationships": relationships}
 
-    async def _get_graph_context(self, query: str) -> dict[str, Any]:
+    async def _get_graph_context(self, query: str, db: AsyncSession | None = None) -> dict[str, Any]:
         """Get graph context relevant to the query."""
         try:
             entities = await self._extract_entities(query)
@@ -370,12 +436,23 @@ Trả về danh sách tên thực thể, mỗi tên trên một dòng. Nếu kh�
             # Get neighbors for top entities
             all_entities = []
             all_relationships = []
+            neo4j_active = await self._is_neo4j_active()
 
             for entity_name in entities[:5]:
                 from app.services.graph.graph_service import _slugify
                 slug = _slugify(entity_name)
                 try:
-                    neighbors_result = await self.neo4j.get_neighbors(slug, depth=1)
+                    if neo4j_active:
+                        neighbors_result = await self.neo4j.get_neighbors(slug, depth=1)
+                    else:
+                        from app.services.graph.graph_reasoner import GraphReasoner
+                        reasoner = GraphReasoner()
+                        if db is not None:
+                            neighbors_result = await reasoner.get_neighbors(db, slug, depth=1)
+                        else:
+                            async with get_db_context() as local_db:
+                                neighbors_result = await reasoner.get_neighbors(local_db, slug, depth=1)
+                    
                     neighbors = neighbors_result.get("neighbors", [])
                     all_entities.append(neighbors_result.get("node", {}))
                     all_relationships.extend(neighbors)
@@ -393,16 +470,22 @@ Trả về danh sách tên thực thể, mỗi tên trên một dòng. Nếu kh�
         self,
         chunks: list[dict[str, Any]],
         graph_context: dict[str, Any],
+        pagerank_scores: dict[str, float] | None = None,
     ) -> list[dict[str, Any]]:
-        """Boost chunks that mention graph entities."""
-        entity_names = {
-            e.get("name", "").lower()
-            for e in graph_context.get("entities", [])
-        }
+        """Boost chunks that mention graph entities, weighted by PageRank/centrality."""
+        entity_names = {}
+        for e in graph_context.get("entities", []):
+            name = e.get("name") or e.get("node_name")
+            slug = e.get("slug") or e.get("node_slug")
+            if name:
+                entity_names[name.lower()] = slug
+
         relationship_types = {
-            r.get("type", "").lower()
+            r.get("type", "").lower() or r.get("edge_type", "").lower()
             for r in graph_context.get("relationships", [])
         }
+
+        pr_scores = pagerank_scores or {}
 
         scored = []
         for chunk in chunks:
@@ -410,9 +493,11 @@ Trả về danh sách tên thực thể, mỗi tên trên một dòng. Nếu kh�
             content = chunk.get("content", "").lower()
             graph_boost = 0.0
 
-            for name in entity_names:
+            for name, slug in entity_names.items():
                 if name and name in content:
-                    graph_boost += 0.1
+                    pr_weight = pr_scores.get(slug, 0.0) if slug else 0.0
+                    weight_boost = min(pr_weight * 10.0, 0.2)
+                    graph_boost += 0.1 + weight_boost
 
             for rel_type in relationship_types:
                 if rel_type and rel_type in content:
@@ -441,94 +526,244 @@ Trả về danh sách tên thực thể, mỗi tên trên một dòng. Nếu kh�
         graph_entities: list[dict[str, Any]],
         graph_relationships: list[dict[str, Any]],
         top_k: int,
+        db: AsyncSession | None = None,
     ) -> list[dict[str, Any]]:
         """Get chunks boosted by graph relevance."""
-        # First get chunks from vector search
         chunks = await self.vector_search.search(query, top_k=top_k * 2)
 
-        # Build graph context for scoring
         graph_context = {
             "entities": graph_entities,
             "relationships": graph_relationships,
         }
 
-        # Score by graph relevance
-        scored = self._score_by_graph_relevance(chunks, graph_context)
+        pagerank_scores = {}
+        try:
+            from app.services.graph.graph_reasoner import GraphReasoner
+            reasoner = GraphReasoner()
+            if db is not None:
+                pagerank_scores = await reasoner.get_pagerank(db)
+            else:
+                async with get_db_context() as local_db:
+                    pagerank_scores = await reasoner.get_pagerank(local_db)
+        except Exception as e:
+            logger.warning("failed_to_get_pagerank_for_boosted_chunks", error=str(e))
+
+        scored = self._score_by_graph_relevance(chunks, graph_context, pagerank_scores)
         return scored[:top_k]
 
-    async def _get_communities(self) -> list[dict]:
-        """Get graph communities (placeholder for Neo4j GDS integration)."""
-        # In production, this would use Neo4j Graph Data Science library
-        # for Leiden/Louvain community detection
+    async def _get_communities(self, db: AsyncSession | None = None) -> list[dict]:
+        """Get graph communities (with NetworkX Louvain fallback if Neo4j is offline)."""
+        neo4j_active = await self._is_neo4j_active()
+        if neo4j_active:
+            try:
+                self.neo4j.connect()
+                async with self.neo4j._driver.session() as session:
+                    result = await session.run("""
+                        MATCH (n:KnowledgeNode)
+                        WITH n.node_type as type, collect(n) as nodes
+                        WHERE size(nodes) > 1
+                        RETURN type as name,
+                               size(nodes) as entity_count,
+                               'Community based on node type' as description
+                        LIMIT 20
+                    """)
+                    communities = []
+                    async for record in result:
+                        communities.append({
+                            "id": record["name"],
+                            "name": record["name"],
+                            "entity_count": record["entity_count"],
+                            "description": record["description"],
+                        })
+                    return communities
+            except Exception as e:
+                logger.warning("neo4j_get_communities_failed_trying_fallback", error=str(e))
+
         try:
-            self.neo4j.connect()
-            async with self.neo4j._driver.session() as session:
-                result = await session.run("""
-                    MATCH (n:KnowledgeNode)
-                    WITH n.node_type as type, collect(n) as nodes
-                    WHERE size(nodes) > 1
-                    RETURN type as name,
-                           size(nodes) as entity_count,
-                           'Community based on node type' as description
-                    LIMIT 20
-                """)
+            from app.services.graph.graph_reasoner import GraphReasoner
+            reasoner = GraphReasoner()
+            if db is not None:
+                g = await reasoner._get_cached_graph(db)
+            else:
+                async with get_db_context() as local_db:
+                    g = await reasoner._get_cached_graph(local_db)
+
+            if g.number_of_nodes() == 0:
+                return []
+
+            try:
+                import networkx.algorithms.community as nx_comm
+                communities_sets = nx_comm.louvain_communities(g.to_undirected(), weight='weight')
                 communities = []
-                async for record in result:
+                for idx, c_set in enumerate(communities_sets):
+                    if len(c_set) < 2:
+                        continue
+                    c_nodes = list(c_set)
+                    center_node_id = max(c_nodes, key=lambda n: g.degree(n))
+                    center_node_name = g.nodes[center_node_id].get("name", f"Nhóm {idx}")
+
                     communities.append({
-                        "id": record["name"],
-                        "name": record["name"],
-                        "entity_count": record["entity_count"],
-                        "description": record["description"],
+                        "id": f"community_{idx}",
+                        "name": f"Nhóm thực thể quanh {center_node_name}",
+                        "entity_count": len(c_set),
+                        "description": f"Cộng đồng NetworkX phát hiện xung quanh thực thể {center_node_name}",
+                        "node_ids": list(c_set)
                     })
                 return communities
-        except Exception:
+            except Exception as ex:
+                logger.warning("nx_louvain_failed_using_type_grouping", error=str(ex))
+                type_groups = {}
+                for nid, attrs in g.nodes(data=True):
+                    ntype = attrs.get("node_type", "Concept")
+                    if ntype not in type_groups:
+                        type_groups[ntype] = []
+                    type_groups[ntype].append(nid)
+
+                communities = []
+                for idx, (ntype, nodes) in enumerate(type_groups.items()):
+                    if len(nodes) < 2:
+                        continue
+                    communities.append({
+                        "id": ntype,
+                        "name": f"Nhóm {ntype}",
+                        "entity_count": len(nodes),
+                        "description": f"Cộng đồng dựa trên loại thực thể {ntype}",
+                        "node_ids": nodes
+                    })
+                return communities
+        except Exception as e:
+            logger.error("networkx_get_communities_failed", error=str(e))
             return []
 
-    async def _get_community_entities(self, community_id: str) -> list[dict]:
+    async def _get_community_entities(self, community_id: str, db: AsyncSession | None = None) -> list[dict]:
         """Get entities in a community."""
+        neo4j_active = await self._is_neo4j_active()
+        if neo4j_active and not community_id.startswith("community_"):
+            try:
+                self.neo4j.connect()
+                async with self.neo4j._driver.session() as session:
+                    result = await session.run("""
+                        MATCH (n:KnowledgeNode {node_type: $community_id})
+                        RETURN n.slug as slug, n.name as name, n.node_type as node_type
+                        LIMIT 50
+                    """, community_id=community_id)
+                    entities = []
+                    async for record in result:
+                        entities.append({
+                            "slug": record["slug"],
+                            "name": record["name"],
+                            "node_type": record["node_type"],
+                        })
+                    return entities
+            except Exception:
+                pass
+
         try:
-            self.neo4j.connect()
-            async with self.neo4j._driver.session() as session:
-                result = await session.run("""
-                    MATCH (n:KnowledgeNode {node_type: $community_id})
-                    RETURN n.slug as slug, n.name as name, n.node_type as node_type
-                    LIMIT 50
-                """, community_id=community_id)
-                entities = []
-                async for record in result:
-                    entities.append({
-                        "slug": record["slug"],
-                        "name": record["name"],
-                        "node_type": record["node_type"],
-                    })
-                return entities
+            from app.services.graph.graph_reasoner import GraphReasoner
+            reasoner = GraphReasoner()
+            if db is not None:
+                g = await reasoner._get_cached_graph(db)
+            else:
+                async with get_db_context() as local_db:
+                    g = await reasoner._get_cached_graph(local_db)
+
+            entities = []
+            if community_id.startswith("community_"):
+                import networkx.algorithms.community as nx_comm
+                try:
+                    communities_sets = nx_comm.louvain_communities(g.to_undirected(), weight='weight')
+                    idx = int(community_id.split("_")[1])
+                    if idx < len(communities_sets):
+                        c_set = communities_sets[idx]
+                        for nid in c_set:
+                            attrs = g.nodes[nid]
+                            entities.append({
+                                "slug": attrs.get("slug"),
+                                "name": attrs.get("name"),
+                                "node_type": attrs.get("node_type"),
+                            })
+                except Exception:
+                    pass
+            else:
+                for nid, attrs in g.nodes(data=True):
+                    if attrs.get("node_type") == community_id:
+                        entities.append({
+                            "slug": attrs.get("slug"),
+                            "name": attrs.get("name"),
+                            "node_type": attrs.get("node_type"),
+                        })
+            return entities
         except Exception:
             return []
 
     async def _get_documents_for_entities(
         self,
         entity_slugs: list[str],
+        db: AsyncSession | None = None,
     ) -> list[str]:
         """Get document IDs containing specific entities."""
-        # This is a simplified version that would need the actual schema
-        # In production, this could join through a entity-document mapping table
+        neo4j_active = await self._is_neo4j_active()
+        if neo4j_active:
+            try:
+                self.neo4j.connect()
+                async with self.neo4j._driver.session() as session:
+                    result = await session.run("""
+                        MATCH (n:KnowledgeNode)-[:MENTIONED_IN]->(d:Document)
+                        WHERE n.slug IN $slugs
+                        RETURN DISTINCT d.id as doc_id
+                        LIMIT 50
+                    """, slugs=entity_slugs)
+                    doc_ids = []
+                    async for record in result:
+                        if record["doc_id"]:
+                            doc_ids.append(str(record["doc_id"]))
+                    return doc_ids
+            except Exception:
+                pass
+
         try:
-            self.neo4j.connect()
-            async with self.neo4j._driver.session() as session:
-                result = await session.run("""
-                    MATCH (n:KnowledgeNode)-[:MENTIONED_IN]->(d:Document)
-                    WHERE n.slug IN $slugs
-                    RETURN DISTINCT d.id as doc_id
-                    LIMIT 50
-                """, slugs=entity_slugs)
-                doc_ids = []
-                async for record in result:
-                    if record["doc_id"]:
-                        doc_ids.append(str(record["doc_id"]))
-                return doc_ids
-        except Exception:
+            from sqlalchemy import select
+            from app.models.graph import KnowledgeNode, KnowledgeEdge
+            doc_ids = set()
+
+            async def process_nodes(session):
+                node_stmt = select(KnowledgeNode).where(KnowledgeNode.slug.in_(entity_slugs))
+                res = await session.execute(node_stmt)
+                nodes = res.scalars().all()
+                node_ids = [n.id for n in nodes]
+                if not node_ids:
+                    return
+
+                edge_stmt = select(KnowledgeEdge).where(
+                    KnowledgeEdge.source_id.in_(node_ids),
+                    KnowledgeEdge.edge_type == "MENTIONED_IN"
+                )
+                edge_res = await session.execute(edge_stmt)
+                edges = edge_res.scalars().all()
+                target_ids = [e.target_id for e in edges]
+                if not target_ids:
+                    return
+
+                doc_stmt = select(KnowledgeNode).where(
+                    KnowledgeNode.id.in_(target_ids),
+                    KnowledgeNode.node_type == "Document"
+                )
+                doc_res = await session.execute(doc_stmt)
+                doc_nodes = doc_res.scalars().all()
+                for doc_node in doc_nodes:
+                    doc_ids.add(doc_node.slug or doc_node.id)
+
+            if db is not None:
+                await process_nodes(db)
+            else:
+                async with get_db_context() as local_db:
+                    await process_nodes(local_db)
+            return list(doc_ids)
+        except Exception as e:
+            logger.warning("postgres_get_documents_for_entities_failed", error=str(e))
             return []
 
 
 # Import LLM client for entity extraction
 from app.services.llm.client import get_llm_client
+

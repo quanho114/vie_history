@@ -230,38 +230,39 @@ class OpenAICompatibleClient(BaseLLMClient):
                         raise RuntimeError(
                             f"LLM provider returned HTTP {response.status_code}: {detail}"
                         ) from exc
-                accumulated = ""
+                    
+                    accumulated = ""
 
-                async for line in response.aiter_lines():
-                    line = line.strip()
-                    if not line.startswith("data:"):
-                        continue
-                    data_str = line[5:].strip()
-                    if data_str in ("", "[DONE]"):
-                        yield LLMToken(text="", is_final=True)
-                        return
-                    try:
-                        chunk = json.loads(data_str)
-                    except json.JSONDecodeError:
-                        continue
+                    async for line in response.aiter_lines():
+                        line = line.strip()
+                        if not line.startswith("data:"):
+                            continue
+                        data_str = line[5:].strip()
+                        if data_str in ("", "[DONE]"):
+                            yield LLMToken(text="", is_final=True)
+                            return
+                        try:
+                            chunk = json.loads(data_str)
+                        except json.JSONDecodeError:
+                            continue
 
-                    delta = chunk.get("choices", [{}])[0].get("delta", {})
-                    content = delta.get("content", "")
-                    if content:
-                        accumulated += content
-                        yield LLMToken(text=content, is_final=False)
+                        delta = chunk.get("choices", [{}])[0].get("delta", {})
+                        content = delta.get("content", "")
+                        if content:
+                            accumulated += content
+                            yield LLMToken(text=content, is_final=False)
 
-                    if chunk.get("choices", [{}])[0].get("finish_reason"):
-                        usage = chunk.get("usage", {})
-                        yield LLMToken(
-                            text="",
-                            is_final=True,
-                            usage={
-                                "prompt_tokens": usage.get("prompt_tokens", 0),
-                                "completion_tokens": usage.get("completion_tokens", 0),
-                                "total_tokens": usage.get("total_tokens", 0),
-                            },
-                        )
+                        if chunk.get("choices", [{}])[0].get("finish_reason"):
+                            usage = chunk.get("usage", {})
+                            yield LLMToken(
+                                text="",
+                                is_final=True,
+                                usage={
+                                    "prompt_tokens": usage.get("prompt_tokens", 0),
+                                    "completion_tokens": usage.get("completion_tokens", 0),
+                                    "total_tokens": usage.get("total_tokens", 0),
+                                },
+                            )
 
     async def generate(self, prompt: str, **kwargs) -> str:
         """Generate response with circuit breaker protection."""

@@ -333,3 +333,80 @@ class GraphReasoner:
             )
 
         return {"nodes": nodes_out, "edges": edges_out}
+
+    async def get_graph_stats(self, db: AsyncSession) -> dict[str, Any]:
+        """Compute basic graph statistics using NetworkX."""
+        g = await self._get_cached_graph(db)
+        node_count = g.number_of_nodes()
+        edge_count = g.number_of_edges()
+        avg_deg = (edge_count * 2.0 / node_count) if node_count > 0 else 0.0
+        return {
+            "node_count": node_count,
+            "relationship_count": edge_count,
+            "average_degree": avg_deg,
+            "provider": "networkx"
+        }
+
+    async def get_node_degree(self, db: AsyncSession, slug: str) -> int:
+        """Compute degree of a node using NetworkX."""
+        g = await self._get_cached_graph(db)
+        slug_to_id = g.graph.get("slug_to_id", {})
+        node_id = slug_to_id.get(slug, slug)
+        if node_id in g:
+            return g.degree(node_id)
+        return 0
+
+    async def get_pagerank(self, db: AsyncSession) -> dict[str, float]:
+        """Compute PageRank for all nodes using NetworkX."""
+        g = await self._get_cached_graph(db)
+        if g.number_of_nodes() == 0:
+            return {}
+        id_to_node = g.graph.get("id_to_node", {})
+        try:
+            pr = nx.pagerank(g, alpha=0.85)
+        except Exception:
+            return {
+                id_to_node[node_id].slug if node_id in id_to_node else node_id: 1.0 / g.number_of_nodes()
+                for node_id in g
+            }
+        return {
+            id_to_node[node_id].slug if node_id in id_to_node else node_id: score
+            for node_id, score in pr.items()
+        }
+
+    async def get_degree_centrality(self, db: AsyncSession) -> dict[str, float]:
+        """Compute Degree Centrality for all nodes using NetworkX."""
+        g = await self._get_cached_graph(db)
+        if g.number_of_nodes() == 0:
+            return {}
+        id_to_node = g.graph.get("id_to_node", {})
+        dc = nx.degree_centrality(g)
+        return {
+            id_to_node[node_id].slug if node_id in id_to_node else node_id: score
+            for node_id, score in dc.items()
+        }
+
+    async def get_node_metrics(self, db: AsyncSession, slug: str) -> dict[str, Any]:
+        """Get comprehensive analytics metrics for a specific node."""
+        g = await self._get_cached_graph(db)
+        slug_to_id = g.graph.get("slug_to_id", {})
+        node_id = slug_to_id.get(slug, slug)
+        if node_id not in g:
+            return {}
+        
+        dc_scores = nx.degree_centrality(g)
+        try:
+            pr_scores = nx.pagerank(g, alpha=0.85)
+        except Exception:
+            pr_scores = {nid: 1.0 / g.number_of_nodes() for nid in g}
+            
+        dc = dc_scores.get(node_id, 0.0)
+        pr = pr_scores.get(node_id, 0.0)
+        
+        return {
+            "slug": slug,
+            "degree": g.degree(node_id),
+            "degree_centrality": dc,
+            "pagerank": pr,
+        }
+

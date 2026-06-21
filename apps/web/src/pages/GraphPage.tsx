@@ -13,6 +13,7 @@ import {
   Maximize2,
   Command,
   Keyboard,
+  Search,
 } from 'lucide-react';
 import { useGraphStore, type GraphNode, type GraphEdge } from '../components/graph/graphStore';
 import { GraphView2D } from '../components/graph/GraphView2D';
@@ -393,56 +394,59 @@ export function GraphPage() {
           )}
         </AnimatePresence>
 
-        {/* MiniMap */}
-        {nodes.length > 0 && !loading && (
-          <MiniMap />
-        )}
 
-        {/* Zoom Controls */}
+        {/* Unified Mini Toolbar (Search + Zoom Controls) */}
         {nodes.length > 0 && (
-          <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1 bg-white/95 backdrop-blur-md border border-[#e7e1d8] rounded-2xl p-1 shadow-lg">
+          <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1.5 bg-white/95 backdrop-blur-md border border-[#e7e1d8] rounded-2xl p-1.5 shadow-lg">
+            {/* Search Button */}
+            <button
+              onClick={toggleSearchOverlay}
+              className="px-3 h-9 rounded-xl flex items-center gap-1.5 text-[#8a8175] hover:text-[var(--coral)] hover:bg-[#faf9f5] transition-all text-xs font-semibold border-none bg-transparent cursor-pointer"
+              title="Tìm kiếm (Cmd+K)"
+            >
+              <Search className="w-4 h-4" />
+              <span className="hidden sm:inline">Tìm kiếm</span>
+              <kbd className="hidden md:inline-flex h-4 items-center gap-0.5 rounded border border-[#e7e1d8] bg-[#faf9f5] px-1 text-[8px] font-mono font-medium text-[#aaa39a] leading-none">
+                ⌘K
+              </kbd>
+            </button>
+
+            <div className="w-px h-5 bg-[#e7e1d8]" />
+
+            {/* Zoom In */}
             <button
               onClick={() => setTransform({ scale: Math.min(3, transform.scale + 0.15) })}
-              className="w-9 h-9 rounded-xl flex items-center justify-center text-[#8a8175] hover:text-[var(--coral)] hover:bg-[#faf9f5] transition-all"
+              className="w-9 h-9 rounded-xl flex items-center justify-center text-[#8a8175] hover:text-[var(--coral)] hover:bg-[#faf9f5] transition-all border-none bg-transparent cursor-pointer"
               title="Phóng to"
             >
               <ZoomIn className="w-4 h-4" />
             </button>
+
+            {/* Zoom Out */}
             <button
               onClick={() => setTransform({ scale: Math.max(0.2, transform.scale - 0.15) })}
-              className="w-9 h-9 rounded-xl flex items-center justify-center text-[#8a8175] hover:text-[var(--coral)] hover:bg-[#faf9f5] transition-all"
+              className="w-9 h-9 rounded-xl flex items-center justify-center text-[#8a8175] hover:text-[var(--coral)] hover:bg-[#faf9f5] transition-all border-none bg-transparent cursor-pointer"
               title="Thu nhỏ"
             >
               <ZoomOut className="w-4 h-4" />
             </button>
-            <div className="w-px h-5 bg-[#e7e1d8]" />
+
+            {/* Fit View */}
             <button
               onClick={handleFitView}
-              className="w-9 h-9 rounded-xl flex items-center justify-center text-[#8a8175] hover:text-[var(--coral)] hover:bg-[#faf9f5] transition-all"
+              className="w-9 h-9 rounded-xl flex items-center justify-center text-[#8a8175] hover:text-[var(--coral)] hover:bg-[#faf9f5] transition-all border-none bg-transparent cursor-pointer"
               title="Khớp với khung nhìn"
             >
               <Maximize2 className="w-4 h-4" />
             </button>
+
+            {/* Reset */}
             <button
               onClick={resetTransform}
-              className="w-9 h-9 rounded-xl flex items-center justify-center text-[#8a8175] hover:text-[var(--coral)] hover:bg-[#faf9f5] transition-all"
+              className="w-9 h-9 rounded-xl flex items-center justify-center text-[#8a8175] hover:text-[var(--coral)] hover:bg-[#faf9f5] transition-all border-none bg-transparent cursor-pointer"
               title="Đặt lại"
             >
               <RotateCcw className="w-4 h-4" />
-            </button>
-          </div>
-        )}
-
-        {/* Keyboard Shortcuts Hint */}
-        {nodes.length > 0 && (
-          <div className="absolute bottom-4 right-32 z-20">
-            <button
-              onClick={toggleSearchOverlay}
-              className="flex items-center gap-2 px-3 py-2 bg-white/80 backdrop-blur-md border border-[#e7e1d8] rounded-xl text-xs text-[#8a8175] hover:text-[#2d2a26] transition-colors shadow-sm"
-            >
-              <Command className="w-3.5 h-3.5" />
-              <Keyboard className="w-3.5 h-3.5" />
-              <span>Tìm kiếm</span>
             </button>
           </div>
         )}

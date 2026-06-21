@@ -14,12 +14,25 @@ class HistoricalReasoningEngine:
     """
 
     def __init__(self):
-        self.llm = get_llm_client()
+        try:
+            self.llm = get_llm_client()
+        except Exception as exc:
+            logger.warning("failed_to_initialize_llm_client_for_reasoning_engine", error=str(exc))
+            self.llm = None
 
     async def analyze_causality(self, query: str, chunks: list[dict[str, Any]], timeline_events: list[dict[str, Any]] = None) -> dict[str, Any]:
         """
         Runs causal reasoning analyzing triggers, turning points, consequences, and long term impacts.
         """
+        if not self.llm:
+            return {
+                "causes": ["Không thể phân tích bối cảnh tự động (Thiếu LLM)."],
+                "triggers": ["Không thể xác định ngòi nổ kích hoạt (Thiếu LLM)."],
+                "turning_points": ["Không tìm thấy bước ngoặt (Thiếu LLM)."],
+                "consequences": ["Không thể trích xuất kết quả (Thiếu LLM)."],
+                "long_term_impacts": ["Lỗi phân tích ý nghĩa lịch sử (Thiếu LLM)."]
+            }
+
         timeline_events = timeline_events or []
         
         # Prepare content strings

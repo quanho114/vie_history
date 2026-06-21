@@ -158,6 +158,39 @@ function IconUpload({ className = "" }: { className?: string }) {
   )
 }
 
+function IconBrain({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
+      <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
+      <path d="M12 5v14" />
+      <path d="M12 12h6" />
+      <path d="M12 12H6" />
+    </svg>
+  )
+}
+
+function IconMessageSquare({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
+  )
+}
+
+function IconExternalLink({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </svg>
+  )
+}
+
 
 // ── Period config ──────────────────────────────────────
 const PERIODS = [
@@ -259,6 +292,10 @@ export function WikiBrowserPage() {
     references: "",
   })
   const [draftSubmitting, setDraftSubmitting] = useState(false)
+
+  const [selectedWikiPage, setSelectedWikiPage] = useState<WikiPage | null>(null)
+  const [isStatsVisible, setIsStatsVisible] = useState(true)
+  const [isDraggingFile, setIsDraggingFile] = useState(false)
 
   const selectedProject = projects.find(p => p.id === selectedProjectId)
   const selectedDraftProject = projects.find(p => p.id === draftProjectId)

@@ -416,12 +416,11 @@ function IconAgentTrace({ className = "" }: { className?: string }) {
    ======================================== */
 
 const navItems = [
-  { to: "/chat", icon: IconTrangChu, label: "Trang chủ" },
   { to: "/timeline", icon: IconTimelineCustom, label: "Dòng thời gian" },
-  { to: "/wiki", icon: IconNhanVat, label: "Nhân vật" },
-  { to: "/graph", icon: IconSuKien, label: "Sự kiện" },
-  { to: "/documents", icon: IconTaiLieu, label: "Tài liệu" },
-  { to: "/brain-builder", icon: IconAIAssistant, label: "AI Assistant" },
+  { to: "/wiki", icon: IconNhanVat, label: "Wiki Lịch sử" },
+  { to: "/graph", icon: IconSuKien, label: "Bản đồ tri thức" },
+  { to: "/documents", icon: IconTaiLieu, label: "Tư liệu lịch sử" },
+  { to: "/brain-builder", icon: IconBrain, label: "Biên dịch Tri thức" },
   { to: "/agent-trace", icon: IconAgentTrace, label: "Giám sát Agent" },
 ];
 
@@ -731,11 +730,11 @@ export function Sidebar({
   const translatedLabel = (to: string, fallback: string) => {
     switch (to) {
       case "/chat": return "Trang chủ";
-      case "/wiki": return "Nhân vật";
+      case "/wiki": return "Wiki Lịch sử";
       case "/timeline": return "Dòng thời gian";
-      case "/graph": return "Sự kiện";
-      case "/documents": return "Tài liệu";
-      case "/brain-builder": return "AI Assistant";
+      case "/graph": return "Bản đồ tri thức";
+      case "/documents": return "Tư liệu lịch sử";
+      case "/brain-builder": return "Biên dịch Tri thức";
       case "/agent-trace": return "Giám sát Agent";
       default: return fallback;
     }

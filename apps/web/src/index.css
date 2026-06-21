@@ -250,13 +250,9 @@ button:focus-visible {
 }
 
 .sidebar {
-  width: 280px;
-  background: var(--color-surface);
-  backdrop-filter: var(--blur-glass);
-  -webkit-backdrop-filter: var(--blur-glass);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: var(--shadow-float);
-  border-radius: var(--radius-panel);
+  width: 260px;
+  background: #f5f0ea;
+  border-right: 1px solid #e5ddd4;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -610,6 +606,28 @@ button:focus-visible {
 
 .dark .markdown-content code {
   background-color: var(--surface-strong) !important;
+}
+
+/* Citation superscripts [1] — sit just slightly above baseline, not full superscript */
+.markdown-content sup {
+  vertical-align: baseline !important;
+  font-size: 0.65em !important;
+  line-height: 0 !important;
+  position: relative !important;
+  top: -0.25em !important;
+}
+
+.markdown-content sup a {
+  color: var(--coral) !important;
+  text-decoration: none !important;
+}
+
+.markdown-content sub {
+  vertical-align: baseline !important;
+  font-size: 0.65em !important;
+  line-height: 0 !important;
+  position: relative !important;
+  top: 0.25em !important;
 }
 
 @keyframes scaleUp {

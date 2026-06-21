@@ -68,7 +68,8 @@ class DomainClassifier:
         "hiệp định", "paris", "kháng chiến", "chiến dịch", "tổng khởi nghĩa",
         "cách mạng tháng tám", "vĩ tuyến 17", "chống mỹ", "chống pháp", "đông dương",
         "mậu thân", "ấp bắc", "điện biên phủ trên không", "nhân văn giai phẩm",
-        "cải cách ruộng đất", "lịch sử", "sự kiện", "nhân vật", "tướng", "quân đội"
+        "cải cách ruộng đất", "lịch sử", "sự kiện", "nhân vật", "tướng", "quân đội",
+        "tiền sử", "cổ đại", "phong kiến", "thuộc địa"
     ]
 
     CAPABILITY_KEYWORDS = [
@@ -188,10 +189,10 @@ class DomainClassifier:
                 return DomainResult(decision=DomainDecision.IN_SCOPE, confidence=1.0, source="llm", reason="Trong phạm vi (Mock)")
 
             prompt = f"""Bạn là bộ lọc phạm vi câu hỏi (Domain Guardrail AI) của HistoriAI.
-Xác định xem câu hỏi của người dùng có thuộc phạm vi Lịch sử Việt Nam (đặc biệt giai đoạn 1945-1975) hoặc chào hỏi xã giao hay không.
+Xác định xem câu hỏi của người dùng có thuộc phạm vi Lịch sử Việt Nam (bao gồm cả các thời kỳ tiền sử, phong kiến, thuộc địa, chiến tranh và hiện đại liên quan đến lịch sử VN) hoặc chào hỏi xã giao hay không.
 
 Quy tắc phân loại:
-- "IN": Câu hỏi liên quan đến lịch sử Việt Nam (đặc biệt 1945-1975), nhân vật lịch sử VN, hoặc các câu chào hỏi xã giao thân thiện.
+- "IN": Câu hỏi liên quan đến lịch sử Việt Nam ở bất kỳ giai đoạn nào (tiền sử, phong kiến, thuộc địa, kháng chiến chống Pháp/Mỹ 1945-1975, lịch sử cận-hiện đại), nhân vật lịch sử VN, hoặc các câu chào hỏi xã giao thân thiện.
 - "OUT": Câu hỏi hoàn toàn ngoài ngành lịch sử VN (ví dụ: bóng đá, Lionel Messi, thời tiết hiện nay, công nghệ, lập trình, toán học, hoặc lịch sử nước khác không liên quan trực tiếp đến Việt Nam).
 
 Truy vấn: "{query}"

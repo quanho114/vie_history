@@ -17,6 +17,7 @@ from typing import TYPE_CHECKING, Any
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 from app.core.logging import get_logger
+from app.core.config import settings
 from app.services.retrieval.embedder import Embedder
 from app.services.retrieval.vector_search import VectorSearch
 from app.services.retrieval.fusion import FusionSearch
@@ -233,6 +234,9 @@ class QueryService:
             return []
 
         # ── Stage 3: Cross-encoder Reranking ──────────────────────
+        if not settings.ENABLE_RERANKER:
+            skip_rerank = True
+
         if skip_rerank:
             candidates = fused[:effective_top_k]
             for item in candidates:
@@ -275,6 +279,9 @@ class QueryService:
                         item["rrf_score"] = item["rrf_score"] * boost_factor
 
             results = sorted(results, key=lambda x: x.get("rerank_score", 0), reverse=True)
+
+        # ── Stage 4.5: Entity-Aware Boosting ────────────────────────
+        results = self._apply_entity_boosting(query, results)
 
         # ── Stage 5: Normalize to standard output format ───────────
         return self._normalize(results)
@@ -320,6 +327,8 @@ class QueryService:
         """Run vector and BM25 searches depending on rag_mode."""
         from app.core.context import rag_mode_var
         mode = rag_mode_var.get()
+        if not settings.ENABLE_HYBRID:
+            mode = "vector"
 
         vector_results, bm25_results = [], []
 
@@ -404,6 +413,37 @@ class QueryService:
             logger.warning("inmemory_bm25_fallback_failed", error=str(exc))
 
         return []
+
+    def _apply_entity_boosting(self, query: str, results: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """Boost chunks mentioning query entities or canonical aliases."""
+        from app.services.retrieval.historical_utils import HISTORICAL_ALIASES, normalize_vietnamese_text
+        
+        normalized_query = normalize_vietnamese_text(query)
+        target_aliases = set()
+        
+        # Identify active alias groups from query
+        for alias_key, group in HISTORICAL_ALIASES.items():
+            if alias_key in normalized_query:
+                for name in group:
+                    target_aliases.add(normalize_vietnamese_text(name))
+                    
+        # Apply entity boosting to chunks
+        boosted_results = []
+        for item in results:
+            item = dict(item)  # Copy
+            content = normalize_vietnamese_text(item.get("content", ""))
+            boosted = False
+            
+            for alias in target_aliases:
+                if alias in content:
+                    # Apply a 1.25x boost factor for matching key entities or aliases
+                    item["rerank_score"] = item.get("rerank_score", 0) * 1.25
+                    boosted = True
+                    break
+                    
+            boosted_results.append(item)
+            
+        return sorted(boosted_results, key=lambda x: x.get("rerank_score", 0), reverse=True)
 
     def _normalize(self, results: list[dict[str, Any]]) -> list[dict[str, Any]]:
         """Convert internal result format to the standard API format."""

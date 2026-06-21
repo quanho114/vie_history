@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X,
@@ -41,6 +42,7 @@ interface NodePanelProps {
 }
 
 export function NodePanel({ onClose, onNavigateToNode }: NodePanelProps) {
+  const navigate = useNavigate();
   const { selectedNodeId, nodes, edges, setSelectedNodeId } = useGraphStore();
 
   const selectedNode = nodes.find(n => n.id === selectedNodeId);
@@ -59,8 +61,8 @@ export function NodePanel({ onClose, onNavigateToNode }: NodePanelProps) {
   };
 
   return (
-    <div className="absolute top-4 right-4 z-20 w-80">
-      <div className="bg-white/95 backdrop-blur-md border border-[#e7e1d8] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] overflow-hidden">
+    <div className="absolute top-4 right-4 z-20 w-80 max-h-[calc(100%-2rem)] flex flex-col overflow-hidden">
+      <div className="bg-white/95 backdrop-blur-md border border-[#e7e1d8] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col max-h-full">
         
         {/* Header */}
         <div className="p-4 border-b border-[#f0ebe3]">
@@ -105,7 +107,7 @@ export function NodePanel({ onClose, onNavigateToNode }: NodePanelProps) {
         </div>
 
         {/* Content */}
-        <div className="max-h-[calc(100vh-16rem)] overflow-y-auto">
+        <div className="flex-1 overflow-y-auto">
           
           {/* Description */}
           {selectedNode.description && (
@@ -202,15 +204,30 @@ export function NodePanel({ onClose, onNavigateToNode }: NodePanelProps) {
         </div>
 
         {/* Actions */}
-        <div className="p-3 border-t border-[#f0ebe3] bg-[#faf9f5] flex gap-2">
-          <button className="flex-1 py-2 px-3 bg-white border border-[#e7e1d8] hover:border-[var(--coral)] rounded-xl text-xs font-semibold text-[#4a4a4a] hover:text-[var(--coral)] transition-colors flex items-center justify-center gap-1.5">
-            <ExternalLink className="w-3.5 h-3.5" />
-            Chi tiết
+        <div className="p-3 border-t border-[#f0ebe3] bg-[#faf9f5] flex flex-col gap-2">
+          <button
+            onClick={() => navigate(`/chat?q=${encodeURIComponent(`Hãy kể cho tôi nghe chi tiết về ${selectedNode.name}`)}&context_type=wiki&context_id=${selectedNode.slug}`)}
+            className="w-full py-2.5 px-3 bg-[#cc785c] hover:bg-[#b8664a] text-white rounded-xl text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98] border-none cursor-pointer"
+          >
+            <BookOpen className="w-3.5 h-3.5" />
+            Hỏi AI về {selectedNode.name}
           </button>
-          <button className="flex-1 py-2 px-3 bg-white border border-[#e7e1d8] hover:border-[var(--coral)] rounded-xl text-xs font-semibold text-[#4a4a4a] hover:text-[var(--coral)] transition-colors flex items-center justify-center gap-1.5">
-            <Edit3 className="w-3.5 h-3.5" />
-            Chỉnh sửa
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => navigate(`/wiki/${selectedNode.slug}`)}
+              className="flex-1 py-2 px-3 bg-white border border-[#e7e1d8] hover:border-[#cc785c] rounded-xl text-xs font-semibold text-[#4a4a4a] hover:text-[#cc785c] transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              Chi tiết
+            </button>
+            <button
+              onClick={() => navigate(`/wiki/${selectedNode.slug}?edit=true`, { state: { openEdit: true } })}
+              className="flex-1 py-2 px-3 bg-white border border-[#e7e1d8] hover:border-[#cc785c] rounded-xl text-xs font-semibold text-[#4a4a4a] hover:text-[#cc785c] transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <Edit3 className="w-3.5 h-3.5" />
+              Chỉnh sửa
+            </button>
+          </div>
         </div>
       </div>
     </div>
