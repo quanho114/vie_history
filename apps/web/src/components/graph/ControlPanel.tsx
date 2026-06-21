@@ -65,9 +65,10 @@ export function ControlPanel({ onFitView }: ControlPanelProps) {
   if (isCollapsed) {
     return (
       <motion.button
-        layoutId="control-panel-container"
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.8 }}
+        transition={{ duration: 0.2 }}
         onClick={() => setIsCollapsed(false)}
         className="absolute top-4 left-4 z-20 w-11 h-11 bg-white/95 backdrop-blur-md border border-[#e7e1d8] rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] flex items-center justify-center hover:bg-[#faf9f5] hover:text-[var(--coral)] transition-all cursor-pointer text-[#8a8175]"
         title="Mở bảng điều khiển"
@@ -79,10 +80,10 @@ export function ControlPanel({ onFitView }: ControlPanelProps) {
 
   return (
     <motion.div
-      layoutId="control-panel-container"
-      initial={{ x: -20, opacity: 0 }}
+      initial={{ x: -340, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      exit={{ x: -20, opacity: 0 }}
+      exit={{ x: -340, opacity: 0 }}
+      transition={{ type: 'spring', damping: 26, stiffness: 220 }}
       className="absolute top-4 left-4 z-20 w-80 max-h-[calc(100%-2rem)] overflow-hidden flex flex-col"
     >
       {/* Main Panel */}
