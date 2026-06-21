@@ -80,15 +80,127 @@ class CitationVerifier:
         return float(matched / len(unique_entities))
 
     def _calculate_numeric_score(self, claim: str, source: str) -> float:
-        """Verify that all numbers in the claim are present in the source."""
-        clean_claim = re.sub(r"\[S\d+\]", "", claim)
-        claim_digits = set(re.findall(r"\b\d+\b", clean_claim))
+        """Verify that all numbers in the claim are present in the source, supporting decimals and Vietnamese words."""
+        def parse_vietnamese_number_words(words: list[str]) -> float:
+            UNIT_WORDS = {
+                "không": 0, "một": 1, "mốt": 1, "hai": 2, "ba": 3, "bốn": 4, "tư": 4,
+                "năm": 5, "lăm": 5, "nhăm": 5, "sáu": 6, "bảy": 7, "bẩy": 7, "tám": 8, "chín": 9
+            }
+            TEN_WORDS = {"mười": 10, "chục": 10, "mươi": 10}
+            
+            if "phẩy" in words:
+                idx = words.index("phẩy")
+                left = parse_vietnamese_number_words(words[:idx]) if idx > 0 else 0
+                right_words = words[idx+1:]
+                right_val = parse_vietnamese_number_words(right_words)
+                if right_val > 0:
+                    power = len(str(int(right_val)))
+                    return left + right_val / (10 ** power)
+                return left
 
-        if not claim_digits:
+            for bil in ["tỷ", "tỉ"]:
+                if bil in words:
+                    idx = words.index(bil)
+                    left = parse_vietnamese_number_words(words[:idx]) if idx > 0 else 1
+                    right = parse_vietnamese_number_words(words[idx+1:])
+                    return left * 1_000_000_000 + right
+
+            if "triệu" in words:
+                idx = words.index("triệu")
+                left = parse_vietnamese_number_words(words[:idx]) if idx > 0 else 1
+                right = parse_vietnamese_number_words(words[idx+1:])
+                return left * 1_000_000 + right
+
+            for th in ["nghìn", "ngàn"]:
+                if th in words:
+                    idx = words.index(th)
+                    left = parse_vietnamese_number_words(words[:idx]) if idx > 0 else 1
+                    right = parse_vietnamese_number_words(words[idx+1:])
+                    return left * 1_000 + right
+
+            if "trăm" in words:
+                idx = words.index("trăm")
+                left = parse_vietnamese_number_words(words[:idx]) if idx > 0 else 1
+                right = parse_vietnamese_number_words(words[idx+1:])
+                return left * 100 + right
+
+            val = 0
+            i = 0
+            while i < len(words):
+                w = words[i]
+                if w in UNIT_WORDS:
+                    val += UNIT_WORDS[w]
+                elif w in TEN_WORDS:
+                    if val == 0:
+                        val = 10
+                    else:
+                        val *= 10
+                i += 1
+            return val
+
+        def extract_all_numbers(text: str) -> set[float]:
+            text_norm = re.sub(r"(\b\d+),(\d+\b)", r"\1.\2", text)
+            digit_matches = re.findall(r"\b\d+(?:\.\d+)?\b", text_norm)
+            numbers = set()
+            for m in digit_matches:
+                try:
+                    numbers.add(float(m))
+                except ValueError:
+                    pass
+
+            UNIT_WORDS = {
+                "không", "một", "mốt", "hai", "ba", "bốn", "tư", "năm", "lăm", "nhăm", "sáu", "bảy", "bẩy", "tám", "chín"
+            }
+            TEN_WORDS = {"mười", "chục", "mươi"}
+            MULT_WORDS = {"trăm", "nghìn", "ngàn", "triệu", "tỷ", "tỉ", "phẩy"}
+            NUMBER_WORDS = UNIT_WORDS.union(TEN_WORDS).union(MULT_WORDS).union({"linh", "lẻ"})
+
+            words_tokenized = re.findall(r"\w+", text.lower())
+            is_num_word = [False] * len(words_tokenized)
+            for idx, w in enumerate(words_tokenized):
+                prev_w = words_tokenized[idx - 1] if idx - 1 >= 0 else ""
+                if prev_w == "phần":
+                    continue
+                if w == "năm":
+                    next_w = words_tokenized[idx + 1] if idx + 1 < len(words_tokenized) else ""
+                    followed_by_mult = next_w in {"mươi", "chục", "trăm", "nghìn", "ngàn", "triệu", "tỷ", "tỉ", "phẩy"}
+                    preceded_by_conn = prev_w in {"phẩy", "linh", "lẻ"}
+                    if followed_by_mult or preceded_by_conn:
+                        is_num_word[idx] = True
+                elif w in NUMBER_WORDS:
+                    is_num_word[idx] = True
+
+            contiguous_spans = []
+            current_span = []
+            for idx, w in enumerate(words_tokenized):
+                if is_num_word[idx]:
+                    current_span.append(w)
+                else:
+                    if current_span:
+                        contiguous_spans.append(current_span)
+                        current_span = []
+            if current_span:
+                contiguous_spans.append(current_span)
+
+            for span in contiguous_spans:
+                if len(span) == 1 and span[0] in {"linh", "lẻ", "năm"}:
+                    continue
+                try:
+                    num_val = parse_vietnamese_number_words(span)
+                    numbers.add(float(num_val))
+                except Exception:
+                    pass
+
+            return numbers
+
+        clean_claim = re.sub(r"\[S\d+\]", "", claim)
+        claim_numbers = extract_all_numbers(clean_claim)
+
+        if not claim_numbers:
             return 1.0
 
-        source_digits = set(re.findall(r"\b\d+\b", source))
-        if claim_digits.issubset(source_digits):
+        source_numbers = extract_all_numbers(source)
+        if claim_numbers.issubset(source_numbers):
             return 1.0
         return 0.0
 
