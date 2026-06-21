@@ -35,29 +35,47 @@ function NodeMesh({
   onPointerLeave,
 }: NodeMeshProps) {
   const meshRef = useRef<THREE.Mesh>(null);
+  const { settings, selectedNodeId } = useGraphStore();
   const color = getNodeColor(node.type);
 
   // Scale based on state
   const targetScale = isSelected ? 1.4 : isHovered ? 1.2 : 1;
   
-  useFrame(() => {
+  useFrame((state) => {
     if (meshRef.current) {
+      // Subtle breathing pulse effect
+      const time = state.clock.getElapsedTime();
+      const pulseFreq = isSelected ? 2.5 : 1.5;
+      const pulseAmp = isSelected ? 0.08 : 0.04;
+      const phase = node.id.charCodeAt(0) * 0.1;
+      const pulse = 1 + Math.sin(time * pulseFreq + phase) * pulseAmp;
+      
+      const finalScale = targetScale * pulse;
       meshRef.current.scale.lerp(
-        new THREE.Vector3(targetScale, targetScale, targetScale),
+        new THREE.Vector3(finalScale, finalScale, finalScale),
         0.15
       );
     }
   });
 
   // Opacity based on connection state
-  const opacity = isConnected || isSelected ? 1 : 0.25;
+  const opacity = isConnected || isSelected ? 1 : selectedNodeId ? 0.15 : 0.7;
+
+  // Render label condition matching 2D behavior
+  const showLabels = settings?.showLabels ?? true;
+  const isLabelVisible = showLabels && (
+    isSelected || 
+    isHovered || 
+    (selectedNodeId && isConnected) || 
+    (!selectedNodeId && (node.degree || 0) >= 3)
+  );
 
   return (
     <group position={position}>
       {/* Glow effect for selected */}
       {isSelected && (
-        <Sphere args={[0.8, 16, 16]}>
-          <meshBasicMaterial color={color} transparent opacity={0.2} />
+        <Sphere args={[0.9, 16, 16]}>
+          <meshBasicMaterial color={color} transparent opacity={0.15} />
         </Sphere>
       )}
 
@@ -71,30 +89,42 @@ function NodeMesh({
       >
         <meshStandardMaterial
           color={color}
-          metalness={0.3}
-          roughness={0.6}
+          metalness={0.4}
+          roughness={0.4}
           transparent
           opacity={opacity}
         />
       </Sphere>
 
-      {/* Label */}
-      {(isSelected || isHovered) && (
+      {/* Label Capsule Overlay */}
+      {isLabelVisible && (
         <Html center distanceFactor={15} style={{ pointerEvents: 'none' }}>
           <div
             style={{
-              background: 'rgba(255,255,255,0.95)',
-              padding: '4px 8px',
+              background: isSelected 
+                ? '#cc785c' 
+                : isHovered 
+                  ? '#f5f1ea' 
+                  : 'rgba(255, 255, 255, 0.92)',
+              padding: '3px 8px',
               borderRadius: '6px',
-              fontSize: '11px',
-              fontWeight: 600,
-              color: '#2d2a26',
+              fontSize: '10px',
+              fontWeight: isSelected || isHovered ? 700 : 500,
+              color: isSelected 
+                ? '#ffffff' 
+                : isHovered 
+                  ? '#cc785c' 
+                  : '#4a4a4a',
               whiteSpace: 'nowrap',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-              border: isSelected ? '2px solid #e05640' : '1px solid #e7e1d8',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+              border: isSelected 
+                ? '1px solid #cc785c' 
+                : `1px solid ${isHovered ? '#cc785c' : color}`,
+              transition: 'all 0.15s ease-out',
+              backdropFilter: 'blur(4px)',
             }}
           >
-            {node.name.length > 20 ? node.name.slice(0, 18) + '...' : node.name}
+            {node.name.length > 22 ? node.name.slice(0, 20) + '...' : node.name}
           </div>
         </Html>
       )}
@@ -118,14 +148,31 @@ function EdgeLine({ edge, sourcePos, targetPos, isHighlighted }: EdgeLineProps) 
     return [sourcePos, targetPos];
   }, [sourcePos, targetPos]);
 
+  const particleRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (isHighlighted && particleRef.current) {
+      // Glow flow animation progress
+      const t = (state.clock.getElapsedTime() * 0.6) % 1;
+      particleRef.current.position.lerpVectors(sourcePos, targetPos, t);
+    }
+  });
+
   return (
-    <Line
-      points={points}
-      color={isHighlighted ? '#e05640' : '#d0cbc4'}
-      lineWidth={isHighlighted ? 2 : 1}
-      transparent
-      opacity={isHighlighted ? 0.8 : 0.4}
-    />
+    <group>
+      <Line
+        points={points}
+        color={isHighlighted ? '#cc785c' : '#d0cbc4'}
+        lineWidth={isHighlighted ? 2.5 : 1}
+        transparent
+        opacity={isHighlighted ? 0.85 : 0.15}
+      />
+      {isHighlighted && (
+        <Sphere ref={particleRef} args={[0.15, 8, 8]}>
+          <meshBasicMaterial color="#cc785c" />
+        </Sphere>
+      )}
+    </group>
   );
 }
 
@@ -264,8 +311,8 @@ function GraphScene() {
         enableRotate
         minDistance={5}
         maxDistance={100}
-        autoRotate={false}
-        autoRotateSpeed={0.5}
+        autoRotate={true}
+        autoRotateSpeed={0.3}
       />
     </>
   );
