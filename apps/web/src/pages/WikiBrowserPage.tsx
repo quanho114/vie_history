@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from "react"
+import { useEffect, useState, useCallback, useRef, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import { wikiApi, projectsApi, draftsApi, type WikiPage, type Project } from "@/lib/api/brain"
 import { useAuthStore } from "@/stores/authStore"
@@ -440,6 +440,19 @@ export function WikiBrowserPage() {
     }
   }
 
+  const stats = useMemo(() => {
+    const totalPages = allPages.length
+    const totalProjects = projects.length
+    const periodCounts = allPages.reduce((acc, p) => {
+      if (p.period) {
+        acc[p.period] = (acc[p.period] || 0) + 1
+      }
+      return acc
+    }, {} as Record<string, number>)
+    
+    return { totalPages, totalProjects, periodCounts }
+  }, [allPages, projects])
+
   return (
     <div className="flex-1 flex flex-col overflow-hidden bg-[#faf9f5]">
       {/* Header */}
@@ -454,6 +467,12 @@ export function WikiBrowserPage() {
           </div>
         </div>
         <div className="flex gap-2">
+          <button
+            onClick={() => setIsStatsVisible(!isStatsVisible)}
+            className="flex items-center gap-2 px-4 py-2 border border-[#e6dfd8] text-[#6c6a64] hover:text-[#cc785c] hover:border-[#cc785c]/40 text-sm font-medium rounded-xl transition-all bg-white"
+          >
+            {isStatsVisible ? "Ẩn Thống kê" : "Hiện Thống kê"}
+          </button>
           {(user?.role === "admin" || user?.role === "editor") && (
             <button
               onClick={() => navigate("/wiki/drafts/review")}
@@ -470,6 +489,45 @@ export function WikiBrowserPage() {
           </button>
         </div>
       </header>
+
+      {isStatsVisible && (
+        <div className="px-8 py-5 grid grid-cols-1 md:grid-cols-3 gap-5 bg-[#fcfbf9] border-b border-[#e6dfd8] flex-shrink-0 animate-fade-in">
+          <div className="bg-white border border-[#e6dfd8] rounded-xl p-4 shadow-sm flex items-center justify-between">
+            <div>
+              <p className="text-[10px] text-[#8e8b82] uppercase tracking-wider font-semibold">Tập tài liệu</p>
+              <h4 className="text-xl font-display font-semibold text-[#141413] mt-1">{stats.totalPages} Trang tài liệu</h4>
+            </div>
+            <div className="w-10 h-10 bg-[#f5f0e8] text-[#cc785c] rounded-xl flex items-center justify-center">
+              <IconBook className="w-5 h-5" />
+            </div>
+          </div>
+          <div className="bg-white border border-[#e6dfd8] rounded-xl p-4 shadow-sm flex items-center justify-between">
+            <div>
+              <p className="text-[10px] text-[#8e8b82] uppercase tracking-wider font-semibold">Chủ đề chính</p>
+              <h4 className="text-xl font-display font-semibold text-[#141413] mt-1">{stats.totalProjects} Dự án lịch sử</h4>
+            </div>
+            <div className="w-10 h-10 bg-[#f5f0e8] text-[#cc785c] rounded-xl flex items-center justify-center">
+              <IconBrain className="w-5 h-5" />
+            </div>
+          </div>
+          <div className="bg-white border border-[#e6dfd8] rounded-xl p-4 shadow-sm flex flex-col justify-between">
+            <p className="text-[10px] text-[#8e8b82] uppercase tracking-wider font-semibold">Tỷ lệ theo Thời kỳ lịch sử</p>
+            <div className="flex gap-1 mt-3 h-2 bg-[#f5f0e8] rounded-full overflow-hidden">
+              {Object.entries(stats.periodCounts).map(([periodKey, count], idx) => (
+                <div 
+                  key={periodKey} 
+                  style={{ width: `${(count / (stats.totalPages || 1)) * 100}%` }}
+                  className={cn(
+                    "h-full transition-all duration-300",
+                    idx % 3 === 0 ? "bg-[#cc785c]" : idx % 3 === 1 ? "bg-blue-400" : "bg-emerald-400"
+                  )}
+                  title={`${periodKey}: ${count}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Search + Filters */}
       <div className="px-8 pt-6 pb-4 flex-shrink-0 space-y-3">
