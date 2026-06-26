@@ -331,40 +331,6 @@ async def query_stream(
     )
 
 
-@router.get("/trace/latest")
-async def get_latest_trace(
-    current_user: CurrentUser,
-    db: AsyncSession = Depends(get_db),
-):
-    """Retrieve the latest assistant trace for the current user."""
-    # Find user sessions
-    session_result = await db.execute(
-        select(Session.id).where(Session.user_id == current_user.id)
-    )
-    session_ids = [row[0] for row in session_result.all()]
-    
-    if not session_ids:
-        return {"trace": []}
-        
-    # Get latest assistant message with a trace
-    result = await db.execute(
-        select(Message.trace).where(
-            Message.session_id.in_(session_ids),
-            Message.role == "assistant",
-            Message.trace.isnot(None)
-        ).order_by(Message.created_at.desc()).limit(1)
-    )
-    latest_trace = result.scalar_one_or_none()
-    
-    # If the database returns trace as a JSONB list or dict, extract it
-    if isinstance(latest_trace, dict) and "trace" in latest_trace:
-        return latest_trace
-    elif latest_trace:
-        return {"trace": latest_trace}
-        
-    return {"trace": []}
-
-
 @router.post("/debug")
 async def query_debug(
     request: QueryRequest,
@@ -390,24 +356,4 @@ async def query_debug(
         "trace": result.trace,
     }
 
-
-@router.get("/ablation/report")
-async def get_ablation_report(
-    current_user: CurrentUser,
-):
-    """Retrieve the ablation study evaluation report."""
-    possible_paths = [
-        "/home/ho-minh-quan/Documents/Vie_history/evals/ablation_report.json",
-        "evals/ablation_report.json",
-    ]
-    for path in possible_paths:
-        if os.path.exists(path):
-            try:
-                with open(path, "r", encoding="utf-8") as f:
-                    return json.load(f)
-            except Exception as e:
-                logger.error("failed_to_load_ablation_report", path=path, error=str(e))
-                raise HTTPException(status_code=500, detail=f"Failed to read ablation report: {str(e)}")
-                
-    raise HTTPException(status_code=404, detail="Ablation report not found. Run the ablation study first.")
 

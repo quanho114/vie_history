@@ -68,19 +68,33 @@ class CrossEncoderReranker:
         model_name: str | None = None,
         max_length: int = 512,
         candidate_size: int = DEFAULT_CANDIDATE_SIZE,
-        device: str = "cpu",
+        device: str | None = None,
         batch_size: int = 8,
         blend_weight: float = 0.7,
     ):
-        self.model_name = model_name or _CROSS_ENCODER_POOL[0]
+        from app.core.config import settings
+        self.model_name = model_name or settings.VIETNAMESE_RERANKER_MODEL or _CROSS_ENCODER_POOL[0]
         self.max_length = max_length
         self.candidate_size = candidate_size
-        self.device = device
         self.batch_size = batch_size
         self.blend_weight = blend_weight
         self._model: CrossEncoder | None = None
         self._loaded = False
         self._available: bool | None = None
+
+        if device is None:
+            try:
+                import torch
+                if torch.cuda.is_available():
+                    self.device = "cuda"
+                elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+                    self.device = "mps"
+                else:
+                    self.device = "cpu"
+            except ImportError:
+                self.device = "cpu"
+        else:
+            self.device = device
 
     def _ensure_model(self) -> bool:
         """Lazy-load the cross-encoder model. Returns True if loaded."""
@@ -97,6 +111,7 @@ class CrossEncoderReranker:
                 self.model_name,
                 max_length=self.max_length,
                 device=self.device,
+                local_files_only=True,
             )
             logger.info(
                 "cross_encoder_loaded",
@@ -110,14 +125,58 @@ class CrossEncoderReranker:
                 model=self.model_name,
                 error=str(exc),
             )
+            # Try cached fallback model
+            fallback_model = "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli"
+            if self.model_name != fallback_model:
+                try:
+                    logger.info("attempting_fallback_cached_model", model=fallback_model)
+                    from sentence_transformers import CrossEncoder as _CE
+                    self._model = _CE(
+                        fallback_model,
+                        max_length=self.max_length,
+                        device=self.device,
+                        local_files_only=True,
+                    )
+                    self.model_name = fallback_model
+                    logger.info(
+                        "cross_encoder_loaded_fallback",
+                        model=fallback_model,
+                        device=self.device,
+                    )
+                    return True
+                except Exception as fallback_exc:
+                    logger.warning(
+                        "cross_encoder_fallback_failed",
+                        model=fallback_model,
+                        error=str(fallback_exc),
+                    )
+                    # Last resort: try online load of the originally configured model
+                    try:
+                        logger.info("attempting_online_download_of_configured_model", model=self.model_name)
+                        from sentence_transformers import CrossEncoder as _CE
+                        self._model = _CE(
+                            self.model_name,
+                            max_length=self.max_length,
+                            device=self.device,
+                        )
+                        logger.info(
+                            "cross_encoder_loaded_online",
+                            model=self.model_name,
+                            device=self.device,
+                        )
+                        return True
+                    except Exception as online_exc:
+                        logger.warning(
+                            "cross_encoder_online_load_failed",
+                            model=self.model_name,
+                            error=str(online_exc),
+                        )
             return False
 
     @property
     def is_available(self) -> bool:
         """Check if the reranker model is loaded and usable."""
-        if self._available is not None:
-            return self._available and self._model is not None
-        return self._model is not None
+        return self._ensure_model()
 
     def rerank(
         self,
@@ -154,11 +213,8 @@ class CrossEncoderReranker:
             texts = [c.get("content", c.get("payload", {}).get("content", "")) for c in pool]
             pairs = [[query, text] for text in texts]
 
-            # Run cross-encoder scoring in batch — use ThreadPoolExecutor instead of
-            # creating a new event loop per call (avoids event loop leak).
-            import concurrent.futures
-            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
-                scores = list(executor.map(lambda p: self._score_batch_sync(p), [pairs]))[0]
+            # Run cross-encoder scoring directly on the current thread to avoid openmp/threading deadlocks
+            scores = self._score_batch_sync(pairs)
 
             # Augment candidates with cross-encoder scores
             reranked = []
@@ -192,6 +248,48 @@ class CrossEncoderReranker:
             return result
 
         except Exception as exc:
+            if "out of memory" in str(exc).lower():
+                logger.warning("rerank_cuda_oom_falling_back_to_cpu")
+                try:
+                    import torch
+                    torch.cuda.empty_cache()
+                except Exception:
+                    pass
+                self.device = "cpu"
+                self._model = None
+                self._loaded = False
+                if self._ensure_model():
+                    try:
+                        # Retry on CPU directly
+                        texts = [c.get("content", c.get("payload", {}).get("content", "")) for c in pool]
+                        pairs = [[query, text] for text in texts]
+                        scores = self._score_batch_sync(pairs)
+                        
+                        reranked = []
+                        for i, candidate in enumerate(pool):
+                            ce_score = float(scores[i]) if i < len(scores) else 0.0
+                            first_stage_score = float(candidate.get("rrf_score", candidate.get("score", 0)))
+                            blended = (ce_score * self.blend_weight) + (
+                                first_stage_score * (1 - self.blend_weight)
+                            )
+                            enriched = {
+                                **candidate,
+                                "cross_encoder_score": ce_score,
+                                "rerank_score": blended,
+                            }
+                            reranked.append(enriched)
+                        reranked.sort(key=lambda x: x["rerank_score"], reverse=True)
+                        result = reranked[:top_k]
+                        logger.info(
+                            "rerank_complete_on_cpu",
+                            query=query[:30],
+                            candidates=len(pool),
+                            top_k=len(result),
+                        )
+                        return result
+                    except Exception as cpu_exc:
+                        logger.error("rerank_cpu_retry_failed", error=str(cpu_exc))
+            
             logger.error("rerank_error", error=str(exc))
             return self._fallback_lexical(query, pool, top_k)
 
@@ -213,9 +311,55 @@ class CrossEncoderReranker:
         """Synchronous batch scoring — call from thread pool."""
         if not self._model:
             return []
-        if callable(self._model):
-            return list(self._model(pairs))
-        return self._model.predict(pairs, show_progress_bar=False).tolist()
+        
+        # If it's the NLI fallback model, we need to format the pairs as:
+        # [premise, hypothesis] where premise = chunk text, hypothesis = template
+        is_nli = "mnli" in self.model_name.lower() or "xnli" in self.model_name.lower()
+        
+        nli_pairs = []
+        if is_nli:
+            for pair in pairs:
+                query, text = pair[0], pair[1]
+                # Format: [premise, hypothesis]
+                # template: "Văn bản này trả lời cho câu hỏi: {query}"
+                hyp = f"Văn bản này trả lời cho câu hỏi: {query}"
+                nli_pairs.append([text, hyp])
+            eval_pairs = nli_pairs
+        else:
+            eval_pairs = pairs
+
+        if hasattr(self._model, "predict"):
+            raw_scores = self._model.predict(eval_pairs, show_progress_bar=False)
+        else:
+            raw_scores = self._model(eval_pairs)
+
+        # Convert to numpy array for operations
+        import numpy as np
+        raw_scores = np.array(raw_scores)
+
+        # If it is NLI model (returning 3 classes), extract entailment probability
+        if is_nli and len(raw_scores.shape) == 2 and raw_scores.shape[1] == 3:
+            # Softmax over classes (dimension 1)
+            exp_scores = np.exp(raw_scores - np.max(raw_scores, axis=-1, keepdims=True))
+            probs = exp_scores / exp_scores.sum(axis=-1, keepdims=True)
+            
+            # Find entailment label index (usually 0)
+            entailment_idx = 0
+            try:
+                if hasattr(self._model, "model") and hasattr(self._model.model, "config"):
+                    label2id = getattr(self._model.model.config, "label2id", {})
+                    entailment_idx = label2id.get("entailment", 0)
+            except Exception:
+                pass
+            
+            scores = probs[:, entailment_idx].tolist()
+        else:
+            if len(raw_scores.shape) > 1:
+                scores = raw_scores.flatten().tolist()
+            else:
+                scores = raw_scores.tolist()
+
+        return scores
 
     def _fallback_lexical(
         self,

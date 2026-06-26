@@ -29,6 +29,9 @@ import {
   Check,
   PlusCircle,
   ChevronDown,
+  RefreshCw,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 
@@ -101,6 +104,7 @@ export function DocumentsPage() {
   const { documents, loadDocuments, isLoading, total, deleteDocument } = useDocumentStore()
   const [search, setSearch] = useState("")
   const [status, setStatus] = useState<string>("")
+  const [libraryPage, setLibraryPage] = useState(1)
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null)
   const [confirmDeleteTitle, setConfirmDeleteTitle] = useState<string>("")
@@ -116,7 +120,9 @@ export function DocumentsPage() {
   // Ingest states
   const [url, setUrl] = useState("")
   const [tags, setTags] = useState("")
-  const [file, setFile] = useState<File | null>(null)
+  const [files, setFiles] = useState<File[]>([])
+  const [isUploadingSequentially, setIsUploadingSequentially] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState<Record<string, "pending" | "processing" | "done" | "failed">>({})
   const [dragActive, setDragActive] = useState(false)
   const [copied, setCopied] = useState(false)
   const [deletingJobId, setDeletingJobId] = useState<string | null>(null)
@@ -144,10 +150,14 @@ export function DocumentsPage() {
   }, [])
 
   useEffect(() => {
+    setLibraryPage(1)
+  }, [search, status])
+
+  useEffect(() => {
     if (activeTab === "library") {
-      loadDocuments({ search: search || undefined, status: status || undefined })
+      loadDocuments({ page: libraryPage, search: search || undefined, status: status || undefined })
     }
-  }, [search, status, activeTab])
+  }, [search, status, activeTab, libraryPage])
 
   useEffect(() => {
     loadJobs()
@@ -170,38 +180,127 @@ export function DocumentsPage() {
     return () => clearInterval(interval)
   }, [jobs, loadJobs, loadDocuments, search, status])
 
+  const getUrlsList = (val: string): string[] => {
+    return val
+      .split(/[\n,]/)
+      .map(line => line.trim())
+      .filter(line => {
+        if (!line) return false
+        try {
+          const absoluteUrl = line.startsWith('http://') || line.startsWith('https://') ? line : `http://${line}`
+          new URL(absoluteUrl)
+          return true
+        } catch {
+          return false
+        }
+      })
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!url.trim()) return
+    const urlList = getUrlsList(url).map(line => line.startsWith('http://') || line.startsWith('https://') ? line : `https://${line}`)
+    if (urlList.length === 0) return
+
+    setIsUploadingSequentially(true)
+    
+    // Initialize progress
+    const initialProgress: Record<string, "pending" | "processing" | "done" | "failed"> = {}
+    urlList.forEach((u) => {
+      initialProgress[u] = "pending"
+    })
+    setUploadProgress(initialProgress)
+
+    const parsedTags = tags.split(",").map((t) => t.trim()).filter(Boolean)
 
     try {
-      const jobId = await submitUrl(url.trim(), tags.split(",").map((t) => t.trim()).filter(Boolean))
-      await getPreview(jobId)
-      setIsPreviewOpen(true)
-      setUrl("")
-      setTags("")
-      setIsIngestOpen(false)
-      setActiveTab("jobs")
+      if (urlList.length === 1) {
+        const activeUrl = urlList[0]
+        setUploadProgress((prev) => ({ ...prev, [activeUrl]: "processing" }))
+        const jobId = await submitUrl(activeUrl, parsedTags)
+        setUploadProgress((prev) => ({ ...prev, [activeUrl]: "done" }))
+        
+        await getPreview(jobId)
+        setIsPreviewOpen(true)
+        setUrl("")
+        setTags("")
+        setIsIngestOpen(false)
+        setActiveTab("jobs")
+      } else {
+        for (let i = 0; i < urlList.length; i++) {
+          const activeUrl = urlList[i]
+          setUploadProgress((prev) => ({ ...prev, [activeUrl]: "processing" }))
+          try {
+            await submitUrl(activeUrl, parsedTags)
+            setUploadProgress((prev) => ({ ...prev, [activeUrl]: [activeUrl] ? "done" : "done" })) // safety
+            setUploadProgress((prev) => ({ ...prev, [activeUrl]: "done" }))
+          } catch (err) {
+            console.error(`Failed to ingest URL: ${activeUrl}`, err)
+            setUploadProgress((prev) => ({ ...prev, [activeUrl]: "failed" }))
+          }
+        }
+        setUrl("")
+        setTags("")
+        setIsIngestOpen(false)
+        setActiveTab("jobs")
+      }
     } catch {
       // handled
+    } finally {
+      setIsUploadingSequentially(false)
+      loadJobs()
     }
   }
 
   const handleFileSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!file) return
+    if (files.length === 0) return
 
-    try {
-      const jobId = await submitFile(file, tags.split(",").map((t) => t.trim()).filter(Boolean))
-      await getPreview(jobId)
-      setIsPreviewOpen(true)
-      setFile(null)
-      setTags("")
-      setIsIngestOpen(false)
-      setActiveTab("jobs")
-    } catch {
-      // handled
+    setIsUploadingSequentially(true)
+    const tagsList = tags.split(",").map((t) => t.trim()).filter(Boolean)
+    
+    // Initialize all files to pending
+    const initialProgress: Record<string, "pending" | "processing" | "done" | "failed"> = {}
+    files.forEach((f) => {
+      initialProgress[f.name] = "pending"
+    })
+    setUploadProgress(initialProgress)
+
+    let lastJobId: string | null = null
+
+    for (let i = 0; i < files.length; i++) {
+      const currentFile = files[i]
+      setUploadProgress((prev) => ({ ...prev, [currentFile.name]: "processing" }))
+      
+      try {
+        const jobId = await submitFile(currentFile, tagsList)
+        setUploadProgress((prev) => ({ ...prev, [currentFile.name]: "done" }))
+        lastJobId = jobId
+      } catch (err) {
+        console.error("Lỗi nạp file:", currentFile.name, err)
+        setUploadProgress((prev) => ({ ...prev, [currentFile.name]: "failed" }))
+      }
     }
+
+    setIsUploadingSequentially(false)
+    
+    // Show preview of the last uploaded file if successful
+    if (lastJobId) {
+      try {
+        await getPreview(lastJobId)
+        setIsPreviewOpen(true)
+      } catch {
+        // ignore preview load error
+      }
+    }
+    
+    // Clear state & close drawer
+    setFiles([])
+    setTags("")
+    setIsIngestOpen(false)
+    setActiveTab("jobs")
+    // Trigger lists reload
+    loadDocuments({ search: search || undefined, status: status || undefined })
+    loadJobs()
   }
 
   const handleDrag = (e: React.DragEvent) => {
@@ -219,12 +318,13 @@ export function DocumentsPage() {
     e.stopPropagation()
     setDragActive(false)
 
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      const droppedFile = e.dataTransfer.files[0]
-      const fileExtension = droppedFile.name.split(".").pop()?.toLowerCase()
-      if (fileExtension && ["pdf", "md", "txt"].includes(fileExtension)) {
-        setFile(droppedFile)
-      }
+    if (e.dataTransfer.files) {
+      const droppedFiles = Array.from(e.dataTransfer.files)
+      const validFiles = droppedFiles.filter(f => {
+        const ext = f.name.split(".").pop()?.toLowerCase();
+        return ext && ["pdf", "md", "txt"].includes(ext);
+      })
+      setFiles((prev) => [...prev, ...validFiles])
     }
   }
 
@@ -318,13 +418,28 @@ export function DocumentsPage() {
             </div>
           </div>
 
-          <button
-            onClick={() => setIsIngestOpen(true)}
-            className="group flex items-center justify-center gap-2 px-5 py-2.5 bg-[var(--coral)] hover:bg-[#b85b40] text-white text-xs font-bold rounded-xl transition-all shadow-[0_4px_12px_rgba(204,120,92,0.2)] hover:shadow-[0_6px_20px_rgba(204,120,92,0.35)] active:scale-[0.97] self-start md:self-center font-sans"
-          >
-            <PlusCircle className="w-4 h-4 transition-transform group-hover:rotate-90 duration-300" />
-            Nhập tài liệu mới
-          </button>
+          <div className="flex items-center gap-2.5 self-start md:self-center">
+            <button
+              onClick={async () => {
+                if (activeTab === "library") {
+                  await loadDocuments({ page: libraryPage, search: search || undefined, status: status || undefined })
+                } else {
+                  await loadJobs()
+                }
+              }}
+              className="group flex items-center justify-center p-2.5 bg-white hover:bg-stone-50 text-[#8a8175] hover:text-[#2d2a26] border border-[#e7e1d8] rounded-xl transition-all shadow-sm active:scale-[0.97]"
+              title="Làm mới dữ liệu"
+            >
+              <RefreshCw className="w-4 h-4 group-hover:rotate-180 transition-transform duration-500" />
+            </button>
+            <button
+              onClick={() => setIsIngestOpen(true)}
+              className="group flex items-center justify-center gap-2 px-5 py-2.5 bg-[var(--coral)] hover:bg-[#b85b40] text-white text-xs font-bold rounded-xl transition-all shadow-[0_4px_12px_rgba(204,120,92,0.2)] hover:shadow-[0_6px_20px_rgba(204,120,92,0.35)] active:scale-[0.97] font-sans"
+            >
+              <PlusCircle className="w-4 h-4 transition-transform group-hover:rotate-90 duration-300" />
+              Nhập tài liệu mới
+            </button>
+          </div>
         </div>
 
         {/* Tab & Filter bar row */}
@@ -566,6 +681,31 @@ export function DocumentsPage() {
                   </div>
                 )
               })}
+              
+              {/* Pagination for Library Tab */}
+              {total > 20 && (
+                <div className="flex items-center justify-between border-t border-[#e7e1d8] px-6 py-4 mt-2 bg-[#efe9de]/10 rounded-2xl">
+                  <span className="text-xs text-[#8a8175] font-sans">
+                    Hiển thị trang {libraryPage} trên {Math.ceil(total / 20)}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      disabled={libraryPage === 1}
+                      onClick={() => setLibraryPage((p) => Math.max(1, p - 1))}
+                      className="p-2 rounded-xl border border-[#e7e1d8] hover:bg-stone-50 disabled:opacity-30 cursor-pointer bg-white transition-all active:scale-95 flex items-center justify-center"
+                    >
+                      <ChevronLeft className="w-4 h-4 text-[#2d2a26]" />
+                    </button>
+                    <button
+                      disabled={libraryPage >= Math.ceil(total / 20)}
+                      onClick={() => setLibraryPage((p) => p + 1)}
+                      className="p-2 rounded-xl border border-[#e7e1d8] hover:bg-stone-50 disabled:opacity-30 cursor-pointer bg-white transition-all active:scale-95 flex items-center justify-center"
+                    >
+                      <ChevronRight className="w-4 h-4 text-[#2d2a26]" />
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           )
         ) : (
@@ -960,21 +1100,60 @@ export function DocumentsPage() {
                       Địa chỉ liên kết (URL)
                     </label>
                     <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                      <div className="absolute top-3 left-3.5 pointer-events-none">
                         <LinkIcon className="h-4 w-4 text-stone-400" />
                       </div>
-                      <input
-                        type="url"
+                      <textarea
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                         required
-                        placeholder="https://vi.wikipedia.org/wiki/..."
-                        className="w-full pl-10 pr-4 py-2.5 bg-white border border-[#e7e1d8] rounded-xl text-xs text-[#2d2a26] placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-100 focus:border-[var(--coral)] transition-all shadow-sm"
+                        rows={3}
+                        placeholder="https://vi.wikipedia.org/wiki/...\nhttps://vi.wikipedia.org/wiki/...\n(mỗi liên kết một dòng hoặc ngăn cách bởi dấu phẩy)"
+                        className="w-full pl-10 pr-4 py-2.5 bg-white border border-[#e7e1d8] rounded-xl text-xs text-[#2d2a26] placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-100 focus:border-[var(--coral)] transition-all shadow-sm resize-none"
                       />
                     </div>
                     <p className="text-[9px] text-[#aaa39a] font-bold mt-1.5 leading-relaxed">
-                      Hỗ trợ Wikipedia tiếng Việt, các trang báo điện tử hoặc blog nghiên cứu lịch sử.
+                      Hỗ trợ nhập nhiều liên kết cùng lúc. Mỗi dòng hoặc dấu phẩy phân tách một liên kết.
                     </p>
+                    
+                    {getUrlsList(url).length > 0 && (
+                      <div className="mt-3 bg-[#fdfcfb] border border-[#e7e1d8]/80 rounded-xl p-3 max-h-[140px] overflow-y-auto space-y-2">
+                        <div className="flex justify-between items-center text-[10px] font-bold text-[#6f675d]">
+                          <span>Danh sách liên kết ({getUrlsList(url).length})</span>
+                          {isUploadingSequentially && (
+                            <span className="text-[var(--coral)] animate-pulse">Đang trích xuất tuần tự...</span>
+                          )}
+                        </div>
+                        <div className="space-y-1.5">
+                          {getUrlsList(url).map((u, index) => {
+                            const status = uploadProgress[u]
+                            return (
+                              <div key={index} className="flex justify-between items-center bg-white p-2 rounded-lg border border-[#e7e1d8]/40 shadow-sm text-[11px]">
+                                <span className="truncate max-w-[220px] font-mono text-[#5c544b]" title={u}>
+                                  {u}
+                                </span>
+                                {status ? (
+                                  <span className={cn(
+                                    "flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded border",
+                                    status === "pending" && "text-[#8a8175] bg-stone-50 border-[#e7e1d8]/80",
+                                    status === "processing" && "text-orange-600 bg-orange-50 border-orange-100/50 animate-pulse",
+                                    status === "done" && "text-green-600 bg-green-50 border-green-100/50",
+                                    status === "failed" && "text-red-600 bg-red-50 border-red-100/50"
+                                  )}>
+                                    {status === "pending" && "Chờ"}
+                                    {status === "processing" && "Đang chạy"}
+                                    {status === "done" && "Xong"}
+                                    {status === "failed" && "Lỗi"}
+                                  </span>
+                                ) : (
+                                  <span className="text-[10px] text-[#aaa39a] font-bold">Chờ</span>
+                                )}
+                              </div>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
                   
                   <div>
@@ -1011,7 +1190,15 @@ export function DocumentsPage() {
                     type="file"
                     ref={fileInputRef}
                     accept=".pdf,.md,.txt,text/plain,application/pdf"
-                    onChange={(e) => setFile(e.target.files?.[0] || null)}
+                    multiple
+                    onChange={(e) => {
+                      const selectedFiles = Array.from(e.target.files || [])
+                      const validFiles = selectedFiles.filter(f => {
+                        const ext = f.name.split(".").pop()?.toLowerCase();
+                        return ext && ["pdf", "md", "txt"].includes(ext);
+                      })
+                      setFiles((prev) => [...prev, ...validFiles])
+                    }}
                     className="hidden"
                   />
                   
@@ -1022,38 +1209,108 @@ export function DocumentsPage() {
                     onDrop={handleDrop}
                     onClick={triggerFileInput}
                     className={cn(
-                      "w-full h-[160px] border-2 border-dashed rounded-2xl flex flex-col items-center justify-center p-4 text-center cursor-pointer transition-all duration-200 bg-white",
+                      "w-full border-2 border-dashed rounded-2xl flex flex-col items-center justify-center p-4 text-center cursor-pointer transition-all duration-200 bg-white",
+                      files.length > 0 ? "h-[95px]" : "h-[160px]",
                       dragActive 
                         ? "border-[var(--coral)] bg-orange-50/15 shadow-inner" 
-                        : file 
-                          ? "border-emerald-400 bg-emerald-50/10" 
-                          : "border-[#e7e1d8] hover:border-[var(--coral)] hover:bg-stone-50"
+                        : "border-[#e7e1d8] hover:border-[var(--coral)] hover:bg-stone-50"
                     )}
                   >
-                    {file ? (
-                      <div className="space-y-2">
-                        <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center mx-auto text-emerald-600">
-                          <FileText className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <p className="text-xs font-bold text-[#2d2a26] truncate max-w-[200px] mx-auto">{file.name}</p>
-                          <p className="text-[9px] text-[#8a8175] mt-0.5 font-bold">
-                            {(file.size / 1024 / 1024).toFixed(2)} MB • Click để đổi tệp
-                          </p>
-                        </div>
+                    <div className="space-y-1">
+                      <div className="w-8 h-8 rounded-lg bg-stone-50 border border-[#e7e1d8] flex items-center justify-center mx-auto text-[#8a8175]">
+                        <UploadCloud className="w-4 h-4 text-[var(--coral)]" />
                       </div>
-                    ) : (
-                      <div className="space-y-2">
-                        <div className="w-10 h-10 rounded-xl bg-stone-50 border border-[#e7e1d8] flex items-center justify-center mx-auto text-[#8a8175]">
-                          <UploadCloud className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <p className="text-xs font-bold text-slate-700">Kéo thả tệp tin vào đây</p>
-                          <p className="text-[9px] text-[#8a8175] mt-1 font-bold">hoặc click để duyệt file (.pdf, .md, .txt)</p>
-                        </div>
+                      <div>
+                        <p className="text-xs font-bold text-slate-700">Kéo thả tệp tin hoặc click để duyệt</p>
+                        <p className="text-[9px] text-[#8a8175] mt-0.5 font-bold">Hỗ trợ .pdf, .md, .txt (có thể chọn nhiều tệp)</p>
                       </div>
-                    )}
+                    </div>
                   </div>
+
+                  {files.length > 0 && (
+                    <div className="space-y-2 mt-3 max-h-[220px] overflow-y-auto pr-1">
+                      <div className="flex items-center justify-between text-[10px] font-extrabold text-[#6f675d] uppercase tracking-wider">
+                        <span>Danh sách tệp ({files.length})</span>
+                        {!isUploadingSequentially && (
+                          <button 
+                            type="button" 
+                            onClick={() => setFiles([])} 
+                            className="text-red-500 hover:text-red-750 transition-colors"
+                          >
+                            Xóa hết
+                          </button>
+                        )}
+                      </div>
+                      
+                      <div className="space-y-1.5">
+                        {files.map((f, index) => {
+                          const status = uploadProgress[f.name] || "pending"
+                          return (
+                            <div 
+                              key={index}
+                              className={cn(
+                                "flex items-center justify-between p-2.5 rounded-xl border text-xs bg-white transition-all",
+                                status === "processing" && "border-orange-200 bg-orange-50/10 shadow-sm",
+                                status === "done" && "border-emerald-200 bg-emerald-50/5",
+                                status === "failed" && "border-rose-200 bg-rose-50/5",
+                                status === "pending" && "border-[#e7e1d8]"
+                              )}
+                            >
+                              <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                                <div className="w-7 h-7 rounded-lg bg-stone-50 border border-[#e7e1d8] flex items-center justify-center flex-shrink-0 text-[#8a8175]">
+                                  <FileText className="w-3.5 h-3.5" />
+                                </div>
+                                <div className="min-w-0 flex-1">
+                                  <p className="text-[11px] font-bold text-[#2d2a26] truncate" title={f.name}>
+                                    {f.name}
+                                  </p>
+                                  <p className="text-[9px] text-[#8a8175] font-bold">
+                                    {(f.size / 1024 / 1024).toFixed(2)} MB
+                                  </p>
+                                </div>
+                              </div>
+                              
+                              <div className="flex items-center gap-2 ml-2 flex-shrink-0">
+                                {status === "pending" && !isUploadingSequentially && (
+                                  <button
+                                    type="button"
+                                    onClick={() => setFiles(prev => prev.filter((_, idx) => idx !== index))}
+                                    className="p-1 text-stone-300 hover:text-red-500 rounded-lg hover:bg-stone-50 transition-all"
+                                  >
+                                    <X className="w-3.5 h-3.5" />
+                                  </button>
+                                )}
+                                {status === "processing" && (
+                                  <span className="flex items-center gap-1 text-[10px] text-orange-600 font-bold bg-orange-50 px-2 py-0.5 rounded border border-orange-100/50">
+                                    <Loader2 className="w-3 h-3 animate-spin" />
+                                    Đang xử lý
+                                  </span>
+                                )}
+                                {status === "done" && (
+                                  <span className="flex items-center gap-1 text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100/50">
+                                    <Check className="w-3 h-3" />
+                                    Hoàn thành
+                                  </span>
+                                )}
+                                {status === "failed" && (
+                                  <span className="flex items-center gap-1 text-[10px] text-rose-600 font-bold bg-rose-50 px-2 py-0.5 rounded border border-rose-100/50">
+                                    <AlertCircle className="w-3 h-3" />
+                                    Thất bại
+                                  </span>
+                                )}
+                                {status === "pending" && isUploadingSequentially && (
+                                  <span className="flex items-center gap-1 text-[10px] text-stone-400 font-bold bg-stone-50 px-2 py-0.5 rounded border border-stone-200/50">
+                                    <Clock className="w-3 h-3" />
+                                    Chờ xử lý
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  )}
 
                   <div>
                     <label className="block text-[10px] font-extrabold text-[#6f675d] mb-1.5 uppercase tracking-wider">
@@ -1089,7 +1346,7 @@ export function DocumentsPage() {
             <div className="p-4 border-t border-[#e7e1d8] bg-white flex gap-3">
               <button
                 type="button"
-                disabled={isIngestLoading}
+                disabled={isIngestLoading || isUploadingSequentially}
                 onClick={() => setIsIngestOpen(false)}
                 className="flex-1 py-2.5 bg-stone-50 hover:bg-stone-100 border border-[#e7e1d8] text-xs font-bold text-[#6f675d] rounded-xl transition-all shadow-sm disabled:opacity-50"
               >
@@ -1100,29 +1357,10 @@ export function DocumentsPage() {
                 <button
                   type="submit"
                   form="drawer-url-form"
-                  disabled={isIngestLoading || !url.trim()}
+                  disabled={isIngestLoading || isUploadingSequentially || !url.trim() || getUrlsList(url).length === 0}
                   className="flex-1 py-2.5 bg-[var(--coral)] hover:bg-orange-655 text-white rounded-xl text-xs font-bold disabled:bg-[#f5f1ea] disabled:text-[#8a8175] disabled:cursor-not-allowed transition-all flex items-center justify-center gap-1.5 shadow-md shadow-orange-200/50"
                 >
-                  {isIngestLoading ? (
-                    <>
-                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                      Đang trích xuất...
-                    </>
-                  ) : (
-                    <>
-                      <PlusCircle className="w-3.5 h-3.5" />
-                      Trích xuất ngay
-                    </>
-                  )}
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  form="drawer-file-form"
-                  disabled={isIngestLoading || !file}
-                  className="flex-1 py-2.5 bg-[var(--coral)] hover:bg-orange-655 text-white rounded-xl text-xs font-bold disabled:bg-[#f5f1ea] disabled:text-[#8a8175] disabled:cursor-not-allowed transition-all flex items-center justify-center gap-1.5 shadow-md shadow-orange-200/50"
-                >
-                  {isIngestLoading ? (
+                  {isUploadingSequentially ? (
                     <>
                       <Loader2 className="w-3.5 h-3.5 animate-spin" />
                       Đang xử lý...
@@ -1130,7 +1368,26 @@ export function DocumentsPage() {
                   ) : (
                     <>
                       <PlusCircle className="w-3.5 h-3.5" />
-                      Tải lên & Xử lý
+                      Trích xuất ({getUrlsList(url).length})
+                    </>
+                  )}
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  form="drawer-file-form"
+                  disabled={isIngestLoading || isUploadingSequentially || files.length === 0}
+                  className="flex-1 py-2.5 bg-[var(--coral)] hover:bg-orange-655 text-white rounded-xl text-xs font-bold disabled:bg-[#f5f1ea] disabled:text-[#8a8175] disabled:cursor-not-allowed transition-all flex items-center justify-center gap-1.5 shadow-md shadow-orange-200/50"
+                >
+                  {isUploadingSequentially ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      Đang xử lý...
+                    </>
+                  ) : (
+                    <>
+                      <PlusCircle className="w-3.5 h-3.5" />
+                      Tải lên & Xử lý ({files.length})
                     </>
                   )}
                 </button>

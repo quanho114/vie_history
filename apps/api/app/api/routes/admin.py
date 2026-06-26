@@ -44,6 +44,7 @@ async def get_admin_stats(
             func.count().filter(IngestJob.status == "queued"),
             func.count().filter(IngestJob.status == "running"),
             func.count().filter(IngestJob.status == "failed"),
+            func.count().filter(IngestJob.status == "done"),
         ).select_from(IngestJob)
     )
     job_row = job_stats.one()
@@ -60,6 +61,7 @@ async def get_admin_stats(
             "queued": job_row[1] or 0,
             "running": job_row[2] or 0,
             "failed": job_row[3] or 0,
+            "done": job_row[4] or 0,
         },
     }
 
@@ -72,26 +74,38 @@ async def get_quality_report(
     """Get document quality report."""
     if not has_permission(getattr(admin, 'role', 'user'), Permission.ADMIN_STATS):
         raise HTTPException(status_code=403, detail="Insufficient permissions")
-    # Get documents with quality scores
-    result = await db.execute(
+    
+    # Calculate average quality score over all approved documents
+    avg_result = await db.execute(
+        select(func.avg(Document.quality_score)).where(Document.status == "approved")
+    )
+    avg_quality = avg_result.scalar() or 0.0
+
+    # Calculate distribution counts over all approved documents
+    dist_result = await db.execute(
+        select(
+            func.count().filter(Document.quality_score >= 0.8),
+            func.count().filter((Document.quality_score >= 0.5) & (Document.quality_score < 0.8)),
+            func.count().filter(Document.quality_score < 0.5),
+        ).where(Document.status == "approved")
+    )
+    dist_row = dist_result.one()
+
+    # Get top 5 documents
+    top_result = await db.execute(
         select(Document)
         .where(Document.status == "approved")
         .order_by(Document.quality_score.desc())
-        .limit(100)
+        .limit(5)
     )
-    documents = result.scalars().all()
-
-    avg_quality = (
-        sum(d.quality_score for d in documents) / len(documents)
-        if documents else 0
-    )
+    top_docs = top_result.scalars().all()
 
     return {
         "average_quality_score": round(avg_quality, 2),
         "documents_by_quality": {
-            "high": len([d for d in documents if d.quality_score >= 0.8]),
-            "medium": len([d for d in documents if 0.5 <= d.quality_score < 0.8]),
-            "low": len([d for d in documents if d.quality_score < 0.5]),
+            "high": dist_row[0] or 0,
+            "medium": dist_row[1] or 0,
+            "low": dist_row[2] or 0,
         },
         "top_documents": [
             {
@@ -99,7 +113,7 @@ async def get_quality_report(
                 "title": d.title,
                 "quality_score": d.quality_score,
             }
-            for d in documents[:10]
+            for d in top_docs
         ],
     }
 

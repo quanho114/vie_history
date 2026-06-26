@@ -259,34 +259,42 @@ async def main():
     # Load API credentials from database if available, else fallback to mock
     use_mock = (os.environ.get("EVAL_USE_MOCK") == "true")
     if not use_mock:
-        try:
-            from app.core.database import async_session_factory
-            from app.models.user import User
-            from app.core.context import active_provider_var, groq_key_var, groq_model_var
-            from sqlalchemy import select
+        if os.environ.get("GEMINI_API_KEY"):
+            from app.core.context import active_provider_var, gemini_key_var, gemini_model_var
+            print("Using Gemini API key from environment.")
+            active_provider_var.set("gemini")
+            gemini_key_var.set(os.environ["GEMINI_API_KEY"])
+            gemini_model_var.set(os.environ.get("GEMINI_MODEL", "gemini-2.0-flash"))
+            use_mock = False
+        else:
+            try:
+                from app.core.database import async_session_factory
+                from app.models.user import User
+                from app.core.context import active_provider_var, groq_key_var, groq_model_var
+                from sqlalchemy import select
 
-            async with async_session_factory() as session:
-                result = await session.execute(
-                    select(User).where(User.email == "admin@historiai.vn")
-                )
-                user = result.scalar_one_or_none()
-                if user and user.settings:
-                    groq_key = user.settings.get("groq_key")
-                    if groq_key:
-                        print("Loaded Groq API key from database for admin@historiai.vn.")
-                        active_provider_var.set("groq")
-                        groq_key_var.set(groq_key)
-                        groq_model_var.set("llama-3.3-70b-versatile")
-                        use_mock = False
+                async with async_session_factory() as session:
+                    result = await session.execute(
+                        select(User).where(User.email == "admin@historiai.vn")
+                    )
+                    user = result.scalar_one_or_none()
+                    if user and user.settings:
+                        groq_key = user.settings.get("groq_key")
+                        if groq_key:
+                            print("Loaded Groq API key from database for admin@historiai.vn.")
+                            active_provider_var.set("groq")
+                            groq_key_var.set(groq_key)
+                            groq_model_var.set("llama-3.3-70b-versatile")
+                            use_mock = False
+                        else:
+                            print("No Groq API key in user settings. Falling back to mock.")
+                            use_mock = True
                     else:
-                        print("No Groq API key in user settings. Falling back to mock.")
+                        print("No admin user found. Falling back to mock.")
                         use_mock = True
-                else:
-                    print("No admin user found. Falling back to mock.")
-                    use_mock = True
-        except Exception as e:
-            print(f"Could not load credentials from database: {e}. Falling back to mock.")
-            use_mock = True
+            except Exception as e:
+                print(f"Could not load credentials from database: {e}. Falling back to mock.")
+                use_mock = True
 
     if use_mock:
         from app.core.context import active_provider_var

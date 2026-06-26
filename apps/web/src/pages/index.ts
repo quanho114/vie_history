@@ -10,7 +10,6 @@ export { GraphPage } from "./GraphPage"
 export { BrainBuilderPage } from "./BrainBuilderPage"
 export { DraftsReviewPage } from "./DraftsReviewPage"
 export { KnowledgeEvolutionDashboard } from "./KnowledgeEvolutionDashboard"
-export { AgentTraceViewerPage } from "./AgentTraceViewerPage"
 export { NotFoundPage } from "./NotFoundPage"
 
 

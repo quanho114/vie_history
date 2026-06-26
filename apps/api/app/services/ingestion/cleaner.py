@@ -133,8 +133,9 @@ class ContentCleaner:
         markdown = re.sub(r'!\[.*?\]\(.*?\)', '', markdown)
 
         # 2. Strip links but keep labels: [Label](url "title") -> Label
-        markdown = re.sub(r'\[([^\]]+)\]\((?:[^)(]+|\((?:[^)(]+|\([^)(]*\))*\))*\)', r'\1', markdown)
-        markdown = re.sub(r'\[\]\((?:[^)(]+|\((?:[^)(]+|\([^)(]*\))*\))*\)', '', markdown)
+        # Use safe regexes without nested repetitions to prevent catastrophic backtracking on long text
+        markdown = re.sub(r'\[([^\]]+)\]\(([^)]*?)\)', r'\1', markdown)
+        markdown = re.sub(r'\[\]\(([^)]*?)\)', '', markdown)
 
         # 3. Aggressive Wikipedia boilerplate block removal
         markdown = self._remove_wiki_boilerplate_blocks(markdown)

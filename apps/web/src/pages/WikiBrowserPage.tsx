@@ -419,8 +419,8 @@ export function WikiBrowserPage() {
         search: debouncedSearch || undefined,
         period: period || undefined,
         project_id: selectedProjectId || undefined,
-        offset: page * pageSize,
-        limit: pageSize,
+        page: page + 1,
+        page_size: pageSize,
       })
       const newPages = res.pages || []
       if (page === 0) {

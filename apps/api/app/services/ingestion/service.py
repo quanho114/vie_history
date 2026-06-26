@@ -42,19 +42,35 @@ class IngestService:
         url: str,
         user_id: str,
         tags: list[str] | None = None,
+        job_id: str | None = None,
     ) -> IngestJob:
         """Ingest a URL immediately and return the completed/failed job."""
-        job = IngestJob(
-            source_input=url,
-            source_type="url",
-            status="running",
-            stage="url_validation",
-            started_at=datetime.now(timezone.utc),
-        )
-        job.add_log("Ingestion started")
-        db.add(job)
-        await db.commit()
-        await db.refresh(job)
+        job = None
+        if job_id:
+            result = await db.execute(
+                select(IngestJob).where(IngestJob.id == job_id)
+            )
+            job = result.scalar_one_or_none()
+            if job:
+                job.status = "running"
+                job.stage = "url_validation"
+                job.started_at = datetime.now(timezone.utc)
+                job.add_log("Ingestion started")
+                await db.commit()
+                await db.refresh(job)
+
+        if not job:
+            job = IngestJob(
+                source_input=url,
+                source_type="url",
+                status="running",
+                stage="url_validation",
+                started_at=datetime.now(timezone.utc),
+            )
+            job.add_log("Ingestion started")
+            db.add(job)
+            await db.commit()
+            await db.refresh(job)
 
         try:
             result = await self.pipeline.process_url(url=url, tags=tags)
@@ -92,13 +108,40 @@ class IngestService:
             return job
 
     async def retry_job(self, db: AsyncSession, job: IngestJob, user_id: str) -> IngestJob:
-        """Retry an existing URL job."""
-        job.status = "queued"
-        job.error_message = None
-        job.stage = "queued"
-        job.add_log("Retry queued")
+        """Retry an existing job."""
+        retried = IngestJob(
+            source_input=job.source_input,
+            source_type=job.source_type,
+            status="queued",
+            stage="queued",
+        )
+        retried.add_log("Retry queued")
+        db.add(retried)
         await db.commit()
-        return await self.ingest_url(db=db, url=job.source_input, user_id=user_id)
+        await db.refresh(retried)
+
+        # Retrieve tags if available
+        tags = None
+        if job.document_id:
+            try:
+                from app.models.document import Document
+                doc_result = await db.execute(
+                    select(Document).where(Document.id == job.document_id)
+                )
+                document = doc_result.scalar_one_or_none()
+                if document:
+                    tags = document.tags
+            except Exception:
+                pass
+
+        from app.services.ingestion.queue import ingestion_queue_manager
+        await ingestion_queue_manager.add_job(
+            job_id=retried.id,
+            user_id=user_id,
+            tags=tags,
+        )
+        return retried
+
 
     async def ingest_file(
         self,
@@ -108,21 +151,52 @@ class IngestService:
         user_id: str,
         content_type: str | None = None,
         tags: list[str] | None = None,
+        job_id: str | None = None,
     ) -> IngestJob:
         """Ingest a local file immediately."""
-        job = IngestJob(
-            source_input=filename,
-            source_type="file",
-            status="running",
-            stage="extraction",
-            started_at=datetime.now(timezone.utc),
-        )
-        job.add_log("File ingestion started")
-        db.add(job)
-        await db.commit()
-        await db.refresh(job)
+        job = None
+        if job_id:
+            result = await db.execute(
+                select(IngestJob).where(IngestJob.id == job_id)
+            )
+            job = result.scalar_one_or_none()
+            if job:
+                job.status = "running"
+                job.stage = "extraction"
+                job.started_at = datetime.now(timezone.utc)
+                job.add_log("File ingestion started")
+                await db.commit()
+                await db.refresh(job)
+
+        if not job:
+            job = IngestJob(
+                source_input=filename,
+                source_type="file",
+                status="running",
+                stage="extraction",
+                started_at=datetime.now(timezone.utc),
+            )
+            job.add_log("File ingestion started")
+            db.add(job)
+            await db.commit()
+            await db.refresh(job)
 
         try:
+            # Reject oversized files (5MB limit) to protect memory/CPU usage
+            MAX_FILE_BYTES = 5 * 1024 * 1024
+            if file_path.exists():
+                file_size = file_path.stat().st_size
+                if file_size > MAX_FILE_BYTES:
+                    size_mb = file_size / 1024 / 1024
+                    error_msg = f"File too large ({size_mb:.1f} MB > 5 MB limit) — skipped"
+                    logger.warning("file_too_large_skipped", filename=filename, size_mb=round(size_mb, 1))
+                    await self._mark_failed(db, job, "file_extraction", error_msg)
+                    try:
+                        file_path.unlink(missing_ok=True)
+                    except Exception:
+                        pass
+                    return job
+
             text = await self.file_extractor.extract(file_path=file_path, content_type=content_type)
             markdown = self.pipeline.cleaner.clean_markdown(text)
             markdown = await self.pipeline.restructure_markdown_with_llm(filename, markdown)

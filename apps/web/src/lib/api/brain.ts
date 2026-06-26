@@ -243,7 +243,13 @@ function transformWikiPage(raw: RawWikiPage): WikiPage {
 }
 
 export const wikiApi = {
-  getPages: async (params?: { search?: string; period?: string; project_id?: string }) => {
+  getPages: async (params?: {
+    search?: string;
+    period?: string;
+    project_id?: string;
+    page?: number;
+    page_size?: number;
+  }) => {
     const raw = await request<RawWikiPagesResponse>(
       `/wiki/pages${buildQuery(params || {})}`
     );

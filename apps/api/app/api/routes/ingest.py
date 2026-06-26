@@ -51,24 +51,37 @@ async def ingest_url(
     db: AsyncSession = Depends(get_db),
 ):
     """
-    Ingest a URL immediately in development.
+    Ingest a URL asynchronously in the background.
 
-    The operation persists the document and chunks before returning. Vector indexing is
-    best-effort, so SQL retrieval remains available even if Qdrant or embeddings fail.
+    The operation creates a job in the database with status 'queued' and adds it to the sequential
+    background processing queue, returning immediately.
     """
-    job = await ingest_service.ingest_url(
-        db=db,
-        url=data.url,
+    job = IngestJob(
+        source_input=data.url,
+        source_type="url",
+        status="queued",
+        stage="queued",
+    )
+    job.add_log("Ingestion queued")
+    db.add(job)
+    await db.commit()
+    await db.refresh(job)
+
+    # Queue the job for background worker
+    from app.services.ingestion.queue import ingestion_queue_manager
+    await ingestion_queue_manager.add_job(
+        job_id=job.id,
         user_id=current_user.id,
         tags=data.tags,
     )
+
     get_audit_logger().log(AuditEvent(
         action=AuditAction.INGEST_START,
         actor_id=current_user.id,
         actor_email=current_user.email,
         actor_role=getattr(current_user, 'role', 'user'),
         resource_type="ingestion",
-        details={"url": data.url[:200]},
+        details={"url": data.url[:200], "job_id": job.id},
     ))
     return JSONResponse(
         status_code=status.HTTP_202_ACCEPTED,
@@ -89,29 +102,44 @@ async def ingest_file(
     tags: str | None = Form(default=None),
     db: AsyncSession = Depends(get_db),
 ):
-    """Ingest a text/markdown/PDF file immediately."""
+    """Ingest a text/markdown/PDF file asynchronously in the background."""
     storage_dir = Path("storage/uploads")
     storage_dir.mkdir(parents=True, exist_ok=True)
     suffix = Path(upload.filename or "upload").suffix
-    file_path = storage_dir / f"{uuid4()}{suffix}"
+    file_name = f"{uuid4()}{suffix}"
+    file_path = storage_dir / file_name
     file_path.write_bytes(await upload.read())
 
     parsed_tags = [tag.strip() for tag in (tags or "").split(",") if tag.strip()]
-    job = await ingest_service.ingest_file(
-        db=db,
-        file_path=file_path,
-        filename=upload.filename or file_path.name,
-        user_id=current_user.id,
-        content_type=upload.content_type,
-        tags=parsed_tags,
+
+    job = IngestJob(
+        source_input=upload.filename or file_name,
+        source_type="file",
+        status="queued",
+        stage="queued",
     )
+    job.add_log("File upload completed, ingestion queued")
+    db.add(job)
+    await db.commit()
+    await db.refresh(job)
+
+    # Queue the job for background worker
+    from app.services.ingestion.queue import ingestion_queue_manager
+    await ingestion_queue_manager.add_job(
+        job_id=job.id,
+        user_id=current_user.id,
+        tags=parsed_tags,
+        file_path=str(file_path),
+        content_type=upload.content_type,
+    )
+
     get_audit_logger().log(AuditEvent(
         action=AuditAction.INGEST_START,
         actor_id=current_user.id,
         actor_email=current_user.email,
         actor_role=getattr(current_user, 'role', 'user'),
         resource_type="ingestion",
-        details={"filename": upload.filename or file_path.name},
+        details={"filename": upload.filename or file_name, "job_id": job.id},
     ))
     return JSONResponse(
         status_code=status.HTTP_202_ACCEPTED,
@@ -123,6 +151,7 @@ async def ingest_file(
             "error_message": job.error_message,
         },
     )
+
 
 
 @router.get("/jobs", response_model=IngestJobListResponse)

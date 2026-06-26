@@ -403,14 +403,6 @@ function IconAIAssistant({ className = "" }: { className?: string }) {
   );
 }
 
-function IconAgentTrace({ className = "" }: { className?: string }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-    </svg>
-  );
-}
-
 /* ========================================
    Nav Items Config
    ======================================== */
@@ -421,7 +413,6 @@ const navItems = [
   { to: "/graph", icon: IconSuKien, label: "Bản đồ tri thức" },
   { to: "/documents", icon: IconTaiLieu, label: "Tư liệu lịch sử" },
   { to: "/brain-builder", icon: IconBrain, label: "Biên dịch Tri thức" },
-  { to: "/agent-trace", icon: IconAgentTrace, label: "Giám sát Agent" },
 ];
 
 const GROQ_LEGACY_MODEL_MAP: Record<string, string> = {
@@ -735,7 +726,6 @@ export function Sidebar({
       case "/graph": return "Bản đồ tri thức";
       case "/documents": return "Tư liệu lịch sử";
       case "/brain-builder": return "Biên dịch Tri thức";
-      case "/agent-trace": return "Giám sát Agent";
       default: return fallback;
     }
   };

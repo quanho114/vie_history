@@ -65,9 +65,31 @@ async def _init_search_indexes(settings: Settings) -> None:
 def _init_embedding_model(settings: Settings) -> None:
     """Warm up embedding model (load once at startup, not on first query)."""
     try:
-        from app.services.retrieval.embedder import Embedder
-        embedder = Embedder()
-        embedder.embed(["warmup"])
+        import os
+        # Must be set before torch/transformers import to prevent subprocess spawning
+        os.environ["TOKENIZERS_PARALLELISM"] = "false"
+        os.environ["OMP_NUM_THREADS"] = "2"
+        os.environ["MKL_NUM_THREADS"] = "2"
+
+        from app.services.retrieval.embedder import Embedder, _GLOBAL_MODEL
+        import app.services.retrieval.embedder as _emb_module
+
+        if _emb_module._GLOBAL_MODEL is None:
+            # Only load model weights — do NOT call encode() here.
+            # encode() triggers PyTorch DataLoader subprocess spawn (2GB RAM, 90% CPU)
+            # which blocks the event loop via memory/CPU pressure.
+            # Model is already loaded by the time first real request arrives.
+            embedder = Embedder()
+            from sentence_transformers import SentenceTransformer
+            try:
+                import torch
+                torch.set_num_threads(2)
+            except Exception:
+                pass
+            _emb_module._GLOBAL_MODEL = SentenceTransformer(
+                embedder.model_name, device=embedder.device
+            )
+
         logger.info("embedding_model_warmed_up")
     except Exception as exc:
         if settings.APP_ENV == "production":
@@ -406,11 +428,21 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         except Exception as exc:
             if settings.APP_ENV == "production":
                 raise
-            logger.warning("embedding_warmup_skipped", error=str(exc))
+        # Start background ingestion queue manager
+        try:
+            from app.services.ingestion.queue import ingestion_queue_manager
+            await ingestion_queue_manager.start()
+        except Exception as exc:
+            logger.error("failed_to_start_ingestion_queue", error=str(exc))
 
         yield
 
         logger.info("historiai_api_shutting_down")
+        try:
+            from app.services.ingestion.queue import ingestion_queue_manager
+            await ingestion_queue_manager.stop()
+        except Exception as exc:
+            logger.error("failed_to_stop_ingestion_queue", error=str(exc))
         await _shutdown_services(settings)
 
     app = FastAPI(

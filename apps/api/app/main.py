@@ -3,6 +3,15 @@
 All application setup is delegated to app/factory.py.
 """
 
+# ── MUST be set before ANY torch/transformers/sentence-transformers import ──
+# Prevents HuggingFace tokenizers and PyTorch from spawning multiprocessing
+# subprocesses that consume ~2GB RAM and 85% CPU, blocking uvicorn responses.
+import os
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+os.environ.setdefault("OMP_NUM_THREADS", "2")
+os.environ.setdefault("MKL_NUM_THREADS", "2")
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "2")
+
 # Monkeypatch meilisearch-python-sdk to support Meilisearch v1.6 (remove rankingScoreThreshold if None)
 try:
     import meilisearch_python_sdk.index._common as ms_common

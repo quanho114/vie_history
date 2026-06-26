@@ -21,7 +21,6 @@ const AdminPage = lazy(() => import("@/pages/AdminPage").then(m => ({ default: m
 const BrainBuilderPage = lazy(() => import("@/pages/BrainBuilderPage").then(m => ({ default: m.BrainBuilderPage })))
 const DraftsReviewPage = lazy(() => import("@/pages/DraftsReviewPage").then(m => ({ default: m.DraftsReviewPage })))
 const KnowledgeEvolutionDashboard = lazy(() => import("@/pages/KnowledgeEvolutionDashboard").then(m => ({ default: m.KnowledgeEvolutionDashboard })))
-const AgentTraceViewerPage = lazy(() => import("@/pages/AgentTraceViewerPage").then(m => ({ default: m.AgentTraceViewerPage })))
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage").then(m => ({ default: m.NotFoundPage })))
 
 export default function App() {
@@ -82,7 +81,7 @@ export default function App() {
           <Route path="/timeline" element={<Suspense fallback={<PageSkeleton />}><TimelinePage /></Suspense>} />
           <Route path="/graph" element={<Suspense fallback={<PageSkeleton />}><GraphPage /></Suspense>} />
           <Route path="/brain-builder" element={<Suspense fallback={<PageSkeleton />}><BrainBuilderPage /></Suspense>} />
-          <Route path="/agent-trace" element={<Suspense fallback={<PageSkeleton />}><AgentTraceViewerPage /></Suspense>} />
+
         </Route>
         {/* 404 – outside AppShell so no sidebar */}
         <Route path="*" element={<Suspense fallback={<PageSkeleton />}><NotFoundPage /></Suspense>} />

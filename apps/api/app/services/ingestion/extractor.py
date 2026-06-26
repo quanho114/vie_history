@@ -66,76 +66,36 @@ class ContentExtractor:
     # ------------------------------------------------------------------
 
     async def _fetch_wikipedia(self, title: str, original_url: str) -> dict[str, Any]:
-        """Use Wikipedia REST API to get clean article content.
+        """Use Wikipedia REST API to get clean article HTML.
 
-        Returns plain text + simple HTML without navigation boilerplate.
+        Returns full article HTML without navigation boilerplate.
         Falls back to generic fetcher if the API call fails.
         """
         from urllib.parse import quote
 
         encoded = quote(title, safe="")
-        api_url = f"https://vi.wikipedia.org/api/rest_v1/page/summary/{encoded}"
+        api_url = f"https://vi.wikipedia.org/api/rest_v1/page/html/{encoded}"
 
         logger.info("wikipedia_api_fetch", title=title[:80])
         try:
+            timeout = httpx.Timeout(connect=10.0, read=30.0, write=10.0, pool=5.0)
             async with httpx.AsyncClient(
-                timeout=self.timeout,
+                timeout=timeout,
                 follow_redirects=True,
-                headers={"User-Agent": "Mozilla/5.0 (compatible; HistoriAI/1.0)"},
+                headers={"User-Agent": "HistoriAI/1.0 (contact@historiai.com)"},
             ) as client:
                 resp = await client.get(api_url)
                 resp.raise_for_status()
-                data = resp.json()
-
-            summary_text = data.get("extract", "")
-            page_title = data.get("title", title)
-            description = data.get("description", "")
-
-            # Also fetch the full article sections via the mobile sections API
-            sections_url = (
-                f"https://vi.wikipedia.org/api/rest_v1/page/mobile-sections/{encoded}"
-            )
-            full_text = summary_text
-            raw_html = f"<h1>{page_title}</h1>\n<p>{summary_text}</p>"
-
-            try:
-                sections_resp = await client.get(sections_url)
-                sections_resp.raise_for_status()
-                sections_data = sections_resp.json()
-
-                sections = sections_data.get("remaining", {}).get("sections", [])
-                all_sections: list[str] = [f"<h1>{page_title}</h1>"]
-                all_sections.append(f"<p><em>{description}</em></p>")
-                # Lead section
-                lead = sections_data.get("lead", {})
-                if lead.get("sections"):
-                    lead_html = lead["sections"][0].get("text", "")
-                    all_sections.append(lead_html)
-
-                for sec in sections:
-                    sec_title = sec.get("line", "")
-                    sec_text = sec.get("text", "")
-                    level = sec.get("toclevel", 2)
-                    tag = f"h{min(level + 1, 6)}"
-                    all_sections.append(f"<{tag}>{sec_title}</{tag}>")
-                    all_sections.append(sec_text)
-
-                raw_html = "\n".join(all_sections)
-                full_text = f"{page_title}\n\n{description}\n\n{summary_text}"
-                logger.info(
-                    "wikipedia_sections_fetched",
-                    title=page_title,
-                    sections=len(sections),
-                )
-            except Exception as sec_exc:
-                logger.warning(
-                    "wikipedia_sections_fallback", error=str(sec_exc), title=title[:60]
-                )
+                # Limit to 5MB to avoid blocking on huge articles
+                content = await resp.aread()
+                if len(content) > 5 * 1024 * 1024:
+                    content = content[:5 * 1024 * 1024]
+                raw_html = content.decode("utf-8", errors="replace")
 
             return {
                 "html": raw_html,
-                "text": full_text,
-                "title": page_title,
+                "text": "",
+                "title": title,
                 "author": "Wikipedia",
                 "date": None,
                 "url": original_url,
@@ -162,20 +122,25 @@ class ContentExtractor:
                 timeout=self.timeout,
                 follow_redirects=True,
                 headers={
-                    "User-Agent": "Mozilla/5.0 (compatible; HistoriAI/1.0; +https://historiai.example.com)",
+                    "User-Agent": "HistoriAI/1.0 (contact@historiai.com)",
                 },
             ) as client:
                 response = await client.get(url)
                 response.raise_for_status()
                 html = response.text
 
-            # Extract using trafilatura
-            extracted = trafilatura.extract(
-                html,
-                include_comments=False,
-                include_tables=True,
-                include_images=False,
-                output_format="json",
+            # Extract using trafilatura in thread pool to avoid blocking event loop
+            import asyncio
+            loop = asyncio.get_running_loop()
+            extracted = await loop.run_in_executor(
+                None,
+                lambda: trafilatura.extract(
+                    html,
+                    include_comments=False,
+                    include_tables=True,
+                    include_images=False,
+                    output_format="json",
+                )
             )
 
             if extracted:

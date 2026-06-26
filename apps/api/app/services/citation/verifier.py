@@ -20,7 +20,7 @@ class CitationVerifier:
         self.threshold = threshold
         self.partial_threshold = partial_threshold
         self.claim_extractor = ClaimExtractor()
-        self.nli_model = NLIModel()
+        self.nli_model = NLIModel(device="cpu")
         self.fallback_verifier = NLIVerifier(use_model=False)
 
     def _split_into_sentences(self, text: str) -> List[str]:

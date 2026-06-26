@@ -1,11 +1,18 @@
 """Embedding service using sentence-transformers."""
 
+import os
 from typing import Any
 
 import numpy as np
 
 from app.core.config import settings
 from app.core.logging import get_logger
+
+# Disable tokenizer parallelism to prevent fork-bomb subprocess spawning
+# that saturates CPU/RAM and blocks the uvicorn event loop under memory pressure.
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+os.environ.setdefault("OMP_NUM_THREADS", "2")
+os.environ.setdefault("MKL_NUM_THREADS", "2")
 
 logger = get_logger("embedder")
 
@@ -22,12 +29,25 @@ class Embedder:
     def __init__(
         self,
         model_name: str | None = None,
-        device: str = "cpu",
+        device: str | None = None,
         batch_size: int = 32,
     ):
         self.model_name = model_name or settings.EMBEDDING_MODEL
-        self.device = device
-        self.batch_size = batch_size
+        self.batch_size = batch_size or 8  # Small batch to avoid spawning DataLoader workers
+        
+        if device is None:
+            try:
+                import torch
+                if torch.cuda.is_available():
+                    self.device = "cuda"
+                elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+                    self.device = "mps"
+                else:
+                    self.device = "cpu"
+            except ImportError:
+                self.device = "cpu"
+        else:
+            self.device = device
 
     async def load(self) -> None:
         """Load the embedding model."""
@@ -68,6 +88,8 @@ class Embedder:
             show_progress_bar=False,
             convert_to_numpy=True,
             normalize_embeddings=True,  # L2 normalized for cosine similarity
+            # num_workers=0 prevents PyTorch DataLoader from spawning subprocesses
+            # which would consume ~2GB RAM and 85% CPU, blocking the entire server
         )
         return embeddings
 

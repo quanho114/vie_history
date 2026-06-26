@@ -1,5 +1,6 @@
 """Ingestion Pipeline Orchestrator."""
 
+import asyncio
 import re
 
 from typing import Any
@@ -33,6 +34,8 @@ class IngestionPipeline:
         self.extractor = ContentExtractor()
         self.cleaner = ContentCleaner()
         self.metadata_extractor = MetadataExtractor()
+        from app.services.ingestion.wikipedia_parser import WikipediaParser
+        self.wikipedia_parser = WikipediaParser()
 
     async def process_url(self, url: str, tags: list[str] | None = None) -> dict[str, Any]:
         """
@@ -71,9 +74,24 @@ class IngestionPipeline:
 
         # Stage 2: Content Fetching
         raw_html = None
+        _MAX_HTML_BYTES = 5 * 1024 * 1024   # 5 MB — skip articles larger than this
+        _MAX_MARKDOWN_CHARS = 400_000         # ~400K chars — skip after conversion
         try:
             fetched = await self.extractor.fetch(url)
             raw_html = fetched["html"]
+
+            # Reject oversized HTML immediately — markdownify on >5MB hangs the server
+            if len(raw_html.encode("utf-8", errors="replace")) > _MAX_HTML_BYTES:
+                size_mb = len(raw_html) / 1024 / 1024
+                logger.warning("document_too_large_skipped", url=url[:100], size_mb=round(size_mb, 1))
+                return {
+                    "success": False,
+                    "error": f"Document too large ({size_mb:.1f} MB > 5 MB limit) — skipped",
+                    "stage": "fetching",
+                    "url": url,
+                    "skipped": True,
+                }
+
             stages.append("fetching")
         except ValueError as e:
             return {
@@ -87,17 +105,24 @@ class IngestionPipeline:
         extracted_text = None
         source_title = fetched.get("title", "") or ""
         try:
-            # Clean HTML first
-            cleaned_html = self.cleaner.clean_html(raw_html)
+            loop = asyncio.get_running_loop()
 
-            # Convert to markdown
-            markdown = self.cleaner.convert_to_markdown(cleaned_html)
+            # Run all heavy synchronous CPU work in thread pool to keep event loop free
+            cleaned_html = await loop.run_in_executor(None, self.cleaner.clean_html, raw_html)
+            markdown = await loop.run_in_executor(None, self.cleaner.convert_to_markdown, cleaned_html)
+            markdown = await loop.run_in_executor(None, self.cleaner.clean_markdown, markdown)
 
-            # Clean markdown
-            markdown = self.cleaner.clean_markdown(markdown)
+            # Reject if markdown is still too large after cleaning
+            if len(markdown) > _MAX_MARKDOWN_CHARS:
+                markdown = markdown[:_MAX_MARKDOWN_CHARS]
+                logger.warning("markdown_truncated", url=url[:100], chars=len(markdown))
 
-            # Restructure using LLM if available
-            markdown = await self.restructure_markdown_with_llm(source_title, markdown)
+            # Restructure using LLM or specialize for Wikipedia
+            is_wiki = "wikipedia.org" in url or fetched.get("source") == "wikipedia_api"
+            if is_wiki:
+                markdown = await self.wikipedia_parser.normalize_to_schema(source_title, markdown, url)
+            else:
+                markdown = await self.restructure_markdown_with_llm(source_title, markdown)
 
             extracted_text = markdown
             stages.append("extraction")
@@ -113,11 +138,19 @@ class IngestionPipeline:
         # Stage 4: Metadata Extraction
         metadata = {}
         try:
-            metadata = self.metadata_extractor.extract(
-                markdown=extracted_text,
-                title=source_title,
-                source_url=url,
-            )
+            is_wiki = "wikipedia.org" in url or fetched.get("source") == "wikipedia_api"
+            if is_wiki:
+                from app.services.ingestion.wikipedia_parser import parse_frontmatter
+                fm_data, body_text = parse_frontmatter(extracted_text)
+                if fm_data:
+                    metadata = self.wikipedia_parser.map_frontmatter_to_metadata(fm_data, url)
+            
+            if not metadata:
+                metadata = self.metadata_extractor.extract(
+                    markdown=extracted_text,
+                    title=source_title,
+                    source_url=url,
+                )
             if tags:
                 metadata["tags"] = list(set(metadata.get("tags", []) + tags))
             stages.append("metadata_extraction")

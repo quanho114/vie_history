@@ -46,8 +46,8 @@ def _with_circuit_breaker(
 
 
 def _parse_retry_after(detail: str) -> float | None:
-    """Parse 'Please try again in Xs' from Groq/OpenAI 429 error body."""
-    match = re.search(r"try again in ([\d.]+)s", detail, re.IGNORECASE)
+    """Parse 'Please try again in Xs' or 'Please retry in Xs' from Gemini/Groq/OpenAI 429 error body."""
+    match = re.search(r"(?:try again|retry) in ([\d.]+)s", detail, re.IGNORECASE)
     if match:
         return float(match.group(1))
     return None
@@ -449,6 +449,7 @@ def get_llm_client() -> BaseLLMClient:
         ollama_url_var,
         ollama_model_var,
     )
+    from app.core.exceptions import APIKeyMissingError
 
     active_provider = active_provider_var.get()
     
@@ -460,7 +461,7 @@ def get_llm_client() -> BaseLLMClient:
             key = gemini_key_var.get()
             model = gemini_model_var.get() or "gemini-1.5-pro"
             if not key or key in ("••••••••", "********"):
-                raise RuntimeError("API_KEY_MISSING: Vui lòng nhập Gemini API Key trong phần Cài đặt.")
+                raise APIKeyMissingError("gemini")
             return OpenAICompatibleClient(
                 api_key=key,
                 base_url="https://generativelanguage.googleapis.com/v1beta/openai",
@@ -472,7 +473,7 @@ def get_llm_client() -> BaseLLMClient:
             model = groq_model_var.get() or "llama-3.3-70b-versatile"
             model = GROQ_LEGACY_MODEL_MAP.get(model, model)
             if not key or key in ("••••••••", "********"):
-                raise RuntimeError("API_KEY_MISSING: Vui lòng nhập Groq API Key trong phần Cài đặt.")
+                raise APIKeyMissingError("groq")
             return OpenAICompatibleClient(
                 api_key=key,
                 base_url="https://api.groq.com/openai/v1",
@@ -486,8 +487,7 @@ def get_llm_client() -> BaseLLMClient:
                 "https://api.openai.com/v1" if active_provider == "openai" else "https://openrouter.ai/api/v1"
             )
             if not key or key in ("••••••••", "********"):
-                provider_name = "OpenAI" if active_provider == "openai" else "OpenRouter"
-                raise RuntimeError(f"API_KEY_MISSING: Vui lòng nhập {provider_name} API Key trong phần Cài đặt.")
+                raise APIKeyMissingError(active_provider)
             return OpenAICompatibleClient(
                 api_key=key,
                 base_url=base_url,
@@ -510,7 +510,7 @@ def get_llm_client() -> BaseLLMClient:
 
     if provider == "anthropic":
         if not settings.ANTHROPIC_API_KEY:
-            raise RuntimeError("API_KEY_MISSING: Vui lòng nhập Anthropic API Key trong phần Cài đặt.")
+            raise APIKeyMissingError("anthropic")
         return AnthropicClient()
 
     if provider in ("openai", "openrouter"):
@@ -522,14 +522,13 @@ def get_llm_client() -> BaseLLMClient:
         )
         model = settings.OPENAI_MODEL
         if not api_key:
-            provider_name = "OpenAI" if provider == "openai" else "OpenRouter"
-            raise RuntimeError(f"API_KEY_MISSING: Vui lòng nhập {provider_name} API Key trong phần Cài đặt.")
+            raise APIKeyMissingError(provider)
         return OpenAICompatibleClient(api_key=api_key, base_url=base_url, model=model)
 
     if provider == "gemini":
         key = os.environ.get("GEMINI_API_KEY", "")
         if not key:
-            raise RuntimeError("API_KEY_MISSING: Vui lòng nhập Gemini API Key trong phần Cài đặt.")
+            raise APIKeyMissingError("gemini")
         return OpenAICompatibleClient(
             api_key=key,
             base_url="https://generativelanguage.googleapis.com/v1beta/openai",
@@ -539,7 +538,7 @@ def get_llm_client() -> BaseLLMClient:
     if provider == "groq":
         key = os.environ.get("GROQ_API_KEY", "")
         if not key:
-            raise RuntimeError("API_KEY_MISSING: Vui lòng nhập Groq API Key trong phần Cài đặt.")
+            raise APIKeyMissingError("groq")
         return OpenAICompatibleClient(
             api_key=key,
             base_url="https://api.groq.com/openai/v1",
@@ -559,4 +558,5 @@ def get_llm_client() -> BaseLLMClient:
 
     # 3. Last fallback: use Mock LLM Client
     return MockLLMClient()
+
 

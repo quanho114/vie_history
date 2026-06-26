@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from uuid import uuid4
 
-from sqlalchemy import select, func, or_
+from sqlalchemy import select, func, or_, and_
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.logging import get_logger
@@ -60,8 +60,30 @@ class WikiService:
             query = query.where(WikiPage.project_id == project_id)
             count_query = count_query.where(WikiPage.project_id == project_id)
         if period:
-            query = query.where(WikiPage.period == period)
-            count_query = count_query.where(WikiPage.period == period)
+            if period == "khang-chien-chong-phap":
+                period_filter = and_(
+                    WikiPage.start_year.is_not(None),
+                    WikiPage.start_year >= 1940,
+                    WikiPage.start_year <= 1954
+                )
+            elif period == "khang-chien-chong-my":
+                period_filter = and_(
+                    WikiPage.start_year.is_not(None),
+                    WikiPage.start_year >= 1955,
+                    WikiPage.start_year <= 1975
+                )
+            elif period == "thong-nhat":
+                period_filter = and_(
+                    WikiPage.start_year.is_not(None),
+                    WikiPage.start_year >= 1975
+                )
+            else:
+                period_filter = or_(
+                    WikiPage.period == period,
+                    WikiPage.period.ilike(f"%{period}%")
+                )
+            query = query.where(period_filter)
+            count_query = count_query.where(period_filter)
         if event_type:
             query = query.where(WikiPage.event_type == event_type)
             count_query = count_query.where(WikiPage.event_type == event_type)

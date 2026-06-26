@@ -17,7 +17,7 @@ except ImportError:
 class NLIVerifier:
     """Verifies factual entailment using the cached NLIModel singleton."""
 
-    def __init__(self, use_model: bool = True, model_name: str = "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli", device: str = "cpu") -> None:
+    def __init__(self, use_model: bool = True, model_name: str = "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli", device: str | None = None) -> None:
         self.use_model = use_model and HAS_TRANSFORMERS
         self.model_name = model_name
         self.device = device
