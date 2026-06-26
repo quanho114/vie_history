@@ -13,6 +13,7 @@ services:
   # ── API Backend ──────────────────────────────────────────────────────────────
 
   api:
+    image: historiai-api:test
     build:
       context: ./apps/api
       dockerfile: Dockerfile
@@ -47,6 +48,7 @@ services:
   # ── React Frontend ────────────────────────────────────────────────────────────
 
   web:
+    image: historiai-web:test
     build:
       context: ./apps/web
       dockerfile: Dockerfile
@@ -61,6 +63,7 @@ services:
 
   # ── RQ Worker (uses Redis as broker) ─────────────────────────────────
   rq-worker:
+    image: historiai-api:test
     build:
       context: ./apps/api
       dockerfile: Dockerfile
