@@ -138,12 +138,32 @@ class QueryService:
 
     def calculate_dynamic_weights(self, query: str) -> dict[str, float]:
         q = query.lower()
-        # Entity-based, year-specific keyword queries
-        if any(char.isdigit() for char in q) or any(w in q for w in ["địa điểm", "ai là", "tên gì", "ngày tháng", "năm nào", "khi nào", "bao nhiêu"]):
+        
+        # Factual, lexical-heavy indicators (names, locations, dates, specific historical events)
+        lexical_words = [
+            "ai là", "tên gì", "ngày tháng", "năm nào", "khi nào", "bao nhiêu", 
+            "ở đâu", "địa điểm", "tỉnh nào", "thành phố", "sông nào", "núi nào", "đèo nào",
+            "kinh đô", "thủ đô", "căn cứ", "ông là", "bà là", "vua nào", "tướng nào",
+            "đại tướng", "tổng thống", "vương phi", "hoàng hậu", "thái tử", "hoàng đế",
+            "trận chiến", "trận đánh", "chiến dịch", "hiệp định", "hiệp ước", "hòa ước",
+            "tuyên ngôn", "khởi nghĩa", "nổi dậy", "sự kiện", "phong trào"
+        ]
+        
+        # Conceptual, semantic-heavy indicators (explanations, comparisons, significance)
+        semantic_words = [
+            "so sánh", "tại sao", "vì sao", "khác nhau", "bài học", "thế nào",
+            "như thế nào", "phân tích", "ý nghĩa", "nguyên nhân", "tác động",
+            "ảnh hưởng", "vai trò", "hậu quả", "kinh nghiệm", "đánh giá"
+        ]
+        
+        if any(char.isdigit() for char in q) or any(w in q for w in lexical_words):
+            # Heavy focus on BM25 for keyword/exact matching
             return {"vector": 0.3, "bm25": 0.7}
-        # Conceptual / Comparative query
-        if any(w in q for w in ["so sánh", "tại sao", "khác nhau", "bài học"]):
+            
+        if any(w in q for w in semantic_words):
+            # Heavy focus on Vector search for concept/semantic matches
             return {"vector": 0.8, "bm25": 0.2}
+            
         # Default balanced configuration
         return {"vector": 0.5, "bm25": 0.5}
 
