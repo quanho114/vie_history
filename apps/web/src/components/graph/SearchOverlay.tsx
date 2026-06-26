@@ -110,7 +110,7 @@ export function SearchOverlay({ isOpen, onClose, onSelectNode }: SearchOverlayPr
 
   const displayItems = results.length > 0 
     ? results 
-    : recentSearches.map(s => ({ id: `recent-${s}`, name: s, type: 'recent' } as any));
+    : recentSearches.map(s => ({ id: `recent-${s}`, slug: `recent-${s}`, name: s, type: 'recent' } as ApiGraphNode));
 
   return (
     <AnimatePresence>

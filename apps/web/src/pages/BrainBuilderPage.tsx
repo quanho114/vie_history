@@ -4,6 +4,14 @@ import { brainApi, type BrainJob, type BrainPlan } from "@/lib/api/brain"
 import { formatDate } from "@/lib/utils/format"
 import { cn } from "@/lib/utils/cn"
 
+interface ProposedPage {
+  title: string
+  event_type?: string
+  period?: string
+  summary?: string
+  reason?: string
+}
+
 // ── Icons ──────────────────────────────────────────────
 function IconSettings({ className = "" }: { className?: string }) {
   return (
@@ -103,7 +111,7 @@ const renderSummaryOrCoordinates = (summary: string) => {
   return <p className="text-[11px] text-[#6c6a64] mt-1.5 line-clamp-2 leading-relaxed">{summary}</p>;
 };
 
-function getStatCard(label: string, value: any) {
+function getStatCard(label: string, value: string | number) {
   const labelLower = label.toLowerCase();
   let icon = null;
   let bgClass = "";
@@ -648,7 +656,7 @@ export function BrainBuilderPage() {
                         {/* Preview proposed pages tags */}
                         {Array.isArray(plan.proposed_pages) && plan.proposed_pages.length > 0 && (
                           <div className="flex flex-wrap items-center gap-1.5 mt-3 pt-2">
-                            {plan.proposed_pages.slice(0, 3).map((p: any, idx: number) => (
+                            {(plan.proposed_pages as ProposedPage[]).slice(0, 3).map((p, idx) => (
                               <span key={idx} className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#fdfaf5] border border-[#f5ece0] text-[10px] font-semibold text-[#6c6a64]">
                                 📖 {p.title}
                               </span>
@@ -711,7 +719,7 @@ export function BrainBuilderPage() {
               </div>
 
               {/* Proposed pages details loop */}
-              {Array.isArray(selectedPlan.proposed_pages) && selectedPlan.proposed_pages.map((p: any, idx: number) => (
+              {Array.isArray(selectedPlan.proposed_pages) && (selectedPlan.proposed_pages as ProposedPage[]).map((p, idx) => (
                 <div key={idx} className="bg-white border border-[#e6dfd8] rounded-xl p-4 shadow-sm space-y-2 text-xs">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-[#141413] text-sm">{p.title}</span>

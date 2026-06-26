@@ -101,7 +101,7 @@ export const authApi = {
     return request("/auth/me")
   },
 
-  async updateProfile(data: { username?: string; email?: string; password?: string; settings?: Record<string, any> }): Promise<User> {
+  async updateProfile(data: { username?: string; email?: string; password?: string; settings?: Record<string, unknown> }): Promise<User> {
     return request("/auth/profile", {
       method: "PUT",
       body: JSON.stringify(data),

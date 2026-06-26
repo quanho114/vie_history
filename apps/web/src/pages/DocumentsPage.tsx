@@ -57,7 +57,7 @@ function cleanSummary(summary: string): string {
   let cleaned = summary
   cleaned = cleaned.replace(/Chú\s*ý/g, "")
   cleaned = cleaned.replace(/\s*\(en\)/gi, "")
-  cleaned = cleaned.replace(/[|\-]+([|:\-]+[|:\-]+)+/g, " ")
+  cleaned = cleaned.replace(/[|-]+([|:-]+[|:-]+)+/g, " ")
   cleaned = cleaned.replace(/\|+/g, " ")
   cleaned = cleaned.replace(/--+/g, " ")
   cleaned = cleaned.replace(/-{2,}/g, " ")
@@ -71,7 +71,7 @@ function cleanSummary(summary: string): string {
 }
 
 // Dynamic icon based on source domain/type
-function getDocumentIcon(doc: any) {
+function getDocumentIcon(doc: Document) {
   if (doc.source_domain?.includes("wikipedia") || doc.title?.includes("wikipedia")) {
     return <Globe className="w-4 h-4 text-sky-600" />
   }
@@ -231,7 +231,6 @@ export function DocumentsPage() {
           setUploadProgress((prev) => ({ ...prev, [activeUrl]: "processing" }))
           try {
             await submitUrl(activeUrl, parsedTags)
-            setUploadProgress((prev) => ({ ...prev, [activeUrl]: [activeUrl] ? "done" : "done" })) // safety
             setUploadProgress((prev) => ({ ...prev, [activeUrl]: "done" }))
           } catch (err) {
             console.error(`Failed to ingest URL: ${activeUrl}`, err)

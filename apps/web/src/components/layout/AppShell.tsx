@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { useAuthStore } from "@/stores/authStore";
 import { useChatStore } from "@/stores/chatStore";
+import type { Session } from "@/types";
 import { Sidebar } from "./Sidebar";
 import { Menu } from "lucide-react";
 
@@ -32,7 +33,7 @@ export function AppShell() {
 
     // Find empty sessions created during this client session
     const emptySessions = sessions.filter(
-      (session) => (session.message_count ?? 0) === 0 && (session as any).client_created_at !== undefined
+      (session) => (session.message_count ?? 0) === 0 && (session as Session & { client_created_at?: number }).client_created_at !== undefined
     );
 
     emptySessions.forEach((session) => {
@@ -40,7 +41,7 @@ export function AppShell() {
         return;
       }
 
-      const clientTime = (session as any).client_created_at;
+      const clientTime = (session as Session & { client_created_at?: number }).client_created_at ?? Date.now();
       const age = Date.now() - clientTime;
 
       if (age < 3000) {

@@ -46,6 +46,25 @@ function getEdgeLabel(et: string): string {
   return EDGE_LABELS[et] || et.toLowerCase().replace(/_/g, ' ');
 }
 
+interface RawNode {
+  id: string;
+  name: string;
+  slug?: string;
+  type?: string;
+  node_type?: string;
+  description?: string;
+}
+
+interface RawEdge {
+  id: string;
+  source_id?: string;
+  source?: string;
+  target_id?: string;
+  target?: string;
+  edge_type?: string;
+  weight?: number;
+}
+
 // ============================================================================
 // Main Component
 // ============================================================================
@@ -102,11 +121,11 @@ export function GraphPage() {
       try {
         // Fetch nodes
         const nodesRes = await graphApi.getNodes('');
-        const rawNodes = nodesRes.nodes || [];
+        const rawNodes = (nodesRes.nodes || []) as unknown as RawNode[];
 
         // Fetch edges
         const edgesRes = await graphApi.getEdges(1, 500);
-        const rawEdges = edgesRes.edges || [];
+        const rawEdges = (edgesRes.edges || []) as unknown as RawEdge[];
 
         if (rawNodes.length === 0) {
           setNodes([]);
@@ -117,9 +136,9 @@ export function GraphPage() {
 
         // Calculate degrees
         const degreeMap: Record<string, number> = {};
-        rawEdges.forEach((e: any) => {
-          const s = e.source_id || e.source;
-          const t = e.target_id || e.target;
+        rawEdges.forEach((e: RawEdge) => {
+          const s = e.source_id || e.source || '';
+          const t = e.target_id || e.target || '';
           degreeMap[s] = (degreeMap[s] || 0) + 1;
           degreeMap[t] = (degreeMap[t] || 0) + 1;
         });
@@ -127,7 +146,7 @@ export function GraphPage() {
         // Find most connected node as center
         let maxDegree = -1;
         let centralId = '';
-        rawNodes.forEach((n: any) => {
+        rawNodes.forEach((n: RawNode) => {
           const deg = degreeMap[n.id] || 0;
           if (deg > maxDegree) {
             maxDegree = deg;
@@ -149,7 +168,7 @@ export function GraphPage() {
           console.error('Failed to parse saved node positions:', err);
         }
 
-        const graphNodes: GraphNode[] = rawNodes.map((n: any, i: number) => {
+        const graphNodes: GraphNode[] = rawNodes.map((n: RawNode, i: number) => {
           const isCentral = n.id === centralId;
           const savedPos = savedPositions[n.id];
 
@@ -189,10 +208,10 @@ export function GraphPage() {
           };
         });
 
-        const graphEdges: GraphEdge[] = rawEdges.map((e: any) => ({
+        const graphEdges: GraphEdge[] = rawEdges.map((e: RawEdge) => ({
           id: e.id,
-          source: e.source_id || e.source,
-          target: e.target_id || e.target,
+          source: e.source_id || e.source || '',
+          target: e.target_id || e.target || '',
           label: getEdgeLabel(e.edge_type || ''),
           edge_type: e.edge_type || '',
           weight: e.weight || 1,

@@ -4,7 +4,7 @@ export interface User {
   email: string
   username: string
   role: "user" | "admin"
-  settings?: Record<string, any>
+  settings?: Record<string, unknown>
 }
 
 export interface Document {

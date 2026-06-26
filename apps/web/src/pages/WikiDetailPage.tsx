@@ -131,6 +131,14 @@ const SECTION_KEYS = [
   "Nguồn tham khảo",
 ]
 
+interface WikiNeighbor {
+  node_id: string
+  node_slug?: string
+  node_name: string
+  direction: "incoming" | "outgoing"
+  edge_type: string
+}
+
 // ── Main component ─────────────────────────────────────
 export function WikiDetailPage() {
   const showToast = useUIStore((s) => s.showToast)
@@ -160,7 +168,7 @@ export function WikiDetailPage() {
   const [draftSubmitting, setDraftSubmitting] = useState(false)
 
   // Graph links
-  const [neighbors, setNeighbors] = useState<any[]>([])
+  const [neighbors, setNeighbors] = useState<WikiNeighbor[]>([])
   const [loadingLinks, setLoadingLinks] = useState(false)
 
   useEffect(() => {

@@ -65,6 +65,49 @@ interface QualityReport {
   }>
 }
 
+interface AdminPendingDoc {
+  id: string
+  title: string
+  status: string
+  source_url?: string
+  source_type?: string
+  quality_score?: number
+  created_at: string
+  [key: string]: unknown
+}
+
+interface AdminIngestJob {
+  id: string
+  status: string
+  source_input?: string
+  source_type?: string
+  stage?: string
+  error_message?: string
+  created_at: string
+  finished_at?: string
+  logs?: Array<{ timestamp: string; level: string; message: string }>
+  [key: string]: unknown
+}
+
+interface AdminUser {
+  id: string
+  email: string
+  username: string
+  role: string
+  created_at?: string
+  [key: string]: unknown
+}
+
+interface AdminResetRequest {
+  id: string
+  user_id?: string
+  email?: string
+  status: string
+  created_at: string
+  [key: string]: unknown
+}
+
+
 export function AdminPage() {
   const [stats, setStats] = useState<Stats | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -80,20 +123,20 @@ export function AdminPage() {
   const [qualityLoading, setQualityLoading] = useState(false)
 
   // Pending Documents states
-  const [pendingDocs, setPendingDocs] = useState<any[]>([])
+  const [pendingDocs, setPendingDocs] = useState<AdminPendingDoc[]>([])
   const [pendingTotal, setPendingTotal] = useState(0)
   const [pendingPage, setPendingPage] = useState(1)
   const [docsLoading, setDocsLoading] = useState(false)
-  const [selectedDoc, setSelectedDoc] = useState<any | null>(null)
+  const [selectedDoc, setSelectedDoc] = useState<AdminPendingDoc | null>(null)
   const [selectedDocMarkdown, setSelectedDocMarkdown] = useState<string | null>(null)
   const [loadingMarkdown, setLoadingMarkdown] = useState(false)
   const [actioningDocId, setActioningDocId] = useState<string | null>(null)
 
   // Ingestion Jobs states
-  const [ingestJobs, setIngestJobs] = useState<any[]>([])
+  const [ingestJobs, setIngestJobs] = useState<AdminIngestJob[]>([])
   const [jobsLoading, setJobsLoading] = useState(false)
   const [jobFilterStatus, setJobFilterStatus] = useState<string>("")
-  const [selectedJob, setSelectedJob] = useState<any | null>(null)
+  const [selectedJob, setSelectedJob] = useState<AdminIngestJob | null>(null)
   const [retryingJobId, setRetryingJobId] = useState<string | null>(null)
   const [deletingJobId, setDeletingJobId] = useState<string | null>(null)
   const [isDeletingAllJobs, setIsDeletingAllJobs] = useState(false)
@@ -102,17 +145,17 @@ export function AdminPage() {
   const jobsPageSize = 10
 
   // User management states
-  const [users, setUsers] = useState<any[]>([])
+  const [users, setUsers] = useState<AdminUser[]>([])
   const [usersLoading, setUsersLoading] = useState(false)
-  const [resettingUser, setResettingUser] = useState<any | null>(null)
+  const [resettingUser, setResettingUser] = useState<AdminUser | null>(null)
   const [newPassword, setNewPassword] = useState("")
   const [resetMessage, setResetMessage] = useState("")
   const [resetError, setResetError] = useState("")
 
   // Reset requests states
-  const [resetRequests, setResetRequests] = useState<any[]>([])
+  const [resetRequests, setResetRequests] = useState<AdminResetRequest[]>([])
   const [requestsLoading, setRequestsLoading] = useState(false)
-  const [approvingRequest, setApprovingRequest] = useState<any | null>(null)
+  const [approvingRequest, setApprovingRequest] = useState<AdminResetRequest | null>(null)
   const [approvePassword, setApprovePassword] = useState("")
   const [approveMessage, setApproveMessage] = useState("")
   const [approveError, setApproveError] = useState("")

@@ -225,7 +225,7 @@ function formatCitationTitle(title: string) {
 
 function CitationCard({ citation, index }: { citation: Citation; index: number }) {
   let domain = "";
-  let pageTitle = citation.section_title || citation.document_title || "Tài liệu tham khảo";
+  const pageTitle = citation.section_title || citation.document_title || "Tài liệu tham khảo";
   let faviconUrl = "";
 
   if (citation.source_url && (citation.source_url.startsWith("http://") || citation.source_url.startsWith("https://"))) {
@@ -512,7 +512,7 @@ function StageIndicator({ stage }: { stage: string | null }) {
    Message Row
    ======================================== */
 
-function formatCitationsInText(content: string, citations: any[] | undefined) {
+function formatCitationsInText(content: string, citations: Citation[] | undefined) {
   if (!content) return "";
   if (!citations || citations.length === 0) return content;
 
@@ -1068,7 +1068,7 @@ export function ChatPage() {
 
       const handleIncomingParams = async () => {
         let finalQuery = q || "";
-        let finalFilters: Record<string, any> | undefined = undefined;
+        let finalFilters: Record<string, unknown> | undefined = undefined;
 
         if (contextType === "wiki" && contextId) {
           try {

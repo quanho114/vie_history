@@ -552,7 +552,7 @@ export function Sidebar({
     const handleOpenSettings = (e: Event) => {
       const customEvent = e as CustomEvent;
       const tab = customEvent.detail?.tab || "profile";
-      setActiveTab(tab as any);
+      setActiveTab(tab as "profile" | "ai_api" | "rag_search" | "preferences");
       setSettingsOpen(true);
     };
     window.addEventListener("open_settings", handleOpenSettings);
@@ -584,8 +584,13 @@ export function Sidebar({
       language: language,
     };
 
-    const updatePayload: any = {
-      settings: sPayload,
+    const updatePayload: {
+      username?: string;
+      email?: string;
+      password?: string;
+      settings?: Record<string, unknown>;
+    } = {
+      settings: sPayload as Record<string, unknown>,
     };
 
     if (username.trim() && username !== user?.username) {
@@ -620,10 +625,11 @@ export function Sidebar({
         setSettingsOpen(false);
         setToast(null);
       }, 1500);
-    } catch (err: any) {
+    } catch (err) {
+      const errorMsg = (err instanceof Error) ? err.message : t("save_failed");
       setToast({
         type: "error",
-        message: err?.message || t("save_failed"),
+        message: errorMsg,
       });
     } finally {
       setSaving(false);
@@ -1291,7 +1297,7 @@ export function Sidebar({
                       <button
                         key={tab.id}
                         type="button"
-                        onClick={() => setActiveTab(tab.id as any)}
+                        onClick={() => setActiveTab(tab.id as "profile" | "ai_api" | "rag_search" | "preferences")}
                         className={cn(
                           "flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-normal transition-colors text-left w-full border-0 cursor-pointer bg-transparent",
                           isActive

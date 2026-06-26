@@ -318,7 +318,7 @@ export interface WikiPageDraft {
   slug: string;
   title: string;
   summary?: string;
-  content?: Record<string, any>;
+  content?: Record<string, unknown>;
   status: string; // pending | approved | rejected
   admin_notes?: string;
   proposed_by?: string;
@@ -334,7 +334,7 @@ export const draftsApi = {
     title: string;
     slug?: string;
     summary?: string;
-    content?: Record<string, any>;
+    content?: Record<string, unknown>;
   }) => {
     return request<WikiPageDraft>("/wiki/drafts", {
       method: "POST",
@@ -643,8 +643,8 @@ export interface KnowledgeDraft {
   id: string;
   change_type: "add_node" | "add_edge" | "update_node" | "contradiction";
   status: "pending" | "approved" | "rejected";
-  draft_data: Record<string, any>;
-  source_info?: Record<string, any>;
+  draft_data: Record<string, unknown>;
+  source_info?: Record<string, unknown>;
   created_at: string;
   updated_at?: string;
 }

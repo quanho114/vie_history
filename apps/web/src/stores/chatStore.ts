@@ -17,7 +17,7 @@ interface ChatState {
   createSession: (title?: string) => Promise<Session>
   setActiveSession: (id: string | null) => void
   loadMessages: (sessionId: string) => Promise<void>
-  sendMessage: (query: string, filters?: Record<string, any>) => Promise<void>
+  sendMessage: (query: string, filters?: Record<string, unknown>) => Promise<void>
   abortStreaming: () => void
   clearError: () => void
   renameSession: (id: string, title: string) => Promise<void>
@@ -88,7 +88,7 @@ export const useChatStore = create<ChatState>()((set, get) => ({
     }
   },
 
-  sendMessage: async (query: string, filters?: Record<string, any>) => {
+  sendMessage: async (query: string, filters?: Record<string, unknown>) => {
     const { activeSessionId, sessions } = get()
 
     // Create session if none selected

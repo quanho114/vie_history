@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore, syncSettingsToLocalStorage } from "@/stores/authStore";
 import { authApi } from "@/lib/services/api";
 import { cn } from "@/lib/utils/cn";
+import type { User as AuthUser } from "@/types";
 import { VietnamMap, PROVINCES_DATA } from "@/components/ui/VietnamMap";
 import { LogIn, Loader2, Mail, Lock, User, Sparkles, BookOpen, ShieldCheck, History, ArrowRight, Check, Eye, EyeOff } from "lucide-react";
 
@@ -214,7 +215,7 @@ export function LoginPage() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [transitionTarget, setTransitionTarget] = useState("");
   const [loadingTextIndex, setLoadingTextIndex] = useState(0);
-  const [pendingAuthResponse, setPendingAuthResponse] = useState<any>(null);
+  const [pendingAuthResponse, setPendingAuthResponse] = useState<{ access_token: string; user: AuthUser } | null>(null);
 
   const loadingTexts = [
     "„Sông núi nước Nam vua Nam ở...”",
@@ -281,8 +282,8 @@ export function LoginPage() {
       setResetEmail("");
       setResetUsername("");
       setResetReason("");
-    } catch (err: any) {
-      setResetError(err.message || "Không thể kết nối đến máy chủ");
+    } catch (err: unknown) {
+      setResetError((err instanceof Error ? err.message : String(err)) || "Không thể kết nối đến máy chủ");
     } finally {
       setIsResetSubmitting(false);
     }
@@ -326,9 +327,9 @@ export function LoginPage() {
       setPendingAuthResponse(response);
       setIsTransitioning(true);
       useAuthStore.setState({ isLoading: false });
-    } catch (err: any) {
+    } catch (err: unknown) {
       useAuthStore.setState({
-        error: err.message || (isRegister ? "Đăng ký thất bại" : "Đăng nhập thất bại"),
+        error: (err instanceof Error ? err.message : String(err)) || (isRegister ? "Đăng ký thất bại" : "Đăng nhập thất bại"),
         isLoading: false,
       });
     }

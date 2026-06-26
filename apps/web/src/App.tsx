@@ -43,11 +43,12 @@ export default function App() {
   // Silence background music immediately on any route change unless the user is on the Knowledge Map screen (/graph)
   useEffect(() => {
     if (location.pathname !== "/graph") {
-      const globalAudio = (window as any).__histori_bg_audio__
+      const win = window as Window & { __histori_bg_audio__?: HTMLAudioElement | null }
+      const globalAudio = win.__histori_bg_audio__
       if (globalAudio) {
         try {
           globalAudio.pause()
-          ;(window as any).__histori_bg_audio__ = null
+          win.__histori_bg_audio__ = null
           console.log("Navigated away from Map: stopped background music.")
         } catch (e) {
           console.warn("Failed to pause background audio", e)

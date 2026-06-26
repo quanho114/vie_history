@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware"
 import type { User } from "@/types"
 import { authApi } from "@/lib/services/api"
 
-export function syncSettingsToLocalStorage(settings: Record<string, any> | undefined) {
+export function syncSettingsToLocalStorage(settings: Record<string, unknown> | undefined) {
   if (!settings) return
 
   const keys = [
@@ -52,7 +52,7 @@ interface AuthState {
   logout: () => void
   checkAuth: () => Promise<void>
   clearError: () => void
-  updateUserProfile: (data: { username?: string; email?: string; password?: string; settings?: Record<string, any> }) => Promise<void>
+  updateUserProfile: (data: { username?: string; email?: string; password?: string; settings?: Record<string, unknown> }) => Promise<void>
 }
 
 export const useAuthStore = create<AuthState>()(

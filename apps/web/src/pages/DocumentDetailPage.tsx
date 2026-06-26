@@ -52,51 +52,51 @@ function getTagClass(tag: string): string {
 }
 
 const MemoizedReactMarkdown = memo(
-  ({ content, components }: { content: string; components?: any }) => {
+  ({ content, components }: { content: string; components?: React.ComponentProps<typeof ReactMarkdown>["components"] }) => {
     return <ReactMarkdown components={components}>{content}</ReactMarkdown>
   },
   (prevProps, nextProps) => prevProps.content === nextProps.content
 )
 
 const latexMarkdownComponents = {
-  h1: ({ children }: any) => (
+  h1: ({ children }: { children?: React.ReactNode }) => (
     <h1 className="font-display text-2xl font-normal text-stone-900 mt-10 mb-4 pb-1 border-b border-stone-200">
       {children}
     </h1>
   ),
-  h2: ({ children }: any) => (
+  h2: ({ children }: { children?: React.ReactNode }) => (
     <h2 className="font-display text-xl font-normal text-stone-900 mt-8 mb-3">
       {children}
     </h2>
   ),
-  h3: ({ children }: any) => (
+  h3: ({ children }: { children?: React.ReactNode }) => (
     <h3 className="font-display text-lg font-medium text-stone-850 mt-6 mb-2">
       {children}
     </h3>
   ),
-  p: ({ children }: any) => (
+  p: ({ children }: { children?: React.ReactNode }) => (
     <p className="text-[15px] leading-relaxed text-stone-850 text-justify my-4 first-line:indent-8 font-serif">
       {children}
     </p>
   ),
-  table: ({ children }: any) => (
+  table: ({ children }: { children?: React.ReactNode }) => (
     <div className="overflow-x-auto my-6 select-text">
       <table className="w-full font-serif text-[13.5px] text-stone-850 border-t-2 border-b-2 border-stone-900 border-collapse">
         {children}
       </table>
     </div>
   ),
-  thead: ({ children }: any) => (
+  thead: ({ children }: { children?: React.ReactNode }) => (
     <thead className="border-b border-stone-900 bg-stone-50/50">
       {children}
     </thead>
   ),
-  th: ({ children }: any) => (
+  th: ({ children }: { children?: React.ReactNode }) => (
     <th className="py-2.5 px-3 font-bold text-stone-950 text-left">
       {children}
     </th>
   ),
-  td: ({ children }: any) => (
+  td: ({ children }: { children?: React.ReactNode }) => (
     <td className="py-2.5 px-3 border-b border-stone-100">
       {children}
     </td>
@@ -136,9 +136,9 @@ function parseAndCleanToLatex(content: string): string {
   });
 
   // Strip table separator lines like |---|, ||--||, |:---:|, |-|-| (before per-line processing)
-  cleaned = cleaned.replace(/^[\s|:\-]+$/gm, "");
+  cleaned = cleaned.replace(/^[\s|:-]+$/gm, "");
   // Strip patterns like ||--|| or |||---|||  mid-line
-  cleaned = cleaned.replace(/[|\-]+([|:\-]+[|:\-]+)+/g, " ");
+  cleaned = cleaned.replace(/[|-]+([|:-]+[|:-]+)+/g, " ");
   // Strip remaining double-dash table fillers --
   cleaned = cleaned.replace(/--+/g, " ");
 
