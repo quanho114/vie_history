@@ -92,6 +92,36 @@ class TestRelevanceLabels:
         labels = relevance_labels(chunks, {"điện biên phủ"})
         assert labels == [1]
 
+    def test_relevant_in_source_url(self) -> None:
+        chunks = [
+            {"content": "text", "document_title": "Doc", "section_title": "", "source_url": "https://vi.wikipedia.org/wiki/Tran_Dien_Bien_Phu"},
+        ]
+        labels = relevance_labels(chunks, {"tran_dien_bien_phu"})
+        assert labels == [1]
+
+    def test_relevant_in_payload(self) -> None:
+        chunks = [
+            {"content": "text", "payload": {"document_title": "Cách mạng tháng Tám", "source_url": "https://wikipedia.org/wiki/cmt8"}}
+        ]
+        labels = relevance_labels(chunks, {"cách mạng tháng tám"})
+        assert labels == [1]
+
+
+class TestGoldenQuestionExpectedTerms:
+    def test_parses_colon_correctly(self) -> None:
+        q = GoldenQuestion(
+            question="Diễn biến Cách mạng tháng Tám?",
+            expected_source_contains=["Wikipedia: Cách mạng tháng Tám", "SGK 12: Chương 17"]
+        )
+        expected = {
+            "wikipedia: cách mạng tháng tám",
+            "cách mạng tháng tám",
+            "sgk 12: chương 17",
+            "chương 17"
+        }
+        assert q.expected_terms == expected
+
+
 
 class TestEvaluateSingle:
     def test_mrr_hit_at_position_1(self) -> None:

@@ -47,7 +47,18 @@ class GoldenQuestion:
         terms = self.expected_source_contains
         if isinstance(terms, str):
             terms = [terms]
-        return {t.lower().strip() for t in terms if t.strip()}
+        
+        extracted_terms = set()
+        for t in terms:
+            t = t.strip()
+            if not t:
+                continue
+            extracted_terms.add(t.lower())
+            if ":" in t:
+                parts = t.split(":", 1)
+                extracted_terms.add(parts[1].lower().strip())
+        return extracted_terms
+
 
 
 @dataclass
@@ -107,10 +118,14 @@ def relevance_labels(
     """
     labels = []
     for chunk in chunks:
+        payload = chunk.get("payload") or {}
         content = " ".join([
             str(chunk.get("content", "")),
             str(chunk.get("document_title", "")),
             str(chunk.get("section_title", "")),
+            str(chunk.get("source_url", "")),
+            str(payload.get("source_url", "")),
+            str(payload.get("document_title", "")),
         ]).lower()
         is_relevant = any(term in content for term in expected_terms)
         labels.append(1 if is_relevant else 0)
@@ -200,11 +215,18 @@ def load_golden_dataset(path: Path) -> list[GoldenQuestion]:
     # Try JSON first
     try:
         data = json.loads(content)
-        items = data if isinstance(data, list) else [data]
+        if isinstance(data, dict):
+            if "questions" in data and isinstance(data["questions"], list):
+                items = data["questions"]
+            else:
+                items = [data]
+        else:
+            items = data if isinstance(data, list) else [data]
+
         return [
             GoldenQuestion(
                 question=item["question"],
-                expected_source_contains=item.get("expected_source_contains", ""),
+                expected_source_contains=item.get("expected_sources", item.get("expected_source_contains", "")),
                 metadata=item.get("metadata", {}),
             )
             for item in items
@@ -222,12 +244,13 @@ def load_golden_dataset(path: Path) -> list[GoldenQuestion]:
             item = json.loads(line)
             questions.append(GoldenQuestion(
                 question=item["question"],
-                expected_source_contains=item.get("expected_source_contains", ""),
+                expected_source_contains=item.get("expected_sources", item.get("expected_source_contains", "")),
                 metadata=item.get("metadata", {}),
             ))
         except json.JSONDecodeError:
             continue
     return questions
+
 
 
 # ─── Output ────────────────────────────────────────────────────────────────────
@@ -265,7 +288,7 @@ def format_report(report: EvalReport, verbose: bool = False) -> str:
             parts.append(f"  Q: {r.question[:68]}")
             parts.append(
                 f"    MRR={r.mrr:.3f}  NDCG={r.ndcg:.3f}"
-                f"  hits={r.hits or 'MISS':<12s}  {r.elapsed_ms}ms"
+                f"  hits={str(r.hits) if r.hits else 'MISS':<12s}  {r.elapsed_ms}ms"
             )
             for idx, chunk in enumerate(r.chunks[:3], 1):
                 title = str(chunk.get("document_title", "Unknown"))[:50]

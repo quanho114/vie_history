@@ -18,6 +18,21 @@ from meilisearch_python_sdk import AsyncClient
 from app.core.config import settings
 from app.core.logging import get_logger
 
+# Monkeypatch meilisearch-python-sdk to support older Meilisearch servers (v1.6.2)
+try:
+    import meilisearch_python_sdk.index as sdk_index
+    search_globals = sdk_index.AsyncIndex.search.__globals__
+    if 'process_search_parameters' in search_globals:
+        original_process = search_globals['process_search_parameters']
+        def patched_process(*args, **kwargs):
+            body = original_process(*args, **kwargs)
+            if "rankingScoreThreshold" in body and body["rankingScoreThreshold"] is None:
+                del body["rankingScoreThreshold"]
+            return body
+        search_globals['process_search_parameters'] = patched_process
+except Exception:
+    pass
+
 logger = get_logger("meilisearch_bm25")
 
 INDEX_NAME = "historiai_chunks"
