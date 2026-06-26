@@ -32,3 +32,15 @@ storage/uploads/
 storage/vectors/
 *.log
 celerybeat-schedule
+
+# Superpowers and design specs
+.superpowers/
+docs/superpowers/
+
+# Ignore all markdown files except READMEs
+**/*.md
+!**/README.md
+!**/README.vi.md
+!README.md
+!README.vi.md
+
